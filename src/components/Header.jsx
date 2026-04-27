@@ -95,7 +95,7 @@ export default function Header() {
             <span className="hdr__logo-skeleton" aria-hidden="true" />
           ) : (
             <img
-              src={siteInfo.logo_url || "/favicon.svg"}
+              src={siteInfo.logo_url || "/favicon.png"}
               alt={siteInfo.logo_alt || siteInfo.site_name}
               className="hdr__logo-img"
               height={40}
