@@ -47,27 +47,23 @@
   gap: 28px;
 } */
 /* ── Wrapper ── */
-.section-badges{
+/* .section-badges{
 background-color: #D9D9D9;
 padding: 20px 0pc;
 border-radius: 50px;
-}
+} */
 .section-badges .badge{font-size: 18px; color: 111111;}
 
-.wwa__cards {
+/* .wwa__cards {
   height: 100vh;
-  overflow: hidden; /* scrollbar remove */
+  overflow: hidden;
   position: relative;
 }
-
-/* ── Slider container ── */
 .wwa-slider {
   height: 100%;
   width: 100%;
   transition: transform 0.7s ease-in-out;
 }
-
-/* ── Single card ── */
 .wwa-card {
   height: 100vh;
   display: flex;
@@ -85,6 +81,60 @@ border-radius: 50px;
 .wwa-card:hover {
   box-shadow: 0 12px 40px rgba(43, 45, 142, 0.14);
   transform: translateY(-4px);
+} */
+
+/* ── Wrapper ── */
+.wwa__cards {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  position: relative;
+
+  /* Hide scrollbar */
+  scrollbar-width: none;
+}
+
+.wwa__cards::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Card ── */
+.wwa-card {
+  height: 100vh;
+  scroll-snap-align: start;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 60px;
+
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* ── Image Section ── */
+.wwa-card__img-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.wwa-card__img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* ── Content Section ── */
+.wwa-card__body {
+  flex: 1;
+  max-width: 500px;
 }
 
 /* ═══════════════════════════════════════════════

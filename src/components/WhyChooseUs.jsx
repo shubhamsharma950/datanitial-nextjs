@@ -47,7 +47,7 @@ function Skeleton() {
   return (
     <section className="wcu">
       <div className="container">
-        <div className="wcu__badge skeleton" style={{ width: 140, height: 32, borderRadius: 999, margin: "0 auto 24px" }} />
+        <div className="badge-sec skeleton" style={{ width: 140, height: 32, borderRadius: 999, margin: "0 auto 24px" }} />
         <div className="skeleton" style={{ width: "60%", height: 44, margin: "0 auto 12px" }} />
         <div className="skeleton" style={{ width: "70%", height: 18, margin: "0 auto 48px" }} />
         <div className="wcu__grid">
