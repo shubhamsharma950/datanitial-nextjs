@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════════════
+   OUR SOLUTIONS — Accordion
+═══════════════════════════════════════════════ */
+.sol {
+  background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 100%);
+  padding: 80px 0;
+  width: 100%;
+}
+
+/* ── Badge ── */
+.sol__badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.sol__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e0e4f0;
+  border-radius: 999px;
+  padding: 6px 18px 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #2E3192;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(43,45,142,0.08);
+}
+
+.sol-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Header ── */
+.sol__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.sol__title {
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+.sol__desc {
+  font-size: 15px;
+  color: #6a6a8a;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════
+   ACCORDION LIST
+═══════════════════════════════════════════════ */
+.sol__list {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Single item ── */
+.sol__item {
+  border-bottom: 1px solid #e2e6f0;
+
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease var(--delay, 0s), transform 0.5s ease var(--delay, 0s);
+}
+
+.sol--visible .sol__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Header row (always visible) ── */
+.sol__item-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.sol__item-header:hover .sol__item-title {
+  color: #2E3192;
+}
+
+.sol__item-title {
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 800;
+  color: #1a1a2e;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  transition: color 0.2s;
+}
+
+.sol__item--open .sol__item-title {
+  color: #2E3192;
+}
+
+/* ── Plus/Minus icon ── */
+.sol__item__icon,
+.sol-item__icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  color: #9a9ab0;
+  transition: color 0.2s, transform 0.3s;
+}
+
+.sol__item--open .sol-item__icon {
+  color: #2E3192;
+  transform: rotate(45deg);
+}
+
+/* Vertical line of + hides when open (becomes ×) */
+.sol-item__icon-v {
+  transition: opacity 0.2s;
+}
+
+.sol-item__icon-v--hide {
+  opacity: 0;
+}
+
+/* ── Expandable body ── */
+.sol__item-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+  overflow: hidden;
+}
+
+.sol__item--open .sol__item-body {
+  grid-template-rows: 1fr;
+}
+
+.sol__item-answer {
+  font-size: 15px;
+  color: #5a5a7a;
+  line-height: 1.8;
+  padding: 0 48px 24px 0;
+  margin: 0;
+  min-height: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .sol {
+    padding: 56px 0;
+  }
+
+  .sol__item-title {
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+
+  .sol-item__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .sol__item-answer {
+    padding-right: 0;
+  }
+}

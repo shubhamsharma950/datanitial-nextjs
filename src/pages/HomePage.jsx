@@ -4,6 +4,7 @@ import HeroSection      from "../components/HeroSection";
 import WhoWeAreSection  from "../components/WhoWeAreSection";
 import WhyChooseUs      from "../components/WhyChooseUs";
 import IndustriesSection from "../components/IndustriesSection";
+import OurSolutions     from "../components/OurSolutions";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -77,12 +78,14 @@ export default function HomePage() {
           dangerouslySetInnerHTML={{ __html: html }}
         />
 
-        {/* ── ACF Section: Why Choose Us + Cards  ── */}
+        {/* ── ACF Section: Why Choose Us ── */}
         <WhyChooseUs />
-        {/* ── ACF Section: Who We Are + Cards ── */}
-        <WhoWeAreSection />
         {/* ── ACF Section: Industries tabs ── */}
         <IndustriesSection />
+        {/* ── ACF Section: Who We Are ── */}
+        <WhoWeAreSection />
+         {/* ── ACF Section: Our Solutions accordion ── */}
+        <OurSolutions />
       </div>
     </main>
   );
