@@ -52,6 +52,11 @@
     display: grid;
     grid-auto-flow: row;
     align-content: center;
+
+   height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  position: relative;
 }
 
 
@@ -61,13 +66,22 @@
     border-radius: 20px;
     flex-direction: row;
     transition: box-shadow .3s,transform .3s;
-    display: flex;
     overflow: hidden;
     box-shadow: 0 2px 20px #2b2d8e12;
     align-content: center;
     justify-content: center;
-    align-items: center;
-    padding: 40px;
+}
+
+.wwa-card {
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+
+  position: sticky;
+  top: 0;
 }
 
 .wwa-card:hover {

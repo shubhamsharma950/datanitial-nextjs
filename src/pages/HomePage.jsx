@@ -61,6 +61,7 @@ export default function HomePage() {
   return (
     <main className="wp-page">
       {/* Renders all Gutenberg blocks exactly as WordPress outputs them */}
+    <div className="container">
       <div
         className="wp-page__content wp-block-content"
         dangerouslySetInnerHTML={{ __html: html }}
@@ -68,6 +69,8 @@ export default function HomePage() {
 
       {/* ── ACF Section: Who We Are + Cards (from page 63) ── */}
       <WhoWeAreSection />
+
+      </div>
     </main>
   );
 }
