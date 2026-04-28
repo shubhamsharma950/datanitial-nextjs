@@ -8,9 +8,9 @@
 }
 
 .wwa__inner {
-  max-width: 1200px;
+  max-width: 1340px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 /* ── Section header ── */
@@ -35,22 +35,47 @@
   line-height: 1.75;
 }
 
-/* ── Cards list ── */
+/* ── Cards list — horizontal scroll with fixed height ── */
 .wwa__cards {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 16px;
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(43, 45, 142, 0.2) transparent;
 }
 
-/* ── Single card ── */
+.wwa__cards::-webkit-scrollbar {
+  height: 6px;
+}
+
+.wwa__cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wwa__cards::-webkit-scrollbar-thumb {
+  background: rgba(43, 45, 142, 0.2);
+  border-radius: 3px;
+}
+
+.wwa__cards::-webkit-scrollbar-thumb:hover {
+  background: rgba(43, 45, 142, 0.4);
+}
+
+/* ── Single card — fixed width for horizontal scroll ── */
 .wwa-card {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  flex-shrink: 0;
+  width: 340px;
+  scroll-snap-align: start;
   background: #ffffff;
   border-radius: 20px;
-  padding: 32px;
+  padding: 24px;
   box-shadow: 0 2px 16px rgba(43, 45, 142, 0.07);
   transition: box-shadow 0.22s, transform 0.22s;
 }
@@ -142,12 +167,8 @@
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .wwa-card {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .wwa-card__img-wrap {
-    aspect-ratio: 16 / 9;
+    width: 280px;
+    padding: 20px;
   }
 }
 
@@ -161,7 +182,8 @@
   }
 
   .wwa-card {
-    padding: 20px;
+    width: 260px;
     border-radius: 14px;
+    padding: 16px;
   }
 }
