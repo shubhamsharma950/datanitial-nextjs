@@ -170,9 +170,16 @@ export default function WhoWeAreSection() {
   return (
     <section className="wwa" aria-label="Who We Are">
       <div className="">
-        <div className="badge-sec">
+        {/* <div className="badge-sec">
             <StarIcon />
             <h6 className="badge">who we are</h6>
+        </div> */}
+          {/* ── Badge ── */}
+        <div className="ind__badge-wrap">
+          <div className="ind__badge">
+            <StarIcon />
+            <span>who we are</span>
+          </div>
         </div>
 
         {/* ── Section header ── */}

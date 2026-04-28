@@ -79,10 +79,10 @@ export default function HomePage() {
 
         {/* ── ACF Section: Why Choose Us + Cards  ── */}
         <WhyChooseUs />
-        {/* ── ACF Section: Industries tabs ── */}
-        <IndustriesSection />
         {/* ── ACF Section: Who We Are + Cards ── */}
         <WhoWeAreSection />
+        {/* ── ACF Section: Industries tabs ── */}
+        <IndustriesSection />
       </div>
     </main>
   );

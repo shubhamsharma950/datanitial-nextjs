@@ -35,7 +35,7 @@ function Skeleton() {
   return (
     <section className="wcu">
       <div className="container">
-        <div className="wcu__badge skeleton" style={{ width: 140, height: 32, borderRadius: 999, margin: "0 auto 24px" }} />
+        <div className="badge-sec skeleton" style={{ width: 140, height: 32, borderRadius: 999, margin: "0 auto 24px" }} />
         <div className="skeleton" style={{ width: "60%", height: 44, margin: "0 auto 12px" }} />
         <div className="skeleton" style={{ width: "70%", height: 18, margin: "0 auto 48px" }} />
         <div className="wcu__grid">
@@ -145,9 +145,17 @@ export default function WhyChooseUs() {
       <div className="container">
 
         {/* ── Badge ── */}
-        <div className="wcu__badge">
+        {/* <div className="badge-sec">
           <StarIcon />
           <span>WHY CHOOSE US</span>
+        </div> */}
+
+         {/* ── Badge ── */}
+        <div className="ind__badge-wrap">
+          <div className="ind__badge">
+            <StarIcon />
+            <span>WHY CHOOSE US</span>
+          </div>
         </div>
 
         {/* ── Section header ── */}

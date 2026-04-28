@@ -169,7 +169,7 @@ export default function IndustriesSection() {
               className={`ind__tab${i === activeTab ? " ind__tab--active" : ""}`}
               onClick={() => setActiveTab(i)}
             >
-              {tab.icon && <img src={tab.icon} alt="" className="ind__tab-icon" />}
+              {/* {tab.icon && <img src={tab.icon} alt="" className="ind__tab-icon" />} */}
               {tab.label}
             </button>
           ))}

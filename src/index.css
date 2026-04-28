@@ -110,6 +110,35 @@ img {
 
 ul { list-style: none; }
 
+
+/* ── Badge ── */
+.ind__badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.ind__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e0e4f0;
+  border-radius: 999px;
+  padding: 6px 18px 6px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #2E3192;
+  text-transform: uppercase;
+}
+
+.ind-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
 /* ── Badge ── */
 .badge-sec {
     letter-spacing: 1.2px;
