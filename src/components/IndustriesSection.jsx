@@ -64,9 +64,9 @@ export default function IndustriesSection() {
     fetch(PRIMARY_URL)
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(d => {
-        setTitle(d.title       || "");
-        setDescription(d.description || "");
-        setTabs(d.tabs?.length ? d.tabs : FALLBACK_TABS);
+        setTitle(d.title       || "Transforming Web Data into Business Intelligence");
+        setDescription(d.description || "We deliver enterprise-grade data extraction and intelligence solutions.");
+        setTabs(d.tabs?.length ? d.tabs : []);
       })
       .catch(() => {
         // Fallback: parse from native ACF endpoint
@@ -74,44 +74,11 @@ export default function IndustriesSection() {
           .then(r => r.json())
           .then(d => {
             const acf = d?.acf;
-            const sts = acf?.service_tab_systom;
             setTitle(acf?.title || "Transforming Web Data into Business Intelligence");
-            setDescription(acf?.discreption || "We deliver enterprise-grade data extraction and intelligence solutions that scale with your business — ensuring accuracy, speed, and reliability for smarter decision-making.");
-
-            if (sts && typeof sts === "object") {
-              const built = [];
-              // real_estate
-              if (sts.real_estate !== undefined) {
-                const re = sts.real_estate || {};
-                built.push({
-                  id: "real_estate", label: "Real Estate",
-                  icon: "", image: "",
-                  description: sts.real_estate_dis || re.real_estate_dis || "",
-                  bullets: (sts.real_estate_buttet || re.real_estate_buttet || "").split(/\r?\n/).map(b => b.trim()).filter(Boolean),
-                  learn_more: sts.real_estate_learn_more || re.learn_more || "#",
-                });
-              }
-              // food_delivery
-              if (sts.food_delivery !== undefined) {
-                const fd = sts.food_delivery || {};
-                built.push({
-                  id: "food_delivery", label: "Food Delivery",
-                  icon: "", image: "",
-                  description: fd.food_delivery_dis || "",
-                  bullets: (fd.food_delivery_bullet || "").split(/\r?\n/).map(b => b.trim()).filter(Boolean),
-                  learn_more: fd.learn_more || "#",
-                });
-              }
-              setTabs(built.length ? built : FALLBACK_TABS);
-            } else {
-              setTabs(FALLBACK_TABS);
-            }
+            setDescription(acf?.discreption || "We deliver enterprise-grade data extraction and intelligence solutions.");
+            setTabs([]); // Will show empty state
           })
-          .catch(() => {
-            setTitle("Transforming Web Data into Business Intelligence");
-            setDescription("We deliver enterprise-grade data extraction and intelligence solutions that scale with your business — ensuring accuracy, speed, and reliability for smarter decision-making.");
-            setTabs(FALLBACK_TABS);
-          });
+          .catch(() => {});
       })
       .finally(() => setLoading(false));
   }, []);
@@ -236,3 +203,4 @@ export default function IndustriesSection() {
     </section>
   );
 }
+
