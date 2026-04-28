@@ -147,12 +147,12 @@ border-radius: 50px;
 .wwa-card__img-wrap {
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  background: #e8edf8;
+  /* background: #e8edf8; */
   flex-shrink: 0;
 
   /* Initial state — hidden above */
   opacity: 0;
-  transform: translateY(-40px);
+  /* transform: translateY(-40px); */
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 

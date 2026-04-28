@@ -146,7 +146,7 @@ export default function WhyChooseUs() {
       <div className="container">
 
         {/* ── Badge ── */}
-        <div className="wcu__badge">
+        <div className="badge-sec">
           <StarIcon />
           <span>WHY CHOOSE US</span>
         </div>
