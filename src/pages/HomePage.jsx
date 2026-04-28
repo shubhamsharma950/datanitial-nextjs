@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./HomePage.css";
+import HeroSection    from "../components/HeroSection";
 import WhoWeAreSection from "../components/WhoWeAreSection";
-import WhyChooseUs from "../components/WhyChooseUs";
+import WhyChooseUs    from "../components/WhyChooseUs";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -65,18 +66,20 @@ export default function HomePage() {
 
   return (
     <main className="wp-page">
+      {/* ── Hero Section ── */}
+      <HeroSection />
+
       {/* Renders all Gutenberg blocks exactly as WordPress outputs them */}
-    <div className="container">
-      <div
-        className="wp-page__content wp-block-content"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      <div className="container">
+        <div
+          className="wp-page__content wp-block-content"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
 
-      {/* ── ACF Section: Why Choose Us + Cards  ── */}
-      <WhyChooseUs />
-      {/* ── ACF Section: Who We Are + Cards ── */}
-      <WhoWeAreSection />
-
+        {/* ── ACF Section: Why Choose Us + Cards  ── */}
+        <WhyChooseUs />
+        {/* ── ACF Section: Who We Are + Cards ── */}
+        <WhoWeAreSection />
       </div>
     </main>
   );
