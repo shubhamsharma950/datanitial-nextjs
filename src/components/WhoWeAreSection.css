@@ -3,11 +3,13 @@
 ═══════════════════════════════════════════════ */
 .wwa {
   background: var(--bg-soft, #f0f4ff);
-  padding: 72px 0;
+  padding: 80px 0;
   width: 100%;
+  overflow: hidden;
 }
 
 .wwa__inner {
+  width: 100%;
   max-width: 1340px;
   margin: 0 auto;
   padding: 0 20px;
@@ -16,7 +18,7 @@
 /* ── Section header ── */
 .wwa__header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 56px;
 }
 
 .wwa__title {
@@ -35,85 +37,117 @@
   line-height: 1.75;
 }
 
-/* ── Cards list — horizontal scroll with fixed height ── */
+/* ═══════════════════════════════════════════════
+   CARDS — ROW LAYOUT
+   3 cards side by side, equal width
+═══════════════════════════════════════════════ */
 .wwa__cards {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding-bottom: 16px;
-  /* Hide scrollbar but keep functionality */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(43, 45, 142, 0.2) transparent;
-}
-
-.wwa__cards::-webkit-scrollbar {
-  height: 6px;
-}
-
-.wwa__cards::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.wwa__cards::-webkit-scrollbar-thumb {
-  background: rgba(43, 45, 142, 0.2);
-  border-radius: 3px;
-}
-
-.wwa__cards::-webkit-scrollbar-thumb:hover {
-  background: rgba(43, 45, 142, 0.4);
-}
-
-/* ── Single card — fixed width for horizontal scroll ── */
-.wwa-card {
   display: grid;
-  grid-template-columns: 1fr;
-  flex-shrink: 0;
-  width: 340px;
-  scroll-snap-align: start;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ── Single card ── */
+.wwa-card {
   background: #ffffff;
   border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 2px 16px rgba(43, 45, 142, 0.07);
-  transition: box-shadow 0.22s, transform 0.22s;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(43, 45, 142, 0.07);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
 .wwa-card:hover {
-  box-shadow: 0 8px 32px rgba(43, 45, 142, 0.13);
-  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(43, 45, 142, 0.14);
+  transform: translateY(-4px);
 }
 
-/* ── Card image ── */
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS
+   Image slides in from TOP
+   Body slides in from BOTTOM
+═══════════════════════════════════════════════ */
+
+/* Image — starts above, slides down into place */
 .wwa-card__img-wrap {
-  border-radius: 14px;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   background: #e8edf8;
   flex-shrink: 0;
+
+  /* Initial state — hidden above */
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
+/* Body — starts below, slides up into place */
+.wwa-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+
+  /* Initial state — hidden below */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+}
+
+/* When card is visible — animate in */
+.wwa-card.is-visible .wwa-card__img-wrap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wwa-card.is-visible .wwa-card__body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger each card slightly */
+.wwa-card:nth-child(2) .wwa-card__img-wrap,
+.wwa-card:nth-child(2) .wwa-card__body {
+  transition-delay: 0.1s;
+}
+.wwa-card:nth-child(2) .wwa-card__body { transition-delay: 0.25s; }
+
+.wwa-card:nth-child(3) .wwa-card__img-wrap,
+.wwa-card:nth-child(3) .wwa-card__body {
+  transition-delay: 0.2s;
+}
+.wwa-card:nth-child(3) .wwa-card__body { transition-delay: 0.35s; }
+
+/* ── Card image ── */
 .wwa-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.wwa-card:hover .wwa-card__img {
+  transform: scale(1.04);
 }
 
 .wwa-card__img-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #dce6f8 0%, #c8d8f4 100%);
-}
-
-/* ── Card body ── */
-.wwa-card__body {
+  background: linear-gradient(135deg, #0d1b4b 0%, #1e4db7 100%);
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
 }
 
+.wwa-card__img-placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Card body content ── */
 .wwa-card__title {
   font-size: 20px;
   font-weight: 700;
@@ -123,7 +157,7 @@
 }
 
 .wwa-card__desc {
-  font-size: 14.5px;
+  font-size: 14px;
   color: var(--text, #4a4a6a);
   line-height: 1.75;
   margin: 0;
@@ -143,7 +177,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--text-dark, #1a1a2e);
 }
@@ -161,14 +195,30 @@
 }
 
 .wwa-card--skeleton .wwa-card__img-wrap {
-  background: #e8edf8;
+  opacity: 1;
+  transform: none;
+  background: linear-gradient(90deg, #ececec 25%, #ddd 50%, #ececec 75%);
+  background-size: 300% 100%;
+  animation: wwa-shimmer 1.4s infinite linear;
 }
 
-/* ── Responsive ── */
+.wwa-card--skeleton .wwa-card__body {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes wwa-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .wwa-card {
-    width: 280px;
-    padding: 20px;
+  .wwa__cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
@@ -177,13 +227,8 @@
     padding: 48px 0;
   }
 
-  .wwa__inner {
-    padding: 0 20px;
-  }
-
-  .wwa-card {
-    width: 260px;
-    border-radius: 14px;
-    padding: 16px;
+  .wwa__cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }

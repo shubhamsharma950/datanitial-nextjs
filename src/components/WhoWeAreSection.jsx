@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./WhoWeAreSection.css";
 
 const WP_BASE =
@@ -78,6 +78,27 @@ export default function WhoWeAreSection() {
   const [sectionDesc,  setSectionDesc]  = useState("");
   const [cards,        setCards]        = useState([]);
   const [loading,      setLoading]      = useState(true);
+  const cardRefs                        = useRef([]);
+
+  /* ── Scroll reveal via IntersectionObserver ── */
+  useEffect(() => {
+    if (loading || cards.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target); // animate once
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cardRefs.current.forEach((el) => { if (el) observer.observe(el); });
+    return () => observer.disconnect();
+  }, [loading, cards]);
 
   useEffect(() => {
     fetch(ACF_URL)
@@ -159,7 +180,12 @@ export default function WhoWeAreSection() {
         {cards.length > 0 && (
           <div className="wwa__cards">
             {cards.map((card, i) => (
-              <article key={i} className="wwa-card" aria-label={card.title}>
+              <article
+                key={i}
+                className="wwa-card"
+                aria-label={card.title}
+                ref={(el) => (cardRefs.current[i] = el)}
+              >
 
                 <div className="wwa-card__img-wrap">
                   {card.image ? (
