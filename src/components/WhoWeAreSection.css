@@ -46,44 +46,35 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 } */
-
+/* ── Wrapper ── */
 .wwa__cards {
-    gap: 28px;
-    display: grid;
-    grid-auto-flow: row;
-    align-content: center;
-
-   height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow: hidden; /* scrollbar remove */
   position: relative;
 }
 
+/* ── Slider container ── */
+.wwa-slider {
+  height: 100%;
+  width: 100%;
+  transition: transform 0.7s ease-in-out;
+}
 
 /* ── Single card ── */
 .wwa-card {
-    background: #fff;
-    border-radius: 20px;
-    flex-direction: row;
-    transition: box-shadow .3s,transform .3s;
-    overflow: hidden;
-    box-shadow: 0 2px 20px #2b2d8e12;
-    align-content: center;
-    justify-content: center;
-}
-
-.wwa-card {
   height: 100vh;
-  scroll-snap-align: start;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 40px;
   padding: 40px;
 
-  position: sticky;
-  top: 0;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 20px #2b2d8e12;
+  transition: box-shadow 0.3s, transform 0.3s;
+  overflow: hidden;
 }
-
 .wwa-card:hover {
   box-shadow: 0 12px 40px rgba(43, 45, 142, 0.14);
   transform: translateY(-4px);

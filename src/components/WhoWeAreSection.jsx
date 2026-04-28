@@ -176,56 +176,69 @@ export default function WhoWeAreSection() {
           </div>
         )}
 
-        {/* ── Cards — horizontal scroll ── */}
-        {cards.length > 0 && (
-          <div className="wwa__cards">
-            {cards.map((card, i) => (
-              <article
-                key={i}
-                className="wwa-card"
-                aria-label={card.title}
-                ref={(el) => (cardRefs.current[i] = el)}
-              >
+      {/* ── Cards — Vertical Slider ── */}
+{cards.length > 0 && (
+  <div className="wwa__cards">
+    
+    <div
+      className="wwa-slider"
+      style={{ transform: `translateY(-${index * 100}vh)` }}
+    >
+      {cards.map((card, i) => (
+        <article
+          key={i}
+          className="wwa-card"
+          aria-label={card.title}
+          ref={(el) => (cardRefs.current[i] = el)}
+        >
 
-                <div className="wwa-card__img-wrap">
-                  {card.image ? (
-                    <img
-                      src={card.image}
-                      alt={card.image_alt}
-                      className="wwa-card__img"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="wwa-card__img-placeholder" aria-hidden="true">
-                      <svg viewBox="0 0 80 60" fill="none">
-                        <rect width="80" height="60" rx="8" fill="#0d1b4b" />
-                        <circle cx="20" cy="20" r="10" fill="#1a3a8f" opacity=".8" />
-                        <circle cx="55" cy="35" r="14" fill="#1e4db7" opacity=".5" />
-                        <rect x="8" y="44" width="64" height="3" rx="2" fill="#2563eb" opacity=".4" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-
-                <div className="wwa-card__body">
-                  {card.title       && <h3 className="wwa-card__title">{card.title}</h3>}
-                  {card.description && <p  className="wwa-card__desc">{card.description}</p>}
-                  {card.bullets?.length > 0 && (
-                    <ul className="wwa-card__bullets">
-                      {card.bullets.map((b, bi) => (
-                        <li key={bi} className="wwa-card__bullet">
-                          <CheckIcon />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-              </article>
-            ))}
+          <div className="wwa-card__img-wrap">
+            {card.image ? (
+              <img
+                src={card.image}
+                alt={card.image_alt}
+                className="wwa-card__img"
+                loading="lazy"
+              />
+            ) : (
+              <div className="wwa-card__img-placeholder" aria-hidden="true">
+                <svg viewBox="0 0 80 60" fill="none">
+                  <rect width="80" height="60" rx="8" fill="#0d1b4b" />
+                  <circle cx="20" cy="20" r="10" fill="#1a3a8f" opacity=".8" />
+                  <circle cx="55" cy="35" r="14" fill="#1e4db7" opacity=".5" />
+                  <rect x="8" y="44" width="64" height="3" rx="2" fill="#2563eb" opacity=".4" />
+                </svg>
+              </div>
+            )}
           </div>
-        )}
+
+          <div className="wwa-card__body">
+            {card.title && (
+              <h3 className="wwa-card__title">{card.title}</h3>
+            )}
+
+            {card.description && (
+              <p className="wwa-card__desc">{card.description}</p>
+            )}
+
+            {card.bullets?.length > 0 && (
+              <ul className="wwa-card__bullets">
+                {card.bullets.map((b, bi) => (
+                  <li key={bi} className="wwa-card__bullet">
+                    <CheckIcon />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+)}
 
       </div>
     </section>
