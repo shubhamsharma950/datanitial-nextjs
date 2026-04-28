@@ -5,8 +5,7 @@ const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
-const PRIMARY_URL  = `${WP_BASE}/theme/v1/industries`;
-const FALLBACK_URL = `${WP_BASE}/wp/v2/pages/63?_fields=acf,title`;
+const ACF_URL = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
 
 /* ── Icons ── */
 const StarIcon = () => (
@@ -20,22 +19,33 @@ const StarIcon = () => (
   </svg>
 );
 
-/* ── Fallback tab data ── */
-const FALLBACK_TABS = [
-  { id: "real_estate",         label: "Real Estate",          icon: "", description: "Real estate data can be used to conduct market analysis, such as identifying trends in housing prices, rental rates, and inventory levels.", bullets: ["Identifying market trends","Conducting competitive analysis","Assessing property values","Targeting marketing efforts","Forecasting demand"], learn_more: "#", image: "" },
-  { id: "food_delivery",       label: "Food Delivery",        icon: "", description: "Food delivery data helps optimize routes, track demand patterns, and improve customer satisfaction.", bullets: ["Route optimization","Demand forecasting","Customer behavior analysis","Menu performance tracking","Delivery time insights"], learn_more: "#", image: "" },
-  { id: "mobility",            label: "Mobility",             icon: "", description: "Mobility data enables smarter transportation planning and fleet management.", bullets: ["Fleet tracking","Traffic pattern analysis","Ride demand forecasting","EV charging optimization","Urban mobility insights"], learn_more: "#", image: "" },
-  { id: "retail_ecommerce",    label: "Retail & ecommerce",   icon: "", description: "Retail data powers competitive pricing, inventory management, and customer insights.", bullets: ["Price monitoring","Inventory optimization","Competitor analysis","Customer sentiment","Product trend tracking"], learn_more: "#", image: "" },
-  { id: "travel_hospitality",  label: "Travel & Hospitality", icon: "", description: "Travel data helps businesses optimize pricing, availability, and customer experience.", bullets: ["Rate parity monitoring","Booking trend analysis","Review sentiment tracking","Competitor benchmarking","Demand forecasting"], learn_more: "#", image: "" },
-  { id: "location_intelligence", label: "Location Intelligence", icon: "", description: "Location data provides insights for site selection, foot traffic analysis, and geo-targeted marketing.", bullets: ["Foot traffic analysis","Site selection","Geo-targeted marketing","Competitor proximity","Catchment area analysis"], learn_more: "#", image: "" },
-];
+/* ── Resolve WP media ID → URL ── */
+async function resolveMedia(val) {
+  if (!val) return "";
+  // ACF file/image field returns { type, value } where value is the ID
+  const id = typeof val === "object" ? (val.value ?? val.id ?? null) : val;
+  if (!id) return "";
+  try {
+    const r = await fetch(`${WP_BASE}/wp/v2/media/${id}?_fields=source_url`);
+    const d = await r.json();
+    return d.source_url || "";
+  } catch { return ""; }
+}
+
+/* ── Parse bullets from textarea ── */
+function parseBullets(raw) {
+  if (!raw) return [];
+  return raw.split(/\r?\n/).map(b => b.trim()).filter(Boolean);
+}
 
 /* ── Skeleton ── */
 function Skeleton() {
   return (
     <section className="ind">
       <div className="container">
-        <div className="ind__badge skeleton" style={{ width: 120, height: 30, borderRadius: 999, margin: "0 auto 20px" }} />
+        <div className="ind__badge-wrap">
+          <div className="skeleton" style={{ width: 120, height: 30, borderRadius: 999 }} />
+        </div>
         <div className="skeleton" style={{ width: "55%", height: 44, margin: "0 auto 12px" }} />
         <div className="skeleton" style={{ width: "70%", height: 18, margin: "0 auto 40px" }} />
         <div className="skeleton" style={{ width: "100%", height: 56, borderRadius: 999, marginBottom: 32 }} />
@@ -47,45 +57,89 @@ function Skeleton() {
 
 /* ═══════════════════════════════════════════════
    INDUSTRIES SECTION
-   ACF: service_tab_systom on page 63
-   Layout:
-     - Badge + heading + sub-heading
-     - Tab bar (pill buttons)
-     - Content card: icon + description + bullets + learn more + image
+   Reads ACF service_tab_systom from page 63
+   Each tab key has its own field naming pattern
 ═══════════════════════════════════════════════ */
 export default function IndustriesSection() {
-  const [title,       setTitle]       = useState("");
-  const [description, setDescription] = useState("");
-  const [tabs,        setTabs]        = useState([]);
-  const [activeTab,   setActiveTab]   = useState(0);
-  const [loading,     setLoading]     = useState(true);
+  const [sectionTitle, setSectionTitle] = useState("Transforming Web Data into Business Intelligence");
+  const [sectionDesc,  setSectionDesc]  = useState("We deliver enterprise-grade data extraction and intelligence solutions that scale with your business — ensuring accuracy, speed, and reliability for smarter decision-making.");
+  const [tabs,         setTabs]         = useState([]);
+  const [activeTab,    setActiveTab]    = useState(0);
+  const [loading,      setLoading]      = useState(true);
 
   useEffect(() => {
-    fetch(PRIMARY_URL)
-      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(d => {
-        setTitle(d.title       || "Transforming Web Data into Business Intelligence");
-        setDescription(d.description || "We deliver enterprise-grade data extraction and intelligence solutions.");
-        setTabs(d.tabs?.length ? d.tabs : []);
-      })
-      .catch(() => {
-        // Fallback: parse from native ACF endpoint
-        fetch(FALLBACK_URL)
-          .then(r => r.json())
-          .then(d => {
-            const acf = d?.acf;
-            setTitle(acf?.title || "Transforming Web Data into Business Intelligence");
-            setDescription(acf?.discreption || "We deliver enterprise-grade data extraction and intelligence solutions.");
-            setTabs([]); // Will show empty state
+    fetch(ACF_URL)
+      .then(r => r.json())
+      .then(async data => {
+        const acf = data?.acf;
+        if (!acf) return;
+
+        // Section title & description
+        if (acf.title)       setSectionTitle(acf.title);
+        if (acf.discreption) setSectionDesc(acf.discreption);
+
+        const sts = acf.service_tab_systom;
+        if (!sts || typeof sts !== "object") return;
+
+        // Tab definitions — label + field key prefix
+        const tabDefs = [
+          { id: "real_estate",           label: "Real Estate",          prefix: "real_estate" },
+          { id: "food_delivery",         label: "Food Delivery",        prefix: "food_delivery" },
+          { id: "mobility",              label: "Mobility",             prefix: "mobility" },
+          { id: "retail_&_ecommerce",    label: "Retail & ecommerce",   prefix: "retail_&_ecommerce" },
+          { id: "travel_&_hospitality",  label: "Travel & Hospitality", prefix: "travel_&_hospitality" },
+          { id: "location_intelligence", label: "Location Intelligence",prefix: "location_intelligence" },
+        ];
+
+        // Build tabs in parallel (resolve all media IDs)
+        const built = await Promise.all(
+          tabDefs.map(async ({ id, label, prefix }) => {
+            const tab = sts[id] || sts[prefix] || {};
+            if (!tab || typeof tab !== "object") return null;
+
+            // Icon field: {type, value} where value is media ID
+            const iconField  = tab[`${prefix}_icon`]  || tab[`${prefix}`] || null;
+            const imageField = tab[`${prefix}_image`] || null;
+
+            const [iconUrl, imageUrl] = await Promise.all([
+              resolveMedia(iconField),
+              resolveMedia(imageField),
+            ]);
+
+            // Description — try prefix_dis, then dis
+            const desc = tab[`${prefix}_dis`] || tab.dis || tab.description || "";
+
+            // Bullets — try prefix_bullet, prefix_buttet, bullet
+            const rawBullets = tab[`${prefix}_bullet`] || tab[`${prefix}_buttet`] || tab.bullet || tab.bullets || "";
+
+            // Learn more link
+            const lm = tab.learn_more;
+            const learnUrl = typeof lm === "object" ? (lm?.url || "#") : (lm || "#");
+
+            return { id, label, icon: iconUrl, image: imageUrl, description: desc, bullets: parseBullets(rawBullets), learn_more: learnUrl };
           })
-          .catch(() => {});
+        );
+
+        const valid = built.filter(Boolean).filter(t => t.description || t.bullets.length || t.image);
+        if (valid.length) setTabs(valid);
       })
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <Skeleton />;
 
-  const active = tabs[activeTab] || tabs[0] || {};
+  // If no tabs loaded, show default tab labels so bar is always visible
+  const displayTabs = tabs.length > 0 ? tabs : [
+    { id: "real_estate",           label: "Real Estate",           icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+    { id: "food_delivery",         label: "Food Delivery",         icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+    { id: "mobility",              label: "Mobility",              icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+    { id: "retail_ecommerce",      label: "Retail & ecommerce",    icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+    { id: "travel_hospitality",    label: "Travel & Hospitality",  icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+    { id: "location_intelligence", label: "Location Intelligence", icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+  ];
+
+  const active = displayTabs[activeTab] || displayTabs[0];
 
   return (
     <section className="ind" aria-label="Industries">
@@ -101,18 +155,17 @@ export default function IndustriesSection() {
 
         {/* ── Section header ── */}
         <div className="ind__header">
-          {title       && <h2 className="ind__title">{title}</h2>}
-          {description && <p  className="ind__desc">{description}</p>}
+          <h2 className="ind__title">{sectionTitle}</h2>
+          <p  className="ind__desc">{sectionDesc}</p>
         </div>
 
         {/* ── Tab bar ── */}
         <div className="ind__tabs" role="tablist" aria-label="Industry tabs">
-          {tabs.map((tab, i) => (
+          {displayTabs.map((tab, i) => (
             <button
               key={tab.id}
               role="tab"
               aria-selected={i === activeTab}
-              aria-controls={`ind-panel-${tab.id}`}
               className={`ind__tab${i === activeTab ? " ind__tab--active" : ""}`}
               onClick={() => setActiveTab(i)}
             >
@@ -123,22 +176,16 @@ export default function IndustriesSection() {
         </div>
 
         {/* ── Content card ── */}
-        <div
-          id={`ind-panel-${active.id}`}
-          role="tabpanel"
-          className="ind__card"
-          key={active.id}
-        >
-          {/* Left: icon + description + bullets + CTA */}
+        <div className="ind__card" key={active.id}>
+
+          {/* Left */}
           <div className="ind__card-left">
             {active.icon && (
               <img src={active.icon} alt={active.label} className="ind__card-icon" />
             )}
-
             {active.description && (
               <p className="ind__card-desc">{active.description}</p>
             )}
-
             {active.bullets?.length > 0 && (
               <ul className="ind__card-bullets">
                 {active.bullets.map((b, i) => (
@@ -149,58 +196,38 @@ export default function IndustriesSection() {
                 ))}
               </ul>
             )}
-
-            {active.learn_more && active.learn_more !== "#" && (
-              <a
-                href={active.learn_more}
-                className="ind__learn-more"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn More
-              </a>
-            )}
-            {(!active.learn_more || active.learn_more === "#") && (
-              <a href="#contact" className="ind__learn-more">
-                Learn More
-              </a>
-            )}
+            <a href={active.learn_more || "#contact"} className="ind__learn-more">
+              Learn More
+            </a>
           </div>
 
-          {/* Right: illustration/image */}
+          {/* Right */}
           <div className="ind__card-right">
             {active.image ? (
-              <img
-                src={active.image}
-                alt={active.label}
-                className="ind__card-img"
-                loading="lazy"
-              />
+              <img src={active.image} alt={active.label} className="ind__card-img" loading="lazy" />
             ) : (
-              /* Placeholder illustration */
               <div className="ind__card-placeholder" aria-hidden="true">
-                <svg viewBox="0 0 280 220" fill="none">
-                  <rect width="280" height="220" rx="16" fill="#eef1fb" />
-                  <rect x="60" y="40" width="80" height="100" rx="8" fill="#c8d4f8" />
-                  <rect x="80" y="60" width="40" height="30" rx="4" fill="#8fa8f0" />
-                  <rect x="85" y="100" width="30" height="40" rx="3" fill="#8fa8f0" />
-                  <rect x="160" y="60" width="70" height="90" rx="8" fill="#d4ddf8" />
-                  <rect x="170" y="75" width="50" height="25" rx="4" fill="#8fa8f0" />
-                  <rect x="175" y="110" width="40" height="40" rx="3" fill="#8fa8f0" />
-                  <circle cx="180" cy="130" r="28" fill="#e8edf8" />
-                  <circle cx="180" cy="130" r="18" fill="#c8d4f8" />
-                  <rect x="40" y="155" width="200" height="3" rx="2" fill="#c8d4f8" />
-                  <circle cx="140" cy="50" r="20" fill="#8fa8f0" />
-                  <circle cx="140" cy="44" r="8" fill="#6b8de8" />
-                  <rect x="128" y="56" width="24" height="14" rx="4" fill="#6b8de8" />
+                <svg viewBox="0 0 300 240" fill="none">
+                  <rect width="300" height="240" rx="20" fill="#eef1fb" />
+                  <rect x="60" y="40" width="90" height="110" rx="10" fill="#c8d4f8" />
+                  <rect x="80" y="60" width="50" height="35" rx="5" fill="#8fa8f0" />
+                  <rect x="85" y="105" width="40" height="45" rx="4" fill="#8fa8f0" />
+                  <rect x="170" y="60" width="75" height="100" rx="10" fill="#d4ddf8" />
+                  <rect x="180" y="78" width="55" height="28" rx="4" fill="#8fa8f0" />
+                  <rect x="185" y="116" width="45" height="44" rx="4" fill="#8fa8f0" />
+                  <circle cx="195" cy="145" r="30" fill="#e8edf8" />
+                  <circle cx="195" cy="145" r="20" fill="#c8d4f8" />
+                  <rect x="40" y="168" width="220" height="4" rx="2" fill="#c8d4f8" />
+                  <circle cx="150" cy="52" r="22" fill="#8fa8f0" />
+                  <circle cx="150" cy="46" r="9" fill="#6b8de8" />
+                  <rect x="137" y="58" width="26" height="16" rx="5" fill="#6b8de8" />
                 </svg>
               </div>
             )}
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   );
 }
-
