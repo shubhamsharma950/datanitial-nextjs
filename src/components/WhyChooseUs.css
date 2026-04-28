@@ -133,22 +133,26 @@
 }
 
 .wcu-card__img-wrap {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  flex-shrink: 0;
+  width: 90%;
+  /* height: 180px; */
+  /* overflow: hidden; */
+  /* flex-shrink: 0; */
 }
 
 .wcu-card__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
   display: block;
-  transition: transform 0.5s ease;
+  /* transition: transform 0.5s ease; */
 }
 
 .wcu-card--light:hover .wcu-card__img {
   transform: scale(1.05);
+}
+
+article.wcu-card.wcu-card--light.is-visible {
+    padding: 20px;
 }
 
 /* ── Card 3 — outline / bordered ── */
@@ -194,6 +198,10 @@
 }
 
 .wcu-card__content--center {
+  background-image: url(https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   justify-content: center;
   text-align: center;
 }
