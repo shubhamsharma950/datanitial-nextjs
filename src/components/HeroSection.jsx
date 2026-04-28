@@ -1,87 +1,77 @@
 import { useEffect, useRef } from "react";
 import "./HeroSection.css";
 
-/* ═══════════════════════════════════════════════
-   HERO SECTION — Static design with animations
-   Layout matches Figma/screenshot:
-   - Badge text top left
-   - Big bold heading (2 lines)
-   - Sub-heading paragraph
-   - Highlight card (right side)
-   - Animated arc lines background
-   - WhatsApp FAB
-═══════════════════════════════════════════════ */
-
 const WHATSAPP_URL = "https://wa.me/917490947694";
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
 
-  /* ── Entrance animation on mount ── */
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    // Trigger CSS animation by adding class after paint
-    requestAnimationFrame(() => {
-      el.classList.add("hero--visible");
-    });
+    requestAnimationFrame(() => el.classList.add("hero--visible"));
   }, []);
 
   return (
     <section className="hero" ref={sectionRef} aria-label="Hero">
-
-      {/* ── Animated arc background ── */}
-      <div className="hero__bg" aria-hidden="true">
-        <div className="hero__arc-wrap">
-          {[...Array(7)].map((_, i) => (
-            <span key={i} className="hero__arc" style={{ "--i": i }} />
-          ))}
-        </div>
-      </div>
-
-      {/* ── Content ── */}
       <div className="hero__inner container">
 
-        {/* Left column */}
+        {/* ── Left column ── */}
         <div className="hero__left">
 
-          {/* Badge */}
           <p className="hero__badge">
             <span className="hero__badge-star" aria-hidden="true">✳</span>
             Harness The Full Potential Of Data With
           </p>
 
-          {/* Main heading */}
           <h1 className="hero__heading">
-            <span className="hero__heading-line">OUR SCRAPING</span>
-            <span className="hero__heading-line">EXPERTISE</span>
+            <span>OUR SCRAPING</span>
+            <span>EXPERTISE</span>
           </h1>
 
-          {/* Sub-heading */}
           <p className="hero__sub">
             Real-time data extraction, intelligence, and APIs — built for
             enterprises that move fast and think smarter.
           </p>
 
-          {/* CTA buttons */}
-          <div className="hero__actions">
-            <a href="/get-quote" className="hero__btn hero__btn--primary">
-              Get Started
-            </a>
-            <a href="#solutions" className="hero__btn hero__btn--outline">
-              View Solutions
-            </a>
-          </div>
         </div>
 
-        {/* Right — Highlight card */}
+        {/* ── Right column — arc image card ── */}
         <div className="hero__right">
-          <div className="hero__card">
-            <p className="hero__card-text">
-              Built <span className="hero__card-accent">High-Impact</span>
-            </p>
-            <p className="hero__card-sub">Use cases</p>
+
+          {/* The big rounded card with animated arcs */}
+          <div className="hero__arc-card" aria-hidden="true">
+            {/* SVG arc lines — pure CSS animated */}
+            <svg
+              className="hero__arc-svg"
+              viewBox="0 0 520 480"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              {/* Flowing arc lines — each is a large arc path */}
+              {[0,1,2,3,4,5,6,7,8,9,10].map((i) => (
+                <path
+                  key={i}
+                  className="hero__arc-path"
+                  style={{ "--delay": `${i * 0.18}s`, "--idx": i }}
+                  d={`M ${-60 + i * 28},480 Q ${200 + i * 18},${240 - i * 8} ${560 - i * 10},${-20 + i * 12}`}
+                  stroke="rgba(255,255,255,0.75)"
+                  strokeWidth={i % 3 === 0 ? "2" : "1.2"}
+                  fill="none"
+                />
+              ))}
+            </svg>
           </div>
+
+          {/* "Built High-Impact" card — overlaps bottom-right of arc card */}
+          <div className="hero__highlight-card">
+            <p className="hero__highlight-text">
+              Built <span className="hero__highlight-accent">High-Impact</span>
+            </p>
+            <p className="hero__highlight-sub">Use cases</p>
+          </div>
+
         </div>
 
       </div>
