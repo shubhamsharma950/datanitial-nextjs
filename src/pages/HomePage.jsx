@@ -81,14 +81,14 @@ export default function HomePage() {
 
         {/* ── ACF Section: Why Choose Us ── */}
         <WhyChooseUs />
-        {/* ── ACF Section: Industries tabs ── */}
-        <IndustriesSection />
-        {/* ── ACF Section: Our Solutions accordion ── */}
-        <OurSolutions />
-        {/* ── Scroll-driven: Core Competence steps ── */}
-        <CoreCompetence />
         {/* ── ACF Section: Who We Are ── */}
         <WhoWeAreSection />
+        {/* ── ACF Section: Our Solutions accordion ── */}
+        <OurSolutions />
+        {/* ── ACF Section: Industries tabs ── */}
+        <IndustriesSection />
+        {/* ── Scroll-driven: Core Competence steps ── */}
+        <CoreCompetence />
       </div>
     </main>
   );
