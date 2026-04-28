@@ -85,50 +85,58 @@ export default function WhoWeAreSection() {
   const [loading,      setLoading]      = useState(true);
 
   useEffect(() => {
-    // Try custom endpoint first
+    // Try custom endpoint first (needs updated functions.php on Hostinger)
     fetch(`${WP_BASE}/theme/v1/who-we-are`)
       .then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       })
       .then(data => {
-        setSectionTitle(data.section_title || "");
-        setSectionDesc(data.section_desc   || "");
-        setCards(Array.isArray(data.cards) ? data.cards : []);
+        if (data.section_title) setSectionTitle(data.section_title);
+        if (data.section_desc)  setSectionDesc(data.section_desc);
+        if (Array.isArray(data.cards) && data.cards.length) setCards(data.cards);
       })
       .catch(() => {
-        // Fallback: read ACF directly from /wp/v2/pages/63
-        return fetch(`${WP_BASE}/wp/v2/pages/${HOME_PAGE_ID}?_fields=acf`)
+        // Fallback: read ACF directly from native WP REST API
+        fetch(`${WP_BASE}/wp/v2/pages/${HOME_PAGE_ID}?_fields=acf`)
           .then(r => r.json())
           .then(data => {
             const acf = data?.acf;
-            if (!acf) return;
-
-            // who_we_are group
+            if (!acf || typeof acf !== "object" || Array.isArray(acf)) return;
             const whoGroup = acf.who_we_are;
             if (whoGroup) {
-              setSectionTitle(whoGroup.chose_us_  || "");
-              setSectionDesc(whoGroup.we_are_dis  || "");
+              if (whoGroup.chose_us_)  setSectionTitle(whoGroup.chose_us_);
+              if (whoGroup.we_are_dis) setSectionDesc(whoGroup.we_are_dis);
             }
-
-            // we_are_card — group or repeater
             const cardData = acf.we_are_card;
-            if (Array.isArray(cardData)) {
-              // Repeater: array of row objects
+            if (Array.isArray(cardData) && cardData.length) {
               setCards(cardData.map(parseCard));
             } else if (cardData && typeof cardData === "object") {
-              // Single group
-              setCards([parseCard(cardData)]);
+              const parsed = parseCard(cardData);
+              if (parsed.title || parsed.image) setCards([parsed]);
             }
-          });
+          })
+          .catch(() => {});
       })
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <WhoWeAreSkeleton />;
 
-  // Don't render section if no data at all
-  if (!sectionTitle && !sectionDesc && cards.length === 0) return null;
+  // Only hide if truly no data AND not loading
+  if (!sectionTitle && !sectionDesc && cards.length === 0) {
+    return (
+      <section className="wwa" aria-label="Who We Are">
+        <div className="wwa__inner">
+          <div className="wwa__header">
+            <p style={{ color: "#aaa", textAlign: "center", padding: "40px 0" }}>
+              Add content in WordPress → Pages → Home → ACF fields
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="wwa" aria-label="Who We Are">

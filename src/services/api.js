@@ -12,7 +12,6 @@
  */
 
 import axios from "axios";
-import { authHeaders } from "./auth";
 
 // ── Read from environment variables (works in both Vite and Next.js) ──
 // Vite:    import.meta.env.VITE_* or NEXT_PUBLIC_* (via define)
@@ -24,16 +23,9 @@ const BASE_URL =
 
 const api = axios.create({ baseURL: BASE_URL });
 
-/* ── Attach JWT token to every request automatically ── */
-api.interceptors.request.use(async (config) => {
-  try {
-    const h = await authHeaders();
-    config.headers.Authorization = h.Authorization;
-  } catch {
-    // proceed without auth — public endpoints still work
-  }
-  return config;
-});
+/* ── No JWT interceptor — all our custom endpoints are PUBLIC ──
+   JWT was causing 403 errors on Hostinger. Remove it entirely.
+   If you need auth for specific endpoints, add it per-call.    ── */
 
 /* ═══════════════════════════════════════════════════════════
    HEADER
@@ -116,12 +108,16 @@ export const getFooterOptions = () =>
  * Returns normalised array: { ID, title, url }
  */
 export async function getFooterMenuItems(slug) {
-  const res = await api.get(`/menus/v1/menus/${slug}`);
-  return (res.data?.items ?? []).map((item) => ({
-    ID:    item.ID,
-    title: item.title,
-    url:   item.url ?? "#",
-  }));
+  try {
+    const res = await api.get(`/menus/v1/menus/${slug}`);
+    return (res.data?.items ?? []).map((item) => ({
+      ID:    item.ID,
+      title: item.title,
+      url:   item.url ?? "#",
+    }));
+  } catch {
+    return []; // menu doesn't exist yet — return empty silently
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
