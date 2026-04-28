@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import WhoWeAreSection from "../components/WhoWeAreSection";
+import WhyChooseUs from "../components/WhyChooseUs";
 
 const WP_PAGE_URL =
   "https://darkred-worm-224502.hostingersite.com/wp-json/wp/v2/pages/63?_fields=id,title,content,acf";
@@ -67,7 +68,9 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: html }}
       />
 
-      {/* ── ACF Section: Who We Are + Cards (from page 63) ── */}
+      {/* ── ACF Section: Why Choose Us + Cards  ── */}
+      <WhyChooseUs />
+      {/* ── ACF Section: Who We Are + Cards ── */}
       <WhoWeAreSection />
 
       </div>

@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════
+   WHY CHOOSE US SECTION
+═══════════════════════════════════════════════ */
+.wcu {
+  background: #fff;
+  padding: 80px 0;
+  width: 100%;
+}
+
+/* ── Badge ── */
+.wcu__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f0f8;
+  border: 1px solid #e0e0f0;
+  border-radius: 999px;
+  padding: 6px 16px 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #2E3192;
+  text-transform: uppercase;
+  margin: 0 auto 28px;
+  display: flex;
+}
+
+.wcu-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Header ── */
+.wcu__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.wcu__title {
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+.wcu__desc {
+  font-size: 16px;
+  color: #4a4a6a;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════
+   2×2 GRID
+═══════════════════════════════════════════════ */
+.wcu__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+}
+
+/* ── Base card ── */
+.wcu-card {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+
+  /* Scroll reveal — start hidden */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.65s ease, transform 0.65s ease, box-shadow 0.3s;
+}
+
+.wcu-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger */
+.wcu-card:nth-child(2) { transition-delay: 0.1s; }
+.wcu-card:nth-child(3) { transition-delay: 0.2s; }
+.wcu-card:nth-child(4) { transition-delay: 0.3s; }
+
+.wcu-card:hover {
+  box-shadow: 0 12px 40px rgba(43, 45, 142, 0.15);
+  transform: translateY(-4px) !important;
+}
+
+/* ── Card 1 — dark gradient with image bg ── */
+.wcu-card--dark {
+  background: linear-gradient(135deg, #2E3192 0%, #4a4fcf 100%);
+  color: #fff;
+}
+
+.wcu-card--dark2 {
+  background: linear-gradient(135deg, #0d1b4b 0%, #1e3a8a 100%);
+  color: #fff;
+}
+
+/* Background image overlay */
+.wcu-card__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  mix-blend-mode: luminosity;
+}
+
+.wcu-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(46,49,146,0.85) 0%, rgba(74,79,207,0.75) 100%);
+}
+
+.wcu-card--dark2 .wcu-card__overlay {
+  background: linear-gradient(135deg, rgba(13,27,75,0.88) 0%, rgba(30,58,138,0.80) 100%);
+}
+
+/* ── Card 2 — light with image ── */
+.wcu-card--light {
+  background: #fff;
+  border: 1px solid #e8edf8;
+  box-shadow: 0 2px 16px rgba(43,45,142,0.06);
+}
+
+.wcu-card__img-wrap {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.wcu-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.wcu-card--light:hover .wcu-card__img {
+  transform: scale(1.05);
+}
+
+/* ── Card 3 — outline / bordered ── */
+.wcu-card--outline {
+  background: #fff;
+  border: 1px solid #e8edf8;
+  box-shadow: 0 2px 16px rgba(43,45,142,0.06);
+  justify-content: center;
+}
+
+/* Corner brackets */
+.wcu-card__corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+}
+
+.wcu-card__corner--tl {
+  top: 16px;
+  left: 16px;
+  border-top: 2px solid #2E3192;
+  border-left: 2px solid #2E3192;
+  border-radius: 4px 0 0 0;
+}
+
+.wcu-card__corner--br {
+  bottom: 16px;
+  right: 16px;
+  border-bottom: 2px solid #2E3192;
+  border-right: 2px solid #2E3192;
+  border-radius: 0 0 4px 0;
+}
+
+/* ── Card content ── */
+.wcu-card__content {
+  position: relative;
+  z-index: 1;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.wcu-card__content--center {
+  justify-content: center;
+  text-align: center;
+}
+
+.wcu-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.wcu-card__title--dark {
+  color: #1a1a2e;
+}
+
+.wcu-card__desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.wcu-card__desc--dark {
+  color: #4a4a6a;
+}
+
+/* ── Bullets ── */
+.wcu-card__bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wcu-card__bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+}
+
+.wcu-card__bullet strong {
+  display: block;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.wcu-check {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #4ade80;
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .wcu__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wcu-card {
+    min-height: 220px;
+  }
+}
