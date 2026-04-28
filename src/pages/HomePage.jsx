@@ -3,8 +3,12 @@ import "./HomePage.css";
 import WhoWeAreSection from "../components/WhoWeAreSection";
 import WhyChooseUs from "../components/WhyChooseUs";
 
-const WP_PAGE_URL =
-  "https://darkred-worm-224502.hostingersite.com/wp-json/wp/v2/pages/63?_fields=id,title,content,acf";
+const WP_BASE =
+  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
+  "https://darkred-worm-224502.hostingersite.com/wp-json";
+
+const WP_PAGE_URL   = `${WP_BASE}/wp/v2/pages/63?_fields=id,title,content,acf`;
+const BLOCK_API_URL = `${WP_BASE}/datainitial/v1/data-services`;
 
 /* ═══════════════════════════════════════════════
    SKELETON — shown while fetching
