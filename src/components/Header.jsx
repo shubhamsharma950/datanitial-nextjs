@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getHeaderMenuItems, getSiteInfo } from "../services/api";
 import "./Header.css";
 
-const WP_BASE    = "http://localhost/wordpress/wp-json";
+const WP_BASE = import.meta.env?.NEXT_PUBLIC_WP_REST_URL || "https://darkred-worm-224502.hostingersite.com/wp-json";
 const FALLBACK_NAV = [
   { id: 1, title: "About Us",   url: "#about",      target: "_self" },
   { id: 2, title: "Solutions",  url: "#solutions",  target: "_self" },

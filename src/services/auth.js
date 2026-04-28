@@ -10,7 +10,7 @@
 const JWT_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_JWT_URL) ||
   (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_WP_JWT_URL) ||
-  "http://localhost/wordpress/wp-json/jwt-auth/v1/token";
+  "https://darkred-worm-224502.hostingersite.com/wp-json/jwt-auth/v1/token";
 
 // Credentials: use env vars, fall back to dev defaults
 const WP_USERNAME =
