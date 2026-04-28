@@ -1,12 +1,26 @@
 /**
  * auth.js
  * Handles JWT authentication with WordPress.
- * Credentials: username "react-frontend", password "react-frontend"
+ * Credentials are read from environment variables.
  *
  * Token is cached in sessionStorage so we only authenticate once per session.
  */
 
-const BASE_URL  = "http://localhost/wordpress/wp-json";
+// Read from env — works in both Vite (import.meta.env) and Next.js (process.env)
+const JWT_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_JWT_URL) ||
+  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_WP_JWT_URL) ||
+  "http://localhost/wordpress/wp-json/jwt-auth/v1/token";
+
+// Credentials: use env vars, fall back to dev defaults
+const WP_USERNAME =
+  (typeof process !== "undefined" && process.env?.WP_API_USERNAME) ||
+  "react-frontend";
+
+const WP_PASSWORD =
+  (typeof process !== "undefined" && process.env?.WP_API_PASSWORD) ||
+  "react-frontend";
+
 const TOKEN_KEY = "wp_jwt_token";
 
 /**
@@ -14,22 +28,29 @@ const TOKEN_KEY = "wp_jwt_token";
  * Fetches a new one if none is cached.
  */
 export async function getToken() {
-  const cached = sessionStorage.getItem(TOKEN_KEY);
-  if (cached) return cached;
+  // sessionStorage is browser-only — skip on server (Next.js SSR)
+  if (typeof sessionStorage !== "undefined") {
+    const cached = sessionStorage.getItem(TOKEN_KEY);
+    if (cached) return cached;
+  }
 
-  const res = await fetch(`${BASE_URL}/jwt-auth/v1/token`, {
+  const res = await fetch(JWT_URL, {
     method:  "POST",
     headers: { "Content-Type": "application/json" },
     body:    JSON.stringify({
-      username: "react-frontend",
-      password: "react-frontend",
+      username: WP_USERNAME,
+      password: WP_PASSWORD,
     }),
   });
 
   if (!res.ok) throw new Error("JWT auth failed");
 
   const data = await res.json();
-  sessionStorage.setItem(TOKEN_KEY, data.token);
+
+  if (typeof sessionStorage !== "undefined") {
+    sessionStorage.setItem(TOKEN_KEY, data.token);
+  }
+
   return data.token;
 }
 

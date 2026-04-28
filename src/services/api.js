@@ -14,7 +14,13 @@
 import axios from "axios";
 import { authHeaders } from "./auth";
 
-const BASE_URL = "http://localhost/wordpress/wp-json";
+// ── Read from environment variables (works in both Vite and Next.js) ──
+// Vite:    import.meta.env.VITE_* or NEXT_PUBLIC_* (via define)
+// Next.js: process.env.NEXT_PUBLIC_*
+const BASE_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
+  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_WP_REST_URL) ||
+  "http://localhost/wordpress/wp-json";
 
 const api = axios.create({ baseURL: BASE_URL });
 
