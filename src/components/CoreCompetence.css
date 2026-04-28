@@ -1,0 +1,268 @@
+/* ═══════════════════════════════════════════════
+   CORE COMPETENCE — Scroll-driven steps
+═══════════════════════════════════════════════ */
+.cc {
+  background: #ffffff;
+  padding: 80px 0 100px;
+  width: 100%;
+}
+
+/* ── Badge ── */
+.cc__badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.cc__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e0e4f0;
+  border-radius: 999px;
+  padding: 6px 18px 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #2E3192;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(43,45,142,0.08);
+}
+
+.cc-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Header ── */
+.cc__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.cc__title {
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+.cc__desc {
+  font-size: 15px;
+  color: #6a6a8a;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════
+   DESKTOP LAYOUT — step numbers left, card right
+═══════════════════════════════════════════════ */
+.cc__body {
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Step number list ── */
+.cc__steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  padding-top: 8px;
+}
+
+.cc__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Number bubble */
+.cc__step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #d0d4e8;
+  background: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  color: #b0b4cc;
+  transition: all 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.cc__step--active .cc__step-num {
+  border-color: #2E3192;
+  color: #2E3192;
+  background: #eef1fb;
+}
+
+.cc__step--current .cc__step-num {
+  background: #2E3192;
+  color: #fff;
+  border-color: #2E3192;
+  box-shadow: 0 4px 16px rgba(46,49,146,0.35);
+  transform: scale(1.12);
+}
+
+/* Connector line between steps */
+.cc__step-line {
+  display: block;
+  width: 2px;
+  height: 56px;
+  background: #e0e4f0;
+  transition: background 0.4s ease;
+}
+
+.cc__step-line--filled {
+  background: linear-gradient(to bottom, #2E3192, #6b8de8);
+}
+
+/* ── Card area ── */
+.cc__card-wrap {
+  flex: 1;
+  position: relative;
+  min-height: 220px;
+}
+
+.cc__card {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #eef1fb 0%, #f5f7ff 100%);
+  border-radius: 24px;
+  padding: 40px 44px;
+  border: 1px solid #e0e4f0;
+  box-shadow: 0 4px 24px rgba(43,45,142,0.07);
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.cc__card--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  position: relative; /* take up space */
+}
+
+.cc__card-num {
+  font-size: 64px;
+  font-weight: 900;
+  color: rgba(46,49,146,0.08);
+  line-height: 1;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+
+.cc__card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 14px;
+  line-height: 1.3;
+}
+
+.cc__card-desc {
+  font-size: 15px;
+  color: #5a5a7a;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ── Mobile list (hidden on desktop) ── */
+.cc__mobile-list {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Hide desktop layout */
+  .cc__body {
+    display: none;
+  }
+
+  /* Show mobile vertical list */
+  .cc__mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cc__mobile-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    opacity: 0.4;
+    transition: opacity 0.4s ease;
+  }
+
+  .cc__mobile-item--active {
+    opacity: 1;
+  }
+
+  .cc__mobile-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .cc__mobile-line {
+    display: block;
+    width: 2px;
+    height: 40px;
+    background: #e0e4f0;
+    transition: background 0.4s ease;
+  }
+
+  .cc__mobile-line.cc__step-line--filled {
+    background: linear-gradient(to bottom, #2E3192, #6b8de8);
+  }
+
+  .cc__mobile-content {
+    padding: 4px 0 32px;
+  }
+
+  .cc__mobile-content .cc__card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .cc__mobile-content .cc__card-desc {
+    font-size: 14px;
+  }
+
+  .cc {
+    padding: 56px 0 72px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cc__header {
+    margin-bottom: 40px;
+  }
+}
