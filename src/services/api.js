@@ -20,7 +20,7 @@ import { authHeaders } from "./auth";
 const BASE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
   (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  "http://localhost/wordpress/wp-json";
+  "https://darkred-worm-224502.hostingersite.com/wp-json";
 
 const api = axios.create({ baseURL: BASE_URL });
 
