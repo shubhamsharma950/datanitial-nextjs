@@ -14,7 +14,7 @@ const CheckIcon = () => (
     <circle cx="10" cy="10" r="10" />
     <path fill="none" d="M6 10l3 3 5-5" stroke="#fff" strokeWidth="1.8"
       strokeLinecap="round" strokeLinejoin="round" />
-  </svg>f  qa!W 
+  </svg>
 );
 const StarIcon = () => (
 <svg  className="wwa-card__check"  viewBox="0 0 20 20"  fill="currentColor"  aria-hidden="true">   <circle cx="10" cy="10" r="10" fill="#2E3192" /> <g    stroke="#ffffff"    strokeWidth="1.8"    strokeLinecap="round"  > <line x1="10" y1="5.2" x2="10" y2="14.8" /> <line x1="6.8" y1="7" x2="13.2" y2="13" /><line x1="13.2" y1="7" x2="6.8" y2="13" />  </g></svg>

@@ -47,6 +47,13 @@
   gap: 28px;
 } */
 /* ── Wrapper ── */
+.section-badges{
+background-color: #D9D9D9;
+padding: 20px 0pc;
+border-radius: 50px;
+}
+.section-badges .badge{font-size: 18px; color: 111111;}
+
 .wwa__cards {
   height: 100vh;
   overflow: hidden; /* scrollbar remove */
