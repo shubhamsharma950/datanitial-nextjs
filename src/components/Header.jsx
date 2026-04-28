@@ -40,11 +40,11 @@ export default function Header() {
         if (d?.logo_alt)  setLogoAlt(d.logo_alt);
         if (d?.site_name && !d?.logo_url) setLogoAlt(d.site_name);
 
-        // get_quote can be { label, url } or a plain string
+        // get_quote can be { label, url, target } (ACF Link) or a plain string
         const gq = d?.get_quote;
         if (gq && typeof gq === "object") {
-          if (gq.label) setCtaLabel(gq.label);
-          if (gq.url)   setCtaUrl(gq.url);
+          if (gq.label)  setCtaLabel(gq.label);
+          if (gq.url)    setCtaUrl(gq.url);
         } else if (typeof gq === "string" && gq) {
           setCtaLabel(gq);
         }
