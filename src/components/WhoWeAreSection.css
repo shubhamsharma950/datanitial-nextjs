@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-.wwa__inner {
+.container {
   width: 100%;
   max-width: 1340px;
   margin: 0 auto;
@@ -41,21 +41,33 @@
    CARDS — ROW LAYOUT
    3 cards side by side, equal width
 ═══════════════════════════════════════════════ */
-.wwa__cards {
+/* .wwa__cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
+} */
+
+.wwa__cards {
+    gap: 28px;
+    display: grid;
+    grid-auto-flow: row;
+    align-content: center;
 }
+
 
 /* ── Single card ── */
 .wwa-card {
-  background: #ffffff;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 2px 20px rgba(43, 45, 142, 0.07);
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.3s, transform 0.3s;
+    background: #fff;
+    border-radius: 20px;
+    flex-direction: row;
+    transition: box-shadow .3s,transform .3s;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 2px 20px #2b2d8e12;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
 }
 
 .wwa-card:hover {
@@ -149,18 +161,18 @@
 
 /* ── Card body content ── */
 .wwa-card__title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-dark, #1a1a2e);
-  margin: 0;
-  line-height: 1.3;
+    color: #000;
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
 }
-
 .wwa-card__desc {
-  font-size: 14px;
-  color: var(--text, #4a4a6a);
-  line-height: 1.75;
-  margin: 0;
+    color: var(--text,#4a4a6a);
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.75;
 }
 
 /* ── Bullets ── */
@@ -177,9 +189,9 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-dark, #1a1a2e);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-dark, #4a4a6a);
 }
 
 .wwa-card__check {

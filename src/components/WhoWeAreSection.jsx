@@ -21,7 +21,7 @@ const CheckIcon = () => (
 function WhoWeAreSkeleton() {
   return (
     <section className="wwa">
-      <div className="wwa__inner">
+      <div className="container">
         <div className="wwa__header">
           <div className="skeleton" style={{ width: "60%", height: 36, margin: "0 auto 12px" }} />
           <div className="skeleton" style={{ width: "80%", height: 18, margin: "0 auto" }} />
@@ -166,7 +166,7 @@ export default function WhoWeAreSection() {
 
   return (
     <section className="wwa" aria-label="Who We Are">
-      <div className="wwa__inner">
+      <div className="container">
 
         {/* ── Section header ── */}
         {(sectionTitle || sectionDesc) && (
