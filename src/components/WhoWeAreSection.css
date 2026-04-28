@@ -8,17 +8,25 @@
   overflow: hidden;
 }
 
-.container {
-  width: 100%;
-  max-width: 1340px;
-  margin: 0 auto;
-  padding: 0 20px;
+/* ── Section badge ── */
+.section-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.section-badges .badge {
+  font-size: 16px;
+  color: #111111;
+  font-weight: 600;
+  margin: 0;
 }
 
 /* ── Section header ── */
 .wwa__header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
 .wwa__title {
@@ -38,60 +46,14 @@
 }
 
 /* ═══════════════════════════════════════════════
-   CARDS — ROW LAYOUT
-   3 cards side by side, equal width
+   CARDS WRAPPER — vertical scroll snap
 ═══════════════════════════════════════════════ */
-/* .wwa__cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-} */
-/* ── Wrapper ── */
-/* .section-badges{
-background-color: #D9D9D9;
-padding: 20px 0pc;
-border-radius: 50px;
-} */
-.section-badges .badge{font-size: 18px; color: 111111;}
-
-/* .wwa__cards {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-.wwa-slider {
-  height: 100%;
-  width: 100%;
-  transition: transform 0.7s ease-in-out;
-}
-.wwa-card {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 40px;
-
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 20px #2b2d8e12;
-  transition: box-shadow 0.3s, transform 0.3s;
-  overflow: hidden;
-}
-.wwa-card:hover {
-  box-shadow: 0 12px 40px rgba(43, 45, 142, 0.14);
-  transform: translateY(-4px);
-} */
-
-/* ── Wrapper ── */
 .wwa__cards {
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   position: relative;
-
-  /* Hide scrollbar */
   scrollbar-width: none;
 }
 
@@ -99,107 +61,50 @@ border-radius: 50px;
   display: none;
 }
 
-/* ── Card ── */
+/* ═══════════════════════════════════════════════
+   SINGLE CARD
+═══════════════════════════════════════════════ */
 .wwa-card {
-  height: 100vh;
-  scroll-snap-align: start;
-
+  height: auto;
+  padding: 60px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 60px;
-  padding: 60px;
-
+  scroll-snap-align: start;
   background: #ffffff;
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-/* ── Image Section ── */
+.wwa-card:hover {
+  box-shadow: 0 12px 40px rgba(43, 45, 142, 0.14);
+  transform: translateY(-4px);
+}
+
+/* ── Image wrap ── */
 .wwa-card__img-wrap {
   flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.wwa-card__img {
-  width: 100%;
-  max-width: 450px;
-  border-radius: 16px;
-  object-fit: cover;
-}
-
-/* ── Content Section ── */
-.wwa-card__body {
-  flex: 1;
-  max-width: 500px;
-}
-
-/* ═══════════════════════════════════════════════
-   SCROLL REVEAL ANIMATIONS
-   Image slides in from TOP
-   Body slides in from BOTTOM
-═══════════════════════════════════════════════ */
-
-/* Image — starts above, slides down into place */
-.wwa-card__img-wrap {
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  /* background: #e8edf8; */
   flex-shrink: 0;
+  border-radius: 14px;
 
-  /* Initial state — hidden above */
+  /* Scroll reveal — slide from top */
   opacity: 0;
-  /* transform: translateY(-40px); */
+  transform: translateY(-40px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-/* Body — starts below, slides up into place */
-.wwa-card__body {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex: 1;
-
-  /* Initial state — hidden below */
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
-}
-
-/* When card is visible — animate in */
-.wwa-card.is-visible .wwa-card__img-wrap {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.wwa-card.is-visible .wwa-card__body {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger each card slightly */
-.wwa-card:nth-child(2) .wwa-card__img-wrap,
-.wwa-card:nth-child(2) .wwa-card__body {
-  transition-delay: 0.1s;
-}
-.wwa-card:nth-child(2) .wwa-card__body { transition-delay: 0.25s; }
-
-.wwa-card:nth-child(3) .wwa-card__img-wrap,
-.wwa-card:nth-child(3) .wwa-card__body {
-  transition-delay: 0.2s;
-}
-.wwa-card:nth-child(3) .wwa-card__body { transition-delay: 0.35s; }
-
-/* ── Card image ── */
 .wwa-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  max-width: 450px;
+  border-radius: 16px;
   transition: transform 0.5s ease;
 }
 
@@ -221,20 +126,53 @@ border-radius: 50px;
   height: 100%;
 }
 
-/* ── Card body content ── */
-.wwa-card__title {
-    color: #000;
-    margin: 0;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.3;
+/* ── Card body ── */
+.wwa-card__body {
+  flex: 1;
+  max-width: 500px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* Scroll reveal — slide from bottom */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
 }
+
+/* ── Scroll reveal — triggered by .is-visible ── */
+.wwa-card.is-visible .wwa-card__img-wrap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wwa-card.is-visible .wwa-card__body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger per card */
+.wwa-card:nth-child(2) .wwa-card__img-wrap { transition-delay: 0.1s; }
+.wwa-card:nth-child(2) .wwa-card__body     { transition-delay: 0.25s; }
+.wwa-card:nth-child(3) .wwa-card__img-wrap { transition-delay: 0.2s; }
+.wwa-card:nth-child(3) .wwa-card__body     { transition-delay: 0.35s; }
+
+/* ── Typography ── */
+.wwa-card__title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  line-height: 1.3;
+}
+
 .wwa-card__desc {
-    color: var(--text,#4a4a6a);
-    margin: 0;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.75;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text, #4a4a6a);
+  margin: 0;
+  line-height: 1.75;
 }
 
 /* ── Bullets ── */
@@ -290,9 +228,42 @@ border-radius: 50px;
    RESPONSIVE
 ═══════════════════════════════════════════════ */
 @media (max-width: 900px) {
+  .wwa-card {
+    height: auto;
+    padding: 40px 24px;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .wwa-card__img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .wwa-card__body {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .wwa-card__title {
+    font-size: 26px;
+  }
+
+  .wwa-card__desc {
+    font-size: 16px;
+  }
+
+  .wwa-card__bullet {
+    font-size: 16px;
+  }
+
   .wwa__cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    height: auto;
+    overflow-y: visible;
+    scroll-snap-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 }
 
@@ -301,8 +272,20 @@ border-radius: 50px;
     padding: 48px 0;
   }
 
-  .wwa__cards {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .wwa-card {
+    padding: 28px 16px;
+    border-radius: 14px;
+  }
+
+  .wwa-card__title {
+    font-size: 22px;
+  }
+
+  .wwa-card__desc {
+    font-size: 15px;
+  }
+
+  .wwa-card__bullet {
+    font-size: 14px;
   }
 }
