@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "./HomePage.css";
-import HeroSection    from "../components/HeroSection";
-import WhoWeAreSection from "../components/WhoWeAreSection";
-import WhyChooseUs    from "../components/WhyChooseUs";
+import HeroSection      from "../components/HeroSection";
+import WhoWeAreSection  from "../components/WhoWeAreSection";
+import WhyChooseUs      from "../components/WhyChooseUs";
+import IndustriesSection from "../components/IndustriesSection";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -78,6 +79,8 @@ export default function HomePage() {
 
         {/* ── ACF Section: Why Choose Us + Cards  ── */}
         <WhyChooseUs />
+        {/* ── ACF Section: Industries tabs ── */}
+        <IndustriesSection />
         {/* ── ACF Section: Who We Are + Cards ── */}
         <WhoWeAreSection />
       </div>

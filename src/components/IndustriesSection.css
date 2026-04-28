@@ -1,0 +1,258 @@
+/* ═══════════════════════════════════════════════
+   INDUSTRIES SECTION
+═══════════════════════════════════════════════ */
+.ind {
+  background: #f0f4ff;
+  padding: 80px 0;
+  width: 100%;
+}
+
+/* ── Badge ── */
+.ind__badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.ind__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e0e4f0;
+  border-radius: 999px;
+  padding: 6px 18px 6px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #2E3192;
+  text-transform: uppercase;
+}
+
+.ind-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Section header ── */
+.ind__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ind__title {
+  font-size: clamp(26px, 3.5vw, 44px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+.ind__desc {
+  font-size: 16px;
+  color: #5a5a7a;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════
+   TAB BAR
+═══════════════════════════════════════════════ */
+.ind__tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  box-shadow: 0 2px 12px rgba(43, 45, 142, 0.08);
+}
+
+.ind__tabs::-webkit-scrollbar { display: none; }
+
+.ind__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a4fcf;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.ind__tab:hover {
+  background: #f0f2ff;
+}
+
+.ind__tab--active {
+  background: #2E3192;
+  color: #ffffff;
+}
+
+.ind__tab--active:hover {
+  background: #3a40b5;
+}
+
+.ind__tab-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* ═══════════════════════════════════════════════
+   CONTENT CARD
+═══════════════════════════════════════════════ */
+.ind__card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  box-shadow: 0 4px 24px rgba(43, 45, 142, 0.07);
+
+  /* Fade-in on tab switch */
+  animation: ind-fade 0.35s ease;
+}
+
+@keyframes ind-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Left column ── */
+.ind__card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ind__card-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.ind__card-desc {
+  font-size: 15px;
+  color: #4a4a6a;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* Bullets */
+.ind__card-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ind__card-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  color: #1a1a2e;
+  line-height: 1.5;
+}
+
+.ind__bullet-dot {
+  color: #2E3192;
+  font-size: 18px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+/* Learn More button */
+.ind__learn-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 10px 24px;
+  border: 1.5px solid #2E3192;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2E3192;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 8px;
+}
+
+.ind__learn-more:hover {
+  background: #2E3192;
+  color: #fff;
+}
+
+/* ── Right column — image ── */
+.ind__card-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ind__card-img {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.ind__card-placeholder {
+  width: 100%;
+  max-width: 320px;
+}
+
+.ind__card-placeholder svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .ind__card {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 32px;
+  }
+
+  .ind__card-right {
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .ind {
+    padding: 56px 0;
+  }
+
+  .ind__tabs {
+    border-radius: 16px;
+    padding: 4px;
+  }
+
+  .ind__tab {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
