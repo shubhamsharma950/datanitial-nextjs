@@ -1,23 +1,34 @@
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    WHY CHOOSE US SECTION
-═══════════════════════════════════════════════ */
+   Layout: 2×2 grid
+     Box 1 (top-left)    — dark blue gradient + image-xD.png bg + bullets
+     Box 2 (top-right)   — white card + image-62ss.png on top + text
+     Box 3 (bottom-left) — white outlined card, corner brackets, centered
+     Box 4 (bottom-right)— very dark navy + bullets
+
+   Scroll-reveal: cards fade-in + slide-up via IntersectionObserver
+═══════════════════════════════════════════════════════════════ */
+
 .wcu {
   background: #fff;
-  padding: 80px 0;
+  padding: 80px 0 96px;
   width: 100%;
 }
 
-/* ── Badge handled by global .badge-sec in index.css ── */
-.wcu-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
+.wcu-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 
-/* ── Header ── */
+/* ── Section header ── */
 .wcu__header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 52px;
 }
 
 .wcu__title {
-  font-size: clamp(26px, 3.5vw, 44px);
+  font-size: clamp(24px, 3.2vw, 42px);
   font-weight: 700;
   color: #1a1a2e;
   margin: 0 0 16px;
@@ -26,20 +37,21 @@
 
 .wcu__desc {
   font-size: 16px;
-  color: #4a4a6a;
-  max-width: 680px;
+  color: #5a5a72;
+  max-width: 700px;
   margin: 0 auto;
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    2×2 GRID
-═══════════════════════════════════════════════ */
+   Both rows equal height so cards align perfectly
+═══════════════════════════════════════════════════════════════ */
 .wcu__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* ── Base card ── */
@@ -49,12 +61,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 280px;
 
   /* Scroll reveal — start hidden */
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.65s ease, transform 0.65s ease, box-shadow 0.3s;
+  transform: translateY(36px);
+  transition: opacity 0.60s ease, transform 0.60s ease, box-shadow 0.3s ease;
 }
 
 .wcu-card.is-visible {
@@ -62,197 +73,355 @@
   transform: translateY(0);
 }
 
-/* Stagger */
-.wcu-card:nth-child(2) { transition-delay: 0.1s; }
-.wcu-card:nth-child(3) { transition-delay: 0.2s; }
-.wcu-card:nth-child(4) { transition-delay: 0.3s; }
+/* Stagger delays */
+.wcu-card:nth-child(1) { transition-delay: 0.00s; }
+.wcu-card:nth-child(2) { transition-delay: 0.10s; }
+.wcu-card:nth-child(3) { transition-delay: 0.20s; }
+.wcu-card:nth-child(4) { transition-delay: 0.30s; }
 
 .wcu-card:hover {
-  box-shadow: 0 12px 40px rgba(43, 45, 142, 0.15);
+  box-shadow: 0 16px 48px rgba(43, 45, 142, 0.16);
   transform: translateY(-4px) !important;
 }
 
-/* ── Card 1 — dark gradient with image bg ── */
+/* ═══════════════════════════════════════════════════════════════
+   BOX 1 — dark blue gradient + image-xD.png background
+═══════════════════════════════════════════════════════════════ */
 .wcu-card--dark {
-  background: linear-gradient(135deg, #2E3192 0%, #4a4fcf 100%);
+  background: linear-gradient(145deg, #2e3192 0%, #3d4ac4 60%, #4a56d4 100%);
   color: #fff;
+  min-height: 340px;
 }
 
-.wcu-card--dark2 {
-  background: linear-gradient(135deg, #0d1b4b 0%, #1e3a8a 100%);
-  color: #fff;
-}
-
-/* Background image overlay */
+/* image-xD.png fills the right side of the card */
 .wcu-card__bg-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
+  width: 55%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.25;
-  mix-blend-mode: luminosity;
+  object-position: center left;
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
 }
 
+/* Gradient overlay: solid blue on left, fades to transparent on right */
 .wcu-card__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(46,49,146,0.85) 0%, rgba(74,79,207,0.75) 100%);
+  background: linear-gradient(
+    to right,
+    #2e3192 0%,
+    #2e3192 40%,
+    rgba(46, 49, 146, 0.85) 60%,
+    rgba(46, 49, 146, 0.30) 100%
+  );
+  pointer-events: none;
 }
 
-.wcu-card--dark2 .wcu-card__overlay {
-  background: linear-gradient(135deg, rgba(13,27,75,0.88) 0%, rgba(30,58,138,0.80) 100%);
-}
-
-/* ── Card 2 — light with image ── */
+/* ═══════════════════════════════════════════════════════════════
+   BOX 2 — white card + image-62ss.png on top
+═══════════════════════════════════════════════════════════════ */
 .wcu-card--light {
   background: #fff;
-  border: 1px solid #e8edf8;
-  box-shadow: 0 2px 16px rgba(43,45,142,0.06);
+  border: 1px solid #e8edf5;
+  box-shadow: 0 2px 20px rgba(43, 45, 142, 0.07);
 }
 
-/* ── Card 2 image — direct, no wrapper ── */
+/* Image wrapper — fixed height, no overflow */
+.wcu-card__img-wrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 20px 20px 0 0;
+}
+
 .wcu-card__img {
   width: 100%;
-  max-width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  border-radius: 12px 12px 0 0;
   transition: transform 0.5s ease;
 }
 
 .wcu-card--light:hover .wcu-card__img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
-article.wcu-card.wcu-card--light.is-visible {
-  padding: 0;
-  overflow: hidden;
-}
-
-article.wcu-card.wcu-card--light.is-visible .wcu-card__content {
-  padding: 24px;
-}
-
-/* ── Card 3 — outline / bordered ── */
+/* ═══════════════════════════════════════════════════════════════
+   BOX 3 — white outlined card, corner brackets, centered text
+═══════════════════════════════════════════════════════════════ */
 .wcu-card--outline {
   background: #fff;
-  border: 1px solid #e8edf8;
-  box-shadow: 0 2px 16px rgba(43,45,142,0.06);
+  border: 1px solid #e8edf5;
+  box-shadow: 0 2px 20px rgba(43, 45, 142, 0.07);
   justify-content: center;
+  min-height: 300px;
 }
 
-/* Corner brackets */
+/* Corner bracket decorations */
 .wcu-card__corner {
   position: absolute;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
 }
 
 .wcu-card__corner--tl {
-  top: 16px;
-  left: 16px;
-  border-top: 2px solid #2E3192;
-  border-left: 2px solid #2E3192;
-  border-radius: 4px 0 0 0;
+  top: 18px;
+  left: 18px;
+  border-top: 2.5px solid #2e3192;
+  border-left: 2.5px solid #2e3192;
+  border-radius: 5px 0 0 0;
 }
 
 .wcu-card__corner--br {
-  bottom: 16px;
-  right: 16px;
-  border-bottom: 2px solid #2E3192;
-  border-right: 2px solid #2E3192;
-  border-radius: 0 0 4px 0;
+  bottom: 18px;
+  right: 18px;
+  border-bottom: 2.5px solid #2e3192;
+  border-right: 2.5px solid #2e3192;
+  border-radius: 0 0 5px 0;
 }
 
-/* ── Card content ── */
+/* ═══════════════════════════════════════════════════════════════
+   BOX 4 — very dark navy card + bullets
+═══════════════════════════════════════════════════════════════ */
+.wcu-card--dark2 {
+  background: #0f1c3f;
+  color: #fff;
+  min-height: 300px;
+  position: relative;
+}
+
+/* Subtle texture overlay */
+.wcu-card__overlay--dark2 {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 80% 50%,
+    rgba(58, 79, 183, 0.25) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARD CONTENT
+═══════════════════════════════════════════════════════════════ */
 .wcu-card__content {
   position: relative;
   z-index: 1;
-  padding: 38px;
+  padding: 36px 36px 36px 36px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   flex: 1;
 }
 
-.wcu-card__content--center {
-  background-image: url(https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  justify-content: center;
-  text-align: center;
+/* Box 2 content — less top padding since image is above */
+.wcu-card--light .wcu-card__content {
+  padding: 22px 28px 28px;
+  gap: 10px;
 }
 
+/* Box 3 content — centered */
+.wcu-card__content--center {
+  justify-content: center;
+  text-align: center;
+  padding: 40px 36px;
+}
+
+/* ── Titles ── */
 .wcu-card__title {
-  font-size: 27.5px;
+  font-size: 22px;
   font-weight: 700;
   color: #fff;
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .wcu-card__title--dark {
   color: #1a1a2e;
+  font-size: 20px;
 }
 
+/* ── Descriptions ── */
 .wcu-card__desc {
-  font-size: 22px;
-  color: rgba(255,255,255,0.82);
-  line-height: 1.7;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.80);
+  line-height: 1.75;
   margin: 0;
 }
 
 .wcu-card__desc--dark {
   color: #4a4a6a;
+  font-size: 15px;
 }
 
-/* ── Bullets ── */
+/* ── Bullet list ── */
 .wcu-card__bullets {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .wcu-card__bullet {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 15px;
-  color: rgba(255,255,255,0.9);
   line-height: 1.5;
 }
 
 .wcu-card__bullet strong {
   display: block;
-  font-size: 21px;
+  font-size: 15px;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
+}
+
+.wcu-card__bullet-desc {
+  display: block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
 }
 
 .wcu-check {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-  color: #4ade80;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤900px)
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .wcu__grid {
+    gap: 16px;
+  }
+
+  .wcu-card__content {
+    padding: 28px 28px;
+  }
+
+  .wcu-card__title {
+    font-size: 20px;
+  }
+
+  .wcu-card__img-wrap {
+    height: 170px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤768px)
+   Single column — cards stack vertically
+═══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  .wcu {
+    padding: 56px 0 64px;
+  }
+
   .wcu__grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .wcu-card {
-    min-height: 220px;
+    min-height: unset;
+  }
+
+  /* Box 1: image fills right half on mobile too */
+  .wcu-card--dark {
+    min-height: 300px;
+  }
+
+  .wcu-card__bg-img {
+    width: 50%;
+    opacity: 0.85;
+  }
+
+  .wcu-card__overlay {
+    background: linear-gradient(
+      to right,
+      #2e3192 0%,
+      #2e3192 35%,
+      rgba(46, 49, 146, 0.80) 65%,
+      rgba(46, 49, 146, 0.20) 100%
+    );
+  }
+
+  .wcu-card__content {
+    padding: 28px 24px;
+  }
+
+  .wcu-card--light .wcu-card__content {
+    padding: 18px 22px 24px;
+  }
+
+  .wcu-card__img-wrap {
+    height: 200px;
+  }
+
+  .wcu-card__title {
+    font-size: 19px;
+  }
+
+  .wcu-card__title--dark {
+    font-size: 18px;
+  }
+
+  .wcu-card__content--center {
+    padding: 36px 28px;
+  }
+
+  .wcu-card--outline {
+    min-height: 260px;
+  }
+
+  .wcu-card--dark2 {
+    min-height: 280px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (≤480px)
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .wcu__title {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .wcu__desc {
+    font-size: 14px;
+  }
+
+  .wcu-card__content {
+    padding: 24px 20px;
+  }
+
+  .wcu-card__title {
+    font-size: 17px;
+  }
+
+  .wcu-card__bullet strong {
+    font-size: 14px;
+  }
+
+  .wcu-card__bullet-desc {
+    font-size: 12px;
+  }
+
+  .wcu-card__img-wrap {
+    height: 180px;
   }
 }
