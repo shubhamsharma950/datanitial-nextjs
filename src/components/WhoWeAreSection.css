@@ -1,101 +1,111 @@
 /* ═══════════════════════════════════════════════
-   WHO WE ARE SECTION
+   WHO WE ARE — sticky scroll stacking
 ═══════════════════════════════════════════════ */
+
+/* ── Outer section — sets scroll height ── */
 .wwa {
-  background: var(--bg-soft, #f0f4ff);
-  padding: 80px 0;
-  width: 100%;
+  position: relative;
+  height: calc(var(--card-count, 3) * 100vh + 20vh);
+  background: #e8f0fe;
+}
+
+/* ── Sticky container — stays in viewport ── */
+.wwa__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
-}
-
-/* ── Section badge ── */
-.section-badges {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  flex-direction: column;
+  padding: 48px 0 36px;
 }
 
-.section-badges .badge {
-  font-size: 16px;
-  color: #111111;
-  font-weight: 600;
-  margin: 0;
+.wwa__sticky > .container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 24px;
 }
 
-/* ── Section header ── */
+/* ── Section header — centered like Figma ── */
 .wwa__header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
+  flex-shrink: 0;
 }
 
 .wwa__title {
-  font-size: clamp(26px, 3.5vw, 44px);
+  font-size: clamp(28px, 3.8vw, 52px);
   font-weight: 700;
-  color: var(--text-dark, #1a1a2e);
-  margin: 0 0 16px;
-  line-height: 1.2;
+  color: #1a1a2e;
+  margin: 0 0 14px;
+  line-height: 1.15;
 }
 
 .wwa__desc {
-  font-size: 16px;
-  color: var(--text, #4a4a6a);
-  max-width: 600px;
+  font-size: clamp(14px, 1.2vw, 17px);
+  color: #5a5a7a;
+  max-width: 640px;
   margin: 0 auto;
   line-height: 1.75;
 }
 
 /* ═══════════════════════════════════════════════
-   CARDS WRAPPER — vertical scroll snap
+   CARD STACK
 ═══════════════════════════════════════════════ */
-.wwa__cards {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+.wwa__stack {
   position: relative;
-  scrollbar-width: none;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.wwa__cards::-webkit-scrollbar {
-  display: none;
-}
-
-/* ═══════════════════════════════════════════════
-   SINGLE CARD
-═══════════════════════════════════════════════ */
+/* ── Single card ── */
 .wwa-card {
-  height: auto;
-  padding: 60px;
+  position: absolute;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 60px;
-  scroll-snap-align: start;
+  gap: 0;
+  padding: 28px 40px 28px 28px;
   background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s, transform 0.3s;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px rgba(43, 45, 142, 0.08);
+
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  z-index: calc(var(--card-index, 0) + 1);
 }
 
-.wwa-card:hover {
-  box-shadow: 0 12px 40px rgba(43, 45, 142, 0.14);
-  transform: translateY(-4px);
+.wwa-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wwa-card--visible:not(.wwa-card--active) {
+  transform: translateY(0) scale(0.975);
+  filter: brightness(0.96);
+}
+
+.wwa-card--active {
+  transform: translateY(0) scale(1);
+  filter: brightness(1);
+  box-shadow: 0 8px 40px rgba(43, 45, 142, 0.12);
 }
 
 /* ── Image wrap ── */
 .wwa-card__img-wrap {
-  flex: 1;
+  flex: 0 0 46%;
+  max-width: 46%;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
-  flex-shrink: 0;
-  border-radius: 14px;
-
-  /* Scroll reveal — slide from top */
-  opacity: 0;
-  transform: translateY(-40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  background: #0d1b4b;
 }
 
 .wwa-card__img {
@@ -103,12 +113,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  max-width: 450px;
   border-radius: 16px;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
-.wwa-card:hover .wwa-card__img {
+.wwa-card--active .wwa-card__img {
   transform: scale(1.04);
 }
 
@@ -129,50 +138,27 @@
 /* ── Card body ── */
 .wwa-card__body {
   flex: 1;
-  max-width: 500px;
-  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-
-  /* Scroll reveal — slide from bottom */
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  padding: 8px 0 8px 48px;
 }
-
-/* ── Scroll reveal — triggered by .is-visible ── */
-.wwa-card.is-visible .wwa-card__img-wrap {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.wwa-card.is-visible .wwa-card__body {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger per card */
-.wwa-card:nth-child(2) .wwa-card__img-wrap { transition-delay: 0.1s; }
-.wwa-card:nth-child(2) .wwa-card__body     { transition-delay: 0.25s; }
-.wwa-card:nth-child(3) .wwa-card__img-wrap { transition-delay: 0.2s; }
-.wwa-card:nth-child(3) .wwa-card__body     { transition-delay: 0.35s; }
 
 /* ── Typography ── */
 .wwa-card__title {
-  font-size: 36px;
+  font-size: clamp(18px, 1.8vw, 26px);
   font-weight: 700;
-  color: #000;
+  color: #0f0f1a;
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 .wwa-card__desc {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text, #4a4a6a);
+  font-size: clamp(13px, 1vw, 15px);
+  color: #5a5a7a;
   margin: 0;
   line-height: 1.75;
+  max-width: 360px;
 }
 
 /* ── Bullets ── */
@@ -182,41 +168,38 @@
   margin: 4px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .wwa-card__bullet {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 24px;
+  font-size: clamp(13px, 1vw, 15px);
   font-weight: 500;
-  color: var(--text-dark, #4a4a6a);
+  color: #2a2a3a;
 }
 
 .wwa-card__check {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-  color: var(--accent, #4a4fcf);
+  color: #4a4fcf;
 }
 
 /* ── Skeleton ── */
 .wwa-card--skeleton {
+  position: static;
+  opacity: 1;
+  transform: none;
   pointer-events: none;
+  margin-bottom: 24px;
 }
 
 .wwa-card--skeleton .wwa-card__img-wrap {
-  opacity: 1;
-  transform: none;
   background: linear-gradient(90deg, #ececec 25%, #ddd 50%, #ececec 75%);
   background-size: 300% 100%;
   animation: wwa-shimmer 1.4s infinite linear;
-}
-
-.wwa-card--skeleton .wwa-card__body {
-  opacity: 1;
-  transform: none;
 }
 
 @keyframes wwa-shimmer {
@@ -225,67 +208,78 @@
 }
 
 /* ═══════════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — tablet / mobile
 ═══════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .wwa-card {
+  .wwa {
     height: auto;
-    padding: 40px 24px;
-    flex-direction: column;
-    gap: 32px;
   }
 
-  .wwa-card__img-wrap {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-  }
-
-  .wwa-card__body {
-    max-width: 100%;
-    padding: 0;
-  }
-
-  .wwa-card__title {
-    font-size: 26px;
-  }
-
-  .wwa-card__desc {
-    font-size: 16px;
-  }
-
-  .wwa-card__bullet {
-    font-size: 16px;
-  }
-
-  .wwa__cards {
+  .wwa__sticky {
+    position: static;
     height: auto;
-    overflow-y: visible;
-    scroll-snap-type: none;
+    padding: 56px 0 48px;
+    overflow: visible;
+  }
+
+  .wwa__sticky > .container {
+    height: auto;
+  }
+
+  .wwa__stack {
+    position: static;
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
-}
-
-@media (max-width: 600px) {
-  .wwa {
-    padding: 48px 0;
-  }
 
   .wwa-card {
-    padding: 28px 16px;
+    position: static;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    border-radius: 20px;
+  }
+
+  .wwa-card--visible:not(.wwa-card--active) {
+    transform: none;
+    filter: none;
+  }
+
+  .wwa-card__img-wrap {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+
+  .wwa-card__img {
     border-radius: 14px;
   }
 
-  .wwa-card__title {
-    font-size: 22px;
+  .wwa-card__body {
+    padding: 0;
+    gap: 10px;
   }
 
-  .wwa-card__desc {
-    font-size: 15px;
+  .wwa__header {
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wwa-card {
+    padding: 18px 16px;
+    border-radius: 16px;
   }
 
-  .wwa-card__bullet {
-    font-size: 14px;
+  .wwa-card__img-wrap {
+    margin-bottom: 18px;
   }
 }

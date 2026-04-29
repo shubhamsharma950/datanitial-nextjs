@@ -156,13 +156,11 @@ export default function WhyChooseUs() {
           {section_dis   && <p  className="wcu__desc">{section_dis}</p>}
         </div>
 
-        {/* ── 2×2 Grid ── */}
-        <div className="wcu__grid">
+        {/* ── Grid: Row 1 — box1 65% | box2 35% ── */}
+        <div className="wcu__row wcu__row--1">
 
-          {/* Box 1 — dark gradient, heading + bullet list (top-left, large) */}
-          <article className="wcu-card wcu-card--dark" ref={el => cardRefs.current[0] = el}>
-            {box1.image && <img src={box1.image} alt="" className="wcu-card__bg-img" />}
-            <div className="wcu-card__overlay" />
+          {/* Box 1 — dark gradient 65%, heading + bullets, slides from LEFT */}
+          <article className="wcu-card wcu-card--dark wcu-card--from-left" ref={el => cardRefs.current[0] = el}>
             <div className="wcu-card__content">
               {box1.heading && <h3 className="wcu-card__title">{box1.heading}</h3>}
               {box1.bullets?.length > 0 && (
@@ -181,8 +179,8 @@ export default function WhyChooseUs() {
             </div>
           </article>
 
-          {/* Box 2 — white card, image + title + description (top-right) */}
-          <article className="wcu-card wcu-card--light" ref={el => cardRefs.current[1] = el}>
+          {/* Box 2 — white card 35%, image + title + desc, slides from RIGHT */}
+          <article className="wcu-card wcu-card--light wcu-card--from-right" ref={el => cardRefs.current[1] = el}>
             {box2.image && (
               <img src={box2.image} alt={box2.title} className="wcu-card__img" loading="lazy" />
             )}
@@ -192,8 +190,13 @@ export default function WhyChooseUs() {
             </div>
           </article>
 
-          {/* Box 3 — outline/bordered card, centered text (bottom-left) */}
-          <article className="wcu-card wcu-card--outline" ref={el => cardRefs.current[2] = el}>
+        </div>
+
+        {/* ── Grid: Row 2 — box3 35% | box4 65% ── */}
+        <div className="wcu__row wcu__row--2">
+
+          {/* Box 3 — outline card 35%, centered text, slides from LEFT */}
+          <article className="wcu-card wcu-card--outline wcu-card--from-left" ref={el => cardRefs.current[2] = el}>
             <div className="wcu-card__corner wcu-card__corner--tl" />
             <div className="wcu-card__corner wcu-card__corner--br" />
             <div className="wcu-card__content wcu-card__content--center">
@@ -202,10 +205,8 @@ export default function WhyChooseUs() {
             </div>
           </article>
 
-          {/* Box 4 — dark card, heading + bullet list (bottom-right) */}
-          <article className="wcu-card wcu-card--dark2" ref={el => cardRefs.current[3] = el}>
-            {box4.image && <img src={box4.image} alt="" className="wcu-card__bg-img" />}
-            <div className="wcu-card__overlay" />
+          {/* Box 4 — dark navy 65%, heading + bullets, slides from RIGHT */}
+          <article className="wcu-card wcu-card--dark2 wcu-card--from-right" ref={el => cardRefs.current[3] = el}>
             <div className="wcu-card__content">
               {box4.heading && <h3 className="wcu-card__title">{box4.heading}</h3>}
               {box4.bullets?.length > 0 && (
