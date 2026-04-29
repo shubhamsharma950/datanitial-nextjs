@@ -1,0 +1,253 @@
+/* ═══════════════════════════════════════════════
+   GET TO KNOW US
+   Left: sticky badge + title + desc
+   Right: scrolling numbered cards with timeline
+═══════════════════════════════════════════════ */
+.gtku {
+  background: linear-gradient(180deg, #eef2fb 0%, #f5f8ff 100%);
+  padding: 80px 0;
+  width: 100%;
+}
+
+/* ── Two-column layout ── */
+.gtku__layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ════════════════════════════════════════════
+   LEFT COLUMN — sticky
+════════════════════════════════════════════ */
+.gtku__left {
+  position: sticky;
+  top: 100px;           /* stays fixed while right scrolls */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Badge */
+.gtku__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e0e4f0;
+  border-radius: 999px;
+  padding: 6px 16px 6px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #2E3192;
+  text-transform: uppercase;
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(43,45,142,0.08);
+}
+
+.gtku-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Title */
+.gtku__title {
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Description */
+.gtku__desc {
+  font-size: 14px;
+  color: #6a6a8a;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════════
+   RIGHT COLUMN — scrolling cards + timeline
+════════════════════════════════════════════ */
+.gtku__right {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Vertical timeline line */
+.gtku__timeline {
+  position: absolute;
+  left: 22px;           /* aligns with center of number */
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(to bottom, #c8d4f8 0%, #e0e4f0 100%);
+  z-index: 0;
+}
+
+/* ════════════════════════════════════════════
+   SINGLE CARD
+════════════════════════════════════════════ */
+.gtku-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  /* Entrance animation */
+  opacity: 0;
+  transform: translateY(24px);
+  animation: gtku-fadein 0.6s ease forwards;
+}
+
+.gtku-card:nth-child(2) { animation-delay: 0.1s; }
+.gtku-card:nth-child(3) { animation-delay: 0.2s; }
+.gtku-card:nth-child(4) { animation-delay: 0.3s; }
+.gtku-card:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes gtku-fadein {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Number + title row ── */
+.gtku-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.gtku-card__num {
+  font-size: 36px;
+  font-weight: 800;
+  color: #2E3192;
+  line-height: 1;
+  min-width: 48px;
+  flex-shrink: 0;
+  /* Sits on top of the timeline line */
+  background: linear-gradient(180deg, #eef2fb 0%, #f5f8ff 100%);
+  padding: 2px 0;
+}
+
+.gtku-card__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ── Description ── */
+.gtku-card__desc {
+  font-size: 14px;
+  color: #6a6a8a;
+  line-height: 1.75;
+  margin: 0;
+  padding-left: 68px;   /* indent to align with title */
+}
+
+/* ── Image ── */
+.gtku-card__img-wrap {
+  margin-left: 68px;    /* indent to align with title */
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 8;
+  background: #1a2a5e;
+}
+
+.gtku-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gtku-card:hover .gtku-card__img {
+  transform: scale(1.03);
+}
+
+.gtku-card__img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gtku-card__img-placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Skeleton ── */
+.gtku-card--skeleton {
+  opacity: 1;
+  transform: none;
+  animation: none;
+  gap: 12px;
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .gtku__layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Left no longer sticky on mobile */
+  .gtku__left {
+    position: static;
+  }
+
+  .gtku__timeline {
+    left: 18px;
+  }
+
+  .gtku-card__desc,
+  .gtku-card__img-wrap {
+    margin-left: 56px;
+  }
+
+  .gtku-card__num {
+    font-size: 28px;
+    min-width: 40px;
+  }
+
+  .gtku-card__title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gtku {
+    padding: 56px 0;
+  }
+
+  .gtku__right {
+    gap: 40px;
+  }
+
+  .gtku-card__desc,
+  .gtku-card__img-wrap {
+    margin-left: 48px;
+  }
+
+  .gtku-card__num {
+    font-size: 24px;
+    min-width: 36px;
+  }
+
+  .gtku-card__title {
+    font-size: 16px;
+  }
+
+  .gtku-card__desc {
+    font-size: 13px;
+  }
+}

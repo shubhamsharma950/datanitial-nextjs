@@ -6,6 +6,7 @@ import WhyChooseUs      from "../components/WhyChooseUs";
 import IndustriesSection from "../components/IndustriesSection";
 import OurSolutions     from "../components/OurSolutions";
 import CoreCompetence   from "../components/CoreCompetence";
+import GetToKnowUs     from "../components/GetToKnowUs";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -89,6 +90,8 @@ export default function HomePage() {
         <IndustriesSection />
         {/* ── Scroll-driven: Core Competence steps ── */}
         <CoreCompetence />
+        {/* ── Get To Know Us: sticky left + scrolling cards ── */}
+        <GetToKnowUs />
       </div>
     </main>
   );
