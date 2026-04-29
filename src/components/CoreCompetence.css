@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   CORE COMPETENCE — Full-width filled semicircle
+   CORE COMPETENCE
 ═══════════════════════════════════════════════ */
 .cc {
   background: #ffffff;
@@ -8,115 +8,108 @@
   overflow: hidden;
 }
 
-/* ── Badge — uses global .badge-sec from index.css ── */
-.cc-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
-
-.cc__header { max-width: 640px; margin: 0 auto; }
+/* ── Header ── */
+.cc__header-wrap {
+  text-align: center;
+  padding: 0 24px;
+  max-width: 860px;
+  margin: 0 auto 32px;
+}
 
 .cc__title {
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: clamp(28px, 3.8vw, 52px);
   font-weight: 700;
   color: #1a1a2e;
-  margin: 0 0 12px;
-  line-height: 1.2;
+  margin: 0 0 16px;
+  line-height: 1.15;
 }
 
 .cc__desc {
-  font-size: 15px;
+  font-size: 16px;
+  color: #6a6a8a;
+  line-height: 1.75;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════
+   FULL-WIDTH ARC
+   ViewBox: 1440 × 700
+   padding-bottom: 700/1440 = 48.6%
+   The circle top (arc peak) is at ~y=60 in the viewBox,
+   content text sits at ~y=420–520 inside the arc.
+═══════════════════════════════════════════════ */
+.cc__arc-outer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 48.6%;   /* 700 / 1440 */
+  overflow: hidden;
+}
+
+.cc__arc-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Text content — sits inside the arc, below the numbers ── */
+.cc__content {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(500px, 46%);
+  text-align: center;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.cc__content--fading {
+  opacity: 0;
+}
+
+.cc__card-title {
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.cc__card-desc {
+  font-size: clamp(13px, 1.2vw, 16px);
   color: #6a6a8a;
   line-height: 1.75;
   margin: 0;
 }
 
 /* ═══════════════════════════════════════════════
-   FULL-WIDTH ARC CONTAINER
+   RESPONSIVE
 ═══════════════════════════════════════════════ */
-.cc__arc-outer {
-  position: relative;
-  width: 100%;
-  padding-bottom: 71%;
-  overflow: hidden;
+@media (max-width: 900px) {
+  .cc__arc-outer {
+    padding-bottom: 60%;
+  }
+  .cc__content {
+    top: 64%;
+    width: min(300px, 58%);
+  }
 }
 
-.cc__arc-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 83%;
-}
-
-/* ── Content inside the arc (centered) ── */
-.cc__arc-content {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(420px, 50%);
-  text-align: center;
-  pointer-events: none;
-
-  /* Fade transition */
-  opacity: 1;
-  transition: opacity 0.22s ease;
-}
-
-.cc__arc-content--fading {
-  opacity: 0;
-}
-.cc__arc-svg text {
-  font-size: 64px;
-  font-weight: 700;
-  fill: #2E2A8C;
-}
-
-.cc__card-title {
-  font-size: clamp(18px, 2.5vw, 36px);
-  font-weight: 600;
-  color: #111111;
-  margin: 0 0 12px;
-  line-height: 1.3;
-}
-
-.cc__card-desc {
-  font-size: clamp(13px, 1.5vw, 28px);
-  font-weight: 400;
-  color: #707070;
-  line-height: 1.75;
-  margin: 0;
-}
-
-/* ── Mobile hidden on desktop ── */
-.cc__mobile { display: none; }
-
-/* ═══════════════════════════════════════════════
-   MOBILE — single card + prev/next
-═══════════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .cc {
-    padding: 56px 0 64px;
+    padding: 56px 0 0;
   }
-
-  /* Show same arc but smaller — just hide the desktop content overlay */
   .cc__arc-outer {
-    padding-bottom: 70%;
+    padding-bottom: 78%;
   }
-
-  .cc__arc-content {
-    top: 42%;
-    width: min(260px, 60%);
+  .cc__content {
+    top: 66%;
+    width: 68%;
   }
-
-  .cc__card-title { font-size: 16px; }
+  .cc__card-title { font-size: 15px; }
   .cc__card-desc  { font-size: 12px; }
-}
-
-@media (max-width: 480px) {
-  .cc__arc-outer {
-    padding-bottom: 90%;
-  }
-
-  .cc__arc-content {
-    top: 44%;
-    width: 55%;
-  }
 }

@@ -8,14 +8,17 @@ const WP_BASE =
 const PRIMARY_URL  = `${WP_BASE}/theme/v1/core-competence`;
 const FALLBACK_URL = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
 
+const STEP_INTERVAL = 2400;
+
 const FALLBACK = {
   title:       "Core Competence",
   description: "We are the top-tier web crawling service providers, capable of crawling freely available information at exceptionally fast speeds while maintaining excellent accuracy.",
   steps: [
-    { number: 1, title: "Price Intelligence",    description: "Track competitor pricing trends in real time to optimize your pricing strategy." },
-    { number: 2, title: "Competitor Analysis",   description: "Analyze competitor activities, strategies, and market positioning continuously." },
-    { number: 3, title: "Data Aggregation",      description: "Collect and organize news data from multiple sources for actionable insights." },
-    { number: 4, title: "Keyword Ranking",       description: "Track keyword performance and search rankings to enhance visibility." },
+    { number: 1, title: "Price Intelligence",  description: "Track competitor pricing trends in real time to optimize your pricing strategy." },
+    { number: 2, title: "Competitor Analysis", description: "Analyze competitor activities, strategies, and market positioning continuously." },
+    { number: 3, title: "Data Aggregation",    description: "Collect and organize news data from multiple sources for actionable insights." },
+    { number: 4, title: "Keyword Ranking",     description: "Track keyword performance and search rankings to enhance visibility." },
+    { number: 5, title: "Lead Generation",     description: "Identify and capture high-quality leads using intelligent data extraction." },
   ],
 };
 
@@ -23,7 +26,7 @@ function parseFromAcf(acf) {
   const cc = acf?.core_competence;
   if (!cc) return FALLBACK;
   const steps = [];
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     const t = cc.circle_values?.[`c_title${i}`] || "";
     const d = cc.circle_values?.[`c_dis${i}`]   || "";
     if (t || d) steps.push({ number: i, title: t, description: d });
@@ -36,7 +39,7 @@ function parseFromAcf(acf) {
 }
 
 const StarIcon = () => (
-  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="cc-badge__icon">
+  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
     <circle cx="10" cy="10" r="10" fill="#2E3192" />
     <g stroke="#fff" strokeWidth="1.8" strokeLinecap="round">
       <line x1="10" y1="5.2" x2="10" y2="14.8" />
@@ -46,24 +49,16 @@ const StarIcon = () => (
   </svg>
 );
 
-/* ════════════════════════════════════════════════════════════
-   CORE COMPETENCE
-   Design:
-   - Full-width filled semicircle (light blue, top arc = navy border)
-   - Numbers sit ON the arc curve
-   - Active number = top center (12 o'clock)
-   - Other numbers spread to the right along the arc
-   - Scroll → numbers rotate left (next step moves to top)
-   - Content (title + desc) inside the arc, fades on change
-   - Responsive: same circle, smaller on mobile
-════════════════════════════════════════════════════════════ */
 export default function CoreCompetence() {
   const [data,       setData]       = useState(null);
   const [activeStep, setActiveStep] = useState(0);
   const [fading,     setFading]     = useState(false);
   const [loading,    setLoading]    = useState(true);
   const sectionRef                  = useRef(null);
-  const prevStep                    = useRef(0);
+  const activeStepRef               = useRef(0);
+  const fadingRef                   = useRef(false);
+  const intervalRef                 = useRef(null);
+  const stepsCountRef               = useRef(0);
 
   /* ── Fetch ── */
   useEffect(() => {
@@ -78,127 +73,159 @@ export default function CoreCompetence() {
       .finally(() => setLoading(false));
   }, []);
 
-  /* ── Scroll-driven step change ── */
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || !data?.steps?.length) return;
-    const count = data.steps.length;
+  /* ── Change step with fade ── */
+  const changeStep = (next) => {
+    if (next === activeStepRef.current || fadingRef.current) return;
+    fadingRef.current = true;
+    setFading(true);
+    setTimeout(() => {
+      activeStepRef.current = next;
+      setActiveStep(next);
+      fadingRef.current = false;
+      setFading(false);
+    }, 200);
+  };
 
-    const onScroll = () => {
-      const rect     = section.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1,
-        (-rect.top + window.innerHeight * 0.5) / (rect.height - window.innerHeight * 0.3)
-      ));
-      const next = Math.min(count - 1, Math.floor(progress * count));
-      if (next !== prevStep.current) {
-        setFading(true);
-        setTimeout(() => {
-          setActiveStep(next);
-          prevStep.current = next;
-          setFading(false);
-        }, 220);
-      }
+  /* ── Auto-advance on visibility; stop at last step ── */
+  useEffect(() => {
+    if (!data?.steps?.length) return;
+    stepsCountRef.current = data.steps.length;
+
+    const start = () => {
+      if (intervalRef.current) return;
+      intervalRef.current = setInterval(() => {
+        const next = activeStepRef.current + 1;
+        if (next >= stepsCountRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+          return;
+        }
+        changeStep(next);
+      }, STEP_INTERVAL);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    const stop = () => {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    };
+
+    const obs = new IntersectionObserver(
+      ([e]) => { e.isIntersecting ? start() : stop(); },
+      { threshold: 0.25 }
+    );
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => { obs.disconnect(); stop(); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   if (loading || !data) return null;
 
   const { title, description, steps } = data;
-  const n      = steps.length;
   const active = steps[activeStep] || steps[0];
 
-  /* ── SVG dimensions ── */
-  const W  = 1000;   // viewBox width
-  const H  = 560;    // viewBox height (shows top half of circle)
-  const cx = W / 2;
-  const cy = H + 20; // center is below the visible area → shows top arc
-  const R  = H + 20; // radius = distance from center to top of viewBox
+  /* ════════════════════════════════════════════
+     SVG geometry — ViewBox 1440 × 700
+     R = 640, circle center at cy = 700 (bottom edge)
+     Arc top = cy - R = 700 - 640 = 60px from top ✓
+     Numbers sit at y ≈ 60 (top of arc)
+     Content text sits at y ≈ 430–530 (inside arc)
+  ════════════════════════════════════════════ */
+  const VW = 1440;
+  const VH = 700;
+  const cx = VW / 2;  // 720
+  const R  = 640;     // radius
+  const cy = VH;      // circle center at bottom edge → arc top at y = VH - R = 60
 
-  /* ── Place numbers on the arc ──
-     Active step always at top (angle = -90° = 12 o'clock).
-     Other steps spread to the right at +30° intervals.
-     As activeStep increases, all numbers shift left.           */
-  const BASE_ANGLE = -90; // degrees — top of circle
-  const STEP_ANGLE = 28;  // degrees between each number
+  /* Active step → top of arc (angle = -90°).
+     Each adjacent step is STEP_ANGLE degrees away. */
+  const STEP_ANGLE = 22; // degrees — tighter spread like Figma
 
-  const getPos = (stepIndex) => {
-    // Offset from active: positive = to the right
-    const offset = stepIndex - activeStep;
-    const angleDeg = BASE_ANGLE + offset * STEP_ANGLE;
-    const rad = (angleDeg * Math.PI) / 180;
-    return {
-      x: cx + R * Math.cos(rad),
-      y: cy + R * Math.sin(rad),
-      isActive: stepIndex === activeStep,
-      isVisible: Math.abs(offset) <= 2, // show ±2 from active
-    };
+  const getPos = (idx) => {
+    const offset   = idx - activeStep;
+    const angleDeg = -90 + offset * STEP_ANGLE;
+    const rad      = (angleDeg * Math.PI) / 180;
+    const x        = cx + R * Math.cos(rad);
+    const y        = cy + R * Math.sin(rad);
+    // Only render if inside the visible viewBox (with some margin)
+    const visible  = x > -80 && x < VW + 80 && y > -20 && y < VH + 10;
+    return { x, y, offset, visible };
   };
 
   return (
     <section className="cc" ref={sectionRef} aria-label={title}>
-        <div className="cc__header-wrap container">
+
+      {/* ── Header ── */}
+      <div className="cc__header-wrap">
         <div className="badge-sec">
-          <StarIcon /><span>CORE COMPETENCE</span>
+          <StarIcon /><span>OFFERING</span>
         </div>
-        <div className="cc__header">
-          <h2 className="cc__title">{title}</h2>
-          <p  className="cc__desc">{description}</p>
-        </div>
+        <h2 className="cc__title">{title}</h2>
+        <p  className="cc__desc">{description}</p>
       </div>
 
-      {/* ── Full-width arc container ── */}
+      {/* ── Full-width arc ── */}
       <div className="cc__arc-outer">
         <svg
           className="cc__arc-svg"
-          viewBox={`0 0 ${W} ${H}`}
-          preserveAspectRatio="xMidYMax meet"
+          viewBox={`0 0 ${VW} ${VH}`}
+          preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"
         >
-          {/* Filled semicircle — light blue */}
-          <path
-            d={`M ${cx - R} ${cy} A ${R} ${R} 0 0 1 ${cx + R} ${cy} Z`}
-            fill="#dce8f8"
-          />
-          {/* Arc border — navy blue */}
-          <path
-            d={`M ${cx - R} ${cy} A ${R} ${R} 0 0 1 ${cx + R} ${cy}`}
-            stroke="#2E3192"
-            strokeWidth="3"
+          {/* Filled circle — only top portion visible due to overflow:hidden on container */}
+          <circle cx={cx} cy={cy} r={R} fill="#dce8f8" />
+
+          {/* Arc stroke on top edge */}
+          <circle
+            cx={cx} cy={cy} r={R}
             fill="none"
+            stroke="#2E3192"
+            strokeWidth="2"
           />
 
-          {/* ── Number bubbles on arc ── */}
+          {/* ── Number bubbles on the arc ── */}
           {steps.map((step, i) => {
             const pos = getPos(i);
-            if (!pos.isVisible) return null;
-            const isActive = pos.isActive;
+            if (!pos.visible) return null;
+
+            const isActive = i === activeStep;
+            const dist     = Math.abs(pos.offset);
+            const opacity  = isActive ? 1 : Math.max(0.28, 1 - dist * 0.3);
+            const boxSize  = isActive ? 72 : Math.max(44, 64 - dist * 10);
+            const fontSize = isActive ? 32 : Math.max(16, 26 - dist * 4);
+            const rx       = 14;
+
             return (
               <g
                 key={step.number}
-                onClick={() => setActiveStep(i)}
-                style={{ cursor: "pointer", transition: "all 0.4s ease" }}
+                onClick={() => {
+                  clearInterval(intervalRef.current);
+                  intervalRef.current = null;
+                  changeStep(i);
+                }}
+                style={{ cursor: "pointer", opacity, transition: "all 0.5s ease" }}
               >
-                {/* Bubble */}
+                {/* Drop shadow filter */}
+                <defs>
+                  <filter id={`shadow-${i}`} x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#2E3192" floodOpacity="0.12" />
+                  </filter>
+                </defs>
                 <rect
-                  x={pos.x - (isActive ? 28 : 22)}
-                  y={pos.y - (isActive ? 28 : 22)}
-                  width={isActive ? 56 : 44}
-                  height={isActive ? 56 : 44}
-                  rx={isActive ? 16 : 12}
+                  x={pos.x - boxSize / 2}
+                  y={pos.y - boxSize / 2}
+                  width={boxSize}
+                  height={boxSize}
+                  rx={rx}
                   fill={isActive ? "#dce8f8" : "#eef3fb"}
                   stroke={isActive ? "#2E3192" : "#c8d4f8"}
                   strokeWidth={isActive ? 2 : 1.5}
+                  filter={`url(#shadow-${i})`}
                 />
-                {/* Number */}
                 <text
                   x={pos.x}
-                  y={pos.y + (isActive ? 8 : 6)}
+                  y={pos.y + fontSize * 0.38}
                   textAnchor="middle"
-                  fontSize={isActive ? "26" : "18"}
+                  fontSize={fontSize}
                   fontWeight="800"
                   fill={isActive ? "#2E3192" : "#8a9ac8"}
                   fontFamily="Nunito, system-ui, sans-serif"
@@ -210,42 +237,10 @@ export default function CoreCompetence() {
           })}
         </svg>
 
-        {/* ── Content inside the arc ── */}
-        <div className={`cc__arc-content${fading ? " cc__arc-content--fading" : ""}`}>
+        {/* ── Text content — centered inside the arc ── */}
+        <div className={`cc__content${fading ? " cc__content--fading" : ""}`}>
           <h3 className="cc__card-title">{active.title}</h3>
           <p  className="cc__card-desc">{active.description}</p>
-        </div>
-      </div>
-
-      {/* ── Mobile: dots + card ── */}
-      <div className="cc__mobile container">
-        <div className="cc__mobile-dots">
-          {steps.map((_, i) => (
-            <button
-              key={i}
-              className={`cc__mobile-dot${i === activeStep ? " cc__mobile-dot--active" : ""}`}
-              onClick={() => setActiveStep(i)}
-              aria-label={`Step ${i + 1}`}
-            />
-          ))}
-        </div>
-        <div className="cc__mobile-card-wrap">
-          {steps.map((step, i) => (
-            <div
-              key={step.number}
-              className={`cc__mobile-card${i === activeStep ? " cc__mobile-card--visible" : ""}${fading && i === activeStep ? " cc__mobile-card--fading" : ""}`}
-              aria-hidden={i !== activeStep}
-            >
-              <div className="cc__mobile-num">{step.number}</div>
-              <h3 className="cc__card-title">{step.title}</h3>
-              <p  className="cc__card-desc">{step.description}</p>
-            </div>
-          ))}
-        </div>
-        <div className="cc__mobile-nav">
-          <button className="cc__mobile-btn" onClick={() => setActiveStep(s => Math.max(0, s - 1))} disabled={activeStep === 0}>←</button>
-          <span className="cc__mobile-counter">{activeStep + 1} / {n}</span>
-          <button className="cc__mobile-btn" onClick={() => setActiveStep(s => Math.min(n - 1, s + 1))} disabled={activeStep === n - 1}>→</button>
         </div>
       </div>
 

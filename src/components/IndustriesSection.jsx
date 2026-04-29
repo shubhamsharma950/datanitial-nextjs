@@ -148,7 +148,7 @@ export default function IndustriesSection() {
         {/* ── Badge ── */}
         <div className="badge-sec">
           <StarIcon />
-          <span>Industries</span>
+          <span>INDUSTRIES</span>
         </div>
 
         {/* ── Section header ── */}

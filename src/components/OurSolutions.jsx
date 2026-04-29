@@ -159,7 +159,9 @@ export default function OurSolutions() {
                 className="sol__item-body"
                 aria-hidden={openIndex !== i}
               >
-                <p className="sol__item-answer">{item.answer}</p>
+                <div className="sol__item-body-inner">
+                  <p className="sol__item-answer">{item.answer}</p>
+                </div>
               </div>
             </div>
           ))}
