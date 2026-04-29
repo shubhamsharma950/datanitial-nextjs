@@ -12,8 +12,8 @@
 /* ── Two-column layout ── */
 .gtku__layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 80px;
+  grid-template-columns: 520px 1fr;
+  gap: 90px;
   align-items: start;
 }
 
@@ -26,6 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-width: 350px;
 }
 
 /* ── Badge — uses global .badge-sec from index.css ── */
@@ -138,6 +139,7 @@
   overflow: hidden;
   aspect-ratio: 16 / 8;
   background: #1a2a5e;
+  height: 350px;
 }
 
 .gtku-card__img {
