@@ -140,9 +140,9 @@ export default function CoreCompetence() {
 
   return (
     <section className="cc" ref={sectionRef} aria-label={title}>
-      <div className="cc__header-wrap container">
-        <div className="cc__badge-wrap">
-          <div className="cc__badge"><StarIcon /><span>CORE COMPETENCE</span></div>
+        <div className="cc__header-wrap container">
+        <div className="badge-sec">
+          <StarIcon /><span>CORE COMPETENCE</span>
         </div>
         <div className="cc__header">
           <h2 className="cc__title">{title}</h2>

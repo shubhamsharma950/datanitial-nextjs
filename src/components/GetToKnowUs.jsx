@@ -128,7 +128,7 @@ export default function GetToKnowUs() {
 
           {/* ── LEFT — sticky badge + title + desc ── */}
           <div className="gtku__left">
-            <div className="gtku__badge">
+            <div className="badge-sec">
               <StarIcon />
               <span>GET TO KNOW US</span>
             </div>

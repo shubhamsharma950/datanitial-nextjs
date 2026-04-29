@@ -146,8 +146,7 @@ export default function IndustriesSection() {
       <div className="container">
 
         {/* ── Badge ── */}
-        <div className="ind__badge-wrap">
-          <div className="ind__badge">
+        <div className="badge-sec">
             <StarIcon />
             <span>Industries</span>
           </div>
@@ -231,3 +230,4 @@ export default function IndustriesSection() {
     </section>
   );
 }
+

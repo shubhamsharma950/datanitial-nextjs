@@ -9,63 +9,41 @@
    DESIGN TOKENS
 ═══════════════════════════════════════════════ */
 :root {
-  /* Brand colours */
-  --primary:        #2b2d8e;   /* deep navy-blue (hero heading) */
+  --primary:        #2b2d8e;
   --primary-light:  #3d40b5;
-  --accent:         #4a4fcf;   /* purple-blue accent */
+  --accent:         #4a4fcf;
   --accent-hover:   #3a3fbf;
-  --highlight:      #4a90d9;   /* "High-Impact" blue text */
-
-  /* Text */
-  --text:           #4a4a6a;   /* body copy */
-  --text-dark:      #1a1a2e;   /* headings */
+  --highlight:      #4a90d9;
+  --text:           #4a4a6a;
+  --text-dark:      #1a1a2e;
   --text-muted:     #7a7a9a;
-
-  /* Backgrounds */
   --bg:             #ffffff;
-  --bg-soft:        #f0f4ff;   /* light blue-grey sections */
-  --bg-hero:        #e8edf8;   /* hero section tint */
+  --bg-soft:        #f0f4ff;
+  --bg-hero:        #e8edf8;
   --bg-card:        #ffffff;
-
-  /* Borders & shadows */
   --border:         #e2e6f0;
   --shadow-sm:      0 2px 8px rgba(43, 45, 142, 0.08);
   --shadow-md:      0 8px 32px rgba(43, 45, 142, 0.12);
   --shadow-lg:      0 16px 48px rgba(43, 45, 142, 0.16);
-
-  /* Typography */
   --font:           'Nunito', system-ui, sans-serif;
-
-  /* Spacing scale */
   --space-xs:       4px;
   --space-sm:       8px;
   --space-md:       16px;
   --space-lg:       32px;
   --space-xl:       64px;
-
-  /* Border radius */
   --radius-sm:      8px;
   --radius-md:      16px;
   --radius-lg:      24px;
   --radius-full:    9999px;
-
-  /* Transitions */
   --ease:           0.22s ease;
 }
 
 /* ═══════════════════════════════════════════════
    RESET & BASE
 ═══════════════════════════════════════════════ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font);
@@ -78,86 +56,51 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-#root {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-}
+#root { min-height: 100svh; display: flex; flex-direction: column; }
 
-/* ── Headings ── */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font);
-  color: var(--text-dark);
-  line-height: 1.2;
-  font-weight: 700;
-}
-
+h1, h2, h3, h4, h5, h6 { font-family: var(--font); color: var(--text-dark); line-height: 1.2; font-weight: 700; }
 h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; }
 h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 700; }
 h3 { font-size: clamp(18px, 2vw, 24px); font-weight: 600; }
 
 p { line-height: 1.75; }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
 ul { list-style: none; }
 
-
-/* ── Badge ── */
-.ind__badge-wrap {
+/* ═══════════════════════════════════════════════
+   GLOBAL BADGE — used by ALL sections
+   Usage: <div class="badge-sec"><StarIcon /><span>LABEL</span></div>
+═══════════════════════════════════════════════ */
+.badge-sec {
   display: flex;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-.ind__badge {
-  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #e0e4f0;
   border-radius: 999px;
   padding: 6px 18px 6px 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   color: #2E3192;
   text-transform: uppercase;
+  width: fit-content;
+  margin: 0 auto 24px;
+  box-shadow: 0 2px 8px rgba(43, 45, 142, 0.08);
 }
 
-.ind-badge__icon {
+.badge-sec svg,
+.badge-sec__icon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
 
-/* ── Badge ── */
-.badge-sec {
-    letter-spacing: 1.2px;
-    color: #111111;
-    text-transform: uppercase;
-    background: #D9D9D9;
-    border: 1px solid #D9D9D9;
-    border-radius: 999px;
-    align-items: center;
-    gap: 8px;
-    margin: 0px auto 20px;
-    padding: 6px 16px 6px 8px;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    max-width: 180px;
-}
-
-/* ── Utility ── */
+/* ═══════════════════════════════════════════════
+   CONTAINER
+═══════════════════════════════════════════════ */
 .container {
   width: 100%;
   max-width: 1340px;
@@ -165,29 +108,15 @@ ul { list-style: none; }
   padding: 0 20px;
 }
 
-/* WordPress page content container */
-/* .wp-page .container,
-.wp-page__content */
-/* .wp-page  */
-.container
- {
-  width: 100%;
-  max-width: 1340px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 @media (max-width: 768px) {
-  .container { padding: 0 20px; }
+  .container { padding: 0 16px; }
 }
 
-.section {
-  padding: var(--space-xl) 0;
-}
-
-.section--soft {
-  background: var(--bg-soft);
-}
+/* ═══════════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════════ */
+.section        { padding: var(--space-xl) 0; }
+.section--soft  { background: var(--bg-soft); }
 
 /* ── Shimmer skeleton ── */
 .skeleton {

@@ -35,9 +35,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a1a2e;
+  font-size: 50px;
+  font-weight: 700;
+  color: #000000;
   margin: 0 0 18px;
 
   opacity: 0;
@@ -55,8 +55,8 @@
 .hero__heading {
   display: flex;
   flex-direction: column;
-  font-size: clamp(44px, 6.5vw, 76px);
-  font-weight: 800;
+  font-size: clamp(44px, 7.5vw, 104px);
+  font-weight: 700;
   color: #2b2d8e;
   line-height: 1.0;
   letter-spacing: -1px;
@@ -73,9 +73,9 @@
 
 /* Sub-heading */
 .hero__sub {
-  font-size: 15.5px;
+  font-size: 28px;
   font-weight: 400;
-  color: #5a5a7a;
+  color: #707070;
   line-height: 1.75;
   max-width: 440px;
   margin: 0;

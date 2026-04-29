@@ -7,29 +7,8 @@
   width: 100%;
 }
 
-/* ── Badge ── */
-/* .badge-sec {
-    letter-spacing: 1.2px;
-    color: #111111;
-    text-transform: uppercase;
-    background: #D9D9D9;
-    border: 1px solid #D9D9D9;
-    border-radius: 999px;
-    align-items: center;
-    gap: 8px;
-    margin: 0px auto 20px;
-    padding: 6px 16px 6px 8px;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    max-width: 180px;
-} */
-
-.wcu-badge__icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
+/* ── Badge handled by global .badge-sec in index.css ── */
+.wcu-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
 
 /* ── Header ── */
 .wcu__header {
@@ -132,29 +111,28 @@
   box-shadow: 0 2px 16px rgba(43,45,142,0.06);
 }
 
-.wcu-card__img-wrap {
-  width: 100%;
-  /* height: 180px; */
-  /* overflow: hidden; */
-  /* flex-shrink: 0; */
-}
-
+/* ── Card 2 image — direct, no wrapper ── */
 .wcu-card__img {
-  margin: auto;
-  max-width: 500px;
   width: 100%;
-  height: 100%;
-  /* object-fit: cover; */
+  max-width: 100%;
+  height: 200px;
+  object-fit: cover;
   display: block;
+  border-radius: 12px 12px 0 0;
   transition: transform 0.5s ease;
 }
 
 .wcu-card--light:hover .wcu-card__img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 article.wcu-card.wcu-card--light.is-visible {
-    padding: 20px;
+  padding: 0;
+  overflow: hidden;
+}
+
+article.wcu-card.wcu-card--light.is-visible .wcu-card__content {
+  padding: 24px;
 }
 
 /* ── Card 3 — outline / bordered ── */

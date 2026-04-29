@@ -34,9 +34,7 @@ function Skeleton() {
   return (
     <section className="sol">
       <div className="container">
-        <div className="sol__badge-wrap">
-          <div className="skeleton" style={{ width: 130, height: 30, borderRadius: 999 }} />
-        </div>
+        <div className="badge-sec skeleton" style={{ width: 130, height: 30, borderRadius: 999 }} />
         <div className="skeleton" style={{ width: "55%", height: 44, margin: "0 auto 12px" }} />
         <div className="skeleton" style={{ width: "65%", height: 18, margin: "0 auto 56px" }} />
         {[1,2,3,4].map(i => (
@@ -124,11 +122,9 @@ export default function OurSolutions() {
       <div className="container">
 
         {/* ── Badge ── */}
-        <div className="sol__badge-wrap">
-          <div className="sol__badge">
-            <StarIcon />
-            <span>OUR SOLUTIONS</span>
-          </div>
+        <div className="badge-sec">
+          <StarIcon />
+          <span>OUR SOLUTIONS</span>
         </div>
 
         {/* ── Header ── */}

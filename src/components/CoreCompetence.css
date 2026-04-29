@@ -8,39 +8,8 @@
   overflow: hidden;
 }
 
-/* ── Header area ── */
-.cc__header-wrap {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.cc__badge-wrap {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.cc__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1px solid #e0e4f0;
-  border-radius: 999px;
-  padding: 6px 18px 6px 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #2E3192;
-  text-transform: uppercase;
-  box-shadow: 0 2px 8px rgba(43,45,142,0.08);
-}
-
-.cc-badge__icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
+/* ── Badge — uses global .badge-sec from index.css ── */
+.cc-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
 
 .cc__header { max-width: 640px; margin: 0 auto; }
 
@@ -65,8 +34,7 @@
 .cc__arc-outer {
   position: relative;
   width: 100%;
-  /* Height = roughly half the width so the semicircle fits */
-  padding-bottom: 52%;
+  padding-bottom: 71%;
   overflow: hidden;
 }
 
@@ -74,7 +42,7 @@
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: 83%;
 }
 
 /* ── Content inside the arc (centered) ── */
@@ -95,18 +63,24 @@
 .cc__arc-content--fading {
   opacity: 0;
 }
+.cc__arc-svg text {
+  font-size: 64px;
+  font-weight: 700;
+  fill: #2E2A8C;
+}
 
 .cc__card-title {
-  font-size: clamp(18px, 2.5vw, 26px);
-  font-weight: 700;
-  color: #1a1a2e;
+  font-size: clamp(18px, 2.5vw, 36px);
+  font-weight: 600;
+  color: #111111;
   margin: 0 0 12px;
   line-height: 1.3;
 }
 
 .cc__card-desc {
-  font-size: clamp(13px, 1.5vw, 15px);
-  color: #5a5a7a;
+  font-size: clamp(13px, 1.5vw, 28px);
+  font-weight: 400;
+  color: #707070;
   line-height: 1.75;
   margin: 0;
 }

@@ -144,18 +144,10 @@ export default function WhyChooseUs() {
     <section className="wcu" aria-label="Why Choose Us">
       <div className="container">
 
-        {/* ── Badge ── */}
-        {/* <div className="badge-sec">
+        {/* ── Badge — uses global .badge-sec from index.css ── */}
+        <div className="badge-sec">
           <StarIcon />
           <span>WHY CHOOSE US</span>
-        </div> */}
-
-         {/* ── Badge ── */}
-        <div className="ind__badge-wrap">
-          <div className="ind__badge">
-            <StarIcon />
-            <span>WHY CHOOSE US</span>
-          </div>
         </div>
 
         {/* ── Section header ── */}
@@ -192,9 +184,7 @@ export default function WhyChooseUs() {
           {/* Box 2 — white card, image + title + description (top-right) */}
           <article className="wcu-card wcu-card--light" ref={el => cardRefs.current[1] = el}>
             {box2.image && (
-              <div className="wcu-card__img-wrap">
-                <img src={box2.image} alt={box2.title} className="wcu-card__img" loading="lazy" />
-              </div>
+              <img src={box2.image} alt={box2.title} className="wcu-card__img" loading="lazy" />
             )}
             <div className="wcu-card__content">
               {box2.title && <h3 className="wcu-card__title wcu-card__title--dark">{box2.title}</h3>}
