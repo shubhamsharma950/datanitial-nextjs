@@ -13,7 +13,7 @@ const WP_BASE =
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
 const WP_PAGE_URL   = `${WP_BASE}/wp/v2/pages/63?_fields=id,title,content,acf`;
-const BLOCK_API_URL = `${WP_BASE}/datainitial/v1/data-services`;
+const BLOCK_API_URL = `${WP_BASE}/datainitial/v1/hero-section`;
 
 /* ═══════════════════════════════════════════════
    SKELETON — shown while fetching
@@ -74,7 +74,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Renders all Gutenberg blocks exactly as WordPress outputs them */}
-      <div className="container">
+      <div className="main-container">
         <div
           className="wp-page__content wp-block-content"
           dangerouslySetInnerHTML={{ __html: html }}
