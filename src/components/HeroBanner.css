@@ -443,7 +443,10 @@
   .dn-main-heading {
     font-size: 2rem;
   }
-  .dn-eyebrow{font-size: 1rem;}
+  .dn-eyebrow {
+    font-size: 14px;
+    font-weight: 600;
+}
 
   .dn-favicon-img {
     width: 52px;

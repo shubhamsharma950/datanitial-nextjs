@@ -24,7 +24,7 @@
 .sol__desc {
   font-size: 24px;
   color: #707070;
-  max-width: 560px;
+  max-width: 950px;
   margin: 0 auto;
   line-height: 1.75;
 }
@@ -66,8 +66,8 @@
 }
 
 .sol__item-title {
-  font-size: 54px;
-  font-weight: 800;
+  font-size: 52px;
+  font-weight: 700;
   color: var(--text-dark);
   letter-spacing: 1.5px;
   line-height: 1.2;
