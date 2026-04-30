@@ -9,16 +9,16 @@
 }
 
 .cc__title {
-  font-size: clamp(28px, 3.8vw, 52px);
-  font-weight: 700;
+  font-size: 48px;
+  font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .cc__desc {
-  font-size: 16px;
-  color: var(--text);
+  font-size: 24px;
+  color: #707070;
   line-height: 1.75;
   max-width: 680px;
   margin: 0 auto;
@@ -187,4 +187,17 @@
   .arc-content__text {
     font-size: 16px;
   }
+}
+
+@media (max-width: 1024px) {
+  .cc__title { font-size: 38px; }
+  .cc__desc  { font-size: 20px; }
+}
+@media (max-width: 768px) {
+  .cc__title { font-size: 30px; }
+  .cc__desc  { font-size: 17px; }
+}
+@media (max-width: 480px) {
+  .cc__title { font-size: 24px; }
+  .cc__desc  { font-size: 15px; }
 }

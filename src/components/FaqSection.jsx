@@ -11,7 +11,7 @@ const FAQ_URL = `${WP_BASE}/theme/v1/faqs`;
 const FALLBACK = {
   title:    "FAQS",
   subtitle: "Find quick answers about our web and mobile data extraction services.",
-  dis:      "Need More Help?",
+  dis:      "We're here to answer any question you may have.",
   items: [
     { question: "What is web data extraction?",            answer: "Web data extraction is the process of automatically collecting data from websites to analyze pricing, trends, and more." },
     { question: "Which platforms can you scrape data from?", answer: "We can scrape data from e-commerce sites, social media platforms, job boards, real estate portals, and many more." },
@@ -24,16 +24,7 @@ const FALLBACK = {
 };
 
 /* ── Star badge icon ── */
-const StarIcon = ({ className = "faq-badge__icon" }) => (
-  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className={className}>
-    <circle cx="10" cy="10" r="10" fill="#2E3192" />
-    <g stroke="#fff" strokeWidth="1.8" strokeLinecap="round">
-      <line x1="10" y1="5.2" x2="10" y2="14.8" />
-      <line x1="6.8" y1="7"  x2="13.2" y2="13" />
-      <line x1="13.2" y1="7" x2="6.8"  y2="13" />
-    </g>
-  </svg>
-);
+// SVG replaced by CSS background-image on .faq-badge__icon
 
 /* ── Toggle icon images ── */
 const ICON_OPEN  = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button.png";
@@ -111,7 +102,7 @@ function GetStartedBanner() {
       <div className="gs-banner__content">
         {/* Badge */}
         <div className="gs-badge">
-          <StarIcon className="gs-badge__icon" />
+          <span className="gs-badge__icon" aria-hidden="true" />
           <span className="gs-badge__label">GET STARTED</span>
         </div>
 
@@ -169,21 +160,22 @@ export default function FaqSection() {
             {/* ── LEFT: badge + heading + help card ── */}
             <div className="faq-section__left">
               <div className="faq-badge">
-                <StarIcon />
-                <span className="faq-badge__label">{title || "FAQS"}</span>
+                <span className="faq-badge__icon" aria-hidden="true" />
+                <span className="faq-badge__label">{"FAQS"}</span>
               </div>
 
               <h2 className="faq-section__heading">
-                {subtitle || FALLBACK.subtitle}
+                {/* {subtitle || FALLBACK.subtitle} */}
+                {title}
               </h2>
 
               {/* Need More Help card */}
               <div className="faq-help-card" aria-label="Need More Help?">
                 <div className="faq-help-card__overlay" />
                 <div className="faq-help-card__content">
-                  <p className="faq-help-card__title">{dis || "Need More Help?"}</p>
+                  <p className="faq-help-card__title">{subtitle}</p>
                   <p className="faq-help-card__sub">
-                    We&apos;re here to answer any question you may have.
+                   {dis}
                   </p>
                 </div>
               </div>
