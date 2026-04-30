@@ -7,6 +7,9 @@ import IndustriesSection from "../components/IndustriesSection";
 import OurSolutions     from "../components/OurSolutions";
 import CoreCompetence   from "../components/CoreCompetence";
 import GetToKnowUs     from "../components/GetToKnowUs";
+import HeroBanner from "../components/HeroBanner";
+import TestimonialSection from "../components/Testimonials";
+// import Core from "../components/core";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -71,7 +74,8 @@ export default function HomePage() {
   return (
     <main className="wp-page">
       {/* ── Hero Section ── */}
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <HeroBanner />
 
       {/* Renders all Gutenberg blocks exactly as WordPress outputs them */}
       <div className="main-container">
@@ -92,6 +96,8 @@ export default function HomePage() {
         <CoreCompetence />
         {/* ── Get To Know Us: sticky left + scrolling cards ── */}
         <GetToKnowUs />
+        {/* ── Testimonials: infinite scroll slider TestimonialSection ── */}
+        <TestimonialSection />
       </div>
     </main>
   );

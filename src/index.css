@@ -9,32 +9,48 @@
    DESIGN TOKENS
 ═══════════════════════════════════════════════ */
 :root {
-  --primary:        #2b2d8e;
-  --primary-light:  #3d40b5;
-  --accent:         #4a4fcf;
-  --accent-hover:   #3a3fbf;
-  --highlight:      #4a90d9;
-  --text:           #4a4a6a;
-  --text-dark:      #1a1a2e;
-  --text-muted:     #7a7a9a;
+  /* ── Brand palette ── */
+  --primary:        #2E2A8C;   /* Primary */
+  --secondary:      #3A4FB7;   /* Secondary / links / accents */
+  --accent:         #4E7CCF;   /* Accent (buttons, highlights) */
+
+  /* ── Text ── */
+  --text:           #707070;   /* Secondary Text — body copy */
+  --text-dark:      #111111;   /* Dark Text — headings */
+  --text-light:     #ffffff;   /* White text on dark bg */
+
+  /* ── Backgrounds ── */
   --bg:             #ffffff;
-  --bg-soft:        #f0f4ff;
-  --bg-hero:        #e8edf8;
+  --bg-soft:        #eef2fb;
+  --bg-hero:        #eef0f8;
   --bg-card:        #ffffff;
-  --border:         #e2e6f0;
-  --shadow-sm:      0 2px 8px rgba(43, 45, 142, 0.08);
-  --shadow-md:      0 8px 32px rgba(43, 45, 142, 0.12);
-  --shadow-lg:      0 16px 48px rgba(43, 45, 142, 0.16);
+  --bg-dark:        #111111;   /* Footer / dark sections */
+
+  /* ── Stroke / border ── */
+  --stroke:         #D9D9D9;   /* Light stroke */
+  --border:         #D9D9D9;
+
+  /* ── Shadows (use secondary as tint) ── */
+  --shadow-sm:      0 2px 8px  rgba(46, 42, 140, 0.08);
+  --shadow-md:      0 8px 32px rgba(46, 42, 140, 0.12);
+  --shadow-lg:      0 16px 48px rgba(46, 42, 140, 0.16);
+
+  /* ── Typography ── */
   --font:           'Nunito', system-ui, sans-serif;
+
+  /* ── Spacing ── */
   --space-xs:       4px;
   --space-sm:       8px;
   --space-md:       16px;
   --space-lg:       32px;
   --space-xl:       64px;
+
+  /* ── Radii ── */
   --radius-sm:      8px;
   --radius-md:      16px;
   --radius-lg:      24px;
   --radius-full:    9999px;
+
   --ease:           0.22s ease;
 }
 
@@ -77,18 +93,18 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e0e4f0;
-  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-full);
   padding: 6px 18px 6px 8px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #2E3192;
+  color: var(--primary);
   text-transform: uppercase;
   width: fit-content;
   margin: 0 auto 24px;
-  box-shadow: 0 2px 8px rgba(43, 45, 142, 0.08);
+  box-shadow: var(--shadow-sm);
 }
 
 .badge-sec svg,

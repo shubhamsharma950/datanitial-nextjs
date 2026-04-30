@@ -2,24 +2,21 @@
    OUR SOLUTIONS — Accordion
 ═══════════════════════════════════════════════ */
 .sol {
-  background: linear-gradient(180deg, #eef2fb 0%, #ffffff 100%);
+  background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
   padding: 80px 0;
   width: 100%;
+    background-image: url('https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47f.png');
+    background-size: 32%;
+    background-repeat: no-repeat;
 }
 
-/* ── Badge — uses global .badge-sec from index.css ── */
 .sol-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
 
-/* ── Header ── */
-.sol__header {
-  text-align: center;
-  margin-bottom: 56px;
-}
-
+.sol__header { text-align: center; margin-bottom: 56px; }
 .sol__title {
   font-size: clamp(28px, 3.8vw, 48px);
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-dark);
   margin: 0 0 16px;
   line-height: 1.15;
   letter-spacing: -0.5px;
@@ -27,38 +24,33 @@
 
 .sol__desc {
   font-size: 15px;
-  color: #8a8aaa;
+  color: var(--text);
   max-width: 560px;
   margin: 0 auto;
   line-height: 1.75;
 }
 
-/* ═══════════════════════════════════════════════
-   ACCORDION LIST
-═══════════════════════════════════════════════ */
+/* ── Accordion list ── */
 .sol__list {
-  max-width: 920px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+    background-image: url('https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47f.png');
+    background-size: 58%;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
-/* ── Single item ── */
 .sol__item {
-  border-bottom: 1px solid #dde3f0;
-
-  /* Scroll reveal */
+  border-bottom: 1px solid var(--stroke);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s ease var(--delay, 0s), transform 0.5s ease var(--delay, 0s);
 }
 
-.sol--visible .sol__item {
-  opacity: 1;
-  transform: translateY(0);
-}
+.sol--visible .sol__item { opacity: 1; transform: translateY(0); }
 
-/* ── Header row (always visible) ── */
 .sol__item-header {
   width: 100%;
   display: flex;
@@ -75,102 +67,66 @@
 }
 
 .sol__item-title {
-  font-size: clamp(20px, 2.2vw, 28px);
+  font-size: 54px;
   font-weight: 800;
-  color: #1a1a2e;
+  color: var(--text-dark);
   letter-spacing: 1.5px;
   line-height: 1.2;
   text-transform: uppercase;
   transition: color 0.2s;
 }
 
-.sol__item--open .sol__item-title {
-  color: #2E3192;
-}
+.sol__item--open .sol__item-title { color: var(--primary); }
 
-/* ── Plus/Minus icon ── */
 .sol__item__icon,
 .sol-item__icon {
-  width: 36px;
-  height: 36px;
+  width: 62px;
+  height: 62px;
   flex-shrink: 0;
-  color: #9a9ab0;
+  color: var(--stroke);
   transition: color 0.2s, transform 0.3s;
 }
 
 .sol__item--open .sol-item__icon {
-  color: #2E3192;
-  transform: rotate(45deg);
+  color: var(--primary);
+  transform: rotate(180deg);
 }
 
-/* Vertical line of + hides when open (becomes ×) */
-.sol-item__icon-v {
-  transition: opacity 0.2s;
-}
+.sol-item__icon-v { transition: opacity 0.2s; }
+.sol-item__icon-v--hide { opacity: 0; }
 
-.sol-item__icon-v--hide {
-  opacity: 0;
-}
-
-/* ── Expandable body — grid trick for smooth height animation ── */
+/* Smooth height animation */
 .sol__item-body {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
 }
 
-.sol__item--open .sol__item-body {
-  grid-template-rows: 1fr;
-}
+.sol__item--open .sol__item-body { grid-template-rows: 1fr; }
 
-/* Inner wrapper is required — overflow:hidden clips the collapsed content */
-.sol__item-body-inner {
-  overflow: hidden;
-  min-height: 0;
-}
+.sol__item-body-inner { overflow: hidden; min-height: 0; }
 
 .sol__item-answer {
-  font-size: 15px;
-  color: #5a5a7a;
+  font-size: 24px;
+  color: var(--text);
   line-height: 1.8;
   padding: 0 48px 24px 0;
   margin: 0;
 }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════ */
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .sol {
-    padding: 60px 0;
-  }
-
-  .sol__title {
-    font-size: clamp(24px, 5vw, 36px);
-  }
-
-  .sol__item-title {
-    font-size: 18px;
-    letter-spacing: 0.8px;
-  }
+  .sol { padding: 60px 0; }
+  .sol__title { font-size: clamp(24px, 5vw, 36px); }
+  .sol-item__icon { width: 28px; height: 28px; }
+  .sol__item-title { font-size: 25px; letter-spacing: 0.8px; }
+  .sol__item-answer{font-size: 16px;}
+  .sol__list {background-size: cover;}
+  .sol {background-size: cover;}
 }
 
 @media (max-width: 480px) {
-  .sol {
-    padding: 48px 0;
-  }
-
-  .sol__item-title {
-    font-size: 15px;
-    letter-spacing: 0.5px;
-  }
-
-  .sol-item__icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .sol__item-answer {
-    padding-right: 0;
-  }
+  .sol { padding: 48px 0; }
+  .sol__item-title { font-size: 18px; letter-spacing: 0.5px; }
+  .sol__item-answer { padding-right: 0; }
 }

@@ -1,0 +1,461 @@
+/* ════════════════════════════════════════
+   STAGE (full viewport)
+════════════════════════════════════════ */
+.dn-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════
+   CARD
+════════════════════════════════════════ */
+.dn-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-image: url('https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/bgimg.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #e8ecf5;
+  overflow: hidden;
+  transition:
+    border-radius 1.4s cubic-bezier(0.76, 0, 0.24, 1),
+    left          1.3s cubic-bezier(0.76, 0, 0.24, 1),
+    width         1.3s cubic-bezier(0.76, 0, 0.24, 1),
+    top           1.3s cubic-bezier(0.76, 0, 0.24, 1),
+    height        1.3s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: border-radius, left, width, top, height;
+}
+
+/* Phase 2 — rounded card */
+.dn-card.dn-phase2 {
+  border-radius: 80px;
+  top: 28px;
+  left: 28px;
+  width: calc(100% - 56px);
+  height: calc(100% - 56px);
+}
+
+/* Phase 4 — desktop: card slides to right half */
+.dn-card.dn-phase4 {
+  border-radius: 100px 0 0 100px;
+  top: 30px;
+  left: 38%;
+  width: 62%;
+  height: 85%;
+}
+
+.dn-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(235, 240, 255, 0.06) 60%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════
+   WAVE SVG
+════════════════════════════════════════ */
+.dn-wave-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* ════════════════════════════════════════
+   FAVICON — Phase 2
+════════════════════════════════════════ */
+.dn-favicon-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%) translateY(80px) scale(0.4);
+  opacity: 0;
+  filter: blur(14px);
+  transition:
+    opacity   0.85s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter    0.85s ease;
+  z-index: 5;
+}
+
+.dn-favicon-wrap.dn-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.dn-favicon-wrap.dn-exit {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-20px) scale(0.85);
+  filter: blur(8px);
+  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+}
+
+.dn-favicon-img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 10px 40px rgba(50, 70, 200, 0.30));
+}
+
+.dn-favicon-wrap.dn-float .dn-favicon-img {
+  animation: dnFloatIcon 3s ease-in-out infinite alternate;
+}
+
+@keyframes dnFloatIcon {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+
+/* ════════════════════════════════════════
+   FULL LOGO — Phase 3
+════════════════════════════════════════ */
+.dn-logo-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.82);
+  opacity: 0;
+  filter: blur(12px);
+  transition:
+    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter    0.9s ease;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.dn-logo-wrap.dn-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  filter: blur(0);
+}
+
+.dn-logo-wrap.dn-exit {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  filter: blur(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+}
+
+.dn-logo-img {
+  width: 340px;
+  max-width: 60vw;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 24px rgba(50, 70, 200, 0.18));
+}
+
+/* ════════════════════════════════════════
+   CTA BLOCK — Phase 4
+════════════════════════════════════════ */
+.dn-cta-block {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 50px 0 0 0;
+  padding: 28px 36px;
+}
+
+.dn-cta-block.dn-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dn-cta-line {
+  /* font-size: clamp(14px, 1.4vw, 22px); */
+  font-size: 36px;
+  font-weight: 700;
+  color: #1b2060;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.dn-cta-accent {
+  color: #2c42c8;
+}
+
+/* ════════════════════════════════════════
+   TEXT PANEL — Phase 4
+════════════════════════════════════════ */
+.dn-text-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 56px 64px 68px;
+  z-index: 20;
+  transform: translateX(-105%);
+  transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+}
+
+.dn-text-panel.dn-visible {
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+.dn-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 50px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.dn-text-panel.dn-visible .dn-eyebrow {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.28s;
+}
+
+.dn-asterisk {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.dn-asterisk img {
+  width: 40px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.dn-main-heading {
+  /* font-size: clamp(2.2rem, 4.8vw, 80px); */
+  font-size: 104px;
+  line-height: 120px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #2E2A8C;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.dn-text-panel.dn-visible .dn-main-heading {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.44s;
+}
+.top-ss-icon {
+    height: 50px;
+    width: 40px;
+}
+.dn-para {
+  /* font-size: clamp(13px, 1vw, 15px); */
+  font-size: 28px;
+  font-weight: 400;
+  color: #5a618a;
+  line-height: 1.74;
+  max-width: 750px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.dn-text-panel.dn-visible .dn-para {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.62s;
+}
+
+/* ════════════════════════════════════════
+   MOBILE — ≤ 768px
+   Static layout: text top, card bottom
+   No animation phases on mobile
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Stage becomes a normal flow column, not full-vh */
+  .dn-stage {
+    height: auto;
+    min-height: unset;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    overflow: visible;
+    padding: 0;
+  }
+
+  /* ── CARD: static block, bottom half, rounded top corners ── */
+  .dn-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 88% !important;
+    height: 52vw !important;
+    min-height: 260px;
+    max-height: 340px;
+    border-radius: 32px !important;
+    margin: 0 auto 0;
+    order: 2;
+    transition: none !important;
+  }
+
+  /* Override all phase classes on mobile — card stays static */
+  .dn-card.dn-phase2,
+  .dn-card.dn-phase4 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 88% !important;
+    height: 52vw !important;
+    min-height: 260px;
+    max-height: 340px;
+    border-radius: 32px !important;
+    transition: none !important;
+  }
+
+  /* ── TEXT PANEL: static, sits above card ── */
+  .dn-text-panel {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+    padding: 20px 20px 16px 20px;
+    order: 1;
+    justify-content: flex-start;
+    transition: none !important;
+  }
+
+  /* Force all text panel children visible immediately on mobile */
+  .dn-text-panel .dn-eyebrow,
+  .dn-text-panel .dn-main-heading,
+  .dn-text-panel .dn-para {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .dn-eyebrow {
+    font-size: 18px;
+    margin-bottom: 10px;
+    gap: 6px;
+  }
+
+  .dn-asterisk img {
+    width: 13px;
+    height: 13px;
+  }
+
+  .dn-main-heading {
+    /* font-size: clamp(1.75rem, 8vw, 2.6rem); */
+    font-size: 40px;
+    line-height: 1.1 !important;
+    margin-bottom: 10px;
+  }
+.top-ss-icon{width: 30px; height: 20px;}
+  .dn-para {
+    font-size: clamp(11px, 3vw, 13px);
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
+  /* ── FAVICON: centered in card, smaller ── */
+  .dn-favicon-wrap {
+    bottom: 20%;
+  }
+
+  .dn-favicon-img {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* ── LOGO: smaller ── */
+  .dn-logo-img {
+    width: 180px;
+    max-width: 50vw;
+  }
+
+  /* ── CTA block: bottom-right of card ── */
+  .dn-cta-block {
+    bottom: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    border-radius: 24px 0 0 0 !important;
+    padding: 14px 18px;
+    /* Always visible on mobile — no animation */
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .dn-cta-line {
+    font-size: clamp(12px, 3.5vw, 15px);
+  }
+}
+
+/* ════════════════════════════════════════
+   SMALL MOBILE — ≤ 480px
+════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .dn-card,
+  .dn-card.dn-phase2,
+  .dn-card.dn-phase4 {
+    width: 92% !important;
+    height: 56vw !important;
+    min-height: 240px;
+    border-radius: 28px !important;
+  }
+
+  .dn-text-panel {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .dn-main-heading {
+    font-size: 2rem;
+  }
+  .dn-eyebrow{font-size: 1rem;}
+
+  .dn-favicon-img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .dn-logo-img {
+    width: 150px;
+  }
+
+  .dn-cta-block {
+    padding: 12px 14px;
+    border-radius: 20px 0 0 0 !important;
+  }
+}

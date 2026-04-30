@@ -6,6 +6,9 @@ const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
+/* Nav items that have sub-menus (show chevron) */
+const HAS_CHILDREN = ["Solutions", "Industries", "Resources"];
+
 export default function Header() {
   /* ── State ── */
   const [navItems,  setNavItems]  = useState([]);
@@ -20,37 +23,23 @@ export default function Header() {
 
   /* ── Fetch all header data from WordPress ── */
   useEffect(() => {
-    // Run both requests in parallel
     Promise.allSettled([
-
-      // 1. Site info → logo + get_quote CTA
-      fetch(`${WP_BASE}/theme/v1/site-info`)
-        .then((r) => r.json()),
-
-      // 2. Nav menu items
-      fetch(`${WP_BASE}/custom/v1/menu`)
-        .then((r) => r.json()),
-
+      fetch(`${WP_BASE}/theme/v1/site-info`).then((r) => r.json()),
+      fetch(`${WP_BASE}/custom/v1/menu`).then((r) => r.json()),
     ]).then(([siteRes, menuRes]) => {
-
-      // ── Logo & CTA ──
       if (siteRes.status === "fulfilled") {
         const d = siteRes.value;
         if (d?.logo_url)  setLogoUrl(d.logo_url);
         if (d?.logo_alt)  setLogoAlt(d.logo_alt);
         if (d?.site_name && !d?.logo_url) setLogoAlt(d.site_name);
-
-        // get_quote can be { label, url, target } (ACF Link) or a plain string
         const gq = d?.get_quote;
         if (gq && typeof gq === "object") {
-          if (gq.label)  setCtaLabel(gq.label);
-          if (gq.url)    setCtaUrl(gq.url);
+          if (gq.label) setCtaLabel(gq.label);
+          if (gq.url)   setCtaUrl(gq.url);
         } else if (typeof gq === "string" && gq) {
           setCtaLabel(gq);
         }
       }
-
-      // ── Nav items ──
       if (menuRes.status === "fulfilled" && Array.isArray(menuRes.value)) {
         const items = menuRes.value
           .sort((a, b) => (a.menu_order ?? 0) - (b.menu_order ?? 0))
@@ -62,7 +51,6 @@ export default function Header() {
           }));
         if (items.length) setNavItems(items);
       }
-
       setLoading(false);
     });
   }, []);
@@ -74,81 +62,95 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* ── Close mobile menu on outside click ── */
+  /* ── Lock body scroll when drawer is open ── */
   useEffect(() => {
-    if (!menuOpen) return;
-    const handler = (e) => {
-      if (e.target.closest(".hdr__burger")) return;
-      if (mobileRef.current && !mobileRef.current.contains(e.target)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   /* ── Render ── */
   return (
-    <header className={`hdr${scrolled ? " hdr--scrolled" : ""}`}>
-      <div className="hdr__inner">
+    <>
+      <header className={`hdr${scrolled ? " hdr--scrolled" : ""}`}>
+        <div className="hdr__inner">
 
-        {/* ── Logo — dynamic from WordPress ── */}
-        <a href="/" className="hdr__logo" aria-label={`${logoAlt} – go to homepage`}>
-          {loading ? (
-            <span className="hdr__logo-skeleton" aria-hidden="true" />
-          ) : logoUrl ? (
-            <img
-              src={logoUrl}
-              alt={logoAlt}
-              className="hdr__logo-img"
-              height={40}
-            />
-          ) : (
-            /* Fallback text logo if WP has no logo set */
-            <span className="hdr__logo-text">
-              {logoAlt}
-              <small>TRUSTED DATA COMPLAINT</small>
-            </span>
-          )}
-        </a>
+          {/* ── Logo ── */}
+          <a href="/" className="hdr__logo" aria-label={`${logoAlt} – go to homepage`}>
+            {loading ? (
+              <span className="hdr__logo-skeleton" aria-hidden="true" />
+            ) : (
+              <>
+                {/* Favicon icon — shown only on mobile */}
+                <img
+                  src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png"
+                  alt={logoAlt}
+                  className="hdr__logo-favicon"
+                />
+                {/* Full logo — shown on desktop */}
+                {logoUrl ? (
+                  <img
+                    src={logoUrl}
+                    alt={logoAlt}
+                    className="hdr__logo-img"
+                    height={40}
+                  />
+                ) : (
+                  <span className="hdr__logo-text">
+                    {logoAlt}
+                    <small>TRUSTED DATA COMPLAINT</small>
+                  </span>
+                )}
+              </>
+            )}
+          </a>
 
-        {/* ── Desktop nav — dynamic from WordPress ── */}
-        <nav className="hdr__nav" aria-label="Primary navigation">
-          {loading
-            ? Array.from({ length: 5 }).map((_, i) => (
-                <span key={i} className="hdr__nav-skeleton" aria-hidden="true" />
-              ))
-            : navItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={item.url}
-                  className="hdr__nav-link"
-                  target={item.target}
-                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                >
-                  {item.title}
-                </a>
-              ))}
-        </nav>
+          {/* ── Desktop nav ── */}
+          <nav className="hdr__nav" aria-label="Primary navigation">
+            {loading
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <span key={i} className="hdr__nav-skeleton" aria-hidden="true" />
+                ))
+              : navItems.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.url}
+                    className="hdr__nav-link"
+                    target={item.target}
+                    rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                  >
+                    {item.title}
+                  </a>
+                ))}
+          </nav>
 
-        {/* ── CTA button — dynamic from ACF "get_quote" field ── */}
-        <a href={ctaUrl} className="hdr__cta">
-          {ctaLabel}
-        </a>
+          {/* ── Desktop CTA ── */}
+          <a href={ctaUrl} className="hdr__cta">
+            {ctaLabel}
+          </a>
 
-        {/* ── Hamburger (mobile) ── */}
-        <button
-          className={`hdr__burger${menuOpen ? " is-open" : ""}`}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-nav"
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          <span /><span /><span />
-        </button>
-      </div>
+          {/* ── Hamburger (mobile) ── */}
+          <button
+            className={`hdr__burger${menuOpen ? " is-open" : ""}`}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+      </header>
 
-      {/* ── Mobile drawer ── */}
+      {/* ── Backdrop overlay ── */}
+      <div
+        className={`hdr__overlay${menuOpen ? " is-open" : ""}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
+      {/* ── Mobile drawer — slides in from right ── */}
       <nav
         id="mobile-nav"
         ref={mobileRef}
@@ -156,26 +158,49 @@ export default function Header() {
         aria-label="Mobile navigation"
         aria-hidden={menuOpen ? "false" : "true"}
       >
-        {navItems.map((item) => (
-          <a
-            key={item.id}
-            href={item.url}
-            className="hdr__mobile-link"
-            target={item.target}
-            rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-            onClick={() => setMenuOpen(false)}
-          >
-            {item.title}
-          </a>
-        ))}
-        <a
+        {/* Close (×) button */}
+        <button
+          className="hdr__mobile-close"
+          aria-label="Close menu"
+          onClick={closeMenu}
+        >
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        {/* Nav links */}
+        {navItems.map((item) => {
+          const hasChildren = HAS_CHILDREN.includes(item.title);
+          return (
+            <a
+              key={item.id}
+              href={item.url}
+              className="hdr__mobile-link"
+              target={item.target}
+              rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+              onClick={closeMenu}
+            >
+              {item.title}
+              {hasChildren && (
+                <svg className="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              )}
+            </a>
+          );
+        })}
+
+        {/* Mobile CTA */}
+        {/* <a
           href={ctaUrl}
           className="hdr__cta hdr__cta--mobile"
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
         >
           {ctaLabel}
-        </a>
+        </a> */}
       </nav>
-    </header>
+    </>
   );
 }

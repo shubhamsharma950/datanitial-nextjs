@@ -157,7 +157,8 @@ export default function IndustriesSection() {
           <p  className="ind__desc">{sectionDesc}</p>
         </div>
 
-        {/* ── Tab bar ── */}
+       <div className="tab-container">
+           {/* ── Tab bar ── */}
         <div className="ind__tabs" role="tablist" aria-label="Industry tabs">
           {displayTabs.map((tab, i) => (
             <button
@@ -225,6 +226,9 @@ export default function IndustriesSection() {
           </div>
 
         </div>
+        
+       </div>
+
       </div>
     </section>
   );

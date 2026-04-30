@@ -23,11 +23,16 @@ const StarIcon = () => (
 );
 
 const CheckIcon = () => (
-  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="wcu-check">
-    <circle cx="10" cy="10" r="10" />
-    <path fill="none" d="M6 10l3 3 5-5" stroke="#fff" strokeWidth="1.8"
-      strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
+ <svg viewBox="0 0 24 24" aria-hidden="true" className="wcu-check">
+  <path
+    d="M5 12.5l4.2 4.2L19 7"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
 );
 
 /* ── Skeleton ── */
