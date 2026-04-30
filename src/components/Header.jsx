@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 
 /* ── WordPress REST API base URL from env, falls back to production ── */
@@ -8,6 +9,34 @@ const WP_BASE =
 
 /* Nav items that have sub-menus (show chevron) */
 const HAS_CHILDREN = ["Solutions", "Industries", "Resources"];
+
+/**
+ * Map WordPress menu URLs → React Router internal paths.
+ * If the URL contains the site domain, strip it to a relative path.
+ * External URLs (different domain) stay as <a href>.
+ */
+const SITE_ORIGIN = "darkred-worm-224502.hostingersite.com";
+
+function resolveHref(url = "") {
+  try {
+    const u = new URL(url);
+    if (u.hostname === SITE_ORIGIN || u.hostname === "localhost") {
+      return u.pathname; // internal → relative path
+    }
+  } catch { /* relative URL already */ }
+  // Already relative
+  if (url.startsWith("/") || url.startsWith("#")) return url;
+  return url;
+}
+
+function isInternal(url = "") {
+  try {
+    const u = new URL(url);
+    return u.hostname === SITE_ORIGIN || u.hostname === "localhost";
+  } catch {
+    return url.startsWith("/") || url.startsWith("#");
+  }
+}
 
 export default function Header() {
   /* ── State ── */
@@ -68,6 +97,7 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  const location = useLocation();
   const closeMenu = () => setMenuOpen(false);
 
   /* ── Render ── */
@@ -77,7 +107,7 @@ export default function Header() {
         <div className="hdr__inner">
 
           {/* ── Logo ── */}
-          <a href="/" className="hdr__logo" aria-label={`${logoAlt} – go to homepage`}>
+          <Link to="/" className="hdr__logo" aria-label={`${logoAlt} – go to homepage`}>
             {loading ? (
               <span className="hdr__logo-skeleton" aria-hidden="true" />
             ) : (
@@ -104,7 +134,7 @@ export default function Header() {
                 )}
               </>
             )}
-          </a>
+          </Link>
 
           {/* ── Desktop nav ── */}
           <nav className="hdr__nav" aria-label="Primary navigation">
@@ -112,23 +142,38 @@ export default function Header() {
               ? Array.from({ length: 5 }).map((_, i) => (
                   <span key={i} className="hdr__nav-skeleton" aria-hidden="true" />
                 ))
-              : navItems.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.url}
-                    className="hdr__nav-link"
-                    target={item.target}
-                    rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                  >
-                    {item.title}
-                  </a>
-                ))}
+              : navItems.map((item) => {
+                  const href     = resolveHref(item.url);
+                  const internal = isInternal(item.url);
+                  const isActive = location.pathname === href;
+                  return internal ? (
+                    <Link
+                      key={item.id}
+                      to={href}
+                      className={`hdr__nav-link${isActive ? " hdr__nav-link--active" : ""}`}
+                    >
+                      {item.title}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.id}
+                      href={item.url}
+                      className="hdr__nav-link"
+                      target={item.target}
+                      rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                    >
+                      {item.title}
+                    </a>
+                  );
+                })}
           </nav>
 
           {/* ── Desktop CTA ── */}
-          <a href={ctaUrl} className="hdr__cta">
-            {ctaLabel}
-          </a>
+          {isInternal(ctaUrl) ? (
+            <Link to={resolveHref(ctaUrl)} className="hdr__cta">{ctaLabel}</Link>
+          ) : (
+            <a href={ctaUrl} className="hdr__cta">{ctaLabel}</a>
+          )}
 
           {/* ── Hamburger (mobile) ── */}
           <button
@@ -172,8 +217,32 @@ export default function Header() {
 
         {/* Nav links */}
         {navItems.map((item) => {
+          const href      = resolveHref(item.url);
+          const internal  = isInternal(item.url);
           const hasChildren = HAS_CHILDREN.includes(item.title);
-          return (
+          const isActive  = location.pathname === href;
+
+          const inner = (
+            <>
+              {item.title}
+              {hasChildren && (
+                <svg className="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              )}
+            </>
+          );
+
+          return internal ? (
+            <Link
+              key={item.id}
+              to={href}
+              className={`hdr__mobile-link${isActive ? " hdr__mobile-link--active" : ""}`}
+              onClick={closeMenu}
+            >
+              {inner}
+            </Link>
+          ) : (
             <a
               key={item.id}
               href={item.url}
@@ -182,12 +251,7 @@ export default function Header() {
               rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
               onClick={closeMenu}
             >
-              {item.title}
-              {hasChildren && (
-                <svg className="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              )}
+              {inner}
             </a>
           );
         })}

@@ -99,7 +99,7 @@ export default function HomePage() {
         <GetToKnowUs />
         {/* ── Testimonials: infinite scroll slider TestimonialSection ── */}
         <TestimonialSection />
-         {/* ── Faqs: infinite scroll slider TestimonialSection ── */}
+         {/* ── Faqs ── */}
         <FaqSection />
       </div>
     </main>
