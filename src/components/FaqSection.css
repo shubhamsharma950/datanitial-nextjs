@@ -18,7 +18,7 @@
 .faq-section__container {
   max-width: 1240px;
   margin: 0 auto;
-  /* padding: 0 24px; */
+  padding: 0 40px;
 }
 
 /* ── Two-column layout ── */
@@ -45,7 +45,7 @@
   background: #fff;
   border-radius: 999px;
   padding: 6px 16px 6px 8px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   box-shadow: 0 1px 4px rgba(0,0,0,.08);
 }
 
@@ -65,11 +65,11 @@
 
 /* ── Main heading ── */
 .faq-section__heading {
-  font-size: clamp(26px, 3.5vw, 34px);
-  font-weight: 600;
-  line-height: 1.25;
- color: var(--text-dark);
-  margin: 0 0 32px;
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 0 0 36px;
 }
 
 /* ── "Need More Help?" card ── */
@@ -77,23 +77,36 @@
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  min-height: 220px;
-  background:
-    linear-gradient(
-      160deg,
-      rgba(10, 20, 60, 0.72) 0%,
-      rgba(10, 20, 60, 0.45) 60%,
-      rgba(10, 20, 60, 0.15) 100%
-    ),
-    url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/image-59.png")
-      center / cover no-repeat;
+  min-height: 300px;
+  background-color: #1e2d4e;
+  background-image: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/image-59.png");
+  background-size: cover;
+  background-position: center right;
   display: flex;
   align-items: flex-end;
 }
 
+/* Dark gradient only on left half so person on right stays visible */
+.faq-help-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 20, 55, 0.82) 0%,
+    rgba(10, 20, 55, 0.55) 55%,
+    rgba(10, 20, 55, 0.05) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .faq-help-card__overlay {
-  padding: 28px 28px 32px;
+  position: relative;
+  z-index: 1;
+  padding: 32px 32px 36px;
   color: #fff;
+  max-width: 60%;
 }
 
 .faq-help-card__title {
@@ -252,7 +265,7 @@
   }
 
   .faq-help-card {
-    min-height: 180px;
+    min-height: 260px;
   }
 
   .faq-item__trigger {
@@ -275,7 +288,7 @@
   }
 
   .faq-help-card {
-    min-height: 215px;
+    min-height: 240px;
   }
 
   .faq-help-card__title {
