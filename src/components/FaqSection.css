@@ -1,0 +1,297 @@
+/* ═══════════════════════════════════════════════════════════
+   FAQ SECTION
+   Matches the provided design:
+   - Light blue (#e8f0fe / #dce8fb) background
+   - Left: badge + heading + "Need More Help?" image card
+   - Right: white accordion cards with chevron icons
+   - First item open by default (indigo toggle button)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Section wrapper ── */
+.faq-section {
+  background: #e8f0fb;
+  padding: 80px 0;
+  width: 100%;
+}
+
+/* ── Inner container ── */
+.faq-section__container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ── Two-column layout ── */
+.faq-section__layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ════════════════════════════════
+   LEFT COLUMN
+════════════════════════════════ */
+.faq-section__left {
+  position: sticky;
+  top: 100px;
+}
+
+/* ── Badge ── */
+.faq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 16px 6px 8px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.faq-badge__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.faq-badge__label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: #1a1a2e;
+  text-transform: uppercase;
+}
+
+/* ── Main heading ── */
+.faq-section__heading {
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 0 0 36px;
+}
+
+/* ── "Need More Help?" card ── */
+.faq-help-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 300px;
+  background-color: #1e2d4e;
+  background-image: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/image-59.png");
+  background-size: cover;
+  background-position: center right;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Dark gradient only on left half so person on right stays visible */
+.faq-help-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 20, 55, 0.82) 0%,
+    rgba(10, 20, 55, 0.55) 55%,
+    rgba(10, 20, 55, 0.05) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.faq-help-card__overlay {
+  position: relative;
+  z-index: 1;
+  padding: 32px 32px 36px;
+  color: #fff;
+  max-width: 60%;
+}
+
+.faq-help-card__title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.faq-help-card__sub {
+  font-size: 14px;
+  opacity: .85;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════
+   RIGHT COLUMN — accordion
+════════════════════════════════ */
+.faq-section__right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Single FAQ item ── */
+.faq-item {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  transition: box-shadow .2s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.1);
+}
+
+/* ── Trigger button ── */
+.faq-item__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background .15s ease;
+}
+
+.faq-item__trigger:focus-visible {
+  outline: 2px solid #2E3192;
+  outline-offset: -2px;
+  border-radius: 14px;
+}
+
+/* ── Question text ── */
+.faq-item__question {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0d1b3e;
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ── Chevron icon wrapper ── */
+.faq-item__icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-item__icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Answer body ── */
+.faq-item__body {
+  padding: 0 22px 20px;
+}
+
+.faq-item__body[hidden] {
+  display: none;
+}
+
+.faq-item__answer {
+  font-size: 16px;
+  color: #4a5568;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Open state: question text color ── */
+.faq-item--open .faq-item__question {
+  color: #2E3192;
+}
+
+/* ════════════════════════════════
+   SKELETON
+════════════════════════════════ */
+.skeleton {
+  background: linear-gradient(90deg, #e2e8f0 25%, #f0f4f8 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  display: block;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+
+/* Tablet: 768px – 1024px */
+@media (max-width: 1024px) {
+  .faq-section__layout {
+    grid-template-columns: 320px 1fr;
+    gap: 32px;
+  }
+
+  .faq-section__heading {
+    font-size: 28px;
+  }
+}
+
+/* Mobile: below 768px — stack vertically */
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 56px 0;
+  }
+
+  .faq-section__layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .faq-section__left {
+    position: static; /* remove sticky on mobile */
+  }
+
+  .faq-section__heading {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .faq-help-card {
+    min-height: 260px;
+  }
+
+  .faq-item__trigger {
+    padding: 16px 18px;
+  }
+
+  .faq-item__question {
+    font-size: 14px;
+  }
+}
+
+/* Small mobile: below 480px */
+@media (max-width: 480px) {
+  .faq-section__container {
+    padding: 0 16px;
+  }
+
+  .faq-section__heading {
+    font-size: 22px;
+  }
+
+  .faq-help-card {
+    min-height: 240px;
+  }
+
+  .faq-help-card__title {
+    font-size: 18px;
+  }
+}
