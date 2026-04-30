@@ -1,61 +1,24 @@
 /* ═══════════════════════════════════════════════
    WHO WE ARE — sticky scroll stacking
 ═══════════════════════════════════════════════ */
-
-/* ── Outer section — sets scroll height ── */
 .wwa {
   position: relative;
   height: calc(var(--card-count, 3) * 100vh + 20vh);
-  background: #e8f0fe;
+  background: var(--bg-soft);
 }
 
-/* ── Sticky container — stays in viewport ── */
-.wwa__sticky {
+.wwa__main {
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 48px 0 36px;
+  justify-content: flex-start;
+  padding: 40px 0 24px;
 }
 
-.wwa__sticky > .container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  padding: 0 24px;
-}
-
-/* ── Section header — centered like Figma ── */
-.wwa__header {
-  text-align: center;
-  margin-bottom: 32px;
-  flex-shrink: 0;
-}
-
-.wwa__title {
-  font-size: clamp(28px, 3.8vw, 52px);
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0 0 14px;
-  line-height: 1.15;
-}
-
-.wwa__desc {
-  font-size: clamp(14px, 1.2vw, 17px);
-  color: #5a5a7a;
-  max-width: 640px;
-  margin: 0 auto;
-  line-height: 1.75;
-}
-
-/* ═══════════════════════════════════════════════
-   CARD STACK
-═══════════════════════════════════════════════ */
-.wwa__stack {
-  position: relative;
+.wwa__sticky {
   flex: 1;
   min-height: 0;
   display: flex;
@@ -63,223 +26,267 @@
   justify-content: center;
 }
 
-/* ── Single card ── */
+.wwa__main > .container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wwa__header { text-align: center; margin-bottom: 16px; flex-shrink: 0; }
+
+.wwa__title {
+  font-size: clamp(28px, 3.8vw, 52px);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 14px;
+  line-height: 1.15;
+}
+
+.wwa__desc {
+  font-size: clamp(14px, 1.2vw, 17px);
+  color: var(--text);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ── Card stack ── */
+.wwa__stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .wwa-card {
   position: absolute;
   width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0;
   padding: 28px 40px 28px 28px;
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 24px;
-  box-shadow: 0 4px 32px rgba(43, 45, 142, 0.08);
-
   opacity: 0;
   transform: translateY(60px);
   transition: opacity 0.55s ease, transform 0.55s ease;
   z-index: calc(var(--card-index, 0) + 1);
 }
 
-.wwa-card--visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.wwa-card--visible:not(.wwa-card--active) {
-  transform: translateY(0) scale(0.975);
-  filter: brightness(0.96);
-}
-
-.wwa-card--active {
-  transform: translateY(0) scale(1);
-  filter: brightness(1);
-  box-shadow: 0 8px 40px rgba(43, 45, 142, 0.12);
-}
+.wwa-card--visible { opacity: 1; transform: translateY(0); }
+.wwa-card--visible:not(.wwa-card--active) { transform: translateY(0) scale(0.975); filter: brightness(0.96); }
+.wwa-card--active { transform: translateY(0) scale(1); filter: brightness(1); box-shadow: var(--shadow-lg); }
 
 /* ── Image wrap ── */
-.wwa-card__img-wrap {
+/* .wwa-card__img-wrap {
   flex: 0 0 46%;
   max-width: 46%;
   aspect-ratio: 4 / 3;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  background: #0d1b4b;
-}
+  background: var(--bg-dark);
+} */
 
 .wwa-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   transition: transform 0.6s ease;
 }
 
-.wwa-card--active .wwa-card__img {
-  transform: scale(1.04);
-}
+.wwa-card--active .wwa-card__img { transform: scale(1.04); }
 
 .wwa-card__img-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #0d1b4b 0%, #1e4db7 100%);
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.wwa-card__img-placeholder svg {
-  width: 100%;
-  height: 100%;
-}
+.wwa-card__img-placeholder svg { width: 100%; height: 100%; }
 
 /* ── Card body ── */
-.wwa-card__body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 8px 0 8px 48px;
-}
+.wwa-card__body { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 8px 0 8px 48px; }
 
-/* ── Typography ── */
 .wwa-card__title {
-  font-size: clamp(18px, 1.8vw, 26px);
+  /* font-size: clamp(18px, 1.8vw, 26px); */
+  font-size: 36px;
   font-weight: 700;
-  color: #0f0f1a;
+  color: var(--text-dark);
   margin: 0;
   line-height: 1.25;
 }
 
 .wwa-card__desc {
-  font-size: clamp(13px, 1vw, 15px);
-  color: #5a5a7a;
+  /* font-size: clamp(13px, 1vw, 15px); */
+  font-size: 20px;
+  color: var(--text);
   margin: 0;
   line-height: 1.75;
-  max-width: 360px;
+  max-width: 430px;
 }
 
-/* ── Bullets ── */
-.wwa-card__bullets {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.wwa-card__bullets { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-direction: column; gap: 12px; }
 
 .wwa-card__bullet {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: clamp(13px, 1vw, 15px);
+  /* font-size: clamp(13px, 1vw, 15px); */
+  font-size: 24px;
   font-weight: 500;
-  color: #2a2a3a;
+  color: var(--text-dark);
 }
 
-.wwa-card__check {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  color: #4a4fcf;
-}
+.wwa-card__check { width: 20px; height: 20px; flex-shrink: 0; color: var(--secondary); }
 
 /* ── Skeleton ── */
-.wwa-card--skeleton {
-  position: static;
-  opacity: 1;
-  transform: none;
-  pointer-events: none;
-  margin-bottom: 24px;
-}
+.wwa-card--skeleton { position: static; opacity: 1; transform: none; pointer-events: none; margin-bottom: 24px; }
 
-.wwa-card--skeleton .wwa-card__img-wrap {
+/* .wwa-card--skeleton .wwa-card__img-wrap {
   background: linear-gradient(90deg, #ececec 25%, #ddd 50%, #ececec 75%);
   background-size: 300% 100%;
   animation: wwa-shimmer 1.4s infinite linear;
-}
+} */
 
 @keyframes wwa-shimmer {
   0%   { background-position: 100% 0; }
   100% { background-position: -100% 0; }
 }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE — tablet / mobile
-═══════════════════════════════════════════════ */
+/* ── Responsive: tablet & mobile (≤900px) ── */
 @media (max-width: 900px) {
   .wwa {
-    height: auto;
+    /* enough scroll room for the JS to cycle through all cards */
+    height: calc(var(--card-count, 3) * 100vh + 20vh);
   }
 
-  .wwa__sticky {
-    position: static;
+  /* sticky wrapper — no height/overflow constraint so cards never clip */
+  .wwa__main {
     height: auto;
-    padding: 56px 0 48px;
     overflow: visible;
+    padding: 28px 0 24px;
   }
 
-  .wwa__sticky > .container {
+  .wwa__main > .container {
     height: auto;
+    padding: 0 16px;
   }
 
+  /* sticky area just flows naturally */
+  .wwa__sticky {
+    flex: none;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  /* stack: vertical flow, no absolute positioning */
   .wwa__stack {
     position: static;
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+    align-items: stretch;
+    justify-content: flex-start;
   }
 
+  /* cards: relative so full height is always in the document flow */
   .wwa-card {
-    position: static;
-    opacity: 1;
-    transform: none;
-    filter: none;
+    position: relative;
     flex-direction: column;
     gap: 0;
-    padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    padding: 18px 16px 20px;
     border-radius: 20px;
+    width: 100%;
+    max-width: 100%;
+    /* start invisible — JS adds --visible / --active as user scrolls */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  /* JS adds --visible first, then --active */
+  .wwa-card--visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .wwa-card--visible:not(.wwa-card--active) {
-    transform: none;
-    filter: none;
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
   }
 
-  .wwa-card__img-wrap {
+  .wwa-card--active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* image: full width, 16/9 */
+  /* .wwa-card__img-wrap {
     flex: none;
     max-width: 100%;
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 14px;
-    margin-bottom: 24px;
-  }
+    margin-bottom: 16px;
+  } */
 
   .wwa-card__img {
     border-radius: 14px;
   }
 
+  /* body: no left padding */
   .wwa-card__body {
     padding: 0;
-    gap: 10px;
+    gap: 8px;
   }
 
-  .wwa__header {
-    margin-bottom: 28px;
+  .wwa-card__title {
+    font-size: clamp(16px, 4.5vw, 22px);
+  }
+
+  .wwa-card__desc {
+    font-size: clamp(12px, 3.2vw, 14px);
+    max-width: 100%;
+  }
+
+  .wwa-card__bullet {
+    font-size: clamp(12px, 3.2vw, 14px);
   }
 }
 
 @media (max-width: 600px) {
+  .wwa__main {
+    padding: 20px 0 16px;
+  }
+
+  .wwa__header {
+    margin-bottom: 12px;
+  }
+
   .wwa-card {
-    padding: 18px 16px;
+    padding: 14px 14px 16px;
     border-radius: 16px;
   }
 
   .wwa-card__img-wrap {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+  }
+
+  .wwa-card__check {
+    width: 18px;
+    height: 18px;
   }
 }

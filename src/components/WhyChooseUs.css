@@ -2,54 +2,40 @@
    WHY CHOOSE US SECTION
 ═══════════════════════════════════════════════ */
 .wcu {
-  background: #fff;
+  background: var(--bg);
   padding: 80px 0;
   width: 100%;
 }
 
 .wcu-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
 
-/* ── Header ── */
-.wcu__header {
-  text-align: center;
-  margin-bottom: 48px;
-}
+.wcu__header { text-align: center; margin-bottom: 48px; }
 
 .wcu__title {
   font-size: clamp(26px, 3.5vw, 44px);
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-dark);
   margin: 0 0 16px;
   line-height: 1.2;
 }
 
 .wcu__desc {
   font-size: 16px;
-  color: #4a4a6a;
+  color: var(--text);
   max-width: 680px;
   margin: 0 auto;
   line-height: 1.75;
 }
 
-/* ═══════════════════════════════════════════════
-   ROWS
-   Row 1: box1 65% | box2 35%
-   Row 2: box3 35% | box4 65%
-═══════════════════════════════════════════════ */
+/* ── Rows ── */
 .wcu__row {
-  display: grid;
-    gap: 60px;
-    margin-bottom: 60px;
+   max-width: 1192px;
+   margin: auto;
+  display: grid; gap: 60px; margin-bottom: 60px; }
+.wcu__row--1 { 
+  grid-template-columns: 65fr 35fr; 
 }
-
-.wcu__row--1 {
-  grid-template-columns: 65fr 35fr;
-}
-
-.wcu__row--2 {
-  grid-template-columns: 35fr 65fr;
-  margin-bottom: 0;
-}
+.wcu__row--2 { grid-template-columns: 35fr 65fr; margin-bottom: 0; }
 
 /* ── Base card ── */
 .wcu-card {
@@ -59,69 +45,55 @@
   display: flex;
   flex-direction: column;
   min-height: 320px;
-
-  /* Hidden until revealed */
   opacity: 0;
   transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s;
 }
-
-/* Slide directions */
+article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
+    width: 540px;
+}
 .wcu-card--from-left  { transform: translateX(-80px); }
 .wcu-card--from-right { transform: translateX(80px); }
-
-/* Stagger */
 .wcu-card--from-left:nth-child(1)  { transition-delay: 0.00s; }
 .wcu-card--from-right:nth-child(2) { transition-delay: 0.15s; }
-
-/* Row 2 stagger via parent selector */
 .wcu__row--2 .wcu-card--from-left  { transition-delay: 0.10s; }
 .wcu__row--2 .wcu-card--from-right { transition-delay: 0.25s; }
 
-.wcu-card.is-visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
+.wcu-card.is-visible { opacity: 1; transform: translateX(0); }
 .wcu-card.is-visible:hover {
-  box-shadow: 0 14px 44px rgba(43, 45, 142, 0.16);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px) !important;
 }
 
-/* ═══════════════════════════════════════════════
-   CARD VARIANTS
-═══════════════════════════════════════════════ */
-
-/* Box 1 — dark gradient + bg image */
+/* ── Box 1 — dark primary gradient + bg image ── */
 .wcu-card--dark {
   background:
-    linear-gradient(135deg, rgba(46,49,146,0.88) 0%, rgba(74,79,207,0.80) 100%),
+    linear-gradient(135deg, rgba(46, 42, 140, 0.88) 0%, rgba(58, 79, 183, 0.80) 100%),
     url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Gemini_Generated_Image_z8laa4z8laa4z8la-scaled.png") center / cover no-repeat;
-  color: #fff;
+  color: var(--text-light);
 }
 
-/* Box 4 — dark navy + bg image */
+/* ── Box 4 — dark navy + bg image ── */
 .wcu-card--dark2 {
   background:
-    linear-gradient(135deg, rgba(13,27,75,0.88) 0%, rgba(30,58,138,0.82) 100%),
+    linear-gradient(135deg, rgba(17, 17, 17, 0.90) 0%, rgba(46, 42, 140, 0.82) 100%),
     url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Gemini_Generated_Image_gmjzdygmjzdygmjz-1.png") center / cover no-repeat;
-  color: #fff;
+  color: var(--text-light);
 }
 
-/* Unused overlay/bg-img elements */
 .wcu-card__bg-img  { display: none; }
 .wcu-card__overlay { display: none; }
 
-/* Box 2 — white card with image on top */
+/* ── Box 2 — white card with image on top ── */
 .wcu-card--light {
-  background: #fff;
-  border: 1px solid #e8edf8;
-  box-shadow: 0 2px 16px rgba(43,45,142,0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow-sm);
   padding: 0;
 }
 
 .wcu-card__img {
   width: 100%;
-  height: 220px;
+  padding: 20px;
   object-fit: cover;
   display: block;
   flex-shrink: 0;
@@ -129,38 +101,29 @@
   transition: transform 0.5s ease;
 }
 
-.wcu-card--light:hover .wcu-card__img {
-  transform: scale(1.03);
-}
+.wcu-card--light:hover .wcu-card__img { transform: scale(1.03); }
 
-/* Box 3 — outline / bordered card */
+/* ── Box 3 — outline card ── */
 .wcu-card--outline {
-  background: #fff;
-  border: 1.5px solid #d0d8f0;
-  box-shadow: 0 2px 16px rgba(43,45,142,0.05);
+  background: var(--bg-card);
+  border: 1.5px solid var(--stroke);
+  box-shadow: var(--shadow-sm);
   justify-content: center;
 }
 
-/* Corner brackets */
-.wcu-card__corner {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-}
+.wcu-card__corner { position: absolute; width: 32px; height: 32px; }
 
 .wcu-card__corner--tl {
-  top: 18px;
-  left: 18px;
-  border-top: 2px solid #2E3192;
-  border-left: 2px solid #2E3192;
+  top: 18px; left: 18px;
+  border-top: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
   border-radius: 4px 0 0 0;
 }
 
 .wcu-card__corner--br {
-  bottom: 18px;
-  right: 18px;
-  border-bottom: 2px solid #2E3192;
-  border-right: 2px solid #2E3192;
+  bottom: 18px; right: 18px;
+  border-bottom: 2px solid var(--primary);
+  border-right: 2px solid var(--primary);
   border-radius: 0 0 4px 0;
 }
 
@@ -175,11 +138,8 @@
   flex: 1;
 }
 
-.wcu-card--light .wcu-card__content {
-  padding: 24px 28px;
-}
+.wcu-card--light .wcu-card__content { padding: 24px 28px; }
 
-/* Outline card — centered with bg texture */
 .wcu-card__content--center {
   background-image: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47.png");
   background-size: cover;
@@ -192,23 +152,23 @@
 
 /* ── Typography ── */
 .wcu-card__title {
-  font-size: clamp(18px, 1.8vw, 26px);
+  font-size: clamp(18px, 1.8vw, 27px);
   font-weight: 700;
-  color: #fff;
+  color: var(--text-light);
   margin: 0;
   line-height: 1.3;
 }
 
-.wcu-card__title--dark { color: #1a1a2e; }
+.wcu-card__title--dark { color: var(--text-dark); }
 
 .wcu-card__desc {
-  font-size: clamp(13px, 1.1vw, 16px);
-  color: rgba(255,255,255,0.85);
+  font-size: clamp(13px, 1.1vw, 21px);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.75;
   margin: 0;
 }
 
-.wcu-card__desc--dark { color: #4a4a6a; }
+.wcu-card__desc--dark { color: var(--text); }
 
 /* ── Bullets ── */
 .wcu-card__bullets {
@@ -224,64 +184,41 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: clamp(13px, 1vw, 15px);
-  color: rgba(255,255,255,0.88);
+  /* font-size: clamp(13px, 1vw, 15px); */
+  color: rgba(255, 255, 255, 0.88);
   line-height: 1.5;
 }
 
 .wcu-card__bullet strong {
   display: block;
-  font-size: clamp(14px, 1.2vw, 17px);
-  font-weight: 700;
-  color: #fff;
+  /* font-size: clamp(14px, 1.2vw, 17px); */
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-light);
   margin-bottom: 2px;
 }
 
 .wcu-card__bullet-desc {
-  font-size: clamp(12px, 0.95vw, 14px);
-  color: rgba(255,255,255,0.72);
-  font-weight: 400;
+  /* font-size: clamp(12px, 0.95vw, 14px); */
+  font-size: 19px;
+  color: rgba(255, 255, 255, 0.72);
 }
 
-.wcu-check {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  color: #4ade80;
-  margin-top: 3px;
-}
+.wcu-check { width: 18px; height: 18px; flex-shrink: 0; color: #4ade80; margin-top: 3px; }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════ */
+/* ── Responsive ── */
 @media (max-width: 900px) {
-  .wcu__row--1,
-  .wcu__row--2 {
-    grid-template-columns: 1fr 1fr;
-  }
+  .wcu-card__bullet strong {font-size: 16px;}
+.wcu-card__bullet-desc {font-size: 14px;}
+  .wcu__row { gap: 13px; margin-bottom: 25px;}
+  article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible{width: 100%;}
+  .wcu__row--1, .wcu__row--2 { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 640px) {
-  .wcu__row--1,
-  .wcu__row--2 {
-    grid-template-columns: 1fr;
-  }
-
-  .wcu-card {
-    min-height: 240px;
-  }
-
-  /* Fade up instead of slide on mobile */
-  .wcu-card--from-left,
-  .wcu-card--from-right {
-    transform: translateY(40px);
-  }
-
-  .wcu-card.is-visible {
-    transform: translateY(0);
-  }
-
-  .wcu-card__content {
-    padding: 28px 24px;
-  }
+  .wcu__row--1, .wcu__row--2 { grid-template-columns: 1fr; }
+  .wcu-card { min-height: 240px; }
+  .wcu-card--from-left, .wcu-card--from-right { transform: translateY(40px); }
+  .wcu-card.is-visible { transform: translateY(0); }
+  .wcu-card__content { padding: 28px 24px; }
 }

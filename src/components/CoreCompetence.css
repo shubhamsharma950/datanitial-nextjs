@@ -1,52 +1,58 @@
 /* ═══════════════════════════════════════════════
-   CORE COMPETENCE
+   CORE COMPETENCE — Header
 ═══════════════════════════════════════════════ */
-.cc {
-  background: #ffffff;
-  padding: 72px 0 0;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* ── Header ── */
 .cc__header-wrap {
   text-align: center;
-  padding: 0 24px;
+  padding: 72px 24px 32px;
   max-width: 860px;
-  margin: 0 auto 32px;
+  margin: 0 auto;
 }
 
 .cc__title {
   font-size: clamp(28px, 3.8vw, 52px);
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-dark);
   margin: 0 0 16px;
   line-height: 1.15;
 }
 
 .cc__desc {
   font-size: 16px;
-  color: #6a6a8a;
+  color: var(--text);
   line-height: 1.75;
   max-width: 680px;
   margin: 0 auto;
 }
 
 /* ═══════════════════════════════════════════════
-   FULL-WIDTH ARC
-   ViewBox: 1440 × 700
-   padding-bottom: 700/1440 = 48.6%
-   The circle top (arc peak) is at ~y=60 in the viewBox,
-   content text sits at ~y=420–520 inside the arc.
+   SCROLL ARC
 ═══════════════════════════════════════════════ */
-.cc__arc-outer {
+
+.arc-scroll-wrapper {
+  height: 400vh;
   position: relative;
-  width: 100%;
-  padding-bottom: 48.6%;   /* 700 / 1440 */
+}
+
+.arc-sticky-box {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card — full width, transparent bg so page bg shows above arc */
+.arc-main-card {
+  width: 100vw;
+  height: min(135vh, 820px);
+  background: transparent;
+  position: relative;
   overflow: hidden;
 }
 
-.cc__arc-svg {
+/* Arc SVG — full card height */
+.arc-svg {
   position: absolute;
   top: 0;
   left: 0;
@@ -54,62 +60,131 @@
   height: 100%;
 }
 
-/* ── Text content — sits inside the arc, below the numbers ── */
-.cc__content {
-  position: absolute;
-  top: 62%;
+/* Filled area inside the arc — #E2F3FF */
+.arc-fill {
+  fill: #E2F3FF;
+}
+
+/* Arc curve stroke */
+.arc-stroke {
+  fill: none;
+ stroke: var(--secondary);
+  stroke-width: 7;
+}
+
+/* ── Number boxes ── */
+.arc-num-box {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background: #E2F3FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    font-size: 64px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.4s ease, opacity 0.3s ease;
+}
+
+.arc-left {
+  left: 10%;
+  top: 30%;
+  transform: rotate(-34deg);
+  border-radius: 18px;
+}
+
+.arc-center {
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(500px, 46%);
+  top: 13%;
+  transform: translateX(-50%);
+  border-radius: 18px 18px 0 0;
+  height: 100px;
+}
+
+.arc-right {
+  right: 10%;
+  top: 31%;
+  transform: rotate(34deg);
+  border-radius: 18px;
+}
+
+/* ── Content text ── */
+.arc-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.2s ease;
+  width: 70%;
+  max-width: 900px;
+  transition: 0.4s;
 }
-
-.cc__content--fading {
-  opacity: 0;
+.arc-content__title {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--text-dark, #1a1a2e);
+    margin: 0 0 20px;
+    line-height: 1.2;
 }
-
-.cc__card-title {
-  font-size: clamp(18px, 2vw, 28px);
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0 0 10px;
-  line-height: 1.25;
+.arc-content__text {
+    font-size: 28PX;
+    font-weight: 500;
+    max-width: 510px;
+    color: #707070;
+    line-height: 1.6;
+    margin: auto;
 }
-
-.cc__card-desc {
-  font-size: clamp(13px, 1.2vw, 16px);
-  color: #6a6a8a;
-  line-height: 1.75;
-  margin: 0;
-}
-
 /* ═══════════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .cc__arc-outer {
-    padding-bottom: 60%;
+@media (max-width: 991px) {
+  .arc-left,
+  .arc-right {
+    display: none;
   }
-  .cc__content {
-    top: 64%;
-    width: min(300px, 58%);
-  }
-}
 
+  .arc-center {
+    width: 80px;
+    height: 80px;
+    /* font-size: 50px; */
+    border-radius: 12px 12px 0 0;
+  }
+
+  .arc-main-card {
+    height: min(76vh, 820px);
+  }
+
+  .arc-content {
+    width: 90%;
+  }
+.arc-center { top: 12%;}
+
+ .arc-num-box {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+}
+.arc-content__title {
+    font-size: 36px;
+}
+.arc-content__text {
+    font-size: 28PX;
+    max-width: 510px;
+} 
+}
 @media (max-width: 600px) {
-  .cc {
-    padding: 56px 0 0;
+  .cc__header-wrap {
+    padding: 48px 20px 24px;
   }
-  .cc__arc-outer {
-    padding-bottom: 78%;
+
+  .arc-content__title {
+    font-size: 22px;
   }
-  .cc__content {
-    top: 66%;
-    width: 68%;
+
+  .arc-content__text {
+    font-size: 16px;
   }
-  .cc__card-title { font-size: 15px; }
-  .cc__card-desc  { font-size: 12px; }
 }

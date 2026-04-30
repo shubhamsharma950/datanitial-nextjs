@@ -581,7 +581,7 @@
 }
 
 @media (max-width: 768px) {
-  .wp-page { padding: 0 20px; }
+  /* .wp-page { padding: 0 20px; } */
   .wp-page-skeleton { padding: 0 20px; }
 
   .wp-page__content .wp-block-columns {

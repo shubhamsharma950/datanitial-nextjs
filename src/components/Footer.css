@@ -3,84 +3,61 @@
 ═══════════════════════════════════════════════ */
 .ftr {
   position: relative;
-  background: #111111;
-  color: #c8c5d0;
+  background: var(--bg-dark);
+  color: var(--text);
   overflow: hidden;
   width: 100%;
   margin-top: auto;
-  font-family: 'Nunito', system-ui, sans-serif;
+  font-family: var(--font);
 }
 
-/* ── Main grid ── */
-.ftr__main {
-  padding: 60px 40px 44px;
-}
+.ftr__main { padding: 60px 40px 44px; }
 
 .ftr__grid {
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
-  /* gap: 48px; */
   max-width: 1340px;
-  padding: 0px 18px;
+  padding: 0 18px;
   margin: 0 auto;
   align-items: start;
 }
 
-/* ── Column ── */
-.ftr__col {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.ftr__col { display: flex; flex-direction: column; gap: 12px; }
 
-/* ── Column headings ── */
 .ftr__heading {
   font-size: 20px;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--text-light);
   margin: 0 0 8px;
   letter-spacing: 0.2px;
 }
 
-/* ══════════════════════════════════════════════
-   BRAND COLUMN
-══════════════════════════════════════════════ */
+/* ── Brand column ── */
 .ftr__logo {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--text-light);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 0.3px;
   margin-bottom: 6px;
 }
 
-.ftr__logo img {
-  width: 28px;
-  height: 35px;
-  object-fit: contain;
-  /* filter: brightness(0) invert(1); */
-}
+.ftr__logo img { width: 28px; height: 35px; object-fit: contain; }
 
 .ftr__desc {
   font-size: 16px;
   font-weight: 600;
   line-height: 1.85;
-  color: #fff;
+  color: var(--text-light);
   margin: 0;
   max-width: 299px;
 }
 
 /* ── Social icons ── */
-.ftr__social {
-  display: flex;
-  gap: 19px;
-  list-style: none;
-  padding: 0;
-  margin: 8px 0 0;
-}
+.ftr__social { display: flex; gap: 19px; list-style: none; padding: 0; margin: 8px 0 0; }
 
 .ftr__social-link {
   display: flex;
@@ -89,71 +66,41 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid #4E7CCF;
-  /* background: rgba(255, 255, 255, 0.05); */
-  color: #4E7CCF;
+  border: 1px solid var(--accent);
+  color: var(--accent);
   text-decoration: none;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
-.ftr__social-link svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
+.ftr__social-link svg { width: 15px; height: 15px; flex-shrink: 0; }
 
 .ftr__social-link:hover {
-  background: #3A4FB7;
-  border-color: #3A4FB7;
-  color: #ffffff;
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--text-light);
 }
 
-/* ══════════════════════════════════════════════
-   NAV LINK LISTS  (Industries / Solutions)
-══════════════════════════════════════════════ */
-.ftr__links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
+/* ── Nav link lists ── */
+.ftr__links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
 
 .ftr__link {
   display: flex;
   align-items: center;
   gap: 7px;
   text-decoration: none;
-  color: #fff;
+  color: var(--text-light);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
   transition: color 0.18s;
 }
 
-.ftr__link:hover {
-  color: #5b4fcf;
-}
+.ftr__link:hover { color: var(--secondary); }
 
-.ftr__link-arrow {
-  color: #5b4fcf;
-  font-size: 16px;
-  line-height: 1;
-  flex-shrink: 0;
-}
+.ftr__link-arrow { color: var(--secondary); font-size: 16px; line-height: 1; flex-shrink: 0; }
 
-/* ══════════════════════════════════════════════
-   CONTACT LIST
-══════════════════════════════════════════════ */
-.ftr__contact {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+/* ── Contact list ── */
+.ftr__contact { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
 
 .ftr__contact-item {
   display: flex;
@@ -161,51 +108,36 @@
   gap: 12px;
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-light);
   line-height: 1.6;
 }
 
-.ftr__contact-item a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.18s;
-}
+.ftr__contact-item a { color: var(--text-light); text-decoration: none; transition: color 0.18s; }
+.ftr__contact-item a:hover { color: var(--secondary); }
 
-.ftr__contact-item a:hover {
-  color: #5b4fcf;
-}
-
-/* Icon wrapper — gives it a coloured circle bg like the screenshot */
 .ftr__contact-icon {
   flex-shrink: 0;
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(91, 79, 207, 0.18);
+  background: rgba(78, 124, 207, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #7b6ee8;
+  color: var(--accent);
   margin-top: 1px;
 }
 
-.ftr__contact-icon svg {
-  width: 15px;
-  height: 15px;
-  stroke-width: 1.8;
-}
+.ftr__contact-icon svg { width: 15px; height: 15px; stroke-width: 1.8; }
 
-/* ══════════════════════════════════════════════
-   WATERMARK
-══════════════════════════════════════════════ */
+/* ── Watermark ── */
 .ftr__watermark {
   text-align: center;
   font-size: clamp(32px, 7vw, 97px);
   font-weight: 900;
   letter-spacing: 6%;
   text-transform: uppercase;
-  /* color: rgba(255, 255, 255, 0.04); */
-   background: linear-gradient(180deg, #a9a8a8, #3A4FB7);
+  background: linear-gradient(180deg, #a9a8a8, var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   user-select: none;
@@ -214,25 +146,11 @@
   line-height: 1;
 }
 
-/* ══════════════════════════════════════════════
-   BOTTOM BAR
-══════════════════════════════════════════════ */
-.ftr__bottom {
-  /* border-top: 1px solid rgba(255, 255, 255, 0.07); */
-  padding: 40px;
-  text-align: center;
-}
+/* ── Bottom bar ── */
+.ftr__bottom { padding: 40px; text-align: center; }
+.ftr__bottom p { font-size: 20px; font-weight: 400; color: var(--text-light); margin: 0; }
 
-.ftr__bottom p {
-  font-size: 20px;
-  font-weight: 400;
-  color: #fff;
-  margin: 0;
-}
-
-/* ══════════════════════════════════════════════
-   WHATSAPP FAB
-══════════════════════════════════════════════ */
+/* ── WhatsApp FAB ── */
 .ftr__wa {
   position: fixed;
   bottom: 28px;
@@ -245,55 +163,23 @@
   height: 52px;
   border-radius: 50%;
   background: #25d366;
-  color: #ffffff;
+  color: var(--text-light);
   text-decoration: none;
   box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.ftr__wa svg {
-  width: 26px;
-  height: 26px;
-}
+.ftr__wa svg { width: 26px; height: 26px; }
+.ftr__wa:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55); }
 
-.ftr__wa:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55);
-}
-
-/* ══════════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════════ */
-@media (max-width: 1024px) {
-  .ftr__grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-  }
-}
+/* ── Responsive ── */
+@media (max-width: 1024px) { .ftr__grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
 
 @media (max-width: 600px) {
-  .ftr__grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .ftr__main {
-    padding: 40px 20px;
-  }
-
-  .ftr__bottom {
-    padding: 16px 20px;
-  }
-  .ftr__bottom p {font-size: 15px; }
-  .ftr__watermark {
-    font-size: 26px;
-    letter-spacing: 3px;
-  }
-
-  .ftr__wa {
-    bottom: 20px;
-    right: 20px;
-    width: 46px;
-    height: 46px;
-  }
+  .ftr__grid { grid-template-columns: 1fr; gap: 28px; }
+  .ftr__main { padding: 40px 20px; }
+  .ftr__bottom { padding: 16px 20px; }
+  .ftr__bottom p { font-size: 15px; }
+  .ftr__watermark { font-size: 26px; letter-spacing: 3px; }
+  .ftr__wa { bottom: 20px; right: 20px; width: 46px; height: 46px; }
 }
