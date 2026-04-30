@@ -10,44 +10,76 @@ const FALLBACK_URL = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
 
 /* ─────────────────────────────────────────────
    Resolve ACF image field → URL string
-   Handles: media ID (number), ACF array {url},
-   or a plain URL string
+   Handles:
+   - media ID (number or numeric string)
+   - ACF Icon Picker / media_library object: { type, value }
+   - ACF array with url: { url }
+   - plain URL string
 ───────────────────────────────────────────── */
 async function resolveImg(val) {
   if (!val) return "";
+
+  // ACF Icon Picker / media_library: { type: "media_library", value: "339" }
+  if (typeof val === "object" && val.type === "media_library" && val.value) {
+    val = val.value; // fall through to numeric resolution below
+  }
+
+  // ACF image object with url
   if (typeof val === "object" && val.url) return val.url;
-  if (typeof val === "number" || /^\d+$/.test(String(val))) {
+
+  // Numeric media ID (number or numeric string)
+  if (typeof val === "number" || (typeof val === "string" && /^\d+$/.test(val))) {
     try {
       const r = await fetch(`${WP_BASE}/wp/v2/media/${val}?_fields=source_url`);
       const d = await r.json();
       return d.source_url || "";
     } catch { return ""; }
   }
+
   return typeof val === "string" ? val : "";
 }
 
 /* ─────────────────────────────────────────────
    Normalise rating_stars:
+   - ACF Icon Picker / media_library object → resolve image URL
    - number 1-5  → repeat ★
    - string      → pass through (★★★★★ or image URL)
 ───────────────────────────────────────────── */
 function normaliseStars(val) {
   if (!val) return "";
+  // ACF media_library object — will be resolved as image in resolveImg
+  // Return the object itself; TestimonialCard will call resolveImg on it
+  if (typeof val === "object" && val.type === "media_library") return val;
   if (typeof val === "number") return "★".repeat(Math.min(5, val));
   return String(val);
 }
 
 /* ─────────────────────────────────────────────
    Build one normalised item from a raw ACF object
+   Handles ACF field name typos from WP:
+     author__position  (double underscore)
+     author_imge       (missing 'a')
+     discerption       (typo)
 ───────────────────────────────────────────── */
 async function buildItem(raw) {
   if (!raw || typeof raw !== "object") return null;
+
+  // rating_stars may be a media_library object → resolve to URL
+  // or a number → ★ repeat, or a plain string
+  const starsRaw = raw.rating_stars;
+  let rating_stars;
+  if (starsRaw && typeof starsRaw === "object" && starsRaw.type === "media_library") {
+    rating_stars = await resolveImg(starsRaw); // resolves media ID → image URL
+  } else {
+    rating_stars = normaliseStars(starsRaw);
+  }
+
   return {
-    author_name:           raw.author_name           || "",
-    author_position:       raw.author_position       || "",
-    author_image:          await resolveImg(raw.author_image),
-    rating_stars:          normaliseStars(raw.rating_stars),
-    author_review_details: raw.author_review_details || "",
+    author_name:           raw.author_name                                    || "",
+    author_position:       raw.author_position  || raw["author__position"]    || "",
+    author_image:          await resolveImg(raw.author_image || raw.author_imge),
+    rating_stars,
+    author_review_details: raw.author_review_details                          || "",
   };
 }
 
@@ -92,15 +124,19 @@ async function extractItems(group) {
 /* ─────────────────────────────────────────────
    Parse the native ACF fallback response
    wp/v2/pages/63?_fields=acf
-   ACF field names from screenshot:
-     testimonialsection → title, discription,
-     left-slider (hyphen!), right_slide_items
+
+   ACF field names from actual API response:
+     testimonialssection  (double 's' — ACF typo)
+       title, discerption (typo — no 'i')
+       left-slider        (hyphen)
+       right_slide_items
 ───────────────────────────────────────────── */
 async function parseFromAcf(acf) {
-  const ts = acf?.testimonialsection;
+  // ACF key is "testimonialssection" (double 's') — also try single 's' as fallback
+  const ts = acf?.testimonialssection ?? acf?.testimonialsection;
   if (!ts) return null;
 
-  // ACF Field Name in screenshot is "left-slider" (hyphen)
+  // "left-slider" uses a hyphen in ACF
   const leftGroup  = ts["left-slider"]      ?? ts.left_slider      ?? ts.left_slide_items  ?? null;
   const rightGroup = ts.right_slide_items   ?? ts["right-slide-items"] ?? ts.right_slider  ?? null;
 
@@ -111,7 +147,8 @@ async function parseFromAcf(acf) {
 
   return {
     title:       ts.title       || "",
-    description: ts.discription || "",   // ACF field name is "discription" (no 'e')
+    // ACF field is "discerption" (typo) — also try correct spelling
+    description: ts.discerption || ts.discription || ts.description || "",
     leftItems,
     rightItems,
   };
