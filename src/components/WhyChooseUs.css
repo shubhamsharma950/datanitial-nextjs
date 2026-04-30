@@ -103,16 +103,36 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 
 .wcu-card--light:hover .wcu-card__img { transform: scale(1.03); }
 
-/* ── Box 3 — outline card with background image ── */
+/* ── Box 3 — outline card ── */
 .wcu-card--outline {
-  background-image: url(https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/dfsdfd.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: var(--bg-card);
+  border: 1.5px solid var(--stroke);
+  box-shadow: var(--shadow-sm);
   justify-content: center;
 }
 
 .wcu-card__corner { position: absolute; width: 32px; height: 32px; }
+
+.wcu-card__corner--tl {
+  top: 18px; left: 18px;
+  border-top: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
+  border-radius: 4px 0 0 0;
+}
+
+.wcu-card__corner--tr {
+  top: 18px; right: 18px;
+  border-top: 2px solid var(--primary);
+  border-right: 2px solid var(--primary);
+  border-radius: 0 4px 0 0;
+}
+
+.wcu-card__corner--bl {
+  bottom: 18px; left: 18px;
+  border-bottom: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
+  border-radius: 0 0 0 4px;
+}
 
 .wcu-card__corner--br {
   bottom: 18px; right: 18px;
@@ -133,6 +153,16 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 }
 
 .wcu-card--light .wcu-card__content { padding: 24px 28px; }
+
+.wcu-card__content--center {
+  background-image: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
 /* ── Typography ── */
 .wcu-card__title {

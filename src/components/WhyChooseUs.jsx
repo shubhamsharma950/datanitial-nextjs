@@ -203,6 +203,8 @@ export default function WhyChooseUs() {
           {/* Box 3 — outline card 35%, centered text, slides from LEFT */}
           <article className="wcu-card wcu-card--outline wcu-card--from-left" ref={el => cardRefs.current[2] = el}>
             <div className="wcu-card__corner wcu-card__corner--tl" />
+            <div className="wcu-card__corner wcu-card__corner--tr" />
+            <div className="wcu-card__corner wcu-card__corner--bl" />
             <div className="wcu-card__corner wcu-card__corner--br" />
             <div className="wcu-card__content wcu-card__content--center">
               {box3.title && <h3 className="wcu-card__title wcu-card__title--dark">{box3.title}</h3>}
