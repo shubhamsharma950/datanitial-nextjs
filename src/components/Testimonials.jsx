@@ -236,7 +236,10 @@ function Skeleton() {
           <div className="skeleton" style={{ width: "65%", height: 20, margin: "0 auto" }} />
         </div>
       </div>
-      <div className="ts-row ts-row--left">
+     
+    <div className="slider-container">
+        
+         <div className="ts-row ts-row--left">
         <div className="ts-track">
           {[1, 2, 3, 4].map(i => (
             <div key={i} className="ts-card skeleton" style={{ minWidth: 320, height: 190 }} />
@@ -250,6 +253,9 @@ function Skeleton() {
           ))}
         </div>
       </div>
+
+    </div>
+
     </section>
   );
 }
