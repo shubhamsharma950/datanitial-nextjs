@@ -4,6 +4,7 @@
 .cc__header-wrap {
   text-align: center;
   padding: 72px 24px 32px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -19,7 +20,7 @@
   font-size: 24px;
   color: #707070;
   line-height: 1.75;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -27,7 +28,8 @@
    DESKTOP — Scroll Arc
 ═══════════════════════════════════════════════ */
 .arc-scroll-wrapper {
-  height: 400vh; /* tall enough to scroll through all 4 steps */
+  /* height: 400vh; */
+  height: 88vh;
   position: relative;
 }
 
@@ -40,6 +42,15 @@
   align-items: flex-end; /* arc sits at bottom of viewport */
   overflow: hidden;      /* prevent horizontal scroll from edge numbers */
 }
+
+/* Card: full width, height = half the viewport so semicircle fills nicely */
+/* .arc-main-card {
+  width: 100vw;
+  height: 62vh;
+  background: transparent;
+  position: relative;
+  overflow: visible;   
+} */
 .arc-main-card {
     width: 100vw;
     height: 69vh;
@@ -72,14 +83,14 @@
 .arc-stroke {
   fill: none;
   stroke: var(--secondary);
-  stroke-width: 6;
+  stroke-width: 4;
 }
 
 /* ── Number boxes (shared) ── */
 .arc-num-box {
   position: absolute;
-  width: 99px;
-  height: 103px;
+  width: 100px;
+  height: 100px;
   border-radius: 18px;
   background: #E2F3FF;
   display: flex;
@@ -88,20 +99,9 @@
   color: var(--primary);
   font-size: 64px;
   font-weight: 700;
-  /* slow, blink-like smooth movement */
-  transition: left 1.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-              top  1.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-              transform 1.4s cubic-bezier(0.25, 0.1, 0.25, 1),
-              opacity 1s ease-in-out,
-              border-radius 1s ease;
+  transition: opacity 0.35s ease, transform 0.4s ease;
   z-index: 2;
 }
-
-/* Active (center) number — slightly larger */
-/* .arc-num-active {
-  width: 110px;
-  height: 110px;
-} */
 
 /* Active (center) number — slightly larger, full opacity */
 /* .arc-num-active {
@@ -112,26 +112,21 @@
 /* ── Content text ── */
 .arc-content {
   position: absolute;
-  top: 32%;
+  top: 38%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   width: 55%;
   max-width: 700px;
-  animation: cc-fade-in 1.2s ease-in-out;
+  transition: opacity 0.35s ease;
   z-index: 3;
-}
-
-@keyframes cc-fade-in {
-  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
 }
 
 .arc-content__title {
   font-size: 36px;
   font-weight: 600;
   color: var(--text-dark, #1a1a2e);
-  margin: 0 0 8px;
+  margin: 0 0 20px;
   line-height: 1.2;
 }
 
@@ -150,7 +145,7 @@
 @media (max-width: 991px) {
 
   .arc-scroll-wrapper {
-    height: auto; /* override the 400vh desktop height */
+    height: auto;
   }
 
   .arc-sticky-box {

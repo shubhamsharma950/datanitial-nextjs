@@ -16,6 +16,7 @@ const FALLBACK = {
     { number: 2, title: "Competitor Analysis", description: "Analyze competitor activities, strategies, and market positioning continuously." },
     { number: 3, title: "Data Aggregation",    description: "Collect and organize news data from multiple sources for actionable insights." },
     { number: 4, title: "Keyword Ranking",     description: "Track keyword performance and search rankings to enhance visibility." },
+    { number: 5 },
   ],
 };
 
@@ -47,38 +48,31 @@ const StarIcon = () => (
 );
 
 /* ─────────────────────────────────────────────────────────────
-   Arc positions for each "slot" on the arc.
-
+   Desktop: fixed positions for the three visible number boxes.
+   Left  = prev step   (left side of arc)
+   Top   = active step (top/center of arc)
+   Right = next step   (right side of arc)
    ─────────────────────────────────────────────────────────────*/
-const ARC_SLOTS = [
-  // slot 0 — far left (hidden)
-  { left: "calc(-4% - 50px)",      top: "calc(36% - 89px)",      opacity: 0, borderRadius: "12px", transform: "rotate(322deg)" },
-  // slot 1 — left/prev
-  { left: "calc(15.899% - 39px)",  top: "calc(19.0307% - 49px)", opacity: 1, borderRadius: "12px", transform: "rotate(322deg)" },
-  // slot 2 — active/center
-  { left: "calc(51.101% - 48px)",  top: "calc(2.03074% - 50px)", opacity: 1, borderRadius: "12px" },
-  // slot 3 — right/next
-  { left: "calc(97.3013% - 175px)",top: "calc(36% - 89px)",      opacity: 1, borderRadius: "12px", transform: "rotate(45deg)"  },
-  // slot 4 — far right (hidden)
-  { left: "calc(104% + 10px)",     top: "calc(36% - 89px)",      opacity: 0, borderRadius: "12px", transform: "rotate(45deg)"  },
-];
+const DESKTOP_PREV_STYLE = {
+  left:         "calc(15.899% - 39px)",
+  top:          "calc(19.0307% - 49px)",
+  borderRadius: "18px 18px 18px 0px",
+  opacity:      1,
+};
 
-/*
-  For a given activeIndex and total steps, compute which slot each step occupies.
-  Steps before prev are hidden left (slot 0).
-  Steps after next are hidden right (slot 4).
-  prev  = activeIndex - 1  → slot 1
-  active = activeIndex      → slot 2
-  next  = activeIndex + 1  → slot 3
-*/
-function getSlotForStep(stepIdx, activeIdx) {
-  const diff = stepIdx - activeIdx;
-  if (diff === -1) return 1; // prev
-  if (diff ===  0) return 2; // active
-  if (diff ===  1) return 3; // next
-  if (diff  <  -1) return 0; // far left (hidden)
-  return 4;                  // far right (hidden)
-}
+const DESKTOP_ACTIVE_STYLE = {
+  left:         "calc(51.101% - 48px)",
+  top:          "calc(2.03074% - 50px)",
+  borderRadius: "18px 18px 0px 0px",
+  opacity:      1,
+};
+
+const DESKTOP_NEXT_STYLE = {
+  left:         "calc(97.3013% - 175px)",
+  top:          "calc(36% - 89px)",
+  borderRadius: "18px 18px 0px 18px",
+  opacity:      1,
+};
 
 export default function CoreCompetence() {
   const [data,      setData]      = useState(null);
@@ -118,27 +112,10 @@ export default function CoreCompetence() {
     const handleScroll = () => {
       const section = sectionRef.current;
       if (!section) return;
-
       const rect        = section.getBoundingClientRect();
       const totalScroll = section.offsetHeight - window.innerHeight;
-
-      // Only activate when section is in view (rect.top <= 0 means we've scrolled into it)
-      if (rect.top > 0) {
-        // Section hasn't reached top yet — show step 0
-        if (currentStep.current !== 0) {
-          currentStep.current = 0;
-          setStepIndex(0);
-        }
-        return;
-      }
-
-      // How far we've scrolled through the section (0 → 1)
-      const scrolled = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
-
-      // Divide scroll range evenly among steps
-      // Each step occupies 1/steps.length of the scroll range
-      const idx = Math.min(steps.length - 1, Math.floor(scrolled * steps.length));
-
+      const progress    = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
+      const idx         = Math.min(steps.length - 1, Math.floor(progress * steps.length));
       if (idx !== currentStep.current) {
         currentStep.current = idx;
         setStepIndex(idx);
@@ -157,9 +134,14 @@ export default function CoreCompetence() {
 
   /* Active step */
   const activeStep  = steps[stepIndex] || steps[0];
+  /* Content: if active step has no title (e.g. step 5), show last step with content */
   const contentStep = activeStep.title
     ? activeStep
     : [...steps].reverse().find(s => s.title) || activeStep;
+
+  /* Neighbours */
+  const prevStep = stepIndex > 0         ? steps[stepIndex - 1] : null;
+  const nextStep = stepIndex < total - 1 ? steps[stepIndex + 1] : null;
 
   return (
     <>
@@ -198,31 +180,31 @@ export default function CoreCompetence() {
               />
             </svg>
 
-            {/* ── DESKTOP: render ALL steps, each positioned by its slot ── */}
-            {!isMobile && steps.map((step, i) => {
-              const slot      = getSlotForStep(i, stepIndex);
-              const slotStyle = ARC_SLOTS[slot];
-              const isActive  = slot === 2;
+            {/* ── DESKTOP number boxes ── */}
+            {!isMobile && (
+              <>
+                {/* PREV (left side of arc) */}
+                {prevStep && (
+                  <div className="arc-num-box" style={DESKTOP_PREV_STYLE}>
+                    {prevStep.number}
+                  </div>
+                )}
 
-              return (
-                <div
-                  key={step.number}
-                  className={`arc-num-box${isActive ? " arc-num-active" : ""}`}
-                  style={{
-                    left:         slotStyle.left,
-                    top:          slotStyle.top,
-                    opacity:      slotStyle.opacity,
-                    borderRadius: slotStyle.borderRadius,
-                    transform:    slotStyle.transform,
-                  }}
-                  aria-hidden={!isActive}
-                >
-                  {step.number}
+                {/* ACTIVE (top/center of arc) */}
+                <div className="arc-num-box arc-num-active" style={DESKTOP_ACTIVE_STYLE}>
+                  {activeStep.number}
                 </div>
-              );
-            })}
 
-            {/* ── MOBILE number box ── */}
+                {/* NEXT (right side of arc) */}
+                {nextStep && (
+                  <div className="arc-num-box" style={DESKTOP_NEXT_STYLE}>
+                    {nextStep.number}
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* ── MOBILE number boxes ── */}
             {isMobile && (
               <div
                 className="arc-num-box arc-center arc-num-active arc-num-clickable"
@@ -238,7 +220,7 @@ export default function CoreCompetence() {
             )}
 
             {/* ── Content ── */}
-            <div className="arc-content" key={stepIndex}>
+            <div className="arc-content">
               <h2 className="arc-content__title">{contentStep.title}</h2>
               <p  className="arc-content__text">{contentStep.description}</p>
             </div>
