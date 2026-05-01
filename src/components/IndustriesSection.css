@@ -33,7 +33,7 @@
   text-align: center;
 }
 
-.tab-container{max-width: 1200px; margin: auto;}
+.tab-container{max-width: 1200px; margin: auto; padding: 0px 20px;}
 /* ── Tab bar ── */
 .ind__tabs {
   display: flex;
@@ -161,6 +161,7 @@
 }
 
 @media (max-width: 900px) {
+  .tab-container{padding: 0px;}
     .ind__card-desc { font-size: 14px; }
   .ind__card-bullet { font-size: 14px; }
   .ind__tabs {
