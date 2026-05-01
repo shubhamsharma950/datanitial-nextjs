@@ -128,10 +128,12 @@ export default function GetToKnowUs() {
 
           {/* ── LEFT — sticky badge + title + desc ── */}
           <div className="gtku__left">
-            <div className="badge-sec-getknow">
-              <StarIcon />
-              <span>GET TO KNOW US</span>
-            </div>
+           
+             <div className="faq-badge">
+                <span className="faq-badge__icon" aria-hidden="true" />
+                <span className="faq-badge__label">{"GET TO KNOW US"}</span>
+              </div>
+
             <h2 className="gtku__title">{title}</h2>
             <p  className="gtku__desc">{description}</p>
           </div>
