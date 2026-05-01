@@ -132,8 +132,8 @@
 
 /* ── Avatar ── */
 .ts-card__avatar {
-  width: 45px;
-  height: 45px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   background: #a0b8cc center / cover no-repeat;
   flex-shrink: 0;
