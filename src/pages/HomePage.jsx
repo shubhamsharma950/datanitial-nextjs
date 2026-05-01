@@ -10,6 +10,7 @@ import GetToKnowUs     from "../components/GetToKnowUs";
 import HeroBanner from "../components/HeroBanner";
 import TestimonialSection from "../components/Testimonials";
 import FaqSection from "../components/FaqSection";
+import ResourcesBlog from "../components/ResourcesBlog";
 // import Core from "../components/core";
 
 const WP_BASE =
@@ -99,6 +100,8 @@ export default function HomePage() {
         <GetToKnowUs />
         {/* ── Testimonials: infinite scroll slider TestimonialSection ── */}
         <TestimonialSection />
+        {/* ── ResourcesBlog : section blog ── */}
+        <ResourcesBlog />
          {/* ── Faqs ── */}
         <FaqSection />
       </div>

@@ -11,49 +11,41 @@ const FAQ_URL = `${WP_BASE}/theme/v1/faqs`;
 const FALLBACK = {
   title:    "FAQS",
   subtitle: "Find quick answers about our web and mobile data extraction services.",
-  dis:      "Need More Help?",
+  dis:      "We're here to answer any question you may have.",
   items: [
-    { question: "What is web data extraction?",          answer: "Web data extraction is the process of automatically collecting data from websites to analyze pricing, trends, and more." },
+    { question: "What is web data extraction?",            answer: "Web data extraction is the process of automatically collecting data from websites to analyze pricing, trends, and more." },
     { question: "Which platforms can you scrape data from?", answer: "We can scrape data from e-commerce sites, social media platforms, job boards, real estate portals, and many more." },
-    { question: "Is mobile app data scraping possible?",  answer: "Yes, we support mobile app data extraction using advanced techniques including API interception and emulation." },
-    { question: "How often is the data updated?",         answer: "Data update frequency depends on your requirements — we support real-time, hourly, daily, or weekly schedules." },
-    { question: "Is web scraping legal?",                 answer: "Web scraping is legal when done on publicly available data and in compliance with a website's terms of service." },
+    { question: "Is mobile app data scraping possible?",   answer: "Yes, we support mobile app data extraction using advanced techniques including API interception and emulation." },
+    { question: "How often is the data updated?",          answer: "Data update frequency depends on your requirements — we support real-time, hourly, daily, or weekly schedules." },
+    { question: "Is web scraping legal?",                  answer: "Web scraping is legal when done on publicly available data and in compliance with a website's terms of service." },
     { question: "Can you provide structured data formats?", answer: "Yes, we deliver data in JSON, CSV, XML, Excel, or directly into your database." },
     { question: "Do you provide custom scraping solutions?", answer: "Absolutely. We build fully custom scrapers tailored to your specific data needs and target websites." },
   ],
 };
 
-/* ── Star / asterisk badge icon ── */
-const StarIcon = () => (
-  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="faq-badge__icon">
-    <circle cx="10" cy="10" r="10" fill="#2E3192" />
-    <g stroke="#fff" strokeWidth="1.8" strokeLinecap="round">
-      <line x1="10" y1="5.2" x2="10" y2="14.8" />
-      <line x1="6.8" y1="7"  x2="13.2" y2="13" />
-      <line x1="13.2" y1="7" x2="6.8"  y2="13" />
-    </g>
-  </svg>
-);
+/* ── Star badge icon ── */
+// SVG replaced by CSS background-image on .faq-badge__icon
 
-/* ── Icon URLs ── */
-const ICON_OPEN  = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button.png";
-const ICON_CLOSE = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button-close.png";
+/* ── Toggle icon images ── */
+const ICON_OPEN  = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button-close.png";
+const ICON_CLOSE = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button.png";
 
-/* ── Skeleton loader ── */
+/* ── Skeleton ── */
 function Skeleton() {
   return (
     <section className="faq-section">
       <div className="faq-section__container">
         <div className="faq-section__layout">
           <div className="faq-section__left">
-            <div className="skeleton" style={{ width: 100, height: 32, borderRadius: 999, marginBottom: 20 }} />
-            <div className="skeleton" style={{ width: "90%", height: 40, marginBottom: 10 }} />
-            <div className="skeleton" style={{ width: "75%", height: 24, marginBottom: 32 }} />
-            <div className="skeleton" style={{ width: "100%", height: 200, borderRadius: 16 }} />
+            <div className="skeleton" style={{ width: 90, height: 30, borderRadius: 999, marginBottom: 20 }} />
+            <div className="skeleton" style={{ width: "95%", height: 36, marginBottom: 8 }} />
+            <div className="skeleton" style={{ width: "80%", height: 36, marginBottom: 8 }} />
+            <div className="skeleton" style={{ width: "70%", height: 36, marginBottom: 32 }} />
+            <div className="skeleton" style={{ width: "100%", height: 280, borderRadius: 18 }} />
           </div>
           <div className="faq-section__right">
             {[1,2,3,4,5,6,7].map(i => (
-              <div key={i} className="skeleton" style={{ width: "100%", height: 64, borderRadius: 12, marginBottom: 12 }} />
+              <div key={i} className="skeleton" style={{ width: "100%", height: 60, borderRadius: 14, marginBottom: 10 }} />
             ))}
           </div>
         </div>
@@ -65,10 +57,7 @@ function Skeleton() {
 /* ── Single accordion item ── */
 function FaqItem({ question, answer, isOpen, onToggle, index }) {
   return (
-    <div
-      className={`faq-item${isOpen ? " faq-item--open" : ""}`}
-      role="listitem"
-    >
+    <div className={`faq-item${isOpen ? " faq-item--open" : ""}`} role="listitem">
       <button
         className="faq-item__trigger"
         onClick={onToggle}
@@ -100,16 +89,52 @@ function FaqItem({ question, answer, isOpen, onToggle, index }) {
 }
 
 /* ═══════════════════════════════════════════════
-   FAQ SECTION
-   Layout (image design):
-     Left  — badge + heading + "Need More Help?" card
-     Right — accordion list of Q&A items
-   First item is open by default.
+   GET STARTED CTA BANNER
+   Dark image background, badge + heading +
+   description + Contact Us button
+═══════════════════════════════════════════════ */
+function GetStartedBanner() {
+  return (
+    <div className="gs-banner" aria-label="Get Started">
+      {/* Dark overlay */}
+      <div className="gs-banner__overlay" aria-hidden="true" />
+
+      <div className="gs-banner__content">
+        {/* Badge */}
+         <div className="faq-badge">
+                <span className="faq-badge__icon" aria-hidden="true" />
+                <span className="faq-badge__label">{"GET STARTED"}</span>
+              </div>
+
+        {/* Heading */}
+        <h2 className="gs-banner__heading">
+          Ready to Take the Next Step?
+        </h2>
+
+        {/* Description */}
+        <p className="gs-banner__desc">
+          Join us and discover how data can power your next phase of growth.
+        </p>
+
+        {/* CTA */}
+        <a href="/contact-us" className="gs-banner__btn">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   FAQ SECTION — main export
+   Renders:
+     1. FAQ two-column layout (left sticky + right accordion)
+     2. Get Started CTA banner below
 ═══════════════════════════════════════════════ */
 export default function FaqSection() {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
-  const [openIdx, setOpenIdx] = useState(0); // first item open by default
+  const [openIdx, setOpenIdx] = useState(0);
 
   useEffect(() => {
     fetch(FAQ_URL)
@@ -122,52 +147,65 @@ export default function FaqSection() {
   if (loading) return <Skeleton />;
 
   const { title, subtitle, dis, items } = data || FALLBACK;
-
   const toggle = (i) => setOpenIdx(prev => (prev === i ? null : i));
 
   return (
-    <section className="faq-section" aria-label="Frequently Asked Questions">
-      <div className="faq-section__container">
-        <div className="faq-section__layout">
+    <div className="faq-wrapper">
 
-          {/* ── LEFT ── */}
-          <div className="faq-section__left">
-            {/* Badge */}
-            <div className="faq-badge">
-              <StarIcon />
-              <span className="faq-badge__label">{title || "FAQS"}</span>
-            </div>
+      {/* ══ FAQ SECTION ══ */}
+      <section className="faq-section" aria-label="Frequently Asked Questions">
+        <div className="faq-section__container">
+          <div className="faq-section__layout">
 
-            {/* Main heading */}
-            <h2 className="faq-section__heading">{subtitle || FALLBACK.subtitle}</h2>
+            {/* ── LEFT: badge + heading + help card ── */}
+            <div className="faq-section__left">
+              <div className="faq-badge">
+                <span className="faq-badge__icon" aria-hidden="true" />
+                <span className="faq-badge__label">{"FAQS"}</span>
+              </div>
 
-            {/* "Need More Help?" card */}
-            <div className="faq-help-card" aria-label="Need More Help?">
-              <div className="faq-help-card__overlay">
-                <p className="faq-help-card__title">{dis || "Need More Help?"}</p>
-                <p className="faq-help-card__sub">
-                  We&apos;re here to answer any question you may have.
-                </p>
+              <h2 className="faq-section__heading">
+                {/* {subtitle || FALLBACK.subtitle} */}
+                {title}
+              </h2>
+
+              {/* Need More Help card */}
+              <div className="faq-help-card" aria-label="Need More Help?">
+                <div className="faq-help-card__overlay" />
+                <div className="faq-help-card__content">
+                  <p className="faq-help-card__title">{subtitle}</p>
+                  <p className="faq-help-card__sub">
+                   {dis}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* ── RIGHT — accordion ── */}
-          <div className="faq-section__right" role="list" aria-label="FAQ list">
-            {(items?.length ? items : FALLBACK.items).map((item, i) => (
-              <FaqItem
-                key={i}
-                index={i}
-                question={item.question}
-                answer={item.answer}
-                isOpen={openIdx === i}
-                onToggle={() => toggle(i)}
-              />
-            ))}
-          </div>
+            {/* ── RIGHT: accordion ── */}
+            <div className="faq-section__right" role="list" aria-label="FAQ list">
+              {(items?.length ? items : FALLBACK.items).map((item, i) => (
+                <FaqItem
+                  key={i}
+                  index={i}
+                  question={item.question}
+                  answer={item.answer}
+                  isOpen={openIdx === i}
+                  onToggle={() => toggle(i)}
+                />
+              ))}
+            </div>
 
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ══ GET STARTED BANNER ══ */}
+      <section className="gs-section" aria-label="Get Started">
+        <div className="faq-section__container">
+          <GetStartedBanner />
+        </div>
+      </section>
+
+    </div>
   );
 }

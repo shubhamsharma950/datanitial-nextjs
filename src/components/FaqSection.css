@@ -1,31 +1,33 @@
 /* ═══════════════════════════════════════════════════════════
-   FAQ SECTION
-   Matches the provided design:
-   - Light blue (#e8f0fe / #dce8fb) background
-   - Left: badge + heading + "Need More Help?" image card
-   - Right: white accordion cards with chevron icons
-   - First item open by default (indigo toggle button)
+   FAQ SECTION + GET STARTED BANNER
 ═══════════════════════════════════════════════════════════ */
 
-/* ── Section wrapper ── */
-.faq-section {
-  background: #e8f0fb;
-  padding: 80px 0;
-  width: 100%;
+/* ── Outer wrapper (holds both sections) ── */
+.faq-wrapper {
+  background: #dce9fb;
 }
 
-/* ── Inner container ── */
+/* ════════════════════════════════
+   SHARED CONTAINER
+════════════════════════════════ */
 .faq-section__container {
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
-/* ── Two-column layout ── */
+/* ════════════════════════════════
+   FAQ SECTION
+════════════════════════════════ */
+.faq-section {
+  padding: 72px 0 60px;
+}
+
+/* ── Two-column grid ── */
 .faq-section__layout {
   display: grid;
   grid-template-columns: 420px 1fr;
-  gap: 48px;
+  gap: 52px;
   align-items: start;
 }
 
@@ -39,88 +41,76 @@
 
 /* ── Badge ── */
 .faq-badge {
-  display: inline-flex;
+ display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #fff;
-  border-radius: 999px;
-  padding: 6px 16px 6px 8px;
-  margin-bottom: 28px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  background: #D9D9D9;
+  border: 1px solid #D9D9D9;
+  border-radius: 50px;
+  padding: 8px 25px 8px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #111111;
+  text-transform: uppercase;
+  width: fit-content;
+  margin: 0px auto 20px 0px;
 }
 
 .faq-badge__icon {
-  width: 24px;
-  height: 24px;
+  background-image: url(https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Vector.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
+  display: inline-block;
 }
 
-.faq-badge__label {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .06em;
-  color: #1a1a2e;
-  text-transform: uppercase;
-}
-
-/* ── Main heading ── */
+/* ── Heading ── */
 .faq-section__heading {
-  font-size: clamp(28px, 3.2vw, 40px);
-  font-weight: 800;
+  font-size: 34px;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--text-dark);
-  margin: 0 0 36px;
+  margin: 0 0 28px;
 }
 
-/* ── "Need More Help?" card ── */
+/* ── Need More Help card ── */
 .faq-help-card {
   position: relative;
-  border-radius: 20px;
+  border-radius: 18px;
   overflow: hidden;
-  min-height: 300px;
-  background-color: #1e2d4e;
-  background-image: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/image-59.png");
-  background-size: cover;
-  background-position: center right;
+  min-height: 280px;
+  background:
+    url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/image-59.png")
+    center / cover no-repeat;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
-/* Dark gradient only on left half so person on right stays visible */
-.faq-help-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(10, 20, 55, 0.82) 0%,
-    rgba(10, 20, 55, 0.55) 55%,
-    rgba(10, 20, 55, 0.05) 100%
-  );
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.faq-help-card__overlay {
+.faq-help-card__content {
   position: relative;
   z-index: 1;
-  padding: 32px 32px 36px;
+  padding: 28px 28px 32px;
   color: #fff;
-  max-width: 60%;
+  max-width: 65%;
 }
 
 .faq-help-card__title {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 600;
   margin: 0 0 8px;
   line-height: 1.2;
 }
 
 .faq-help-card__sub {
   font-size: 14px;
-  opacity: .85;
+  opacity: .80;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* ════════════════════════════════
@@ -129,7 +119,7 @@
 .faq-section__right {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* ── Single FAQ item ── */
@@ -137,12 +127,12 @@
   background: #fff;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
   transition: box-shadow .2s ease;
 }
 
 .faq-item:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,.1);
+  box-shadow: 0 4px 18px rgba(0,0,0,.09);
 }
 
 /* ── Trigger button ── */
@@ -151,13 +141,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 22px;
+  gap: 14px;
+  padding: 18px 20px;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background .15s ease;
 }
 
 .faq-item__trigger:focus-visible {
@@ -169,32 +158,36 @@
 /* ── Question text ── */
 .faq-item__question {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   color: #0d1b3e;
   line-height: 1.4;
   flex: 1;
 }
 
-/* ── Chevron icon wrapper ── */
+.faq-item--open .faq-item__question {
+  color: #2E3192;
+}
+
+/* ── Icon ── */
 .faq-item__icon {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .faq-item__icon-img {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
   display: block;
 }
 
 /* ── Answer body ── */
 .faq-item__body {
-  padding: 0 22px 20px;
+  padding: 0 20px 18px;
 }
 
 .faq-item__body[hidden] {
@@ -203,27 +196,121 @@
 
 .faq-item__answer {
   font-size: 16px;
-  color: #4a5568;
-  line-height: 1.7;
+  color: #5a6a85;
+  line-height: 1.75;
   margin: 0;
 }
 
-/* ── Open state: question text color ── */
-.faq-item--open .faq-item__question {
-  color: #2E3192;
+/* ════════════════════════════════
+   GET STARTED SECTION
+════════════════════════════════ */
+.gs-section {
+  padding: 0 0 72px;
+}
+
+/* ── Banner card ── */
+.gs-banner {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 300px;
+  background:
+    url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/image-ddcd.png")
+    center / cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+/* Content */
+.gs-banner__content {
+    position: relative;
+    z-index: 1;
+    padding: 52px 56px;
+    color: #fff;
+    max-width: 613px;
+}
+
+/* ── Get Started badge ── */
+.gs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #D9D9D9;
+  border: 1px solid #D9D9D9;
+  border-radius: 50px;
+  padding: 6px 18px 6px 8px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.gs-badge__icon {
+  background-image: url(https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Vector.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.gs-badge__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+/* ── Heading ── */
+.gs-banner__heading {
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0 0 14px;
+}
+
+/* ── Description ── */
+.gs-banner__desc {
+  font-size: 24px;
+  color: rgba(255,255,255,.80);
+  line-height: 1.65;
+  margin: 0 0 28px;
+}
+
+/* ── Contact Us button ── */
+.gs-banner__btn {
+  display: inline-block;
+  padding: 11px 30px;
+  border: 1.5px solid #E2F3FF;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+
+.gs-banner__btn:hover,
+.gs-banner__btn:focus-visible {
+  background: #E2F3FF;
+  color: #0d1b3e;
+  outline: none;
 }
 
 /* ════════════════════════════════
    SKELETON
 ════════════════════════════════ */
 .skeleton {
-  background: linear-gradient(90deg, #e2e8f0 25%, #f0f4f8 50%, #e2e8f0 75%);
+  background: linear-gradient(90deg, #d4e0f5 25%, #e4edfb 50%, #d4e0f5 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
+  animation: faq-shimmer 1.4s infinite;
   display: block;
 }
 
-@keyframes shimmer {
+@keyframes faq-shimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
@@ -232,52 +319,72 @@
    RESPONSIVE
 ════════════════════════════════ */
 
-/* Tablet: 768px – 1024px */
+/* Tablet */
 @media (max-width: 1024px) {
   .faq-section__layout {
-    grid-template-columns: 320px 1fr;
-    gap: 32px;
+    grid-template-columns: 300px 1fr;
+    gap: 36px;
   }
 
-  .faq-section__heading {
-    font-size: 28px;
+  .gs-banner__content {
+    padding: 44px 44px;
   }
 }
 
-/* Mobile: below 768px — stack vertically */
+/* Mobile */
 @media (max-width: 768px) {
+  .faq-item__question {
+    font-size: 16px;
+}
+.faq-item__answer {
+    font-size: 14px;
+}
+  .gs-banner__btn {padding: 6px 21px;}
+  .faq-section__container {
+    padding: 0 20px;
+  }
+
   .faq-section {
-    padding: 56px 0;
+    padding: 52px 0 44px;
   }
 
   .faq-section__layout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
   }
 
   .faq-section__left {
-    position: static; /* remove sticky on mobile */
-  }
-
-  .faq-section__heading {
-    font-size: 26px;
-    margin-bottom: 24px;
+    position: static;
   }
 
   .faq-help-card {
+    min-height: 240px;
+  }
+
+  .faq-help-card__content {
+    max-width: 65%;
+    padding: 22px 22px 26px;
+  }
+
+  .gs-section {
+    padding: 0 0 52px;
+  }
+
+  .gs-banner {
     min-height: 260px;
   }
 
-  .faq-item__trigger {
-    padding: 16px 18px;
+  .gs-banner__content {
+    padding: 36px 28px;
+    max-width: 100%;
   }
 
-  .faq-item__question {
-    font-size: 14px;
+  .gs-banner__heading {
+    font-size: 24px;
   }
 }
 
-/* Small mobile: below 480px */
+/* Small mobile */
 @media (max-width: 480px) {
   .faq-section__container {
     padding: 0 16px;
@@ -288,10 +395,47 @@
   }
 
   .faq-help-card {
-    min-height: 240px;
+    min-height: 220px;
+  }
+
+  .faq-help-card__content {
+    max-width: 70%;
+    padding: 18px 18px 22px;
   }
 
   .faq-help-card__title {
-    font-size: 18px;
+    font-size: 17px;
   }
+
+  .gs-banner__content {
+    padding: 28px 20px;
+  }
+
+  .gs-banner__heading {
+    font-size: 21px;
+  }
+
+  .gs-banner__desc {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .faq-section__heading { font-size: 38px; }
+}
+@media (max-width: 768px) {
+.faq-badge {
+    padding: 6px 13px 6px 11px;
+    font-size: 12px;
+    margin: 0px auto 19px 0px;
+}
+
+.faq-badge__icon {
+  width: 18px;
+  height: 18px;
+}
+  .faq-section__heading { font-size: 30px; }
+}
+@media (max-width: 480px) {
+  .faq-section__heading { font-size: 24px; }
 }

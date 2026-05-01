@@ -12,17 +12,17 @@
 .wcu__header { text-align: center; margin-bottom: 48px; }
 
 .wcu__title {
-  font-size: clamp(26px, 3.5vw, 44px);
-  font-weight: 700;
+  font-size: 48px;
+  font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
   line-height: 1.2;
 }
 
 .wcu__desc {
-  font-size: 16px;
-  color: var(--text);
-  max-width: 680px;
+  font-size: 24px;
+  color: #707070;
+  max-width: 1000px;
   margin: 0 auto;
   line-height: 1.75;
 }
@@ -49,7 +49,7 @@
   transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s;
 }
 article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
-    width: 540px;
+    width: 565px;
 }
 .wcu-card--from-left  { transform: translateX(-80px); }
 .wcu-card--from-right { transform: translateX(80px); }
@@ -120,6 +120,20 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
   border-radius: 4px 0 0 0;
 }
 
+.wcu-card__corner--tr {
+  top: 18px; right: 18px;
+  border-top: 2px solid var(--primary);
+  border-right: 2px solid var(--primary);
+  border-radius: 0 4px 0 0;
+}
+
+.wcu-card__corner--bl {
+  bottom: 18px; left: 18px;
+  border-bottom: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
+  border-radius: 0 0 0 4px;
+}
+
 .wcu-card__corner--br {
   bottom: 18px; right: 18px;
   border-bottom: 2px solid var(--primary);
@@ -152,7 +166,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 
 /* ── Typography ── */
 .wcu-card__title {
-  font-size: clamp(18px, 1.8vw, 27px);
+  font-size: clamp(16px, 1.8vw, 27px);
   font-weight: 700;
   color: var(--text-light);
   margin: 0;
@@ -162,7 +176,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 .wcu-card__title--dark { color: var(--text-dark); }
 
 .wcu-card__desc {
-  font-size: clamp(13px, 1.1vw, 21px);
+  font-size: 21px;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.75;
   margin: 0;
@@ -216,9 +230,25 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 }
 
 @media (max-width: 640px) {
+  .wcu-card__desc {
+  font-size: 12px;
+}
   .wcu__row--1, .wcu__row--2 { grid-template-columns: 1fr; }
   .wcu-card { min-height: 240px; }
   .wcu-card--from-left, .wcu-card--from-right { transform: translateY(40px); }
   .wcu-card.is-visible { transform: translateY(0); }
   .wcu-card__content { padding: 28px 24px; }
+}
+
+@media (max-width: 1024px) {
+  .wcu__title { font-size: 38px; }
+  .wcu__desc  { font-size: 20px; }
+}
+@media (max-width: 768px) {
+  .wcu__title { font-size: 30px; }
+  .wcu__desc  { font-size: 17px; }
+}
+@media (max-width: 480px) {
+  .wcu__title { font-size: 24px; }
+  .wcu__desc  { font-size: 15px; }
 }

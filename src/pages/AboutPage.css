@@ -1,0 +1,147 @@
+/* ════════════════════════════════════════
+   ABOUT PAGE
+════════════════════════════════════════ */
+.about-page {
+  width: 100%;
+}
+
+/* ════════════════════════════════════════
+   BANNER
+════════════════════════════════════════ */
+.about-banner {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  /* display: flex;
+  align-items: center; */
+  /* overflow: hidden;
+
+  background-color: #0d0f2b;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; */
+}
+
+/* ── Text content ── */
+.about-banner__content {
+  position: relative;
+  z-index: 3;
+  padding: 80px 64px;
+  text-align: center;
+}
+.about-banner__title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.about-banner__description {
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 400;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.80);
+  margin: auto;
+  max-width: 560px;
+}
+
+/* ── Skeleton loaders ── */
+.about-banner__skeleton {
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.08) 75%
+  );
+  background-size: 200% 100%;
+  animation: bannerShimmer 1.4s infinite;
+  margin-bottom: 16px;
+}
+
+.about-banner__skeleton--title {
+  height: 52px;
+  width: 70%;
+}
+
+.about-banner__skeleton--desc {
+  height: 18px;
+  width: 90%;
+}
+
+.about-banner__skeleton--desc.short {
+  width: 60%;
+}
+
+@keyframes bannerShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ════════════════════════════════════════
+   TABLET — ≤ 1024px
+════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .about-banner {
+    min-height: 440px;
+  }
+
+  .about-banner__content {
+    padding: 64px 48px;
+    max-width: 560px;
+  }
+
+  .about-banner__svg-wrap {
+    width: 48%;
+  }
+}
+
+/* ════════════════════════════════════════
+   MOBILE — ≤ 768px
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .about-banner {
+    min-height: unset;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-banner__svg {
+    width: 80%;
+    max-width: 400px;
+    opacity: 0.75;
+  }
+
+  .about-banner__content {
+    padding: 48px 24px 32px;
+    max-width: 100%;
+    order: 1;
+  }
+
+  .about-banner__title {
+    font-size: clamp(1.75rem, 7vw, 2.4rem);
+  }
+
+  .about-banner__description {
+    font-size: 15px;
+  }
+
+  .about-banner__skeleton--title {
+    height: 40px;
+    width: 80%;
+  }
+}
+
+/* ════════════════════════════════════════
+   SMALL MOBILE — ≤ 480px
+════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .about-banner__content {
+    padding: 36px 20px 24px;
+  }
+  .about-banner__svg {
+    width: 90%;
+  }
+}

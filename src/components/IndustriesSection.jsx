@@ -22,6 +22,13 @@ const StarIcon = () => (
 /* ── Resolve WP media ID → URL ── */
 async function resolveMedia(val) {
   if (!val) return "";
+  // If it's already a URL string, return it directly
+  if (typeof val === "string") {
+    if (val.startsWith("http") || val.startsWith("/")) return val;
+    return ""; // numeric string ID — fall through below won't happen
+  }
+  // ACF image/file object with .url already resolved
+  if (typeof val === "object" && val.url) return val.url;
   // ACF file/image field returns { type, value } where value is the ID
   const id = typeof val === "object" ? (val.value ?? val.id ?? null) : val;
   if (!id) return "";
@@ -97,9 +104,10 @@ export default function IndustriesSection() {
             const tab = sts[id] || sts[prefix] || {};
             if (!tab || typeof tab !== "object") return null;
 
-            // Icon field: {type, value} where value is media ID
-            const iconField  = tab[`${prefix}_icon`]  || tab[`${prefix}`] || null;
-            const imageField = tab[`${prefix}_image`] || null;
+            // Icon: some tabs use `prefix_icon`, real_estate uses `prefix` directly (URL string)
+            const iconField  = tab[`${prefix}_icon`] ?? tab[`${prefix}`] ?? null;
+            // Image: ACF returns full object with .url, or a media ID
+            const imageField = tab[`${prefix}_image`] ?? null;
 
             const [iconUrl, imageUrl] = await Promise.all([
               resolveMedia(iconField),
@@ -109,7 +117,7 @@ export default function IndustriesSection() {
             // Description — try prefix_dis, then dis
             const desc = tab[`${prefix}_dis`] || tab.dis || tab.description || "";
 
-            // Bullets — try prefix_bullet, prefix_buttet, bullet
+            // Bullets — try prefix_bullet, prefix_buttet (WP typo for real_estate), bullet
             const rawBullets = tab[`${prefix}_bullet`] || tab[`${prefix}_buttet`] || tab.bullet || tab.bullets || "";
 
             // Learn more link
@@ -168,7 +176,6 @@ export default function IndustriesSection() {
               className={`ind__tab${i === activeTab ? " ind__tab--active" : ""}`}
               onClick={() => setActiveTab(i)}
             >
-              {/* {tab.icon && <img src={tab.icon} alt="" className="ind__tab-icon" />} */}
               {tab.label}
             </button>
           ))}

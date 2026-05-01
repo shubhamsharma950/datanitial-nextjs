@@ -154,85 +154,85 @@ export default function WhoWeAreSection() {
   const n = cards.length;
 
   return (
-    <section
-      className="wwa"
-      aria-label="Who We Are"
-      ref={sectionRef}
-      style={{ "--card-count": n }}
-    >
-      {/* Sticky viewport */}
-      <div className="wwa__main">
+    <>
+      {/* ══ 1. HEADER — normal flow, scrolls away ══ */}
+      <div className="wwa__header-section" aria-label="Who We Are">
         <div className="container">
-
-          {/* Badge */}
           <div className="badge-sec">
-            <StarIcon />
+            <span className="badge-sec__icon" aria-hidden="true" />
             <span>WHO WE ARE</span>
           </div>
-
-          {/* Header */}
           {(sectionTitle || sectionDesc) && (
             <div className="wwa__header">
               {sectionTitle && <h2 className="wwa__title">{sectionTitle}</h2>}
               {sectionDesc  && <p  className="wwa__desc">{sectionDesc}</p>}
             </div>
           )}
-
-          {/* Card stack */}
-          {cards.length > 0 && (
-            <div className="wwa__sticky">
-              <div className="wwa__stack">
-                {cards.map((card, i) => (
-                  <article
-                    key={i}
-                    className={`wwa-card${i <= activeCard ? " wwa-card--visible" : ""}${i === activeCard ? " wwa-card--active" : ""}`}
-                    aria-label={card.title}
-                    ref={(el) => (cardRefs.current[i] = el)}
-                    style={{ "--card-index": i }}
-                  >
-                    {/* <div className="wwa-card"> */}
-                    <div className="wwa-card__img-wrap">
-                      {card.image ? (
-                        <img
-                          src={card.image}
-                          alt={card.image_alt}
-                          className="wwa-card__img"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="wwa-card__img-placeholder" aria-hidden="true">
-                          <svg viewBox="0 0 80 60" fill="none">
-                            <rect width="80" height="60" rx="8" fill="#0d1b4b" />
-                            <circle cx="20" cy="20" r="10" fill="#1a3a8f" opacity=".8" />
-                            <circle cx="55" cy="35" r="14" fill="#1e4db7" opacity=".5" />
-                            <rect x="8" y="44" width="64" height="3" rx="2" fill="#2563eb" opacity=".4" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="wwa-card__body">
-                      {card.title       && <h3 className="wwa-card__title">{card.title}</h3>}
-                      {card.description && <p  className="wwa-card__desc">{card.description}</p>}
-                      {card.bullets?.length > 0 && (
-                        <ul className="wwa-card__bullets">
-                          {card.bullets.map((b, bi) => (
-                            <li key={bi} className="wwa-card__bullet">
-                              <CheckIcon />
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          )}
-
         </div>
       </div>
-    </section>
+
+      {/* ══ 2. SCROLL SECTION — sticky cards, one per screen ══ */}
+      <div
+        className="wwa__scroll-section"
+        aria-label="Who We Are cards"
+        ref={sectionRef}
+        style={{ "--card-count": n }}
+      >
+        <div className="wwa__sticky-box">
+          <div className="wwa__stack">
+            {cards.map((card, i) => (
+              <article
+                key={i}
+                className={[
+                  "wwa-card",
+                  i <= activeCard ? "wwa-card--visible" : "",
+                  i === activeCard ? "wwa-card--active" : "",
+                ].join(" ").trim()}
+                aria-label={card.title}
+                ref={(el) => (cardRefs.current[i] = el)}
+                style={{ "--card-index": i }}
+              >
+                {/* Image */}
+                <div className="wwa-card__img-wrap">
+                  {card.image ? (
+                    <img
+                      src={card.image}
+                      alt={card.image_alt}
+                      className="wwa-card__img"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="wwa-card__img-placeholder" aria-hidden="true">
+                      <svg viewBox="0 0 80 60" fill="none">
+                        <rect width="80" height="60" rx="8" fill="#0d1b4b" />
+                        <circle cx="20" cy="20" r="10" fill="#1a3a8f" opacity=".8" />
+                        <circle cx="55" cy="35" r="14" fill="#1e4db7" opacity=".5" />
+                        <rect x="8" y="44" width="64" height="3" rx="2" fill="#2563eb" opacity=".4" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+
+                {/* Body */}
+                <div className="wwa-card__body">
+                  {card.title       && <h3 className="wwa-card__title">{card.title}</h3>}
+                  {card.description && <p  className="wwa-card__desc">{card.description}</p>}
+                  {card.bullets?.length > 0 && (
+                    <ul className="wwa-card__bullets">
+                      {card.bullets.map((b, bi) => (
+                        <li key={bi} className="wwa-card__bullet">
+                          <CheckIcon />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

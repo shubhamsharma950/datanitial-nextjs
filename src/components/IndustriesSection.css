@@ -17,18 +17,17 @@
 .ind__header { text-align: center; margin-bottom: 36px; }
 
 .ind__title {
-  font-size: clamp(28px, 4vw, 52px);
-  font-weight: 700;
+  font-size: 48px;
+  font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
-  line-height: 1.15;
-  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 .ind__desc {
-  font-size: 15px;
-  color: var(--text);
-  max-width: 640px;
+  font-size: 24px;
+  color: #707070;
+  max-width: 1100px;
   margin: 0 auto;
   line-height: 1.75;
   text-align: center;
@@ -62,8 +61,8 @@
   border: none;
   background: transparent;
   font-size: 18px;
-  font-weight: 500;
-  color: var(--secondary);
+  font-weight: 600;
+  color: var(--accent);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   font-family: inherit;
@@ -145,8 +144,7 @@
 
 /* ── Responsive ── */
 @media (max-width: 960px) and (min-width: 601px) {
-  .ind__card-desc { font-size: 14px; }
-  .ind__card-bullet { font-size: 14px; }
+
   /* Keep two-column layout on tablet: text left, image right */
   .ind__card {
     grid-template-columns: 1fr 1fr;
@@ -163,6 +161,8 @@
 }
 
 @media (max-width: 900px) {
+    .ind__card-desc { font-size: 14px; }
+  .ind__card-bullet { font-size: 14px; }
   .ind__tabs {
     gap: 8px;
     padding: 12px 10px;
@@ -179,4 +179,17 @@
   .ind__tab { padding: 8px 14px; font-size: 13px; }
   .ind__card { padding: 28px 20px; }
   .ind__title { font-size: clamp(24px, 6vw, 36px); }
+}
+
+@media (max-width: 1024px) {
+  .ind__title { font-size: 38px; }
+  .ind__desc  { font-size: 20px; }
+}
+@media (max-width: 768px) {
+  .ind__title { font-size: 30px; }
+  .ind__desc  { font-size: 17px; }
+}
+@media (max-width: 480px) {
+  .ind__title { font-size: 24px; }
+  .ind__desc  { font-size: 15px; }
 }
