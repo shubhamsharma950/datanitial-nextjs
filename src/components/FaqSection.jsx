@@ -27,8 +27,8 @@ const FALLBACK = {
 // SVG replaced by CSS background-image on .faq-badge__icon
 
 /* ── Toggle icon images ── */
-const ICON_OPEN  = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button.png";
-const ICON_CLOSE = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button-close.png";
+const ICON_OPEN  = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button-close.png";
+const ICON_CLOSE = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Button.png";
 
 /* ── Skeleton ── */
 function Skeleton() {
@@ -101,10 +101,10 @@ function GetStartedBanner() {
 
       <div className="gs-banner__content">
         {/* Badge */}
-        <div className="gs-badge">
-          <span className="gs-badge__icon" aria-hidden="true" />
-          <span className="gs-badge__label">GET STARTED</span>
-        </div>
+         <div className="faq-badge">
+                <span className="faq-badge__icon" aria-hidden="true" />
+                <span className="faq-badge__label">{"GET STARTED"}</span>
+              </div>
 
         {/* Heading */}
         <h2 className="gs-banner__heading">

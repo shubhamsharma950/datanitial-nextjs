@@ -144,8 +144,7 @@
 
 /* ── Responsive ── */
 @media (max-width: 960px) and (min-width: 601px) {
-  .ind__card-desc { font-size: 14px; }
-  .ind__card-bullet { font-size: 14px; }
+
   /* Keep two-column layout on tablet: text left, image right */
   .ind__card {
     grid-template-columns: 1fr 1fr;
@@ -162,6 +161,8 @@
 }
 
 @media (max-width: 900px) {
+    .ind__card-desc { font-size: 14px; }
+  .ind__card-bullet { font-size: 14px; }
   .ind__tabs {
     gap: 8px;
     padding: 12px 10px;

@@ -13,7 +13,7 @@
 .faq-section__container {
   max-width: 1200px;
   margin: 0 auto;
-  /* padding: 0 40px; */
+  padding: 0 20px;
 }
 
 /* ════════════════════════════════
@@ -71,7 +71,7 @@
 
 /* ── Heading ── */
 .faq-section__heading {
-  font-size: 48px;
+  font-size: 34px;
   font-weight: 600;
   line-height: 1.2;
   color: var(--text-dark);
@@ -157,8 +157,8 @@
 
 /* ── Question text ── */
 .faq-item__question {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   color: #0d1b3e;
   line-height: 1.4;
   flex: 1;
@@ -195,7 +195,7 @@
 }
 
 .faq-item__answer {
-  font-size: 14px;
+  font-size: 16px;
   color: #5a6a85;
   line-height: 1.75;
   margin: 0;
@@ -333,6 +333,12 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+  .faq-item__question {
+    font-size: 16px;
+}
+.faq-item__answer {
+    font-size: 14px;
+}
   .gs-banner__btn {padding: 6px 21px;}
   .faq-section__container {
     padding: 0 20px;
@@ -419,9 +425,9 @@
 }
 @media (max-width: 768px) {
 .faq-badge {
-     padding: 6px 13px 6px 11px;
-    font-size: 14px;
-    margin: 0px auto 19px auto;
+    padding: 6px 13px 6px 11px;
+    font-size: 12px;
+    margin: 0px auto 19px 0px;
 }
 
 .faq-badge__icon {

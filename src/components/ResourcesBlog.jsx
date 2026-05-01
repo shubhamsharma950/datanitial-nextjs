@@ -5,14 +5,8 @@ const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
-const SECTION_URL = `${WP_BASE}/theme/v1/resources-home`;
+const ACF_URL     = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
 const POSTS_URL   = `${WP_BASE}/wp/v2/posts?_fields=id,title,excerpt,date,slug,featured_media,_links&per_page=10&_embed=1`;
-
-/* ── Fallback section meta ── */
-const FALLBACK_META = {
-  title:      "Resources & Articles",
-  discretion: "Stay ahead with expert insights, data trends, and industry deep-dives from the Datanitial team.",
-};
 
 /* ── Fallback posts ── */
 const FALLBACK_POSTS = Array.from({ length: 4 }, (_, i) => ({
@@ -182,9 +176,16 @@ export default function ResourcesBlog() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMeta = fetch(SECTION_URL)
+    const fetchMeta = fetch(ACF_URL)
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .catch(() => FALLBACK_META);
+      .then(d => {
+        const ra = d?.acf?.resources_artical;
+        return {
+          title:      ra?.title      || "",
+          discretion: ra?.discretion || "",
+        };
+      })
+      .catch(() => ({ title: "", discretion: "" }));
 
     const fetchPosts = fetch(POSTS_URL)
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -200,7 +201,7 @@ export default function ResourcesBlog() {
 
   if (loading) return <Skeleton />;
 
-  const { title, discretion } = meta || FALLBACK_META;
+  const { title, discretion } = meta || {};
   const [featured, ...rest]   = posts.length ? posts : FALLBACK_POSTS;
   // Show max 3 cards in the grid below featured
   const gridPosts = rest.slice(0, 3);
@@ -211,10 +212,14 @@ export default function ResourcesBlog() {
 
         {/* ── Section header ── */}
         <header className="rb-header">
-          <div className="rb-badge">
-            <StarIcon />
-            <span className="rb-badge__label">Resources</span>
-          </div>
+      
+            {/* ── Badge ── */}
+        <div className="badge-sec">
+          <StarIcon />
+          <span>Resources</span>
+        </div>
+
+
           <h1 className="rb-header__title">{title}</h1>
           {discretion && <p className="rb-header__desc">{discretion}</p>}
         </header>

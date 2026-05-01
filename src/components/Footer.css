@@ -133,7 +133,7 @@
 /* ── Watermark ── */
 .ftr__watermark {
   text-align: center;
-  font-size: clamp(32px, 7vw, 97px);
+  font-size: clamp(32px, 7vw, 86px);
   font-weight: 900;
   letter-spacing: 6%;
   text-transform: uppercase;

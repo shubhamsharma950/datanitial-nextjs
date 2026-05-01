@@ -189,6 +189,19 @@
 
 /* Mobile */
 @media (max-width: 600px) {
+  .ts-card {
+    width: 219px;
+    min-width: 236px;
+    height: 175px;
+    padding: 12px;
+}
+.ts-card__name { font-size: 12px; }
+.ts-card__company {font-size: 11px;}
+.ts-card__text {padding: 9px 8px; font-size: 11px;}
+.ts-card__avatar {width: 37px; height: 37px;}
+.ts-card__stars-img {
+    width: 56px;
+}
   .ts-row {
     max-width: calc(320px * 1.5 + 20px);
   }

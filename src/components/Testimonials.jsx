@@ -122,32 +122,59 @@ async function extractItems(group) {
 }
 
 /* ─────────────────────────────────────────────
+   Collect numbered slide Groups from the ACF ts object.
+   ACF stores each slide as a Group with Field Name:
+     left-slide-items1, left-slide-items2, …  (hyphen)
+   or
+     left_slide_items1, left_slide_items2, …  (underscore)
+   Collects up to 20 items.
+───────────────────────────────────────────── */
+async function collectSlides(ts, prefixHyphen, prefixUnderscore) {
+  const items = [];
+  for (let i = 1; i <= 20; i++) {
+    const raw = ts[`${prefixHyphen}${i}`] ?? ts[`${prefixUnderscore}${i}`] ?? null;
+    if (!raw || typeof raw !== "object") {
+      if (i > 1) break; // stop at first gap after finding at least one
+      continue;
+    }
+    const built = await buildItem(raw);
+    if (built) items.push(built);
+  }
+  return items;
+}
+
+/* ─────────────────────────────────────────────
    Parse the native ACF fallback response
    wp/v2/pages/63?_fields=acf
 
    ACF field names from actual API response:
-     testimonialssection  (double 's' — ACF typo)
+     testimonialsection  (single 's')
        title, discerption (typo — no 'i')
-       left-slider        (hyphen)
-       right_slide_items
+       left-slide-items1 … left-slide-items{n}   (numbered Groups)
+       right-slide-items1 … right-slide-items{n}
 ───────────────────────────────────────────── */
 async function parseFromAcf(acf) {
-  // ACF key is "testimonialssection" (double 's') — also try single 's' as fallback
-  const ts = acf?.testimonialssection ?? acf?.testimonialsection;
+  // Try both ACF field name spellings
+  const ts = acf?.testimonialsection ?? acf?.testimonialssection;
   if (!ts) return null;
 
-  // "left-slider" uses a hyphen in ACF
-  const leftGroup  = ts["left-slider"]      ?? ts.left_slider      ?? ts.left_slide_items  ?? null;
-  const rightGroup = ts.right_slide_items   ?? ts["right-slide-items"] ?? ts.right_slider  ?? null;
+  // Collect numbered slide groups: left-slide-items1, left-slide-items2, …
+  let leftItems  = await collectSlides(ts, "left-slide-items",  "left_slide_items");
+  let rightItems = await collectSlides(ts, "right-slide-items", "right_slide_items");
 
-  const [leftItems, rightItems] = await Promise.all([
-    extractItems(leftGroup),
-    extractItems(rightGroup),
-  ]);
+  // Legacy fallback: single group keys (left-slider, right_slide_items)
+  if (!leftItems.length) {
+    const leftGroup = ts["left-slider"] ?? ts.left_slider ?? ts.left_slide_items ?? null;
+    leftItems = await extractItems(leftGroup);
+  }
+  if (!rightItems.length) {
+    const rightGroup = ts.right_slide_items ?? ts["right-slide-items"] ?? ts.right_slider ?? null;
+    rightItems = await extractItems(rightGroup);
+  }
 
   return {
     title:       ts.title       || "",
-    // ACF field is "discerption" (typo) — also try correct spelling
+    // ACF field is "discerption" (typo) — also try correct spellings
     description: ts.discerption || ts.discription || ts.description || "",
     leftItems,
     rightItems,
