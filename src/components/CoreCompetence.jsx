@@ -48,42 +48,31 @@ const StarIcon = () => (
 );
 
 /* ─────────────────────────────────────────────────────────────
-   Compute the (left%, top%) position of a number box that sits
-   ON the arc curve.
-
-   SVG viewBox: 1200 × 600.
-   Semicircle: centre (600, 600), radius 600.
-     x = 600 - 600·cos(θ)
-     y = 600 - 600·sin(θ)
-
-   We spread steps across 20°…160° (not 0°…180°) so the edge
-   numbers (1 and 5) stay fully inside the card and don't cause
-   horizontal overflow.
+   Desktop: fixed positions for the three visible number boxes.
+   Left  = prev step   (left side of arc)
+   Top   = active step (top/center of arc)
+   Right = next step   (right side of arc)
    ─────────────────────────────────────────────────────────────*/
-const ARC_START_DEG = 20;   // degrees from left edge
-const ARC_END_DEG   = 160;  // degrees from left edge
+const DESKTOP_PREV_STYLE = {
+  left:         "calc(15.899% - 39px)",
+  top:          "calc(19.0307% - 49px)",
+  borderRadius: "18px 18px 18px 0px",
+  opacity:      1,
+};
 
-function arcPosition(index, total, cardW = 1200, cardH = 600) {
-  const startRad = (ARC_START_DEG * Math.PI) / 180;
-  const endRad   = (ARC_END_DEG   * Math.PI) / 180;
-  const angle    = startRad + ((endRad - startRad) * index) / (total - 1);
-  const cx = 600, cy = 600, r = 600;
-  const x = cx - r * Math.cos(angle);
-  const y = cy - r * Math.sin(angle);
-  return {
-    leftPct: (x / cardW) * 100,
-    topPct:  (y / cardH) * 100,
-  };
-}
+const DESKTOP_ACTIVE_STYLE = {
+  left:         "calc(51.101% - 48px)",
+  top:          "calc(2.03074% - 50px)",
+  borderRadius: "18px 18px 0px 0px",
+  opacity:      1,
+};
 
-/* Rotation: box tilts tangentially along the arc */
-function arcRotation(index, total) {
-  const startRad = (ARC_START_DEG * Math.PI) / 180;
-  const endRad   = (ARC_END_DEG   * Math.PI) / 180;
-  const angle    = startRad + ((endRad - startRad) * index) / (total - 1);
-  const deg      = -(90 - (angle * 180) / Math.PI);
-  return deg;
-}
+const DESKTOP_NEXT_STYLE = {
+  left:         "calc(97.3013% - 175px)",
+  top:          "calc(36% - 89px)",
+  borderRadius: "18px 18px 0px 18px",
+  opacity:      1,
+};
 
 export default function CoreCompetence() {
   const [data,      setData]      = useState(null);
@@ -141,47 +130,18 @@ export default function CoreCompetence() {
   if (loading || !data) return null;
 
   const { title, description, steps } = data;
-  const total = steps.length; // e.g. 5
+  const total = steps.length;
 
   /* Active step */
   const activeStep  = steps[stepIndex] || steps[0];
-  /* Content: if active step has no title (step 5), show last step with content */
+  /* Content: if active step has no title (e.g. step 5), show last step with content */
   const contentStep = activeStep.title
     ? activeStep
     : [...steps].reverse().find(s => s.title) || activeStep;
 
   /* Neighbours */
-  const prevStep = stepIndex > 0               ? steps[stepIndex - 1] : null;
-  const nextStep = stepIndex < total - 1       ? steps[stepIndex + 1] : null;
-
-  /* Mobile navigation */
-  const handleLeftClick  = () => { if (stepIndex > 0)       setStepIndex(i => i - 1); };
-  const handleRightClick = () => { if (stepIndex < total-1) setStepIndex(i => i + 1); };
-
-  /* ── Desktop: compute arc positions for prev / active / next ── */
-  const BOX_W = 100; // px, number box width
-  const BOX_H = 100; // px, number box height
-
-  function desktopNumStyle(stepIdx) {
-    const { leftPct, topPct } = arcPosition(stepIdx, total);
-    const rot = arcRotation(stepIdx, total);
-    return {
-      left:      `calc(${leftPct}% - ${BOX_W / 2}px)`,
-      top:       `calc(${topPct}% - ${BOX_H / 2}px)`,
-      transform: `rotate(${rot}deg)`,
-    };
-  }
-
-  /* Center box: top of arc — special border-radius (top corners rounded) */
-  function centerBorderRadius(stepIdx, total) {
-    const { leftPct } = arcPosition(stepIdx, total);
-    // near top-center → flat bottom
-    if (leftPct > 35 && leftPct < 65) return "18px 18px 0 0";
-    // left side
-    if (leftPct <= 35) return "18px 18px 18px 0";
-    // right side
-    return "18px 18px 0 18px";
-  }
+  const prevStep = stepIndex > 0         ? steps[stepIndex - 1] : null;
+  const nextStep = stepIndex < total - 1 ? steps[stepIndex + 1] : null;
 
   return (
     <>
@@ -210,7 +170,6 @@ export default function CoreCompetence() {
               preserveAspectRatio="none"
               aria-hidden="true"
             >
-              {/* Semicircle: centre (600,600) radius 600 */}
               <path
                 d="M0,600 A600,600 0 0,1 1200,600 L1200,600 L0,600 Z"
                 className="arc-fill"
@@ -224,41 +183,21 @@ export default function CoreCompetence() {
             {/* ── DESKTOP number boxes ── */}
             {!isMobile && (
               <>
-                {/* PREV (left) */}
+                {/* PREV (left side of arc) */}
                 {prevStep && (
-                  <div
-                    className="arc-num-box"
-                    style={{
-                      ...desktopNumStyle(stepIndex - 1),
-                      borderRadius: centerBorderRadius(stepIndex - 1, total),
-                      opacity: 1,
-                    }}
-                  >
+                  <div className="arc-num-box" style={DESKTOP_PREV_STYLE}>
                     {prevStep.number}
                   </div>
                 )}
 
-                {/* ACTIVE (center) */}
-                <div
-                  className="arc-num-box arc-num-active"
-                  style={{
-                    ...desktopNumStyle(stepIndex),
-                    borderRadius: centerBorderRadius(stepIndex, total),
-                  }}
-                >
+                {/* ACTIVE (top/center of arc) */}
+                <div className="arc-num-box arc-num-active" style={DESKTOP_ACTIVE_STYLE}>
                   {activeStep.number}
                 </div>
 
-                {/* NEXT (right) */}
+                {/* NEXT (right side of arc) */}
                 {nextStep && (
-                  <div
-                    className="arc-num-box"
-                    style={{
-                      ...desktopNumStyle(stepIndex + 1),
-                      borderRadius: centerBorderRadius(stepIndex + 1, total),
-                      opacity: 0.7,
-                    }}
-                  >
+                  <div className="arc-num-box" style={DESKTOP_NEXT_STYLE}>
                     {nextStep.number}
                   </div>
                 )}
@@ -267,20 +206,17 @@ export default function CoreCompetence() {
 
             {/* ── MOBILE number boxes ── */}
             {isMobile && (
-              <>
-                {/* CENTER only — click cycles to next step */}
-                <div
-                  className="arc-num-box arc-center arc-num-active arc-num-clickable"
-                  onClick={() => setStepIndex(i => (i + 1) % total)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && setStepIndex(i => (i + 1) % total)}
-                  aria-label={`Step ${activeStep.number}, click for next`}
-                  title="Click to go to next step"
-                >
-                  {activeStep.number}
-                </div>
-              </>
+              <div
+                className="arc-num-box arc-center arc-num-active arc-num-clickable"
+                onClick={() => setStepIndex(i => (i + 1) % total)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && setStepIndex(i => (i + 1) % total)}
+                aria-label={`Step ${activeStep.number}, click for next`}
+                title="Click to go to next step"
+              >
+                {activeStep.number}
+              </div>
             )}
 
             {/* ── Content ── */}

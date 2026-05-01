@@ -7,8 +7,8 @@
 
 /* ── 1. Header section — normal flow, scrolls away ── */
 .wwa__header-section {
-  background: var(--bg-soft);
-  padding: 72px 0 48px;
+  background: #e3f3ff;
+  padding: 72px 0 0px;
   text-align: center;
 }
 
@@ -35,7 +35,7 @@
 /* ── 2. Scroll section — tall enough for all cards ── */
 .wwa__scroll-section {
   position: relative;
-  height: calc(var(--card-count, 3) * 100vh);
+  height: calc(var(--card-count, 3) * 98vh);
   background: var(--bg-soft);
 }
 
@@ -43,12 +43,13 @@
 .wwa__sticky-box {
   position: sticky;
   top: 0;
-  height: 100vh;
+  padding-top: 40px;
+  height: 77vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 40px; */
+  background-color: #e3f3ff;
 }
 
 /* ── Stack: cards overlap absolutely ── */
@@ -94,7 +95,6 @@
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: brightness(1);
-  box-shadow: var(--shadow-lg);
 }
 
 /* ── Image wrap ── */

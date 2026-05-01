@@ -13,12 +13,12 @@
 
 import axios from "axios";
 
-// ── Read from environment variables (works in both Vite and Next.js) ──
-// Vite:    import.meta.env.VITE_* or NEXT_PUBLIC_* (via define)
-// Next.js: process.env.NEXT_PUBLIC_*
+// ── Read from environment variables ──
+// Vite exposes only VITE_* prefixed vars via import.meta.env.
+// In dev, requests go through the Vite proxy (/wp-json → WordPress)
+// so BASE_URL can be relative. In production, use the full URL.
 const BASE_URL =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_WP_REST_URL) ||
+  import.meta.env?.VITE_WP_REST_URL ||
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
 const api = axios.create({ baseURL: BASE_URL });
