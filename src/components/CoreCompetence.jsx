@@ -56,22 +56,24 @@ const StarIcon = () => (
 const DESKTOP_PREV_STYLE = {
   left:         "calc(15.899% - 39px)",
   top:          "calc(19.0307% - 49px)",
-  borderRadius: "18px 18px 18px 0px",
+  borderRadius: "12px",
   opacity:      1,
+  transform: 'rotate(323deg)'
 };
 
 const DESKTOP_ACTIVE_STYLE = {
   left:         "calc(51.101% - 48px)",
   top:          "calc(2.03074% - 50px)",
-  borderRadius: "18px 18px 0px 0px",
+  borderRadius: "12px",
   opacity:      1,
 };
 
 const DESKTOP_NEXT_STYLE = {
   left:         "calc(97.3013% - 175px)",
   top:          "calc(36% - 89px)",
-  borderRadius: "18px 18px 0px 18px",
+  borderRadius: "12px",
   opacity:      1,
+  transform: 'rotate(45deg)'
 };
 
 export default function CoreCompetence() {
