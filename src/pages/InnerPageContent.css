@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   InnerPageContent.css
+   Shared styles for the content area below the banner on all inner pages.
+═══════════════════════════════════════════════════════════════════════════ */
+
+.ipc {
+  width: 100%;
+  padding: 80px 0 100px;
+  background: #fff;
+}
+
+.ipc__inner {
+  width: 100%;
+  max-width: 1110px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* Badge override — centred at top of content */
+.ipc__badge {
+  align-self: flex-start;
+}
+
+/* ── Skeleton ── */
+.ipc__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+}
+
+.ipc__skeleton-badge {
+  width: 140px;
+  height: 36px;
+  border-radius: 50px;
+}
+
+.ipc__skeleton-h2 {
+  width: 60%;
+  height: 52px;
+  border-radius: 10px;
+}
+
+.ipc__skeleton-p {
+  width: 100%;
+  height: 22px;
+  border-radius: 6px;
+}
+
+.ipc__skeleton-p--short {
+  width: 75%;
+}
+
+.ipc__skeleton-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.ipc__skeleton-card {
+  height: 180px;
+  border-radius: 16px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .ipc { padding: 64px 0 80px; }
+  .ipc__inner { gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .ipc { padding: 48px 0 64px; }
+  .ipc__inner {
+    padding: 0 16px;
+    gap: 32px;
+  }
+
+  .ipc__skeleton-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .ipc__skeleton-h2 {
+    width: 85%;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ipc { padding: 40px 0 56px; }
+  .ipc__inner { gap: 24px; }
+}

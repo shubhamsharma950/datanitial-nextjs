@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   AboutFiveSection.css  —  Section 5
+   Left: text panel | Right: 4 stacked step cards on light-blue bg
+═══════════════════════════════════════════════════════════════════════════ */
+
+.a5s {
+  width: 100%;
+  padding: 100px 0;
+}
+
+.a5s__inner {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 100px;
+  align-items: start;
+}
+
+/* ── Left panel ── */
+.a5s__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 120px;
+}
+
+.a5s__badge { margin: 0; }
+.a5s__title {
+  font-size: 48px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.a5s__desc {
+  font-size: 24px;
+  font-weight: 500;
+  color: #707070;
+  line-height: 1.75;
+  max-width: 1000px;
+  margin: 0;
+}
+
+.a5s__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 28px;
+  border: 1.5px solid #2E2A8C;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2E2A8C;
+  background: transparent;
+  text-decoration: none;
+  width: fit-content;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.a5s__cta:hover {
+  background: #2E2A8C;
+  color: #fff;
+  border-color: #2E2A8C;
+}
+
+/* ── Right container — light blue bg ── */
+.a5s__right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #C8E6F8;
+  padding: 28px;
+  border-radius: 28px;
+}
+
+/* ── Per-card background colors (progressively darker) ── */
+.a5s__step:nth-child(1) { background: #4E7CCF; }
+.a5s__step:nth-child(2) { background: #3A4FB7; }
+.a5s__step:nth-child(3) { background: #2E2A8C; }
+.a5s__step:nth-child(4) { background: #1D1971; }
+
+/* ── Single step card ── */
+.a5s__step {
+  border-radius: 20px;
+  padding: 28px 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Step header: icon box + title ── */
+.a5s__step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+/* White rounded square behind icon */
+.a5s__step-icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: #fff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Icon is blue on white — do NOT invert */
+.a5s__step-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.a5s__step-icon-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(46, 42, 140, .2);
+}
+
+.a5s__step-title {
+  font-size: 40px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* ── Dotted divider ── */
+.a5s__step-divider {
+  width: 100%;
+  height: 0;
+  border: none;
+  border-top: 2px dotted rgba(255, 255, 255, .4);
+  margin-bottom: 20px;
+}
+
+/* ── Description ── */
+.a5s__step-desc {
+  font-size: 20px;
+  font-weight: 400;
+  color: #F5F5F5;
+  line-height: 1.75;
+  margin: 0 0 20px 0;
+}
+
+/* ── Tags — white bg, blue text, pill shape ── */
+.a5s__step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.a5s__step-tag {
+  display: inline-block;
+  padding: 4px 20px;
+  border-radius: 34px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2E2A8C;
+  background: #fff;
+  white-space: nowrap;
+  cursor: default;
+  transition: opacity .18s ease;
+}
+
+.a5s__step-tag:hover {
+  opacity: .85;
+}
+
+/* ── Skeleton ── */
+.a5s__step-sk {
+  background: #3D55CC;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .a5s__inner {
+    grid-template-columns: 1fr 1.4fr;
+    gap: 40px;
+  }
+  .a5s__title { font-size: 40px; }
+  .a5s__desc  { font-size: 20px; }
+  .a5s__left  { position: static; }
+  .a5s__step-title { font-size: 26px; }
+}
+
+/* ── Mobile: stack ── */
+@media (max-width: 768px) {
+  .a5s__left{padding: 20px;}
+  .a5s { padding: 64px 0; }
+  .a5s__inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0px;
+  }
+  .a5s__right { padding: 18px; gap: 16px; }
+  .a5s__title { font-size: 32px; }
+  .a5s__desc  { font-size: 20px; }
+  .a5s__step  { padding: 22px 20px 20px; }
+  .a5s__step-title { font-size: 24px; }
+  .a5s__step-icon-wrap { width: 48px; height: 48px; border-radius: 12px; }
+  .a5s__step-icon { width: 26px; height: 26px; }
+}
+
+@media (max-width: 480px) {
+  .a5s { padding: 48px 0; }
+  .a5s__title { font-size: 26px; }
+  .a5s__desc  { font-size: 18px; }
+  .a5s__step-title { font-size: 22px; }
+  .a5s__step-tag { font-size: 13px; padding: 7px 16px; }
+}

@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   AboutFourSection.css  —  Section 4
+   Comparison: Other Firms (grey) vs With Datanitial (green, light-blue card)
+═══════════════════════════════════════════════════════════════════════════ */
+
+.a4s {
+  width: 100%;
+  background: #fff;
+  padding: 100px 0;
+}
+
+.a4s__inner {
+  width: 100%;
+  max-width: 1110px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* ── Header ── */
+.a4s__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.a4s__badge { margin: 0; }
+
+.a4s__title {
+  font-size: 52px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.a4s__desc {
+  font-size: 24px;
+  font-weight: 500;
+  color: #707070;
+  line-height: 1.75;
+  max-width: 1000px;
+  margin: 0;
+}
+
+/* ── Table ── */
+.a4s__table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(to left, #E2F3FF, #FBFDFF);
+    padding: 20px;
+}
+
+/* ── Columns ── */
+.a4s__col {
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* .a4s__col--left {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+} */
+
+.a4s__col--right {
+  background: #fff;
+  border: 1px solid #d0e0ff;
+  border-radius: 16px;
+}
+.a4s__col-title-l{
+  font-size: 32px;
+  font-weight: 500;
+  color: #111;
+  margin: 0;
+}
+.a4s__col-title-r {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+/* ── List ── */
+.a4s__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.a4s__item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+/* Off (grey) */
+.a4s__item--off { color: #888; }
+
+.a4s__check {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  fill: none;
+  stroke-width: 2;
+}
+
+.a4s__check--off {
+  stroke: #aaa;
+}
+/* .a4s__check--off circle { fill: #f0f0f0; stroke: #ccc; } */
+.a4s__check--off circle { fill: #707070; stroke: #707070;}
+.a4s__check--off path   { stroke: #fff; }
+
+/* On (green) */
+.a4s__item--on { color: #111; font-weight: 600; }
+
+.a4s__check--on circle { fill: #22c55e; stroke: #22c55e; }
+.a4s__check--on path   { stroke: #fff; }
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .a4s__title { font-size: 40px; }
+  .a4s__desc  { font-size: 20px; }
+  .a4s__col   { padding: 32px 24px; }
+}
+
+/* ── Mobile: stack ── */
+@media (max-width: 768px) {
+  .a4s__col-title-l{
+  font-size: 24px;
+}
+.a4s__col-title-r {
+  font-size: 24px;
+}
+.a4s__item {
+    gap: 15px;
+    font-size: 20px;
+    line-height: 25px;
+}
+.a4s__check {
+    width: 18px;
+    height: 18px;
+}
+  .a4s { padding: 64px 0; }
+  .a4s__inner { gap: 40px; padding: 0 16px; }
+  .a4s__table {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 10px;
+}
+
+  .a4s__col--left  { border-right: 1px solid #e8e8e8; border-radius: 16px; }
+  .a4s__col--right { border-radius: 16px; }
+
+  .a4s__title { font-size: 28px; }
+  .a4s__desc  { font-size: 20px; }
+  .a4s__col   { padding: 28px 20px; }
+  .a4s__item  { font-size: 15px; }
+}
+
+@media (max-width: 480px) {
+  .a4s { padding: 0 0 25px 0;}
+  .a4s__title { font-size: 24px; }
+}

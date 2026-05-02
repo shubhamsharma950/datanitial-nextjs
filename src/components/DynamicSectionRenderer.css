@@ -1,0 +1,384 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DynamicSectionRenderer.css
+   Styles for all dynamically rendered ACF section types.
+   Max content width: 1110px, centred.
+   Typography: H2 48px/600 desktop → 28px mobile
+               p  24px/500 desktop → 20px mobile
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ── */
+.dsr {
+  width: 100%;
+  max-width: 1110px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ═══════════════════════════════════════════════
+   HEADINGS
+═══════════════════════════════════════════════ */
+.dsr__heading {
+  color: var(--text-dark, #111111);
+  line-height: 1.2;
+  font-family: var(--font, 'Nunito', sans-serif);
+}
+
+.dsr__heading--h2 {
+  font-size: 48px;
+  font-weight: 600;
+  margin: 8px 0 0;
+}
+
+.dsr__heading--h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 4px 0 0;
+}
+
+.dsr__heading--h4 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 4px 0 0;
+}
+
+/* ═══════════════════════════════════════════════
+   PARAGRAPH
+═══════════════════════════════════════════════ */
+.dsr__paragraph {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--text, #707070);
+}
+
+/* WP wysiwyg output — reset nested elements */
+.dsr__paragraph p {
+  margin: 0 0 1em;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.dsr__paragraph p:last-child { margin-bottom: 0; }
+
+.dsr__paragraph ul,
+.dsr__paragraph ol {
+  padding-left: 1.5em;
+  margin: 0 0 1em;
+}
+
+.dsr__paragraph li {
+  margin-bottom: 0.4em;
+  font-size: inherit;
+  color: inherit;
+}
+
+.dsr__paragraph a {
+  color: var(--secondary, #3A4FB7);
+  text-decoration: underline;
+}
+
+.dsr__paragraph strong { font-weight: 700; color: var(--text-dark, #111); }
+.dsr__paragraph em     { font-style: italic; }
+
+/* ═══════════════════════════════════════════════
+   IMAGE
+═══════════════════════════════════════════════ */
+.dsr__image-wrap {
+  width: 100%;
+  margin: 0;
+}
+
+.dsr__image {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  object-fit: cover;
+}
+
+.dsr__image-caption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text, #707070);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════
+   CTA BLOCK
+═══════════════════════════════════════════════ */
+.dsr__cta-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.dsr__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: 100px;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+/* Primary */
+.dsr__cta-btn--primary {
+  background: linear-gradient(135deg, #7c6dfa 0%, #4f46e5 60%, #3730a3 100%);
+  color: #fff;
+  box-shadow: 0 6px 32px rgba(79, 70, 229, 0.4);
+}
+
+.dsr__cta-btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(79, 70, 229, 0.5);
+}
+
+/* Secondary */
+.dsr__cta-btn--secondary {
+  background: var(--primary, #2E2A8C);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(46, 42, 140, 0.3);
+}
+
+.dsr__cta-btn--secondary:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+/* Outline */
+.dsr__cta-btn--outline {
+  background: transparent;
+  color: var(--primary, #2E2A8C);
+  border: 2px solid var(--primary, #2E2A8C);
+}
+
+.dsr__cta-btn--outline:hover {
+  background: var(--primary, #2E2A8C);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.dsr__cta-arrow {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.dsr__cta-btn:hover .dsr__cta-arrow {
+  transform: translateX(4px);
+}
+
+/* ═══════════════════════════════════════════════
+   TWO COLUMN
+═══════════════════════════════════════════════ */
+.dsr__two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.dsr__two-col__left,
+.dsr__two-col__right {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--text, #707070);
+}
+
+.dsr__two-col__left p,
+.dsr__two-col__right p {
+  margin: 0 0 1em;
+}
+
+.dsr__two-col__left p:last-child,
+.dsr__two-col__right p:last-child {
+  margin-bottom: 0;
+}
+
+.dsr__two-col__left h2,
+.dsr__two-col__right h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-dark, #111);
+  margin-bottom: 16px;
+}
+
+.dsr__two-col__left h3,
+.dsr__two-col__right h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark, #111);
+  margin-bottom: 12px;
+}
+
+/* ═══════════════════════════════════════════════
+   CARD GRID
+═══════════════════════════════════════════════ */
+.dsr__card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.dsr__card {
+  background: #fff;
+  border: 1px solid var(--stroke, #D9D9D9);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.dsr__card:hover {
+  box-shadow: var(--shadow-md, 0 8px 32px rgba(46, 42, 140, 0.12));
+  transform: translateY(-4px);
+}
+
+.dsr__card__icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--bg-soft, #eef2fb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dsr__card__icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.dsr__card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark, #111);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.dsr__card__text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text, #707070);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   ICON LIST
+═══════════════════════════════════════════════ */
+.dsr__icon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dsr__icon-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.dsr__icon-list__icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dsr__icon-list__text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text, #707070);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Tablet (≤1024px)
+═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .dsr__heading--h2 { font-size: 38px; }
+  .dsr__heading--h3 { font-size: 24px; }
+  .dsr__paragraph   { font-size: 20px; }
+
+  .dsr__two-col {
+    gap: 32px;
+  }
+
+  .dsr__two-col__left,
+  .dsr__two-col__right {
+    font-size: 18px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Mobile (≤768px)
+═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .dsr {
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .dsr__heading--h2 { font-size: 28px; }
+  .dsr__heading--h3 { font-size: 22px; }
+  .dsr__heading--h4 { font-size: 18px; }
+
+  .dsr__paragraph   { font-size: 20px; }
+
+  .dsr__two-col {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .dsr__card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dsr__cta-btn {
+    font-size: 16px;
+    padding: 14px 32px;
+  }
+
+  .dsr__icon-list__text { font-size: 18px; }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Small mobile (≤480px)
+═══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .dsr__heading--h2 { font-size: 24px; }
+  .dsr__heading--h3 { font-size: 20px; }
+  .dsr__paragraph   { font-size: 17px; }
+
+  .dsr__card {
+    padding: 24px 20px;
+  }
+
+  .dsr__cta-btn {
+    font-size: 15px;
+    padding: 13px 28px;
+  }
+}

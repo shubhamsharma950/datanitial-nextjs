@@ -1,0 +1,202 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   AboutThreeSection.css  —  Section 3
+   3-col: cards left | tall center image | cards right
+═══════════════════════════════════════════════════════════════════════════ */
+
+.a3s {
+  width: 100%;
+  background: linear-gradient(to bottom, #E2F3FF, #ffffff);
+  padding: 90px 0;
+}
+
+.a3s__inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 280px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── Side columns ── */
+.a3s__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.a3s__col:last-child .a3s__card:last-child {
+  gap: 40px;
+}
+/* ══════════════════════════════════════════
+   CARD  — entrance animation + hover shadow
+══════════════════════════════════════════ */
+.a3s__card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* entrance: start hidden + shifted down */
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity   0.55s ease,
+    transform 0.55s ease,
+    box-shadow 0.28s ease;
+
+  /* subtle resting shadow */
+  box-shadow: 0 2px 12px rgba(46, 42, 140, 0.06);
+}
+
+/* Triggered by JS when section enters viewport */
+.a3s__card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.a3s__card:hover {
+  box-shadow: 0 4px 4px #4285F4;
+  transform: translateY(-5px);
+}
+
+/* ── Title ── */
+.a3s__card-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Second word highlight — brand blue */
+.a3s__hl {
+  color: #2563eb;
+}
+
+/* ── Description ── */
+.a3s__card-desc {
+  font-size: 24px;
+  font-weight: 500;
+  color: #707070;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════
+   CENTER COLUMN
+══════════════════════════════════════════ */
+.a3s__center-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.a3s__center-img-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #dbeafe 0%, #93c5fd 50%, #3b82f6 100%);
+  box-shadow: 0 16px 48px rgba(37, 99, 235, 0.22);
+}
+
+.a3s__center-img {
+  width: 100%;
+  height: 570px;
+  object-fit: cover;
+  display: block;
+}
+
+.a3s__center-img-placeholder {
+  width: 100%;
+  height: 420px;
+}
+
+/* ── Fav icon overlay ── */
+.a3s__fav-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  /* entrance: hidden + scaled down */
+  opacity: 0;
+  transform: scale(0.4) rotate(-15deg);
+  transition:
+    opacity   0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s,
+    transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s;
+}
+
+/* Triggered when section enters viewport */
+.a3s__fav-wrap--visible {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.a3s__fav-icon {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(37, 99, 235, 0.35));
+
+  /* continuous gentle float */
+  animation: a3s-float 3.6s ease-in-out infinite;
+}
+
+@keyframes a3s-float {
+  0%,  100% { transform: translateY(0px);   }
+  50%        { transform: translateY(-10px); }
+}
+
+/* Skeleton */
+.a3s__center-img-sk {
+  width: 100%;
+  height: 420px;
+  border-radius: 24px;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .a3s__inner {
+    grid-template-columns: 1fr 220px 1fr;
+    gap: 20px;
+  }
+  .a3s__center-img,
+  .a3s__center-img-placeholder,
+  .a3s__center-img-sk { height: 340px; }
+  .a3s__card-title { font-size: 32px; }
+  .a3s__fav-icon { width: 88px; height: 88px; }
+}
+
+/* ── Mobile: stack vertically ── */
+@media (max-width: 768px) {
+  .a3s { padding: 64px 0; }
+  .a3s__inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 16px;
+  }
+  /* .a3s__center-col { order: -1; } */
+  .a3s__center-img,
+  .a3s__center-img-placeholder,
+  .a3s__center-img-sk { height: 260px; }
+  .a3s__card-title { font-size: 32px; }
+  .a3s__card { padding: 22px 18px; }
+  .a3s__fav-icon { width: 72px; height: 72px; }
+}
+
+@media (max-width: 480px) {
+  .a3s { padding: 48px 0; }
+  .a3s__card-title { font-size: 25px; }
+  .a3s__card-desc  { font-size: 16px; }
+}

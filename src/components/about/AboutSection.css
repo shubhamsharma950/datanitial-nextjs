@@ -1,0 +1,212 @@
+/* ═══════════════════════════════════════════════
+   About Section
+═══════════════════════════════════════════════ */
+
+.about-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.about-section--loading {
+  min-height: 320px;
+}
+
+/* ── Split background: left gradient / right blue ── */
+.about-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #E2F3FF -100%, #ffff 61%, #2e3192 61%, #2e3192 0%);
+    z-index: 0;
+}
+  /* background: linear-gradient(to bottom, #ffff 23%, #E2F3FF 61%, #2e3192 61%, #2e3192 111%);
+  z-index: 0; */
+
+/* ── Two-column inner wrapper ── */
+.about-section__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 70px 80px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: center;
+}
+
+/* ══════════════════════════
+   LEFT COLUMN
+══════════════════════════ */
+.about-section__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 48px;
+}
+
+.about-section__title {
+  /* font-size: clamp(1.75rem, 3vw, 3.625rem); */
+  font-size: 3.625rem;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.about-section__desc {
+    font-size: 28px;
+    line-height: 37px;
+    color: #707070;
+    margin: 0;
+    max-width: 536px;
+}
+
+/* ── Reviews block ── */
+.about-section__reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Stacked avatars */
+.about-section__avatars {
+  display: flex;
+  align-items: center;
+}
+
+.about-section__avatar {
+  width: 26%;
+}
+/* .about-section__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  margin-left: -10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+} */
+
+.about-section__avatar:first-child {
+  margin-left: 0;
+}
+
+/* Stars */
+.about-section__review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.about-section__stars {
+  display: flex;
+  gap: 3px;
+}
+
+.about-section__star {
+  width: 22px;
+  height: 22px;
+  fill: #f5a623;
+}
+
+.about-section__review-text {
+  font-size: 20px;
+  color: #111111;
+  margin: 0;
+}
+
+/* ══════════════════════════
+   RIGHT COLUMN
+   Image floats over the blue bg
+══════════════════════════ */
+.about-section__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.about-section__img-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.about-section__img {
+  display: block;
+  min-width: 650px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ══════════════════════════
+   MOBILE  screen
+══════════════════════════ */
+@media (max-width: 1024px){
+  .about-section__img{min-width: 100%; }
+  .about-section__inner {  padding: 80px 70px 80px 25px;}
+}
+@media (max-width: 768px) {
+  .about-section__title {font-size: 36px;}
+  .about-section__desc {font-size: 24px; line-height: 28px;}
+  
+.about-section__review-text {font-size: 15px;}
+
+  .about-section {
+    min-height: unset;
+    flex-direction: column;
+  }
+.about-section::before {
+    background: linear-gradient(
+      to bottom,
+      #2e3192 26%,
+      #2e3192 0%,
+      #dde8f8 20%,
+      #e8f0fb 64%
+    );
+}
+  .about-section__inner {
+    grid-template-columns: 1fr;
+    padding: 0 20px 48px;
+    gap: 0;
+  }
+
+  /* Image comes first on mobile */
+  .about-section__right {
+    order: -1;
+    padding: 40px 0 0;
+    justify-content: center;
+  }
+
+ .about-section__img-wrap {
+    max-width: 100%;
+    margin: 19px auto;
+    margin-bottom: 0px;
+}
+
+  .about-section__left {
+    padding-right: 0;
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section__title {
+    font-size: 32px;
+  }
+  .about-section__desc {font-size: 22px;}
+  
+.about-section__review-text {font-size: 15px;}
+
+  .about-section__inner {
+    padding: 0 16px 40px;
+  }
+}

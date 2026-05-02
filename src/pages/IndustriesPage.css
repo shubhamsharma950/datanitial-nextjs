@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════
-   AboutPage.css — page-level overrides only.
-   All section styles live in their own CSS files
-   under components/about/.
+   IndustriesPage.css
+   Page-specific overrides for the Industries page.
 ═══════════════════════════════════════════════ */
 
-/* Ensure no gap between the banner and first section */
-.ipl__body > .abs:first-child {
-  margin-top: 0;
+/* Industries icon list items get a checkmark-style left border */
+.industries-page .dsr__icon-list__item {
+  padding-left: 8px;
+  border-left: 3px solid var(--accent, #4E7CCF);
 }

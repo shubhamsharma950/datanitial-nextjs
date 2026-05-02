@@ -1,10 +1,9 @@
 /* ═══════════════════════════════════════════════
-   AboutPage.css — page-level overrides only.
-   All section styles live in their own CSS files
-   under components/about/.
+   ResourcesPage.css
+   Page-specific overrides for the Resources page.
 ═══════════════════════════════════════════════ */
 
-/* Ensure no gap between the banner and first section */
-.ipl__body > .abs:first-child {
-  margin-top: 0;
+/* Give the blog grid a bit more breathing room on this page */
+.resources-page .ipc {
+  padding-bottom: 120px;
 }
