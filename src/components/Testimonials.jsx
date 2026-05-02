@@ -227,7 +227,9 @@ function TestimonialCard({ item }) {
           )}
         </div>
       )}
-          {item.author_review_details}</div>
+
+      {item.author_review_details && (
+        <div className="ts-card__text">{item.author_review_details}</div>
       )}
     </div>
   );
