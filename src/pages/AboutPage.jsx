@@ -35,6 +35,7 @@ import AboutFourSection   from "../components/about/AboutFourSection";
 import AboutFiveSection   from "../components/about/AboutFiveSection";
 import "./AboutPage.css";
 import BrandLogoSlider from "../components/about/BrandLogoSlider";
+import FaqSection from "../components/FaqSection";
 
 const PAGE_ID   = 10;
 const ACF_FIELD = "about_page";
@@ -64,6 +65,9 @@ export default function AboutPage() {
 
       {/* Section 5 — Our Process: left text+CTA | right stacked step cards */}
       <AboutFiveSection />
+
+        {/* ── Faqs ──FaqSection */}
+        <FaqSection />
     </InnerPageLayout>
   );
 }

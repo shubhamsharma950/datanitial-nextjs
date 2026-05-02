@@ -37,6 +37,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 0;
   align-items: center;
+    transition-delay: 0.10s;
 }
 
 /* ══════════════════════════
@@ -146,6 +147,34 @@
   object-fit: cover;
   border-radius: 20px;
 }
+
+
+/* animation  */
+/* initial hidden state */
+/* initial hidden state */
+.about-section__left {
+  opacity: 1;
+  transform: translateX(0px); /* ab RIGHT se aayega */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.about-section__right {
+  opacity: 1;
+  transform: translateX(0px); /* ab LEFT se aayega */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* when visible */
+.about-section--visible .about-section__left {
+  opacity: 0;
+  transform: translateX(90);
+}
+
+.about-section--visible .about-section__right {
+  opacity: 0;
+  transform: translateX(-90);
+}
+/* animation end  */
 
 /* ══════════════════════════
    MOBILE  screen

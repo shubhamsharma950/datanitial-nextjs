@@ -73,7 +73,6 @@ export default function AboutSection() {
                  <img
                     
                         src='https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/abotusec-rating.png'
-                  
                         className="about-section__avatar"
                         loading="lazy"
                       />

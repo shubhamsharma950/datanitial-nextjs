@@ -122,7 +122,7 @@ export default function AboutFiveSection() {
         {/* ── Left: text + CTA ── */}
         <div className="a5s__left">
           {data.badge && (
-            <div class="faq-badge"><span class="faq-badge__icon" aria-hidden="true"></span><span class="faq-badge__label">our process</span></div>
+            <div className="faq-badge"><span className="faq-badge__icon" aria-hidden="true"></span><span className="faq-badge__label">our process</span></div>
           )}
           {data.title && <h2 className="a5s__title">{data.title}</h2>}
           {data.desc  && <p  className="a5s__desc">{data.desc}</p>}
