@@ -151,9 +151,19 @@ export default function CoreCompetence() {
     ? activeStep
     : [...steps].reverse().find(s => s.title) || activeStep;
 
-  /* Neighbours */
-  const prevStep = stepIndex > 0         ? steps[stepIndex - 1] : null;
-  const nextStep = stepIndex < total - 1 ? steps[stepIndex + 1] : null;
+  /* Neighbours - adjusted for last slide to show 3-4-5 layout */
+  let prevStep, centerStep, nextStep;
+  
+  if (stepIndex === total - 1 && total >= 3) {
+    // On last slide (e.g., slide 5): show 3-4-5 as left-center-right
+    prevStep = steps[total - 3];   // Slide 3 on left
+    centerStep = steps[total - 2]; // Slide 4 in center
+    nextStep = steps[total - 1];   // Slide 5 on right
+  } else {
+    prevStep = stepIndex > 0 ? steps[stepIndex - 1] : null;
+    centerStep = activeStep;
+    nextStep = stepIndex < total - 1 ? steps[stepIndex + 1] : null;
+  }
 
   return (
     <>
@@ -204,7 +214,7 @@ export default function CoreCompetence() {
 
                 {/* ACTIVE (top/center of arc) */}
                 <div className="arc-num-box arc-num-active" style={DESKTOP_ACTIVE_STYLE}>
-                  {activeStep.number}
+                  {centerStep.number}
                 </div>
 
                 {/* NEXT (right side of arc) */}
