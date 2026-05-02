@@ -153,7 +153,33 @@ ul { list-style: none; }
   padding: 0 20px;
 }
 
+/* ── Contact Us button ── */
+        /* <a href="/contact-us" className="secondary-btn">
+          Contact Us
+        </a> */
+.secondary-btn {
+  display: inline-block;
+  padding: 11px 30px;
+  border: 1px solid #E2F3FF;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+
+.secondary-btn:hover,
+.secondary-btn:focus-visible {
+  background: #0d1b3e;
+  border: 1px solid #0d1b3e;
+  color: #E2F3FF;
+  outline: none;
+}
+
 @media (max-width: 768px) {
+  .secondary-btn {padding: 5px 21px;}
   .container { padding: 0 16px; }
 }
 

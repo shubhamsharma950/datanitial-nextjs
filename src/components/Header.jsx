@@ -7,8 +7,31 @@ const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
+/* ── Static sub-menu definitions ── */
+const SUBMENUS = {
+  Solutions: [
+    { title: "Web Data Extraction",       href: "/solutions/web-data-extraction" },
+    { title: "Mobile Application Scraping", href: "/solutions/mobile-application-scraping" },
+    { title: "Real Time API",             href: "/solutions/real-time-api" },
+    { title: "RPA",                       href: "/solutions/rpa" },
+    { title: "Data Analytics",            href: "/solutions/data-analytics" },
+  ],
+  Industries: [
+    { title: "E-Commerce",                href: "/industries/e-commerce" },
+    { title: "Finance & Banking",         href: "/industries/finance-banking" },
+    { title: "Healthcare",                href: "/industries/healthcare" },
+    { title: "Real Estate",               href: "/industries/real-estate" },
+    { title: "Travel & Hospitality",      href: "/industries/travel-hospitality" },
+  ],
+  Resources: [
+    { title: "Blog",                      href: "/resources/blog" },
+    { title: "Case Studies",              href: "/resources/case-studies" },
+    { title: "Whitepapers",               href: "/resources/whitepapers" },
+  ],
+};
+
 /* Nav items that have sub-menus (show chevron) */
-const HAS_CHILDREN = ["Solutions", "Industries", "Resources"];
+const HAS_CHILDREN = Object.keys(SUBMENUS);
 
 /**
  * Map WordPress menu URLs → React Router internal paths.
@@ -48,6 +71,7 @@ export default function Header() {
   const [loading,   setLoading]   = useState(true);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
+  const [openSub,   setOpenSub]   = useState(null); // which submenu is expanded
   const mobileRef                 = useRef(null);
 
   /* ── Fetch all header data from WordPress ── */
@@ -203,67 +227,106 @@ export default function Header() {
         aria-label="Mobile navigation"
         aria-hidden={menuOpen ? "false" : "true"}
       >
-        {/* Close (×) button */}
-        <button
-          className="hdr__mobile-close"
-          aria-label="Close menu"
-          onClick={closeMenu}
-        >
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+        {/* Drawer top bar: logo left, close right */}
+        <div className="hdr__mobile-topbar">
+          <Link to="/" className="hdr__mobile-drawer-logo" onClick={closeMenu} aria-label={`${logoAlt} – go to homepage`}>
+            <img
+              src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png"
+              alt={logoAlt}
+              height={36}
+            />
+          </Link>
+          <button
+            className="hdr__mobile-close"
+            aria-label="Close menu"
+            onClick={closeMenu}
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="18" y1="6" x2="6" y2="18" strokeWidth="2" strokeLinecap="round" />
+              <line x1="6" y1="6" x2="18" y2="18" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
 
         {/* Nav links */}
-        {navItems.map((item) => {
-          const href      = resolveHref(item.url);
-          const internal  = isInternal(item.url);
-          const hasChildren = HAS_CHILDREN.includes(item.title);
-          const isActive  = location.pathname === href;
+        <div className="hdr__mobile-links">
+          {navItems.map((item) => {
+            const href        = resolveHref(item.url);
+            const internal    = isInternal(item.url);
+            const hasChildren = HAS_CHILDREN.includes(item.title);
+            const isExpanded  = openSub === item.title;
+            const isActive    = location.pathname === href ||
+                                location.pathname.startsWith(href + "/");
 
-          const inner = (
-            <>
-              {item.title}
-              {hasChildren && (
-                <svg className="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              )}
-            </>
-          );
+            const toggleSub = (e) => {
+              if (hasChildren) {
+                e.preventDefault();
+                setOpenSub(isExpanded ? null : item.title);
+              }
+            };
 
-          return internal ? (
-            <Link
-              key={item.id}
-              to={href}
-              className={`hdr__mobile-link${isActive ? " hdr__mobile-link--active" : ""}`}
-              onClick={closeMenu}
-            >
-              {inner}
-            </Link>
-          ) : (
-            <a
-              key={item.id}
-              href={item.url}
-              className="hdr__mobile-link"
-              target={item.target}
-              rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-              onClick={closeMenu}
-            >
-              {inner}
-            </a>
-          );
-        })}
+            return (
+              <div key={item.id} className="hdr__mobile-item">
+                {/* Parent row */}
+                {internal ? (
+                  <Link
+                    to={hasChildren ? "#" : href}
+                    className={`hdr__mobile-link${isActive ? " hdr__mobile-link--active" : ""}${hasChildren ? " has-children" : ""}`}
+                    onClick={hasChildren ? toggleSub : closeMenu}
+                  >
+                    <span>{item.title}</span>
+                    {hasChildren && (
+                      <svg
+                        className={`hdr__mobile-chevron${isExpanded ? " is-open" : ""}`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline points="6 9 12 15 18 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.url}
+                    className={`hdr__mobile-link${hasChildren ? " has-children" : ""}`}
+                    target={item.target}
+                    rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                    onClick={hasChildren ? toggleSub : closeMenu}
+                  >
+                    <span>{item.title}</span>
+                    {hasChildren && (
+                      <svg
+                        className={`hdr__mobile-chevron${isExpanded ? " is-open" : ""}`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polyline points="6 9 12 15 18 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </a>
+                )}
 
-        {/* Mobile CTA */}
-        {/* <a
-          href={ctaUrl}
-          className="hdr__cta hdr__cta--mobile"
-          onClick={closeMenu}
-        >
-          {ctaLabel}
-        </a> */}
+                {/* Sub-menu */}
+                {hasChildren && isExpanded && (
+                  <div className="hdr__mobile-submenu">
+                    {(SUBMENUS[item.title] || []).map((sub) => (
+                      <Link
+                        key={sub.href}
+                        to={sub.href}
+                        className="hdr__mobile-sublink"
+                        onClick={closeMenu}
+                      >
+                        {sub.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </nav>
     </>
   );

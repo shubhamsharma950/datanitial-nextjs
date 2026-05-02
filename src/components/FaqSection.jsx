@@ -117,7 +117,7 @@ function GetStartedBanner() {
         </p>
 
         {/* CTA */}
-        <a href="/contact-us" className="gs-banner__btn">
+        <a href="/contact-us" className="secondary-btn">
           Contact Us
         </a>
       </div>

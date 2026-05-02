@@ -279,27 +279,6 @@
   margin: 0 0 28px;
 }
 
-/* ── Contact Us button ── */
-.gs-banner__btn {
-  display: inline-block;
-  padding: 11px 30px;
-  border: 1.5px solid #E2F3FF;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background: transparent;
-  text-decoration: none;
-  transition: background .2s ease, color .2s ease;
-}
-
-.gs-banner__btn:hover,
-.gs-banner__btn:focus-visible {
-  background: #E2F3FF;
-  color: #0d1b3e;
-  outline: none;
-}
-
 /* ════════════════════════════════
    SKELETON
 ════════════════════════════════ */
@@ -333,13 +312,21 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+  .gs-banner {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 500px;
+  background:
+    url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/ready-to-start.png")
+    center / cover no-repeat;
+}
   .faq-item__question {
     font-size: 16px;
 }
 .faq-item__answer {
     font-size: 14px;
 }
-  .gs-banner__btn {padding: 6px 21px;}
   .faq-section__container {
     padding: 0 20px;
   }
@@ -370,13 +357,10 @@
     padding: 0 0 52px;
   }
 
-  .gs-banner {
-    min-height: 260px;
-  }
-
   .gs-banner__content {
     padding: 36px 28px;
     max-width: 100%;
+   height: 491px;
   }
 
   .gs-banner__heading {
