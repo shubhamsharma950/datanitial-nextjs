@@ -215,11 +215,8 @@ function TestimonialCard({ item }) {
 
     
 
-      {item.author_review_details && (
-        <div className="ts-card__text">
-            {item.rating_stars && (
+      {item.rating_stars && (
         <div className="ts-card__stars" aria-label={`Rating: ${item.rating_stars}`}>
-          {/* rating_stars is either ★★★★★ text or an image URL from Icon Picker */}
           {item.rating_stars.startsWith("http") ? (
             <img src={item.rating_stars} alt="rating" className="ts-card__stars-img" />
           ) : (
