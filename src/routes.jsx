@@ -22,10 +22,29 @@ export default function AppRoutes() {
 
       {/* ── Primary nav pages ── */}
       <Route path="/about-us"    element={<AboutPage />} />
-      <Route path="/solutions"   element={<SolutionsPage />} />
-      <Route path="/industries"  element={<IndustriesPage />} />
-      <Route path="/resources"   element={<ResourcesPage />} />
       <Route path="/contact-us"  element={<ContactPage />} />
+
+      {/* ── Solutions ── */}
+      <Route path="/solutions"                              element={<SolutionsPage />} />
+      <Route path="/solutions/web-data-extraction"          element={<SolutionsPage />} />
+      <Route path="/solutions/mobile-application-scraping"  element={<SolutionsPage />} />
+      <Route path="/solutions/real-time-api"                element={<SolutionsPage />} />
+      <Route path="/solutions/rpa"                          element={<SolutionsPage />} />
+      <Route path="/solutions/data-analytics"               element={<SolutionsPage />} />
+
+      {/* ── Industries ── */}
+      <Route path="/industries"                   element={<IndustriesPage />} />
+      <Route path="/industries/e-commerce"        element={<IndustriesPage />} />
+      <Route path="/industries/finance-banking"   element={<IndustriesPage />} />
+      <Route path="/industries/healthcare"        element={<IndustriesPage />} />
+      <Route path="/industries/real-estate"       element={<IndustriesPage />} />
+      <Route path="/industries/travel-hospitality" element={<IndustriesPage />} />
+
+      {/* ── Resources ── */}
+      <Route path="/resources"              element={<ResourcesPage />} />
+      <Route path="/resources/blog"         element={<ResourcesPage />} />
+      <Route path="/resources/case-studies" element={<ResourcesPage />} />
+      <Route path="/resources/whitepapers"  element={<ResourcesPage />} />
 
       {/* ── 404 fallback ── */}
       <Route path="*"            element={<NotFoundPage />} />

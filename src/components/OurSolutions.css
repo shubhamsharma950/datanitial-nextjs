@@ -82,7 +82,7 @@
   width: 62px;
   height: 62px;
   flex-shrink: 0;
-  color: var(--stroke);
+  color: #707070;
   transition: color 0.2s, transform 0.3s;
 }
 

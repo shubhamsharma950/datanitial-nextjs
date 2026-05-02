@@ -111,7 +111,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
   justify-content: center;
 }
 
-.wcu-card__corner { position: absolute; width: 32px; height: 32px; }
+.wcu-card__corner { position: absolute; width: 60px; height: 60px; }
 
 .wcu-card__corner--tl {
   top: 18px; left: 18px;
@@ -222,6 +222,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
+.wcu-card__corner { position: absolute; width: 40px; height: 40px; }
   .wcu-card__bullet strong {font-size: 16px;}
 .wcu-card__bullet-desc {font-size: 14px;}
   .wcu__row { gap: 13px; margin-bottom: 25px;}

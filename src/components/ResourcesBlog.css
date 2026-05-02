@@ -302,6 +302,7 @@
 
   /* Featured: stack vertically */
   .rb-featured {
+    display: none;
     grid-template-columns: 1fr;
     min-height: auto;
   }

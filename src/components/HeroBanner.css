@@ -367,6 +367,7 @@
 
   .dn-eyebrow {
     font-size: 18px;
+    font-weight: 700;
     margin-bottom: 10px;
     gap: 6px;
   }
@@ -377,14 +378,14 @@
   }
 
   .dn-main-heading {
-    /* font-size: clamp(1.75rem, 8vw, 2.6rem); */
     font-size: 40px;
+    font-weight: 700;
     line-height: 1.1 !important;
     margin-bottom: 10px;
   }
 .top-ss-icon{width: 30px; height: 20px;}
   .dn-para {
-    font-size: clamp(11px, 3vw, 13px);
+    font-size: clamp(12px, 3vw, 13px);
     line-height: 1.6;
     max-width: 100%;
   }
@@ -419,7 +420,7 @@
   }
 
   .dn-cta-line {
-    font-size: clamp(12px, 3.5vw, 15px);
+    font-size: clamp(30px, 3.5vw, 15px);
   }
 }
 
@@ -427,14 +428,16 @@
    SMALL MOBILE — ≤ 480px
 ════════════════════════════════════════ */
 @media (max-width: 480px) {
-  .dn-card,
-  .dn-card.dn-phase2,
-  .dn-card.dn-phase4 {
-    width: 92% !important;
-    height: 56vw !important;
-    min-height: 240px;
-    border-radius: 28px !important;
+    .dn-cta-line {
+    font-size: 20px;
   }
+  .dn-card, .dn-card.dn-phase2, .dn-card.dn-phase4 {
+    width: 92% !important;
+    height: 81vw !important;
+    margin: 0 0 auto auto;
+    /* min-height: 240px; */
+    border-radius: 28px !important;
+}
 
   .dn-text-panel {
     padding: 16px 16px 12px 16px;
