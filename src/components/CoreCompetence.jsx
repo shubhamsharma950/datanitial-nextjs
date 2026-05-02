@@ -80,8 +80,9 @@ export default function CoreCompetence() {
   const [stepIndex, setStepIndex] = useState(0);
   const [isMobile,  setIsMobile]  = useState(false);
 
-  const sectionRef  = useRef(null);
-  const currentStep = useRef(0);
+  const sectionRef   = useRef(null);
+  const hasPlayed    = useRef(false);
+  const intervalRef  = useRef(null);
 
   /* ── Detect mobile ── */
   useEffect(() => {
@@ -104,27 +105,38 @@ export default function CoreCompetence() {
       .finally(() => setLoading(false));
   }, []);
 
-  /* ── Desktop scroll handler ── */
+  /* ── Auto-play: run 1→2→3→4 once when section enters viewport (desktop + mobile) ── */
   useEffect(() => {
-    if (!data?.steps?.length || isMobile) return;
+    if (!data?.steps?.length) return;
     const steps = data.steps;
+    const total = steps.length;
 
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect        = section.getBoundingClientRect();
-      const totalScroll = section.offsetHeight - window.innerHeight;
-      const progress    = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
-      const idx         = Math.min(steps.length - 1, Math.floor(progress * steps.length));
-      if (idx !== currentStep.current) {
-        currentStep.current = idx;
-        setStepIndex(idx);
-      }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasPlayed.current) {
+          hasPlayed.current = true;
+          setStepIndex(0);
+
+          let current = 0;
+          intervalRef.current = setInterval(() => {
+            current += 1;
+            if (current >= total) {
+              clearInterval(intervalRef.current);
+              return;
+            }
+            setStepIndex(current);
+          }, 900); // 900 ms per step — adjust as needed
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(intervalRef.current);
     };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
   }, [data, isMobile]);
 
   if (loading || !data) return null;
@@ -207,13 +219,8 @@ export default function CoreCompetence() {
             {/* ── MOBILE number boxes ── */}
             {isMobile && (
               <div
-                className="arc-num-box arc-center arc-num-active arc-num-clickable"
-                onClick={() => setStepIndex(i => (i + 1) % total)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && setStepIndex(i => (i + 1) % total)}
-                aria-label={`Step ${activeStep.number}, click for next`}
-                title="Click to go to next step"
+                className="arc-num-box arc-center arc-num-active"
+                aria-label={`Step ${activeStep.number}`}
               >
                 {activeStep.number}
               </div>

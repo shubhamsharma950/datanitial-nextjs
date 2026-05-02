@@ -28,8 +28,7 @@
    DESKTOP — Scroll Arc
 ═══════════════════════════════════════════════ */
 .arc-scroll-wrapper {
-  /* height: 400vh; */
-  height: 88vh;
+  height: auto;
   position: relative;
 }
 
@@ -203,17 +202,8 @@
     width: 80px;
     height: 80px;
     z-index: 2;
-    cursor: pointer;
     user-select: none;
     transition: background 0.2s ease, transform 0.15s ease;
-  }
-
-  .arc-center:hover {
-    background: #cce8f8;
-  }
-
-  .arc-center:active {
-    transform: translateX(-50%) scale(0.92);
   }
 
   /* Content inside the dome */
@@ -231,15 +221,7 @@
     max-width: 510px;
   }
 
-  /* ── Clickable number styles ── */
-  .arc-num-clickable {
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .arc-num-clickable:hover {
-    background: #cce8f8;
-  }
+  /* ── Clickable number styles (unused — kept for reference) ── */
 }
 
 /* ═══════════════════════════════════════════════
