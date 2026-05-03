@@ -53,18 +53,18 @@
 
 /* ── Single card ── */
 .cis__card {
-  background: #fff;
-  border: 1px solid var(--stroke, #D9D9D9);
-  border-radius: 24px;
-  padding: 36px 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  transition: box-shadow 0.22s ease, transform 0.22s ease;
-  min-height: 280px;
-  min-width: 360px;
-  width: 100%;
+    background: #fff;
+    border: 1px solid #D9D9D9;
+    border-radius: 24px;
+    padding: 40px 49px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+    transition: box-shadow 0.22s ease, transform 0.22s ease;
+    min-height: 280px;
+    min-width: 360px;
+    width: 100%;
 }
 
 .cis__card:hover {
@@ -74,10 +74,6 @@
 
 /* ── Icon ── */
 .cis__card-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: var(--bg-soft, #eef2fb);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,8 +82,8 @@
 }
 
 .cis__card-icon-img {
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 37px;
   object-fit: contain;
   display: block;
 }
@@ -218,14 +214,11 @@
    RESPONSIVE — Small mobile (≤480px)
 ═══════════════════════════════════════════════ */
 @media (max-width: 480px) {
-   .cis__card {min-height: 100%; min-width: 100%;}
-    .cis__card-label {
-  font-size: 22px;
-}
-.cis__card-value {
-  font-size: 16px;
-}
-  .cis { padding: 40px 0 56px; }
-  .cis__heading { font-size: 24px; }
-  .cis__card { padding: 22px 16px; border-radius: 14px; }
+.cis__card {min-height: 100%; min-width: 100%; padding: 20px 30px; gap: 20px;}
+.cis__card-label {font-size: 22px;}
+.cis__card-icon-img {width: 29px;  height: 25px;}
+.cis__card-value {font-size: 16px;}
+.cis { padding: 40px 0 56px; }
+.cis__heading { font-size: 24px; }
+.cis__card { padding: 22px 16px; border-radius: 14px; }
 }
