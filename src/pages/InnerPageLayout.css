@@ -747,6 +747,10 @@ body.inner-page header.hdr {
 
 /* ── Mobile ── */
 @media (max-width: 767px) {
+  .ipb {
+    min-height: 75svh;
+    padding: 80px 20px 60px;
+}
   
   .iph__mobile-logo img {
     height: 53px;
@@ -760,16 +764,11 @@ body.inner-page header.hdr {
   }
 
   .ipb__title {
-    font-size: clamp(32px, 9vw, 52px);
-    margin-bottom: 20px;
+    font-size: 37px;
   }
-
   .ipb__description {
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 36px;
+    font-size: 20px;
   }
-
   .ipb__cta {
     font-size: 16px;
     padding: 14px 32px;
@@ -796,12 +795,12 @@ body.inner-page header.hdr {
   }
 
   .ipb__title {
-    font-size: clamp(28px, 10vw, 44px);
+    font-size: 32px;
     letter-spacing: -0.3px;
   }
 
   .ipb__description {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .ipb__eyebrow {

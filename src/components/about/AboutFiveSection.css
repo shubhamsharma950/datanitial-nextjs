@@ -222,5 +222,8 @@
   .a5s__title { font-size: 26px; }
   .a5s__desc  { font-size: 18px; }
   .a5s__step-title { font-size: 22px; }
-  .a5s__step-tag { font-size: 13px; padding: 7px 16px; }
+  .a5s__step-header{margin-bottom: 10px;}
+  .a5s__step-tag { font-size: 11px; padding: 5px 13px; }
+  .a5s__step-divider {  margin-bottom: 0px;}
+  .a5s__step-desc {  font-size: 17px;   margin: 0 0 14px 0;}
 }

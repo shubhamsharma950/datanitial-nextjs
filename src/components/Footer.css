@@ -176,7 +176,7 @@
 @media (max-width: 1024px) { .ftr__grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
 
 @media (max-width: 600px) {
-  .ftr__grid { grid-template-columns: 1fr; gap: 28px; }
+  .ftr__grid { grid-template-columns: 1fr; gap: 28px; padding: 0px;}
   .ftr__main { padding: 40px 20px; }
   .ftr__bottom { padding: 16px 20px; }
   .ftr__bottom p { font-size: 15px; }
