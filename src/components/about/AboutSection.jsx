@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./AboutSection.css";
 
 const WP_BASE =
@@ -10,6 +10,8 @@ const PAGE_URL = `${WP_BASE}/wp/v2/pages/10?_fields=acf`;
 export default function AboutSection() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     fetch(PAGE_URL)
@@ -22,6 +24,33 @@ export default function AboutSection() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Intersection Observer to trigger animations when section comes into view
+  useEffect(() => {
+    if (loading || !sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          console.log('AboutSection: Animation triggered - section is visible');
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.2, // Trigger when 20% of section is visible
+        rootMargin: "0px"
+      }
+    );
+
+    const currentRef = sectionRef.current;
+    observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [loading]);
+
   if (loading) return <div className="about-section about-section--loading" aria-busy="true" />;
   if (!data) return null;
 
@@ -32,35 +61,49 @@ export default function AboutSection() {
   const reviewText    = sub_description_reviews?.des   || "";
 
   return (
-    <section className="about-section" aria-label="About Section">
+    <section 
+      ref={sectionRef}
+      className={`about-section ${isVisible ? 'about-section--visible' : ''}`} 
+      aria-label="About Section"
+    >
       <div className="about-section__inner">
 
         {/* ── Left ── */}
         <div className="about-section__left">
-          {title && <h2 className="about-section__title">{title}</h2>}
-          {description && <p className="about-section__desc">{description}</p>}
+          {title && (
+            <h2 className="about-section__title about-section__title--animated">
+              {title}
+            </h2>
+          )}
+          {description && (
+            <p className="about-section__desc about-section__desc--animated">
+              {description.split('.').filter(Boolean).map((line, i) => (
+                <span 
+                  key={i} 
+                  className="about-section__desc-line"
+                  style={{ '--line-index': i }}
+                >
+                  {line.trim()}{i < description.split('.').filter(Boolean).length - 1 ? '.' : ''}
+                </span>
+              ))}
+            </p>
+          )}
 
           {/* Reviews row */}
           {(reviewAvatars.length > 0 || reviewText) && (
-            <div className="about-section__reviews">
+            <div className="about-section__reviews about-section__reviews--animated">
               {reviewAvatars.length > 0 && (
                 <div className="about-section__avatars">
                   {reviewAvatars.map((avatar, i) => {
                     const src = avatar?.url || (typeof avatar === "string" ? avatar : "");
                     const alt = avatar?.alt || `Client ${i + 1}`;
                     return src ? (
-                      // <img
-                      //   key={i}
-                      //   src={src}
-                      //   alt={alt}
-                      //   className="about-section__avatar"
-                      //   loading="lazy"
-                      // />
                       <img
                         key={i}
                         src='https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/abotusec-rating.png'
                         alt={alt}
                         className="about-section__avatar"
+                        style={{ '--avatar-index': i }}
                         loading="lazy"
                       />
                     ) : null;
@@ -70,20 +113,16 @@ export default function AboutSection() {
 
               <div className="about-section__review-meta">
                 {/* Stars */}
-                 <img
-                    
-                        src='https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/abotusec-rating.png'
-                        className="about-section__avatar"
-                        loading="lazy"
-                      />
-                {/* <div className="about-section__stars" aria-label="5 star rating">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <svg key={s} className="about-section__star" viewBox="0 0 20 20" aria-hidden="true">
-                      <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.44.91-5.32L2.27 6.62l5.34-.78z" />
-                    </svg>
-                  ))}
-                </div> */}
-                {reviewText && <p className="about-section__review-text">{reviewText}</p>}
+                <img
+                  src='https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/abotusec-rating.png'
+                  className="about-section__avatar about-section__stars-img"
+                  loading="lazy"
+                />
+                {reviewText && (
+                  <p className="about-section__review-text about-section__review-text--animated">
+                    {reviewText}
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -92,11 +131,11 @@ export default function AboutSection() {
         {/* ── Right — image sits over the blue background half ── */}
         <div className="about-section__right">
           {right_image?.url && (
-            <div className="about-section__img-wrap">
+            <div className="about-section__img-wrap about-section__img-wrap--animated">
               <img
                 src={right_image.url}
                 alt={right_image.alt || title || "About"}
-                className="about-section__img"
+                className="about-section__img about-section__img--ken-burns"
                 loading="lazy"
               />
             </div>
