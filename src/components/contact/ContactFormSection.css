@@ -1,0 +1,373 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ContactFormSection.css
+   Section 1 — "Let's Talk. Let's Build." form + image layout
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Section wrapper ── */
+.cfs {
+  width: 100%;
+  padding: 80px 0 100px;
+  background: #fff;
+}
+
+.cfs__container {
+  width: 100%;
+  max-width: 1422px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── Top: badge + heading ── */
+.cfs__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.cfs__badge {
+  align-self: center;
+}
+
+.cfs__heading {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-dark, #111111);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.cfs__sub-heading {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text, #707070);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Body: card + image ── */
+.cfs__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+/* ── Form card ── */
+.cfs__card {
+  background: #fff;
+  border: 1px solid var(--stroke, #e2e8f0);
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 24px rgba(46, 42, 140, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cfs__card-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-dark, #111);
+  margin: 0;
+}
+
+.cfs__card-sub {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text, #707070);
+  line-height: 1.65;
+  margin: 0 0 8px;
+}
+
+/* ── Right image ── */
+.cfs__image-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 420px;
+}
+
+.cfs__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
+}
+
+.cfs__image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  background: linear-gradient(135deg, #c7d2fe 0%, #818cf8 50%, #6366f1 100%);
+  border-radius: 20px;
+}
+
+/* ── Form layout ── */
+.cfs__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.cfs__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cfs__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cfs__form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark, #111);
+}
+
+.cfs__form-input {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: var(--font, 'Nunito', sans-serif);
+  font-weight: 500;
+  color: var(--text-dark, #111);
+  background: #fff;
+  border: 1.5px solid var(--stroke, #d1d5db);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+.cfs__form-input::placeholder {
+  color: #aaa;
+  font-weight: 400;
+}
+
+.cfs__form-input:focus {
+  border-color: var(--secondary, #3A4FB7);
+  box-shadow: 0 0 0 3px rgba(58, 79, 183, 0.1);
+}
+
+.cfs__form-group--error .cfs__form-input {
+  border-color: #e53e3e;
+}
+
+.cfs__form-group--error .cfs__form-input:focus {
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+.cfs__form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.cfs__form-error {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e53e3e;
+}
+
+.cfs__form-submit-error {
+  font-size: 13px;
+  color: #e53e3e;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ── Submit button ── */
+.cfs__form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 60%;
+  margin: 4px auto 0;
+  padding: 13px 32px;
+  font-size: 15px;
+  font-family: var(--font, 'Nunito', sans-serif);
+  font-weight: 700;
+  color: var(--primary, #2E2A8C);
+  background: transparent;
+  border: 2px solid var(--primary, #2E2A8C);
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.22s ease, color 0.22s ease, transform 0.18s ease;
+}
+
+.cfs__form-submit:hover:not(:disabled) {
+  background: var(--primary, #2E2A8C);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.cfs__form-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ── Spinner ── */
+.cfs__spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(46, 42, 140, 0.3);
+  border-top-color: var(--primary, #2E2A8C);
+  border-radius: 50%;
+  animation: cfs-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes cfs-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Success state ── */
+.cfs__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.cfs__success-icon {
+  width: 56px;
+  height: 56px;
+}
+
+.cfs__success h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark, #111);
+  margin: 0;
+}
+
+.cfs__success p {
+  font-size: 15px;
+  color: var(--text, #707070);
+  margin: 0;
+  max-width: 300px;
+}
+
+.cfs__success-reset {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--secondary, #3A4FB7);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: var(--font, 'Nunito', sans-serif);
+}
+
+/* ── Skeleton loaders ── */
+.cfs__skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: cfs-shimmer 1.4s infinite;
+  border-radius: 8px;
+}
+
+.cfs__skeleton--heading {
+  height: 48px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.cfs__skeleton--title {
+  height: 28px;
+  width: 55%;
+}
+
+.cfs__skeleton--text {
+  height: 20px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@keyframes cfs-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Tablet (≤1024px)
+═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .cfs__body {
+    grid-template-columns: 1fr;
+  }
+
+  .cfs__image-wrap {
+    min-height: 320px;
+    order: -1;
+  }
+
+  .cfs__heading { font-size: 36px; }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Mobile (≤768px)
+═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .cfs__card-title {font-size: 24px;}
+
+.cfs__card-sub {
+  font-size: 15px;
+  line-height: 1;
+}
+
+  .cfs__sub-heading {
+  font-size: 20px;
+}
+  .cfs {
+    padding: 56px 0 72px;
+  }
+
+  .cfs__container {
+    padding: 0 16px;
+  }
+
+  .cfs__top {
+    margin-bottom: 36px;
+  }
+
+  .cfs__heading { font-size: 28px; }
+
+  .cfs__card {
+    padding: 24px 18px;
+  }
+
+  .cfs__form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cfs__form-submit {
+    width: 100%;
+  }
+
+  .cfs__image-wrap {
+    min-height: 240px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Small mobile (≤480px)
+═══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .cfs { padding: 40px 0 56px; }
+  .cfs__heading { font-size: 24px; }
+  .cfs__card { padding: 20px 14px; border-radius: 14px; }
+}

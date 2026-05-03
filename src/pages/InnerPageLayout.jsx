@@ -19,6 +19,14 @@
  *   fallbackBg  {string}  CSS color/gradient used when no featured image
  *   children    {node}    Page-specific content rendered below the banner
  *
+ * ACF banner field resolution (checks nested group first, then flat fields):
+ *   acf.<acfField>.banner.title        OR  acf.<acfField>.banner_title
+ *   acf.<acfField>.banner.discerption  OR  acf.<acfField>.banner_discription
+ *   acf.<acfField>.banner.button_text  OR  acf.<acfField>.banner_button_text
+ *   acf.<acfField>.banner.button_link  OR  acf.<acfField>.banner_button_link
+ *
+ * Featured image is always resolved from the WP page's featured_media field.
+ *
  * Usage:
  *   <InnerPageLayout pageId={10} acfField="about_page" fallbackTitle="About Us">
  *     <AboutContent />
@@ -65,12 +73,17 @@ export default function InnerPageLayout({
         if (!pageRes.ok) throw new Error(`HTTP ${pageRes.status}`);
         const page = await pageRes.json();
 
-        /* ── ACF fields ── */
-        const acf         = page?.acf?.[acfField] ?? {};
-        const title       = acf?.banner_title       || fallbackTitle;
-        const description = acf?.banner_discription || fallbackDescription;
-        const ctaText     = acf?.banner_button_text || "";
-        const ctaLink     = acf?.banner_button_link || "";
+        /* ── ACF fields ──
+           Supports two structures:
+           1. Nested banner group: acf.banner.title / acf.banner.discerption
+           2. Flat fields (legacy): acf.banner_title / acf.banner_discription
+        ── */
+        const acf        = page?.acf?.[acfField] ?? {};
+        const bannerGrp  = acf?.banner ?? {};
+        const title       = bannerGrp.title       || acf?.banner_title       || fallbackTitle;
+        const description = bannerGrp.discerption || acf?.banner_discription || fallbackDescription;
+        const ctaText     = bannerGrp.button_text || acf?.banner_button_text || "";
+        const ctaLink     = bannerGrp.button_link || acf?.banner_button_link || "";
 
         /* ── Featured image ── */
         let featuredImage = null;
