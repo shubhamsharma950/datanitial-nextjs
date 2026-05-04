@@ -154,7 +154,8 @@ export default function FaqSection() {
 
       {/* ══ FAQ SECTION ══ */}
       <section className="faq-section" aria-label="Frequently Asked Questions">
-        <div className="faq-section__container">
+        {/* <div className="faq-section__container"> */}
+        <div className="container">
           <div className="faq-section__layout">
 
             {/* ── LEFT: badge + heading + help card ── */}

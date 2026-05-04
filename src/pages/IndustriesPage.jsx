@@ -28,6 +28,7 @@ import IndustriesTwoSection    from "../components/industries/IndustriesTwoSecti
 import IndustriesThreeSection  from "../components/industries/IndustriesThreeSection";
 import "./IndustriesPage.css";
 import FaqSection from "../components/FaqSection";
+import IndustriesSection from "../components/IndustriesSection";
 
 /* ── Map sub-route path → WordPress page ID + badge text ── */
 const ROUTE_MAP = {
@@ -62,6 +63,8 @@ export default function IndustriesPage() {
 
       {/* ── Custom page sections ── */}
       <IndustriesOneSection />
+      {/* IndustriesSection from home page  */}
+      <IndustriesSection />
       <IndustriesTwoSection />
       <IndustriesThreeSection />
       {/* FaqSection footer sec  */}
