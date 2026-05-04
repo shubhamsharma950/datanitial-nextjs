@@ -157,8 +157,8 @@ export default function WhyChooseUs() {
 
         {/* ── Section header ── */}
         <div className="wcu__header">
-          {section_title && <h2 className="wcu__title">{section_title}</h2>}
-          {section_dis   && <p  className="wcu__desc">{section_dis}</p>}
+          {section_title && <h2 className="wcu__title head-title">{section_title}</h2>}
+          {section_dis   && <p  className="wcu__desc head__desc">{section_dis}</p>}
         </div>
 
         {/* ── Grid: Row 1 — box1 65% | box2 35% ── */}

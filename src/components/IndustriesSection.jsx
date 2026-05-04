@@ -161,8 +161,8 @@ export default function IndustriesSection() {
 
         {/* ── Section header ── */}
         <div className="ind__header">
-          <h2 className="ind__title">{sectionTitle}</h2>
-          <p  className="ind__desc">{sectionDesc}</p>
+          <h2 className="ind__title head-title">{sectionTitle}</h2>
+          <p  className="ind__desc head__desc">{sectionDesc}</p>
         </div>
 
        <div className="tab-container">

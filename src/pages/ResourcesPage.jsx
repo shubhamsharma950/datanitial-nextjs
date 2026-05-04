@@ -4,7 +4,8 @@
  * Resources & Insights inner page — also handles /resources/* sub-routes.
  *
  * WordPress setup:
- *   Page ID : 14
+ *   post=17
+ *   Page ID : 17
  *   ACF Group field name: resources_page
  *
  * Sub-route slugs:

@@ -33,7 +33,6 @@
 }
 
 .cfs__heading {
-  font-size: 48px;
   font-weight: 700;
   color: var(--text-dark, #111111);
   line-height: 1.2;
@@ -41,7 +40,6 @@
 }
 
 .cfs__sub-heading {
-  font-size: 24px;
   font-weight: 500;
   color: var(--text, #707070);
   line-height: 1.7;
@@ -142,7 +140,6 @@
 @media (max-width: 1024px) {
 
   .cfs__card {min-width: 100%;}
-  .cfs__heading { font-size: 36px; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -165,9 +162,6 @@
     margin-bottom: 36px;
   }
 
-  .cfs__heading    { font-size: 28px; }
-  .cfs__sub-heading { font-size: 20px; }
-
   .cfs__card {
     padding: 24px 18px;
   }
@@ -189,6 +183,5 @@
 ═══════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .cfs { padding: 40px 0 56px; }
-  .cfs__heading { font-size: 24px; }
   .cfs__card { padding: 20px 14px; border-radius: 14px; }
 }

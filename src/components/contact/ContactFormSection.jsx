@@ -69,12 +69,12 @@ export default function ContactFormSection() {
           {loading ? (
             <div className="cfs__skeleton cfs__skeleton--heading" aria-hidden="true" />
           ) : (
-            <h2 className="cfs__heading">{data.heading}</h2>
+            <h2 className="cfs__heading head-title">{data.heading}</h2>
           )}
           {loading ? (
             <div className="cfs__skeleton cfs__skeleton--text" aria-hidden="true" />
           ) : (
-            <p className="cfs__sub-heading">{data.sub_heading}</p>
+            <p className="cfs__sub-heading head__desc">{data.sub_heading}</p>
           )}
         </div>
 

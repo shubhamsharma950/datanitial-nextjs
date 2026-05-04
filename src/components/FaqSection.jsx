@@ -34,7 +34,7 @@ const ICON_CLOSE = "https://darkred-worm-224502.hostingersite.com/wp-content/upl
 function Skeleton() {
   return (
     <section className="faq-section">
-      <div className="faq-section__container">
+      <div className="container">
         <div className="faq-section__layout">
           <div className="faq-section__left">
             <div className="skeleton" style={{ width: 90, height: 30, borderRadius: 999, marginBottom: 20 }} />
@@ -201,7 +201,7 @@ export default function FaqSection() {
 
       {/* ══ GET STARTED BANNER ══ */}
       <section className="gs-section" aria-label="Get Started">
-        <div className="faq-section__container">
+        <div className="container">
           <GetStartedBanner />
         </div>
       </section>

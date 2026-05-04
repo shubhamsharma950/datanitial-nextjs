@@ -4,7 +4,8 @@
  * Solutions inner page — also handles all /solutions/* sub-routes.
  *
  * WordPress setup:
- *   Page ID : 11
+ *   post=13
+ *   Page ID : 13
  *   ACF Group field name: solutions_page
  *
  * Sub-route slugs (handled by the same component):

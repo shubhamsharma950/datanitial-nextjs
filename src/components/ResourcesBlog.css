@@ -58,7 +58,6 @@
 
 /* ── Title ── */
 .rb-header__title {
-  font-size: 28px;
   font-weight: 600;
   color: #0d1b3e;
   line-height: 1.2;
@@ -67,7 +66,6 @@
 
 /* ── Description ── */
 .rb-header__desc {
-  font-size: 24px;
   color: #5a6a85;
   max-width: 800px;
   margin: 0 auto;
@@ -295,7 +293,6 @@
 
 /* Mobile: below 768px */
 @media (max-width: 768px) {
-  .rb-header__desc {font-size: 15px;}
   .rb-section {
     padding: 56px 0 72px;
   }
