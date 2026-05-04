@@ -1,0 +1,202 @@
+/* ═══════════════════════════════════════════════
+   INDUSTRIES — SECTION 1
+   "Built for Scale. Trusted Across Industries."
+
+   Overall layout  (2 equal halves):
+     [  images block  ]  [  badge + title + desc  ]
+
+   Images block (sub-grid, 2 cols):
+     Col A  →  image_one (square, rounded)
+               stat card (light-blue, below image_one)
+     Col B  →  image_two (tall, full height, rounded)
+═══════════════════════════════════════════════ */
+
+.ind1 {
+  background: var(--bg);
+  padding: 80px 0;
+  width: 100%;
+}
+
+/* ── Outer two-column: images | content ── */
+.ind1__inner {
+  display: grid;
+  grid-template-columns: 1fr 497px;
+  gap: 64px;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════════
+   LEFT HALF — images block
+══════════════════════════════ */
+.ind1__images {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.ind1__col-a {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ind1__img-one {
+  border-radius: 20px;
+  overflow: hidden;
+  flex: 0 0 auto;
+  aspect-ratio: 1 / 1;    
+  width: 100%;
+}
+.ind1__stat-card {
+  background: #E2F3FF;
+  border-radius: 16px;
+  padding: 22px 24px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ind1__stat-num {
+  display: block;
+  font-size: clamp(35px, 4.8vw, 60.83px);
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1;
+}
+
+.ind1__stat-desc {
+  font-size: 20px;
+  color: var(--text-dark);
+  line-height: 1.65;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ── Col B: image_two — tall, fills full height of col-A ── */
+.ind1__col-b {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  /* Match the total height of col-A (image + gap + stat card) */
+  min-height: 420px;
+}
+
+/* Shared image style */
+.ind1__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.ind1__img-one:hover .ind1__img,
+.ind1__col-b:hover   .ind1__img {
+  transform: scale(1.04);
+}
+
+.ind1__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-soft);
+}
+
+/* ══════════════════════════════
+   RIGHT HALF — text content
+══════════════════════════════ */
+.ind1__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: center;
+}
+/* ══════════════════════════════
+   SCROLL-REVEAL
+══════════════════════════════ */
+.ind1 .ind1__images,
+.ind1 .ind1__content {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.ind1 .ind1__content {
+  transition-delay: 0.15s;
+}
+
+.ind1--visible .ind1__images,
+.ind1--visible .ind1__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 1024px) {
+  .ind1__inner  { gap: 40px; }
+  .ind1__col-b  { min-height: 360px; }
+}
+
+@media (max-width: 768px) {
+  .ind1 { padding: 48px 0; }
+
+  /* Stack: content on top, then images below */
+  .ind1__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  /* Content comes first visually on mobile */
+  .ind1__content { order: -1; }
+
+  .ind1__desc { max-width: 100%; }
+
+  /* Images block: single column, stacked vertically
+     Order: image_two → image_one → stat card */
+  .ind1__images {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* image_two first (tall meeting room photo) */
+  .ind1__col-b {
+    order: 1;
+    width: 100%;
+    min-height: 220px;
+    border-radius: 20px;
+  }
+
+  /* col-a: image_one + stat card stacked */
+  .ind1__col-a {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* image_one — full width, landscape ratio on mobile */
+  .ind1__img-one {
+    aspect-ratio: unset;
+    height: 220px;
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  /* stat card — full width below image_one */
+  .ind1__stat-card {
+    border-radius: 16px;
+    padding: 24px 20px;
+    flex: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .ind1 { padding: 40px 0; }
+
+  .ind1__col-b    { min-height: 200px; }
+  .ind1__img-one  { height: 200px; }
+}

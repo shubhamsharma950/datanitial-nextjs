@@ -220,8 +220,8 @@ export default function ResourcesBlog() {
         </div>
 
 
-          <h1 className="rb-header__title">{title}</h1>
-          {discretion && <p className="rb-header__desc">{discretion}</p>}
+          <h1 className="rb-header__title head-title">{title}</h1>
+          {discretion && <p className="rb-header__desc head__desc">{discretion}</p>}
         </header>
 
         {/* ── Featured post ── */}

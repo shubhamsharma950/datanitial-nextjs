@@ -12,7 +12,6 @@
 .wcu__header { text-align: center; margin-bottom: 48px; }
 
 .wcu__title {
-  font-size: 48px;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
@@ -20,7 +19,6 @@
 }
 
 .wcu__desc {
-  font-size: 24px;
   color: #707070;
   max-width: 1000px;
   margin: 0 auto;
@@ -242,14 +240,8 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 }
 
 @media (max-width: 1024px) {
-  .wcu__title { font-size: 38px; }
-  .wcu__desc  { font-size: 20px; }
 }
 @media (max-width: 768px) {
-  .wcu__title { font-size: 30px; }
-  .wcu__desc  { font-size: 17px; }
 }
 @media (max-width: 480px) {
-  .wcu__title { font-size: 24px; }
-  .wcu__desc  { font-size: 15px; }
 }

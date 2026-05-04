@@ -31,7 +31,6 @@
 .a4s__badge { margin: 0; }
 
 .a4s__title {
-  font-size: 52px;
   font-weight: 700;
   color: #111;
   line-height: 1.15;
@@ -39,7 +38,6 @@
 }
 
 .a4s__desc {
-  font-size: 24px;
   font-weight: 500;
   color: #707070;
   line-height: 1.75;
@@ -136,46 +134,24 @@
 
 /* ── Tablet ── */
 @media (max-width: 1024px) {
-  .a4s__title { font-size: 40px; }
-  .a4s__desc  { font-size: 20px; }
   .a4s__col   { padding: 32px 24px; }
 }
 
 /* ── Mobile: stack ── */
 @media (max-width: 768px) {
-  .a4s__col-title-l{
-  font-size: 24px;
-}
-.a4s__col-title-r {
-  font-size: 24px;
-}
-.a4s__item {
-    gap: 15px;
-    font-size: 20px;
-    line-height: 25px;
-}
-.a4s__check {
-    width: 18px;
-    height: 18px;
-}
+  .a4s__col-title-l { font-size: 24px; }
+  .a4s__col-title-r { font-size: 24px; }
+  .a4s__item { gap: 15px; font-size: 20px; line-height: 25px; }
+  .a4s__check { width: 18px; height: 18px; }
   .a4s { padding: 64px 0; }
   .a4s__inner { gap: 40px; padding: 0 16px; }
-  .a4s__table {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 10px;
-}
-
+  .a4s__table { grid-template-columns: 1fr; gap: 16px; padding: 10px; }
   .a4s__col--left  { border-right: 1px solid #e8e8e8; border-radius: 16px; }
   .a4s__col--right { border-radius: 16px; }
-
-  .a4s__title { font-size: 28px; }
-  .a4s__desc  { font-size: 20px; }
   .a4s__col   { padding: 28px 20px; }
   .a4s__item  { font-size: 15px; }
 }
 
 @media (max-width: 480px) {
-  .a4s { padding: 0 0 25px 0;}
-  .a4s__title { font-size: 24px; }
+  .a4s { padding: 0 0 25px 0; }
 }

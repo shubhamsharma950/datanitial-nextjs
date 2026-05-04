@@ -174,8 +174,8 @@ export default function CoreCompetence() {
         <div className="badge-sec">
           <StarIcon /><span>OFFERING</span>
         </div>
-        <h2 className="cc__title">{title}</h2>
-        <p  className="cc__desc">{description}</p>
+        <h2 className="cc__title head-title">{title}</h2>
+        <p  className="cc__desc head__desc">{description}</p>
       </div>
 
       {/* ── Arc scroll section ── */}

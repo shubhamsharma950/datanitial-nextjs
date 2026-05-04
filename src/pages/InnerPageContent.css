@@ -5,8 +5,8 @@
 
 .ipc {
   width: 100%;
-  padding: 80px 0 100px;
-  background: #fff;
+  /* padding: 80px 0 100px;
+  background: #fff; */
 }
 
 .ipc__inner {
@@ -73,7 +73,7 @@
 }
 
 @media (max-width: 768px) {
-  .ipc { padding: 48px 0 64px; }
+  .ipc { padding: 0px; }
   .ipc__inner {
     padding: 0 16px;
     gap: 32px;
@@ -90,6 +90,6 @@
 }
 
 @media (max-width: 480px) {
-  .ipc { padding: 40px 0 56px; }
+  /* .ipc { padding: 40px 0 56px; } */
   .ipc__inner { gap: 24px; }
 }

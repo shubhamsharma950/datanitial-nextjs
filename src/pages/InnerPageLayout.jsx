@@ -74,16 +74,21 @@ export default function InnerPageLayout({
         const page = await pageRes.json();
 
         /* ── ACF fields ──
-           Supports two structures:
-           1. Nested banner group: acf.banner.title / acf.banner.discerption
-           2. Flat fields (legacy): acf.banner_title / acf.banner_discription
+           Supports three structures:
+           1. Wrapped group:  acf.<acfField>.banner.title
+           2. Flat banner:    acf.banner.title  (Industries page — no wrapper)
+           3. Legacy flat:    acf.banner_title / acf.banner_discription
         ── */
-        const acf        = page?.acf?.[acfField] ?? {};
-        const bannerGrp  = acf?.banner ?? {};
-        const title       = bannerGrp.title       || acf?.banner_title       || fallbackTitle;
-        const description = bannerGrp.discerption || acf?.banner_discription || fallbackDescription;
-        const ctaText     = bannerGrp.button_text || acf?.banner_button_text || "";
-        const ctaLink     = bannerGrp.button_link || acf?.banner_button_link || "";
+        const acf        = page?.acf ?? {};
+        const acfGroup   = acfField ? (acf[acfField] ?? {}) : {};
+        // banner group: check inside the acfField wrapper first, then flat acf.banner
+        const bannerGrp  = acfGroup?.banner ?? acf?.banner ?? {};
+        const title       = bannerGrp.title                          || acfGroup?.banner_title       || acf?.banner_title       || fallbackTitle;
+        const description = bannerGrp.discerption || bannerGrp.description || acfGroup?.banner_discription || acf?.banner_discription || fallbackDescription;
+        // CTA: Industries uses banner.cta (ACF Link field: { title, url, target })
+        const ctaGrp      = bannerGrp.cta ?? {};
+        const ctaText     = ctaGrp.title  || bannerGrp.button_text  || acfGroup?.banner_button_text || acf?.banner_button_text || "";
+        const ctaLink     = ctaGrp.url    || bannerGrp.button_link  || acfGroup?.banner_button_link || acf?.banner_button_link || "";
 
         /* ── Featured image ── */
         let featuredImage = null;

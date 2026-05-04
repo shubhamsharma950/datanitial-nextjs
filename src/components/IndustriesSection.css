@@ -17,7 +17,6 @@
 .ind__header { text-align: center; margin-bottom: 36px; }
 
 .ind__title {
-  font-size: 48px;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
@@ -25,7 +24,6 @@
 }
 
 .ind__desc {
-  font-size: 24px;
   color: #707070;
   max-width: 1100px;
   margin: 0 auto;
@@ -179,18 +177,11 @@
   .ind > .container { padding: 0 20px; }
   .ind__tab { padding: 8px 14px; font-size: 13px; }
   .ind__card { padding: 28px 20px; }
-  .ind__title { font-size: clamp(24px, 6vw, 36px); }
 }
 
 @media (max-width: 1024px) {
-  .ind__title { font-size: 38px; }
-  .ind__desc  { font-size: 20px; }
 }
 @media (max-width: 768px) {
-  .ind__title { font-size: 30px; }
-  .ind__desc  { font-size: 17px; }
 }
 @media (max-width: 480px) {
-  .ind__title { font-size: 24px; }
-  .ind__desc  { font-size: 15px; }
 }

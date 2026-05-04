@@ -9,7 +9,6 @@
 }
 
 .cc__title {
-  font-size: 48px;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
@@ -17,7 +16,6 @@
 }
 
 .cc__desc {
-  font-size: 24px;
   color: #707070;
   line-height: 1.75;
   max-width: 1000px;
@@ -265,19 +263,9 @@
 /* ═══════════════════════════════════════════════
    HEADER FONT RESPONSIVE
 ═══════════════════════════════════════════════ */
-@media (max-width: 1024px) {
-  .cc__title { font-size: 38px; }
-  .cc__desc  { font-size: 20px; }
-}
-@media (max-width: 768px) {
-  .cc__title { font-size: 30px; }
-  .cc__desc  { font-size: 17px; }
-}
 @media (max-width: 480px) {
   .arc-content {
     top: 28%;
     width: 95%;
 }
-  .cc__title { font-size: 24px; }
-  .cc__desc  { font-size: 15px; }
 }

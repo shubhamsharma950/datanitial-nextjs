@@ -125,12 +125,12 @@ export default function ContactInfoSection() {
           {loading ? (
             <div className="cis__skeleton cis__skeleton--heading" aria-hidden="true" />
           ) : (
-            <h2 className="cis__heading">{heading}</h2>
+            <h2 className="cis__heading head-title">{heading}</h2>
           )}
           {loading ? (
             <div className="cis__skeleton cis__skeleton--text" aria-hidden="true" />
           ) : (
-            <p className="cis__sub-heading">{subHeading}</p>
+            <p className="cis__sub-heading head__desc">{subHeading}</p>
           )}
         </div>
 

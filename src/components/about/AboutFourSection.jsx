@@ -104,8 +104,8 @@ export default function AboutFourSection() {
               <span>{data.badge}</span>
             </div>
           )}
-          {data.title       && <h2 className="a4s__title">{data.title}</h2>}
-          {data.description && <p  className="a4s__desc">{data.description}</p>}
+          {data.title       && <h2 className="a4s__title head-title">{data.title}</h2>}
+          {data.description && <p  className="a4s__desc head__desc">{data.description}</p>}
         </div>
 
         {/* Comparison table */}

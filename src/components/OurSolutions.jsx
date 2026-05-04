@@ -129,8 +129,8 @@ export default function OurSolutions() {
 
         {/* ── Header ── */}
         <div className="sol__header">
-          <h2 className="sol__title">{title}</h2>
-          <p  className="sol__desc">{description}</p>
+          <h2 className="sol__title head-title">{title}</h2>
+          <p  className="sol__desc head__desc">{description}</p>
         </div>
 
         {/* ── Accordion ── */}

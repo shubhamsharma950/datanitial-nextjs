@@ -28,6 +28,7 @@ import ContactInfoSection from "../components/contact/ContactInfoSection";
 import { fetchContactPage, WP_BASE, CONTACT_PAGE_ID } from "../components/contact/contactApi";
 import "./ContactPage.css";
 import "./InnerPageLayout.css";
+import FaqSection from "../components/FaqSection";
 
 const FALLBACK_TITLE = "Contact Us";
 const FALLBACK_DESC  = "Get in touch with our team. We'd love to hear from you and help your business grow.";
@@ -116,9 +117,10 @@ export default function ContactPage() {
       <div className="ipl__body">
         {/* Section 1 — Contact form + image */}
         <ContactFormSection />
-
         {/* Section 2 — Email / Phone / Address cards */}
         <ContactInfoSection />
+        {/* FaqSection footer sec  */}
+        <FaqSection />
       </div>
     </div>
   );

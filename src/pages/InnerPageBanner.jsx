@@ -64,11 +64,11 @@ export default function InnerPageBanner({ loading = false, banner = null, fallba
             {hasCtaButton && (
               <a
                 href={banner.ctaLink}
-                className="ipb__cta"
+                className="secondary-btn"
                 rel={banner.ctaLink.startsWith("http") ? "noopener noreferrer" : undefined}
               >
                 {banner.ctaText}
-                <svg
+                {/* <svg
                   className="ipb__cta-arrow"
                   viewBox="0 0 20 20"
                   fill="none"
@@ -81,7 +81,7 @@ export default function InnerPageBanner({ loading = false, banner = null, fallba
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                </svg>
+                </svg> */}
               </a>
             )}
           </>

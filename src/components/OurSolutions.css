@@ -14,7 +14,6 @@
 
 .sol__header { text-align: center; margin-bottom: 56px; }
 .sol__title {
-  font-size: 48px;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 16px;
@@ -22,7 +21,6 @@
 }
 
 .sol__desc {
-  font-size: 24px;
   color: #707070;
   max-width: 950px;
   margin: 0 auto;
@@ -116,7 +114,6 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .sol { padding: 60px 0; }
-  .sol__title { font-size: clamp(24px, 5vw, 36px); }
   .sol-item__icon { width: 28px; height: 28px; }
   .sol__item-title { font-size: 25px; letter-spacing: 0.8px; }
   .sol__item-answer{font-size: 16px;}
@@ -128,17 +125,4 @@
   .sol { padding: 48px 0; }
   .sol__item-title { font-size: 18px; letter-spacing: 0.5px; }
   .sol__item-answer { padding-right: 0; }
-}
-
-@media (max-width: 1024px) {
-  .sol__title { font-size: 38px; }
-  .sol__desc  { font-size: 20px; }
-}
-@media (max-width: 768px) {
-  .sol__title { font-size: 30px; }
-  .sol__desc  { font-size: 17px; }
-}
-@media (max-width: 480px) {
-  .sol__title { font-size: 24px; }
-  .sol__desc  { font-size: 15px; }
 }

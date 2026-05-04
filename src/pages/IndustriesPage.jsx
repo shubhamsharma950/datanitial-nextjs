@@ -4,7 +4,7 @@
  * Industries inner page — also handles all /industries/* sub-routes.
  *
  * WordPress setup:
- *   Page ID : 12
+ *   Page ID : 15
  *   ACF Group field name: industries_page
  *
  * Sub-route slugs:
@@ -14,26 +14,34 @@
  *   /industries/real-estate
  *   /industries/travel-hospitality
  *
- * To give each industry its own WP content, create child pages and update
- * the ROUTE_MAP below with the correct WordPress page IDs.
+ * Page sections (below the banner):
+ *   Section 1 — IndustriesOneSection   "Built for Scale. Trusted Across Industries."
+ *   Section 2 — IndustriesTwoSection   "Industry-Specific Customization" (hover image swap)
+ *   Section 3 — IndustriesThreeSection "What Powers Every Industry Solution" (2×2 grid)
  */
 
 import { useLocation } from "react-router-dom";
-import InnerPageLayout  from "./InnerPageLayout";
-import InnerPageContent from "./InnerPageContent";
+import InnerPageLayout         from "./InnerPageLayout";
+import InnerPageContent        from "./InnerPageContent";
+import IndustriesOneSection    from "../components/industries/IndustriesOneSection";
+import IndustriesTwoSection    from "../components/industries/IndustriesTwoSection";
+import IndustriesThreeSection  from "../components/industries/IndustriesThreeSection";
 import "./IndustriesPage.css";
+import FaqSection from "../components/FaqSection";
 
 /* ── Map sub-route path → WordPress page ID + badge text ── */
 const ROUTE_MAP = {
-  "/industries/e-commerce":         { pageId: 12, badge: "E-COMMERCE" },
-  "/industries/finance-banking":    { pageId: 12, badge: "FINANCE & BANKING" },
-  "/industries/healthcare":         { pageId: 12, badge: "HEALTHCARE" },
-  "/industries/real-estate":        { pageId: 12, badge: "REAL ESTATE" },
-  "/industries/travel-hospitality": { pageId: 12, badge: "TRAVEL & HOSPITALITY" },
+  "/industries/e-commerce":         { pageId: 15, badge: "E-COMMERCE" },
+  "/industries/finance-banking":    { pageId: 15, badge: "FINANCE & BANKING" },
+  "/industries/healthcare":         { pageId: 15, badge: "HEALTHCARE" },
+  "/industries/real-estate":        { pageId: 15, badge: "REAL ESTATE" },
+  "/industries/travel-hospitality": { pageId: 15, badge: "TRAVEL & HOSPITALITY" },
 };
 
-const DEFAULT   = { pageId: 12, badge: "INDUSTRIES WE SERVE" };
-const ACF_FIELD = "industries_page";
+// const DEFAULT   = { pageId: 15, badge: "INDUSTRIES WE SERVE" };
+const DEFAULT   = { pageId: 15,};
+// ACF fields are flat under acf{} — no wrapper group for this page
+const ACF_FIELD = null;
 
 export default function IndustriesPage() {
   const { pathname } = useLocation();
@@ -51,6 +59,13 @@ export default function IndustriesPage() {
         acfField={ACF_FIELD}
         badgeText={badge}
       />
+
+      {/* ── Custom page sections ── */}
+      <IndustriesOneSection />
+      <IndustriesTwoSection />
+      <IndustriesThreeSection />
+      {/* FaqSection footer sec  */}
+      <FaqSection />
     </InnerPageLayout>
   );
 }

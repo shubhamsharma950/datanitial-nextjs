@@ -357,8 +357,8 @@ export default function TestimonialSection() {
             <StarIcon />
             <span>TESTIMONIALS</span>
           </div>
-          {title       && <h2 className="ts-section__title">{title}</h2>}
-          {description && <p  className="ts-section__desc">{description}</p>}
+          {title       && <h2 className="ts-section__title head-title">{title}</h2>}
+          {description && <p  className="ts-section__desc head__desc">{description}</p>}
         </div>
       </div>
 

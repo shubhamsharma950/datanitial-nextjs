@@ -164,8 +164,8 @@ export default function WhoWeAreSection() {
           </div>
           {(sectionTitle || sectionDesc) && (
             <div className="wwa__header">
-              {sectionTitle && <h2 className="wwa__title">{sectionTitle}</h2>}
-              {sectionDesc  && <p  className="wwa__desc">{sectionDesc}</p>}
+              {sectionTitle && <h2 className="wwa__title head-title">{sectionTitle}</h2>}
+              {sectionDesc  && <p  className="wwa__desc head__desc">{sectionDesc}</p>}
             </div>
           )}
         </div>
