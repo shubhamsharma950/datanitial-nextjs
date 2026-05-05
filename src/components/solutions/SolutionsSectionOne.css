@@ -1,0 +1,189 @@
+/* ═══════════════════════════════════════════════
+   SOLUTIONS — SECTION 1
+   "Solving Your Data Bottlenecks"
+   Layout: centred header + alternating text/image cards
+═══════════════════════════════════════════════ */
+
+.sol1 {
+  background: #F3FAFF;
+  padding: 88px 0 96px;
+  width: 100%;
+}
+
+/* ── Header ── */
+.sol1__header {
+  text-align: center;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.sol1__header--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Cards stack ── */
+.sol1__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 1190px;
+  margin: auto;  
+}
+
+/* ── Single card ── */
+.sol1__card {
+  display: grid;
+  grid-template-columns: 1fr 631px;
+  gap: 48px;
+  align-items: center;
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 44px 52px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(46, 42, 140, 0.06);
+  transition:
+    box-shadow 0.28s ease,
+    transform   0.28s ease,
+    opacity     0.65s ease,
+    translate   0.65s ease;
+  opacity: 0;
+  translate: 0 36px;
+}
+
+.sol1__card--visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Hover lift */
+.sol1__card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+/* Even cards: flip image to left, text to right */
+.sol1__card--flip {
+  direction: rtl;
+}
+
+.sol1__card--flip > * {
+  direction: ltr;
+}
+
+/* ── Text side ── */
+.sol1__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sol1__card-title {
+  font-size: clamp(20px, 2.2vw, 40px);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.sol1__card-desc {
+  font-size: clamp(16px, 1.4vw, 24px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── Tag chips ── */
+.sol1__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sol1__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 22px;
+  border-radius: var(--radius-full);
+  color: var(--secondary);
+  background: #E2F3FF;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+/* ── Image side ── */
+.sol1__card-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sol1__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 14px;
+  transition: transform 0.4s ease;
+}
+.sol1__card-img-placeholder {
+  width: 100%;
+  min-height: 240px;
+  background: linear-gradient(135deg, #eef2fb 0%, #dde4f5 100%);
+  border-radius: 14px;
+}
+
+/* ── Skeleton card ── */
+.sol1__card-skeleton {
+  height: 280px;
+  border-radius: 20px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .sol1__card {
+    gap: 32px;
+    padding: 36px 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sol1 { padding: 64px 0 72px; }
+
+  .sol1__header { margin-bottom: 40px; }
+
+  .sol1__card {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 28px 24px;
+    direction: ltr; /* reset flip on mobile */
+  }
+
+  .sol1__card--flip {
+    direction: ltr;
+  }
+
+  /* Image always goes on top on mobile */
+  .sol1__card-img-wrap {
+    /* order: -1; */
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sol1 { padding: 48px 0 56px; }
+
+  .sol1__card {
+    padding: 22px 18px;
+    gap: 20px;
+  }
+
+  .sol1__tag { font-size: 12px; padding: 4px 11px; }
+  .sol1__card-img      { max-height: 200px; }
+}

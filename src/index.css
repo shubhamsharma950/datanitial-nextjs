@@ -7,6 +7,7 @@
 
 /* ═══════════════════════════════════════════════
    DESIGN TOKENS
+   F3FAFF
 ═══════════════════════════════════════════════ */
 :root {
   /* ── Brand palette ── */
@@ -261,11 +262,11 @@ ul { list-style: none; }
   width: 18px;
   height: 18px;
 }
-  .head-title { font-size: 30px; }
-  .head__desc  { font-size: 17px; }
+  .head-title { font-size: 28px; }
+  .head__desc  { font-size: 20px; }
 }
 
 @media (max-width: 480px) {
-  .head-title { font-size: 24px; }
-  .head__desc  { font-size: 15px; }
+  .head-title { font-size: 26px; }
+  .head__desc  { font-size: 17px; }
 }

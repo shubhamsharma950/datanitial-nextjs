@@ -15,30 +15,36 @@
  *   /solutions/rpa
  *   /solutions/data-analytics
  *
- * To give each sub-page its own WP content, create child pages in WordPress
- * and update the PAGE_ID map below with the correct IDs.
+ * Sections rendered below the banner (all data from solutionsApi.js / page 13):
+ *   SolutionsSectionOne   — "Solving Your Data Bottlenecks" (alternating cards)
+ *   SolutionsSectionTwo   — "More Than Just Data Access"    (text + image split)
+ *   SolutionsSectionThree — "Designed Around Your Stack"    (3-col workflow cards)
  */
 
 import { useLocation } from "react-router-dom";
-import InnerPageLayout  from "./InnerPageLayout";
-import InnerPageContent from "./InnerPageContent";
+import InnerPageLayout        from "./InnerPageLayout";
+import SolutionsSectionOne    from "../components/solutions/SolutionsSectionOne";
+import SolutionsSectionTwo    from "../components/solutions/SolutionsSectionTwo";
+import SolutionsSectionThree  from "../components/solutions/SolutionsSectionThree";
+import FaqSection from "../components/FaqSection";
 import "./SolutionsPage.css";
+import OurSolutions from "../components/OurSolutions";
 
-/* ── Map sub-route path → WordPress page ID + badge text ── */
+/* ── Map sub-route path → WordPress page ID ── */
 const ROUTE_MAP = {
-  "/solutions/web-data-extraction":         { pageId: 11, badge: "WEB DATA EXTRACTION" },
-  "/solutions/mobile-application-scraping": { pageId: 11, badge: "MOBILE SCRAPING" },
-  "/solutions/real-time-api":               { pageId: 11, badge: "REAL-TIME API" },
-  "/solutions/rpa":                         { pageId: 11, badge: "RPA" },
-  "/solutions/data-analytics":              { pageId: 11, badge: "DATA ANALYTICS" },
+  "/solutions/web-data-extraction":         { pageId: 13 },
+  "/solutions/mobile-application-scraping": { pageId: 13 },
+  "/solutions/real-time-api":               { pageId: 13 },
+  "/solutions/rpa":                         { pageId: 13 },
+  "/solutions/data-analytics":              { pageId: 13 },
 };
 
-const DEFAULT = { pageId: 11, badge: "OUR SOLUTIONS" };
+const DEFAULT   = { pageId: 13 };
 const ACF_FIELD = "solutions_page";
 
 export default function SolutionsPage() {
   const { pathname } = useLocation();
-  const { pageId, badge } = ROUTE_MAP[pathname] ?? DEFAULT;
+  const { pageId }   = ROUTE_MAP[pathname] ?? DEFAULT;
 
   return (
     <InnerPageLayout
@@ -47,11 +53,14 @@ export default function SolutionsPage() {
       fallbackTitle="Our Solutions"
       fallbackDescription="Scalable, enterprise-grade data solutions designed to transform how your business collects, processes, and acts on data."
     >
-      <InnerPageContent
-        pageId={pageId}
-        acfField={ACF_FIELD}
-        badgeText={badge}
-      />
+      {/* ── Dynamic sections — all data fetched from solutionsApi.js ── */}
+      <SolutionsSectionOne />
+      {/* OurSolutions form home page  */}
+      <OurSolutions />
+      <SolutionsSectionTwo />
+      <SolutionsSectionThree />
+       {/* FaqSection footer sec  */}
+       <FaqSection />
     </InnerPageLayout>
   );
 }

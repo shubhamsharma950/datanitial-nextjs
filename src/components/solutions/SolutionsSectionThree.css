@@ -1,0 +1,313 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SOLUTIONS — SECTION 3  "Designed Around Your Stack"
+   ─────────────────────────────────────────────────────────────────────────
+   Animation concept:
+     • Center card  → always fully visible, never moves (stable anchor)
+     • First card   → hidden BEHIND center card (translateX toward center,
+                       scale down, opacity 0, z-index below center)
+                       then slides LEFT  to its natural column on reveal
+     • Last card    → hidden BEHIND center card (translateX toward center,
+                       scale down, opacity 0, z-index below center)
+                       then slides RIGHT to its natural column on reveal
+     • Trigger: IntersectionObserver toggles .sol3__grid--in on the grid
+     • Reverses on scroll-out (class removed → cards drift back behind center)
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Section shell ── */
+.sol3 {
+  background: linear-gradient(355deg, #CCE9FF 10%, #fff 48%, #E2F3FF 100%);
+  padding: 88px 0 96px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════
+   HEADER — one-shot reveal
+══════════════════════════════════════════ */
+.sol3__header {
+  text-align: center;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity   0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sol3__header--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   GRID — needs position:relative so z-index
+   stacking works across sibling cards
+══════════════════════════════════════════ */
+.sol3__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin: auto;
+  max-width: 1190px;
+  position: relative;   /* stacking context for z-index */
+}
+
+/* ══════════════════════════════════════════
+   CARD BASE
+══════════════════════════════════════════ */
+.sol3__card {
+  background: var(--secondary);
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  cursor: default;
+  max-width: 365px;
+  position: relative;   /* needed for z-index */
+
+  /* GPU promotion */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ══════════════════════════════════════════
+   CENTER CARD — always visible, always on top
+   Never animated, never hidden
+══════════════════════════════════════════ */
+.sol3__card--center {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  z-index: 2;
+  /* no transition needed — it never moves */
+}
+
+/* ══════════════════════════════════════════
+   FIRST & LAST — hidden BEHIND center card
+   Both start at the center column position:
+     first  → shifted RIGHT  by ~100% + gap to sit behind center
+     last   → shifted LEFT   by ~100% + gap to sit behind center
+   Scale 0.72 makes them feel "deep" behind the center card.
+══════════════════════════════════════════ */
+.sol3__card--first {
+  opacity: 0;
+  transform: translate3d(calc(100% + 28px), 0, 0) scale(0.72);
+  z-index: 1;
+  /* exit (scroll-out): no delay — snaps back immediately */
+  transition:
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+}
+
+.sol3__card--last {
+  opacity: 0;
+  transform: translate3d(calc(-100% - 28px), 0, 0) scale(0.72);
+  z-index: 1;
+  /* exit (scroll-out): no delay */
+  transition:
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+}
+
+/* ══════════════════════════════════════════
+   IN-VIEW — cards slide out to their columns
+   .sol3__grid--in toggled by IntersectionObserver
+   Enter delay: 600ms pause after section enters viewport,
+   then first card at 600ms, last card at 800ms (staggered).
+   Exit delay: 0ms — cards snap back instantly on scroll-out.
+══════════════════════════════════════════ */
+.sol3__grid--in .sol3__card--first {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  z-index: 2;
+  /* 600ms wait after section enters, then animate */
+  transition:
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms;
+}
+
+.sol3__grid--in .sol3__card--last {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  z-index: 2;
+  /* 200ms stagger after first card starts */
+  transition:
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms;
+}
+/* ══════════════════════════════════════════
+   ICON BOX
+══════════════════════════════════════════ */
+.sol3__icon-wrap {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #fff;
+  transition: background 0.25s ease;
+}
+
+.sol3__card:hover .sol3__icon-wrap {
+  background: var(--secondary);
+}
+
+.sol3__icon-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+  transition: filter 0.25s ease;
+}
+
+.sol3__card:hover .sol3__icon-img {
+  filter: brightness(0) invert(1);
+}
+
+.sol3__icon-placeholder {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+}
+
+/* ══════════════════════════════════════════
+   CARD TEXT
+══════════════════════════════════════════ */
+.sol3__card-title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.sol3__card-desc {
+  font-size: clamp(14px, 1.4vw, 20px);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+}
+
+/* ── Skeleton ── */
+.sol3__card-skeleton {
+  height: 260px;
+  border-radius: 20px;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .sol3__grid { gap: 20px; }
+  .sol3__card { padding: 28px 24px 28px; }
+
+  .sol3__card--first {
+    transform: translate3d(calc(100% + 20px), 0, 0) scale(0.72);
+    transition:
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+  }
+  .sol3__card--last {
+    transform: translate3d(calc(-100% - 20px), 0, 0) scale(0.72);
+    transition:
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+  }
+}
+
+@media (max-width: 768px) {
+  .sol3 { padding: 64px 0 72px; }
+  .sol3__header { margin-bottom: 40px; }
+
+  /* 2-column: last card wraps to second row — switch to vertical reveal */
+  .sol3__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .sol3__card--first {
+    transform: translate3d(calc(100% + 18px), 0, 0) scale(0.78);
+  }
+  .sol3__card--last {
+    /* on 2-col layout last card is below — slide up from below */
+    transform: translate3d(0, 48px, 0) scale(0.88);
+    transition-delay: 80ms;
+  }
+}
+
+@media (max-width: 540px) {
+  /* Single column — cards still hide BEHIND center card, same animation */
+  .sol3__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sol3__card {
+    padding: 24px 20px 24px;
+    max-width: 100%;
+  }
+
+  /*
+   * On single-column, "behind center" means stacked on top of each other.
+   * First card  → pushed DOWN  (it renders above center in DOM, so slide down = behind)
+   * Last card   → pushed UP    (it renders below center in DOM, so slide up  = behind)
+   * Both shrink to 0.72 scale so they feel hidden behind the center card.
+   */
+  .sol3__card--first {
+    transform: translate3d(0, calc(100% + 16px), 0) scale(0.72);
+    /* exit: no delay */
+    transition:
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+  }
+
+  .sol3__card--last {
+    transform: translate3d(0, calc(-100% - 16px), 0) scale(0.72);
+    /* exit: no delay */
+    transition:
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+  }
+
+  /* In-view: 600ms pause then animate, staggered */
+  .sol3__grid--in .sol3__card--first {
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms;
+  }
+
+  .sol3__grid--in .sol3__card--last {
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms;
+  }
+}
+
+@media (max-width: 480px) {
+  .sol3 { padding: 48px 0 56px; }
+  .sol3__icon-wrap { width: 60px; height: 60px; border-radius: 12px; }
+  .sol3__icon-img  { width: 40px; height: 40px; }
+}
+
+/* ══════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .sol3__card--first,
+  .sol3__card--last {
+    transform: none;
+    transition: opacity 0.3s ease;
+  }
+  .sol3__grid--in .sol3__card--first,
+  .sol3__grid--in .sol3__card--last {
+    opacity: 1;
+  }
+}

@@ -18,10 +18,31 @@
 
 /* ── 2×2 Grid ── */
 .ind3__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   margin: 0 auto;
+}
+
+/* Each row is a flex row */
+.ind3__row {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* Cards 1 & 4 — fixed 500px width */
+.ind3__row .ind3-card--dark,
+.ind3__row .ind3-card--dark_photo {
+  width: 500px;
+  flex-shrink: 0;
+}
+
+/* Cards 2 & 3 — fill remaining space */
+.ind3__row .ind3-card--light,
+.ind3__row .ind3-card--photo {
+  flex: 1;
+  min-width: 0;
 }
 
 /* ══════════════════════════════════════════════
@@ -218,27 +239,48 @@
 ══════════════════════════════════════════════ */
 @media (max-width: 1024px) {
   .ind3__grid { gap: 16px; }
+  .ind3__row  { gap: 16px; }
+
   .ind3-card--dark,
   .ind3-card--light,
   .ind3-card--photo,
   .ind3-card--dark_photo { min-height: 320px; }
 }
 
+@media (max-width: 992px) {
+  /* Shrink fixed-width cards so rows still fit side-by-side */
+  .ind3__row .ind3-card--dark,
+  .ind3__row .ind3-card--dark_photo { width: 320px; }
+
+  .ind3-card--dark,
+  .ind3-card--light,
+  .ind3-card--photo,
+  .ind3-card--dark_photo { min-height: 280px; }
+
+  .ind3-card--dark .ind3-card__img-box,
+  .ind3-card--light .ind3-card__img-top,
+  .ind3-card--dark_photo .ind3-card__img-top { min-height: 150px; }
+}
+
 @media (max-width: 768px) {
-    .ind3-card__bg-img {
+  .ind3-card__bg-img {
     content: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/mob2.png");
   }
   .ind3 { padding: 60px 0; }
   .ind3__header { margin-bottom: 32px; }
-  .ind3__grid { grid-template-columns: 1fr; gap: 16px; }
+
+  /* Stack each row into a single column */
+  .ind3__row { flex-direction: column; gap: 16px; }
+
+  /* Reset fixed widths — all cards go full width */
+  .ind3__row .ind3-card--dark,
+  .ind3__row .ind3-card--dark_photo { width: 100%; }
 
   .ind3-card--dark,
   .ind3-card--light,
   .ind3-card--dark_photo { min-height: 300px; }
 
-  .ind3-card--photo {
-    min-height: 438px;
-}
+  .ind3-card--photo { min-height: 438px; }
 
   .ind3-card--dark .ind3-card__img-box,
   .ind3-card--light .ind3-card__img-top,

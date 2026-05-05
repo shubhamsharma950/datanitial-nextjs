@@ -227,16 +227,26 @@ export default function IndustriesThreeSection() {
           {data.description && <p  className="ind3__desc head__desc">{data.description}</p>}
         </div>
 
-        {/* ── 2×2 Grid ── */}
+        {/* ── 2×2 Grid — Row 1: card1(500px) + card2(flex), Row 2: card3(flex) + card4(500px) ── */}
         <div className="ind3__grid">
-          {data.cards.map((card, i) => (
-            <Card
-              key={i}
-              card={card}
-              index={i}
-              cardRef={(el) => (cardRefs.current[i] = el)}
-            />
-          ))}
+          {/* Row 1 */}
+          <div className="ind3__row">
+            {data.cards[0] && (
+              <Card card={data.cards[0]} index={0} cardRef={(el) => (cardRefs.current[0] = el)} />
+            )}
+            {data.cards[1] && (
+              <Card card={data.cards[1]} index={1} cardRef={(el) => (cardRefs.current[1] = el)} />
+            )}
+          </div>
+          {/* Row 2 */}
+          <div className="ind3__row">
+            {data.cards[2] && (
+              <Card card={data.cards[2]} index={2} cardRef={(el) => (cardRefs.current[2] = el)} />
+            )}
+            {data.cards[3] && (
+              <Card card={data.cards[3]} index={3} cardRef={(el) => (cardRefs.current[3] = el)} />
+            )}
+          </div>
         </div>
 
       </div>
