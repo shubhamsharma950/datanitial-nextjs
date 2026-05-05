@@ -1,0 +1,438 @@
+/* ═══════════════════════════════════════════════════════════
+   PostDetailPage.css
+   Single detail page — Blog & Case Studies
+   Design: light blue page bg (#E2F3FF) · white article card · light blue related section
+═══════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════
+   PAGE WRAPPER
+════════════════════════════════ */
+.pdp {
+  width: 100%;
+  min-height: 100vh;
+  background: #E2F3FF;          /* light blue — full page bg */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header strip — white, same height as the pill nav ── */
+.pdp__header-wrap {
+  position: relative;
+  background: #E2F3FF;
+  flex-shrink: 0;
+  height: 110px;
+}
+
+/* ════════════════════════════════
+   MAIN — light blue bg, article card floats inside
+════════════════════════════════ */
+.pdp__main {
+  flex: 1;
+  background: #E2F3FF;
+  padding: 48px 24px 80px;
+}
+
+/* ── Outer container — centres the card ── */
+.pdp__container {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 0;
+}
+.pdp__content.wp-content h4 { display: none;}
+.pdp_head{text-align: center;}
+/* ── White article card ── */
+.pdp__article {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px rgba(46, 42, 140, 0.08);
+  padding: 48px 150px 56px;
+  width: 100%;
+}
+
+/* ════════════════════════════════
+   ARTICLE CONTENT
+════════════════════════════════ */
+
+/* ── Published date badge ── */
+.pdp__date-badge {
+    display: inline-block;
+    background: var(--secondary);
+    color: #E2F3FF;
+    font-size: 20px;
+    /* font-size: clamp(16px, 2rem, 20px); */
+    font-weight: 700;
+    padding: 9px 48px;
+    border-radius: 52px;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+}
+
+/* ── Title ── */
+.pdp__title {
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.22;
+  margin: 0 0 16px;
+}
+
+/* ── Subtitle / excerpt ── */
+.pdp__subtitle {
+  font-size: 32px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+/* ── Featured image ── */
+.pdp__hero-img-wrap {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 36px;
+}
+
+.pdp__hero-img {
+  width: 100%;
+  height: auto;
+  max-height: 540px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ════════════════════════════════
+   WP CONTENT TYPOGRAPHY
+════════════════════════════════ */
+.pdp__content.wp-content {
+  font-size: 16px;
+  line-height: 1.85;
+  color: #3d4a5c;
+}
+
+.pdp__content.wp-content h1,
+.pdp__content.wp-content h2,
+.pdp__content.wp-content h3,
+.pdp__content.wp-content h4,
+.pdp__content.wp-content h5,
+.pdp__content.wp-content h6 {
+  color: #0d1b3e;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 32px 0 12px;
+}
+
+.pdp__content.wp-content h2 { font-size: clamp(20px, 2.4vw, 28px); }
+.pdp__content.wp-content h3 { font-size: clamp(17px, 1.8vw, 22px); }
+.pdp__content.wp-content h4 { font-size: 18px; }
+
+.pdp__content.wp-content p  { margin: 0 0 18px; }
+
+.pdp__content.wp-content a {
+  color: #2E3192;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.pdp__content.wp-content a:hover { color: #1a1a7e; }
+
+.pdp__content.wp-content ul,
+.pdp__content.wp-content ol {
+  margin: 0 0 18px;
+  padding-left: 26px;
+}
+.pdp__content.wp-content ul { list-style: disc; }
+.pdp__content.wp-content ol { list-style: decimal; }
+.pdp__content.wp-content li { margin-bottom: 7px; line-height: 1.75; }
+
+.pdp__content.wp-content blockquote {
+  border-left: 4px solid #2E3192;
+  margin: 24px 0;
+  padding: 14px 22px;
+  background: #f0f4ff;
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+  color: #4a5568;
+}
+
+.pdp__content.wp-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 20px 0;
+  display: block;
+}
+
+.pdp__content.wp-content figure  { margin: 24px 0; }
+.pdp__content.wp-content figcaption {
+  font-size: 13px;
+  color: #8a9ab5;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.pdp__content.wp-content pre,
+.pdp__content.wp-content code {
+  font-family: 'Courier New', Courier, monospace;
+  background: #f4f6fb;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.pdp__content.wp-content pre  { padding: 18px 22px; overflow-x: auto; margin: 20px 0; }
+.pdp__content.wp-content code { padding: 2px 6px; }
+
+.pdp__content.wp-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.pdp__content.wp-content th,
+.pdp__content.wp-content td {
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  text-align: left;
+}
+.pdp__content.wp-content th {
+  background: #f0f4ff;
+  font-weight: 700;
+  color: #0d1b3e;
+}
+.pdp__content.wp-content hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 32px 0;
+}
+
+/* ════════════════════════════════
+   NOT FOUND / SKELETON
+════════════════════════════════ */
+.pdp__not-found {
+  background: #fff;
+  border-radius: 20px;
+  padding: 80px 40px;
+  text-align: center;
+  box-shadow: 0 4px 32px rgba(46, 42, 140, 0.08);
+}
+.pdp__not-found h1 { font-size: 32px; color: #0d1b3e; margin-bottom: 12px; }
+.pdp__not-found p  { color: #5a6a85; margin-bottom: 28px; }
+.pdp__back-link    { color: #2E3192; font-weight: 600; text-decoration: underline; font-size: 15px; }
+
+.pdp__article-skeleton {
+  background: #fff;
+  border-radius: 20px;
+  padding: 48px 52px;
+  box-shadow: 0 4px 32px rgba(46, 42, 140, 0.08);
+}
+
+/* ════════════════════════════════
+   RELATED SECTION
+   Light blue bg · plain title · 3-col card grid
+════════════════════════════════ */
+.pdp__related {
+  background: #E2F3FF;
+  padding: 72px 24px 88px;
+  width: 100%;
+}
+
+.pdp__related-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Section title — plain, no badge ── */
+.pdp__related-title {
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin: 0 0 48px;
+  line-height: 1.2;
+}
+
+/* ── 3-column grid ── */
+.pdp__related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 48px;
+}
+
+/* ── Single related card ── */
+.pdp__rel-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(46, 42, 140, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.pdp__rel-card:hover {
+  box-shadow: 0 8px 32px rgba(46, 42, 140, 0.14);
+  transform: translateY(-4px);
+}
+
+/* ── Card image ── */
+.pdp__rel-card-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #e8edf5;
+}
+.pdp__rel-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.pdp__rel-card:hover .pdp__rel-card-img { transform: scale(1.04); }
+.pdp__rel-card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a2a6e 0%, #3a4fcf 100%);
+}
+
+/* ── Card body ── */
+.pdp__rel-card-body {
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ── Meta row ── */
+.pdp__rel-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.pdp__rel-meta-date,
+.pdp__rel-meta-read {
+  font-size: 13px;
+  color: #6b7a99;
+  font-weight: 500;
+}
+
+/* ── Card title ── */
+.pdp__rel-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0d1b3e;
+  line-height: 1.4;
+  margin: 0 0 14px;
+  flex: 1;
+}
+
+/* ── Read More link ── */
+.pdp__rel-card-link  {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--secondary);
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+.pdp__rel-card-link:hover,
+.pdp__rel-card-link:focus-visible {
+  color: var(--secondary);
+  text-decoration: underline;
+  outline: none;
+}
+
+/* ── Skeleton card ── */
+.pdp__rel-card--skeleton .pdp__rel-card-img-wrap { aspect-ratio: 16 / 10; }
+
+/* ── Load More ── */
+.pdp__load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+.pdp__load-more-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Empty state ── */
+.pdp__related-empty {
+  text-align: center;
+  color: #6b7a99;
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+
+/* ── Mobile header overrides — scoped to PostDetailPage only ──
+   On other inner pages the mobile header sits over a dark banner image,
+   so its logo/burger are white. On this page the bg is light blue (#E2F3FF)
+   so we flip them to dark.
+── */
+@media (max-width: 991px) {
+  .pdp .iph--mobile {
+    background: #E2F3FF;
+  }
+
+  /* Dark hamburger lines */
+  .pdp .iph__burger span {
+    background: #111111;
+  }
+
+  /* Swap white mobile logo → colour logo used on light backgrounds */
+  .pdp .iph__mobile-logo img {
+    content: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png");
+    filter: none;
+    height: 44px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .pdp__related-grid { grid-template-columns: repeat(2, 1fr); }
+   .pdp__title    { font-size: 32px; }
+  .pdp__subtitle { font-size: 20px; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pdp__header-wrap { height: 80px; }
+
+  .pdp__main { padding: 24px 16px 60px; }
+
+  .pdp__article {
+    padding: 28px 20px 36px;
+    border-radius: 16px;
+  }
+
+  .pdp__article-skeleton {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .pdp__related { padding: 56px 16px 72px; }
+
+  .pdp__related-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .pdp__related-title { margin-bottom: 32px; font-size: 18px; }
+
+  .pdp__hero-img { max-height: 260px; }
+
+  .pdp__content.wp-content { font-size: 15px; }
+
+  .pdp__date-badge {font-size: 16px; font-weight: 600px; padding: 9px 20px;}
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .pdp__rel-card-link{font-size: 15px;}
+  .pdp__title    { font-size: 18px; }
+  .pdp__subtitle { font-size: 16px; }
+  .pdp__date-badge {font-size: 14px; padding: 6px 14px;}
+  .pdp__content.wp-content h2 { font-size: 19px; }
+  .pdp__content.wp-content h3 { font-size: 17px; }
+}

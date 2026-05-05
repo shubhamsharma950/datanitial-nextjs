@@ -1,0 +1,214 @@
+/* ═══════════════════════════════════════════════════════════
+   RESOURCES — SECTION 3: Case Studies Grid
+   Background: light blue-grey (#f0f4ff / #eef4ff)
+   Layout: centred header + 3-column card grid + Load More
+═══════════════════════════════════════════════════════════ */
+
+.rs3 {
+  background: linear-gradient(355deg, #CCE9FF 10%, #fff 48%, #E2F3FF 100%);
+  padding: 80px 0 96px;
+  width: 100%;
+}
+
+/* ── Container ── */
+.rs3__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ════════════════════════════════
+   HEADER
+════════════════════════════════ */
+.rs3__header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+/* ════════════════════════════════
+   CARD GRID
+════════════════════════════════ */
+.rs3__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 48px;
+}
+
+/* ── Single card ── */
+.rs3__card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(46, 42, 140, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.rs3__card:hover {
+  box-shadow: 0 8px 32px rgba(46, 42, 140, 0.14);
+  transform: translateY(-4px);
+}
+
+/* ── Card image ── */
+.rs3__card-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #e8edf5;
+}
+
+.rs3__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.rs3__card:hover .rs3__card-img {
+  transform: scale(1.04);
+}
+
+.rs3__card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a2a6e 0%, #3a4fcf 100%);
+}
+
+/* ── Card body ── */
+.rs3__card-body {
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ── Meta row ── */
+.rs3__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.rs3__meta-date,
+.rs3__meta-read {
+  font-size: 13px;
+  color: #6b7a99;
+  font-weight: 500;
+}
+
+/* ── Card title ── */
+.rs3__card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.4;
+  margin: 0 0 14px;
+  flex: 1;
+}
+
+/* ── Read More link ── */
+.rs3__card-link {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--secondary);
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.rs3__card-link:hover,
+.rs3__card-link:focus-visible {
+  color: var(--secondary);
+  text-decoration: underline;
+  outline: none;
+}
+
+/* ── Skeleton card ── */
+.rs3__card--skeleton .rs3__card-img-wrap {
+  aspect-ratio: 16 / 10;
+}
+
+/* ════════════════════════════════
+   LOAD MORE
+════════════════════════════════ */
+.rs3__load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.rs3__load-more-btn {
+  padding: 12px 40px;
+  border: 1.5px solid #2E3192;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2E3192;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rs3__load-more-btn:hover:not(:disabled),
+.rs3__load-more-btn:focus-visible:not(:disabled) {
+  background: #2E3192;
+  color: #fff;
+  outline: none;
+}
+
+.rs3__load-more-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Empty state ── */
+.rs3__empty {
+  text-align: center;
+  color: #6b7a99;
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .rs3__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+.rs3__card-title {
+  font-size: 16px;
+}
+.rs3__card-link {
+  font-size: 16px;
+}
+  .rs3 {
+    padding: 56px 0 15px;
+  }
+
+  .rs3__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .rs3__header {
+    margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs3__container {
+    padding: 0 16px;
+  }
+
+  .rs3__card-body {
+    padding: 16px 16px 20px;
+  }
+}

@@ -1,42 +1,36 @@
 /**
  * ResourcesPage.jsx
  * ─────────────────────────────────────────────────────────────────────────────
- * Resources & Insights inner page — also handles /resources/* sub-routes.
+ * Resources & Insights page — WordPress Page ID: 17
  *
- * WordPress setup:
- *   post=17
- *   Page ID : 17
- *   ACF Group field name: resources_page
+ * ACF Group field name: resources_page
+ * WordPress admin: post.php?post=17
  *
- * Sub-route slugs:
- *   /resources/blog
- *   /resources/case-studies
- *   /resources/whitepapers
+ * Page sections (each in its own component under components/resources/):
+ *   Section 1 — Featured Resource Card
+ *     • ACF: page 17 → section_one (badge, title, description)
+ *     • Post: WP posts filtered by category "Featured"
  *
- * The ResourcesBlog component is rendered as a static child below the
- * dynamic ACF sections so the blog grid always appears on this page.
+ *   Section 2 — Latest Blog Posts Grid
+ *     • ACF: page 17 → section_two (badge, title, description)
+ *     • Posts: GET /wp/v2/posts (with load-more pagination)
+ *
+ *   Section 3 — Case Studies Grid
+ *     • ACF: page 17 → section_three (badge, title, description)
+ *     • Posts: GET /wp/v2/case-studies (with load-more pagination)
  */
 
-import { useLocation } from "react-router-dom";
-import InnerPageLayout  from "./InnerPageLayout";
-import InnerPageContent from "./InnerPageContent";
-import ResourcesBlog    from "../components/ResourcesBlog";
+import InnerPageLayout        from "./InnerPageLayout";
+import InnerPageBanner        from "./InnerPageBanner";
+import ResourcesSectionOne    from "../components/resources/ResourcesSectionOne";
+import ResourcesSectionTwo    from "../components/resources/ResourcesSectionTwo";
+import ResourcesSectionThree  from "../components/resources/ResourcesSectionThree";
 import "./ResourcesPage.css";
 
-/* ── Map sub-route path → badge text ── */
-const BADGE_MAP = {
-  "/resources/blog":         "BLOG",
-  "/resources/case-studies": "CASE STUDIES",
-  "/resources/whitepapers":  "WHITEPAPERS",
-};
-
-const PAGE_ID   = 14;
+const PAGE_ID   = 17;
 const ACF_FIELD = "resources_page";
 
 export default function ResourcesPage() {
-  const { pathname } = useLocation();
-  const badge = BADGE_MAP[pathname] ?? "RESOURCES & INSIGHTS";
-
   return (
     <InnerPageLayout
       pageId={PAGE_ID}
@@ -44,14 +38,17 @@ export default function ResourcesPage() {
       fallbackTitle="Resources & Insights"
       fallbackDescription="Explore our latest articles, guides, and case studies to stay ahead in the world of data intelligence."
     >
-      <InnerPageContent
-        pageId={PAGE_ID}
-        acfField={ACF_FIELD}
-        badgeText={badge}
-      >
-        {/* Blog grid always rendered below dynamic ACF sections */}
-        <ResourcesBlog />
-      </InnerPageContent>
+      {/* Banner is rendered by InnerPageLayout via InnerPageBanner internally */}
+
+      {/* Section 1 — Featured Resource Card */}
+      <ResourcesSectionOne />
+
+      {/* Section 2 — Latest Blog Posts Grid */}
+      <ResourcesSectionTwo />
+
+      {/* Section 3 — Case Studies Grid */}
+      <ResourcesSectionThree />
+
     </InnerPageLayout>
   );
 }

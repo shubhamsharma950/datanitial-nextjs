@@ -6,13 +6,14 @@
 
 import { Routes, Route } from "react-router-dom";
 
-import HomePage      from "./pages/HomePage";
-import ResourcesPage from "./pages/ResourcesPage";
-import AboutPage     from "./pages/AboutPage";
-import SolutionsPage from "./pages/SolutionsPage";
-import IndustriesPage from "./pages/IndustriesPage";
-import ContactPage   from "./pages/ContactPage";
-import NotFoundPage  from "./pages/NotFoundPage";
+import HomePage        from "./pages/HomePage";
+import ResourcesPage   from "./pages/ResourcesPage";
+import PostDetailPage  from "./pages/PostDetailPage";
+import AboutPage       from "./pages/AboutPage";
+import SolutionsPage   from "./pages/SolutionsPage";
+import IndustriesPage  from "./pages/IndustriesPage";
+import ContactPage     from "./pages/ContactPage";
+import NotFoundPage    from "./pages/NotFoundPage";
 
 export default function AppRoutes() {
   return (
@@ -45,6 +46,12 @@ export default function AppRoutes() {
       <Route path="/resources/blog"         element={<ResourcesPage />} />
       <Route path="/resources/case-studies" element={<ResourcesPage />} />
       <Route path="/resources/whitepapers"  element={<ResourcesPage />} />
+
+      {/* ── Blog detail ── */}
+      <Route path="/blog/:slug"             element={<PostDetailPage type="blog" />} />
+
+      {/* ── Case Study detail ── */}
+      <Route path="/case-studies/:slug"     element={<PostDetailPage type="case-study" />} />
 
       {/* ── 404 fallback ── */}
       <Route path="*"            element={<NotFoundPage />} />

@@ -243,6 +243,28 @@ ul { list-style: none; }
   text-decoration: underline;
 }
 
+/* ── Read More button ── */
+.rs_page_btn {
+  display: inline-block;
+  padding: 10px 28px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  background: transparent;
+  text-decoration: none;
+  width: fit-content;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rs_page_btn:hover,
+.rs_page_btn:focus-visible {
+  background: var(--primary);
+  color: #fff;
+  outline: none;
+}
+
 /* ═══════════════════════════════════════════════
    GLOBAL TITLE / DESC — RESPONSIVE
 ═══════════════════════════════════════════════ */
@@ -252,6 +274,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
+.rs_page_btn {padding: 8px 18px; font-size: 10px;}
 .badge-sec {
     padding: 6px 13px 6px 11px !important;
     font-size: 12px !important;
