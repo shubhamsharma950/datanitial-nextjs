@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════
+   RESOURCES — SECTION 1: Featured Resource Card
+═══════════════════════════════════════════════════════════ */
+
+.rs1 {
+  background: #E2F3FF;
+  padding: 80px 0 40px;
+  width: 100%;
+}
+
+/* ── Container ── */
+.rs1__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ════════════════════════════════
+   HEADER
+════════════════════════════════ */
+.rs1__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+/* ════════════════════════════════
+   FEATURED CARD
+   White card · large radius · image padded inside
+════════════════════════════════ */
+.rs1__card {
+  display: grid;
+  grid-template-columns: 1fr 570px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px rgba(46, 42, 140, 0.09);
+  min-height: 420px;
+  overflow: visible;                  /* let image radius show */
+}
+
+/* ── Image side ── */
+.rs1__card-img-wrap {
+  position: relative;
+  padding: 16px 0 16px 16px;         /* gap between card edge and image */
+  min-height: 340px;
+}
+
+.rs1__card-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;               /* image own rounded corners */
+  object-fit: cover;
+  display: block;
+}
+
+.rs1__card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1a2a6e 0%, #3a4fcf 100%);
+}
+
+/* ── "Featured" badge — top-left of image ── */
+.rs1__featured-badge {
+  position: absolute;
+  top: 32px;                         /* 16px card padding + 16px from image top */
+  left: 32px;                        /* 16px card padding + 16px from image left */
+  background: #19C106;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Content side ── */
+.rs1__card-content {
+  padding: 40px 44px 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Meta row: date left, read time right ── */
+.rs1__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.rs1__meta-date,
+.rs1__meta-read {
+  font-size: 13px;
+  color: #6b7a99;
+  font-weight: 500;
+}
+
+/* ── Title ── */
+.rs1__card-title {
+  font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 700;
+  color: #333333;
+  line-height: 1.28;
+  margin: 0 0 16px;
+}
+
+/* ── Excerpt ── */
+.rs1__card-excerpt {
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.75;
+  margin: 0 0 28px;
+  flex: 1;
+}
+/* ── Skeleton ── */
+.rs1__card-skeleton {
+  width: 100%;
+  height: 380px;
+  border-radius: 24px;
+}
+
+/* ── Empty state ── */
+.rs1__empty {
+  text-align: center;
+  color: #6b7a99;
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  .rs1__card {
+    grid-template-columns: 460px 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .rs1__card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobile — stack vertically, image on top */
+@media (max-width: 768px) {
+  .rs1 {
+    padding: 56px 0 24px;
+  }
+
+  .rs1__header {
+    margin-bottom: 32px;
+  }
+
+  .rs1__card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 20px;
+  }
+
+  /* Image: padded on all sides so it floats inside the card */
+  .rs1__card-img-wrap {
+    padding: 16px 16px 0 16px;
+    min-height: 260px;
+    max-height: 320px;
+  }
+
+  .rs1__card-img {
+    border-radius: 14px;
+    height: 100%;
+    max-height: 300px;
+  }
+
+  .rs1__card-img-placeholder {
+    min-height: 260px;
+    border-radius: 14px;
+  }
+
+  .rs1__featured-badge {
+    top: 32px;
+    left: 32px;
+    font-size: 14px;
+    padding: 5px 14px;
+  }
+
+  .rs1__card-content {
+    padding: 24px 24px 32px;
+  }
+
+  .rs1__card-title {
+    font-size: 20px;
+  }
+
+  .rs1__card-excerpt {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rs1__container {
+    padding: 0 16px;
+  }
+
+  .rs1__card-img-wrap {
+    padding: 14px 14px 0 14px;
+    min-height: 220px;
+  }
+
+  .rs1__featured-badge {
+    top: 28px;
+    left: 28px;
+    font-size: 13px;
+    padding: 4px 12px;
+  }
+
+  .rs1__card-content {
+    padding: 20px 18px 28px;
+  }
+
+  .rs1__card-title  { font-size: 18px; }
+  .rs1__card-excerpt { font-size: 14px; }
+}

@@ -105,13 +105,14 @@ function FeaturedPost({ post }) {
   const link = post.slug !== "#" ? `/blog/${post.slug}` : "#";
   return (
     <article className="rb-featured" aria-label={`Featured: ${post.title}`}>
-      {/* Image */}
+      {/* Image side — padded so image floats with its own border-radius */}
       <div className="rb-featured__img-wrap">
         {post.image ? (
           <img src={post.image} alt={post.title} className="rb-featured__img" loading="eager" />
         ) : (
           <div className="rb-featured__img-placeholder" aria-hidden="true" />
         )}
+        {/* <span className="rb-featured__badge">Featured</span> */}
       </div>
 
       {/* Content */}
@@ -126,7 +127,7 @@ function FeaturedPost({ post }) {
             {post.excerpt.length > 220 ? post.excerpt.slice(0, 220) + "…" : post.excerpt}
           </p>
         )}
-        <a href={link} className="rb-featured__btn" aria-label={`Read more about ${post.title}`}>
+        <a href={link} className="rs_page_btn" aria-label={`Read more about ${post.title}`}>
           Read More
         </a>
       </div>

@@ -112,8 +112,8 @@
 .ts-card {
   width: 320px;
   min-width: 320px;
-  height: 203px;
-  background: #cfe0ef;
+  height: 240px;
+  background: #E2F3FF;
   border-radius: 20px;
   padding: 15px;
   flex-shrink: 0;
@@ -162,9 +162,9 @@
 /* ── Review text ── */
 .ts-card__text {
   background: #fff;
-  padding: 10px 12px;
+  padding: 12px 12px 35px 12px;
   border-radius: 12px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.45;
   color: #333;
   /* Clamp to 3 lines so cards stay uniform height */
@@ -190,7 +190,7 @@
   .ts-card {
     width: 219px;
     min-width: 236px;
-    height: 175px;
+    height: 165px;
     padding: 12px;
 }
 .ts-card__name { font-size: 12px; }
