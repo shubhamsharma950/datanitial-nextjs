@@ -162,7 +162,7 @@ export default function FaqSection() {
             <div className="faq-section__left">
               <div className="faq-badge">
                 <span className="faq-badge__icon" aria-hidden="true" />
-                <span className="faq-badge__label">{"FAQS"}</span>
+                <span className="faq-badge__label">{"FAQ"} <span className="faq-badge-s">s</span></span>
               </div>
 
               <h2 className="faq-section__heading">

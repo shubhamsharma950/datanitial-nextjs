@@ -34,23 +34,30 @@
   border-radius: 24px;
   box-shadow: 0 4px 32px rgba(46, 42, 140, 0.09);
   min-height: 420px;
-  overflow: visible;                  /* let image radius show */
+  overflow: visible;  
 }
 
-/* ── Image side ── */
 .rs1__card-img-wrap {
   position: relative;
-  padding: 16px 0 16px 16px;         /* gap between card edge and image */
+  padding: 22px 0 22px 22px;
   min-height: 340px;
 }
 
+
 .rs1__card-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;               /* image own rounded corners */
+  width: 728px;
+  height: 456px;
+  border-radius: 16px;
   object-fit: cover;
   display: block;
 }
+/* .rs1__card-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+} */
 
 .rs1__card-img-placeholder {
   width: 100%;
@@ -63,13 +70,13 @@
 /* ── "Featured" badge — top-left of image ── */
 .rs1__featured-badge {
   position: absolute;
-  top: 32px;                         /* 16px card padding + 16px from image top */
-  left: 32px;                        /* 16px card padding + 16px from image left */
+  top: 40px;                         /* 16px card padding + 16px from image top */
+  left: 36px;                        /* 16px card padding + 16px from image left */
   background: #19C106;
   color: #fff;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
-  padding: 6px 18px;
+  padding: 4px 19px;
   border-radius: 8px;
   letter-spacing: 0.02em;
   pointer-events: none;
@@ -94,9 +101,9 @@
 
 .rs1__meta-date,
 .rs1__meta-read {
-  font-size: 13px;
-  color: #6b7a99;
-  font-weight: 500;
+    font-size: 12px;
+    color: #707070;
+    font-weight: 700;
 }
 
 /* ── Title ── */
@@ -142,6 +149,10 @@
 }
 
 @media (max-width: 900px) {
+  .rs1__card-img {
+  width: 100%;
+  height: 100%;
+}
   .rs1__card {
     grid-template-columns: 1fr 1fr;
   }
@@ -162,10 +173,8 @@
     min-height: auto;
     border-radius: 20px;
   }
-
-  /* Image: padded on all sides so it floats inside the card */
   .rs1__card-img-wrap {
-    padding: 16px 16px 0 16px;
+    padding: 20px 20px 0 20px;
     min-height: 260px;
     max-height: 320px;
   }
@@ -207,7 +216,7 @@
   }
 
   .rs1__card-img-wrap {
-    padding: 14px 14px 0 14px;
+    padding: 16px 16px 0 16px;
     min-height: 220px;
   }
 

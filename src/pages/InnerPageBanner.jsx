@@ -7,21 +7,36 @@
  *   loading        {boolean}  — show skeleton while data loads
  *   banner         {object}   — { title, description, ctaText, ctaLink, featuredImage: { url, alt } }
  *   fallbackBg     {string}   — optional CSS color/gradient used when no featured image
+ *   mobileBannerUrl {string}  — override background image on mobile (≤767px); defaults to shared mobile banner
  */
 
-export default function InnerPageBanner({ loading = false, banner = null, fallbackBg }) {
+const DEFAULT_MOBILE_BANNER =
+  "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/mobile-inner-banner.png";
+
+export default function InnerPageBanner({
+  loading = false,
+  banner = null,
+  fallbackBg,
+  mobileBannerUrl = DEFAULT_MOBILE_BANNER,
+}) {
   const bgStyle = banner?.featuredImage?.url
     ? { backgroundImage: `url(${banner.featuredImage.url})` }
     : fallbackBg
     ? { background: fallbackBg }
     : undefined;
 
+  // Inject the mobile banner URL as a CSS variable so the media query can use it
+  const styleWithMobile = {
+    ...bgStyle,
+    "--ipb-mobile-bg": `url(${mobileBannerUrl})`,
+  };
+
   const hasCtaButton = !loading && banner?.ctaText && banner?.ctaLink;
 
   return (
     <section
       className="ipb"
-      style={bgStyle}
+      style={styleWithMobile}
       aria-label={banner?.title ? `${banner.title} banner` : "Page banner"}
     >
       {/* Dark overlay for readability */}

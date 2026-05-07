@@ -68,6 +68,7 @@ export default function Header() {
   const [logoAlt,   setLogoAlt]   = useState("Datanitial");
   const [ctaLabel,  setCtaLabel]  = useState("Get Quote");
   const [ctaUrl,    setCtaUrl]    = useState("/get-quote");
+  const [ctaTarget, setCtaTarget] = useState("_self");
   const [loading,   setLoading]   = useState(true);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
@@ -87,8 +88,9 @@ export default function Header() {
         if (d?.site_name && !d?.logo_url) setLogoAlt(d.site_name);
         const gq = d?.get_quote;
         if (gq && typeof gq === "object") {
-          if (gq.label) setCtaLabel(gq.label);
-          if (gq.url)   setCtaUrl(gq.url);
+          if (gq.label)  setCtaLabel(gq.label);
+          if (gq.url)    setCtaUrl(gq.url);
+          if (gq.target) setCtaTarget(gq.target);
         } else if (typeof gq === "string" && gq) {
           setCtaLabel(gq);
         }
@@ -101,7 +103,24 @@ export default function Header() {
             title:  item.title,
             url:    item.url,
             target: item.target === "_blank" ? "_blank" : "_self",
+            acf:    item.acf ?? null,
           }));
+
+        // Find the menu item that has the get_quote ACF link field set
+        // The ACF field group_69ef7b7a7bd12 is assigned to Menus
+        for (const item of items) {
+          const gq = item.acf; // get_field('get_quote', $item) — ACF link field
+          if (!gq) continue;
+          if (typeof gq === "object") {
+            if (gq.title) setCtaLabel(gq.title);
+            if (gq.url)   setCtaUrl(gq.url);
+            if (gq.target) setCtaTarget(gq.target);
+          } else if (typeof gq === "string" && gq) {
+            setCtaLabel(gq);
+          }
+          break; // use first match
+        }
+
         if (items.length) setNavItems(items);
       }
       setLoading(false);
@@ -196,7 +215,7 @@ export default function Header() {
           {isInternal(ctaUrl) ? (
             <Link to={resolveHref(ctaUrl)} className="hdr__cta">{ctaLabel}</Link>
           ) : (
-            <a href={ctaUrl} className="hdr__cta">{ctaLabel}</a>
+            <a href={ctaUrl} className="hdr__cta" target={ctaTarget} rel={ctaTarget === "_blank" ? "noopener noreferrer" : undefined}>{ctaLabel}</a>
           )}
 
           {/* ── Hamburger (mobile) ── */}

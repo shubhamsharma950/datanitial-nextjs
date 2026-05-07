@@ -72,7 +72,7 @@ const StarIcon = () => (
 function Skeleton() {
   return (
     <section className="rb-section">
-      <div className="rb-container">
+      <div className="container">
         {/* Header skeleton */}
         <div className="rb-header">
           <div className="skeleton" style={{ width: 130, height: 32, borderRadius: 999, marginBottom: 16 }} />

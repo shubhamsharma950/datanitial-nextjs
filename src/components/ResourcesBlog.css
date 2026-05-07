@@ -55,9 +55,9 @@
 
 .rb-meta__date,
 .rb-meta__read {
-  font-size: 13px;
-  color: #6b7a99;
-  font-weight: 500;
+  font-size: 12px;
+  color: #707070;
+  font-weight: 700;
 }
 
 /* ════════════════════════════════
@@ -69,26 +69,33 @@
 ════════════════════════════════ */
 .rb-featured {
   display: grid;
-  grid-template-columns: 1fr 560px;
+  grid-template-columns: 1fr 580px;
   background: #fff;
   border-radius: 24px;
   box-shadow: 0 4px 32px rgba(46, 42, 140, 0.09);
-  margin-bottom: 32px;
-  min-height: 360px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  min-height: 420px;
   overflow: visible;
+  margin-bottom: 42px;
 }
+
+.rb-featured:hover {
+  box-shadow: 4px 10px 24px 0 #3A4FB7;
+  transform: translateY(-4px);
+}
+
 
 /* ── Image side ── */
 .rb-featured__img-wrap {
   position: relative;
-  padding: 16px 0 16px 16px;   /* gap: card edge → image */
+  padding: 22px 0 22px 28px;
   min-height: 340px;
 }
 
 .rb-featured__img {
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;          /* image own rounded corners */
+  width: 728px;
+  height: 456px;
+  border-radius: 16px;
   object-fit: cover;
   display: block;
 }
@@ -100,42 +107,25 @@
   border-radius: 16px;
   background: linear-gradient(135deg, #1a2a6e 0%, #3a4fcf 100%);
 }
-
-/* ── "Featured" badge — top-left of image ── */
-.rb-featured__badge {
-  position: absolute;
-  top: 32px;                    /* 16px card padding + 16px from image top */
-  left: 32px;                   /* 16px card padding + 16px from image left */
-  background: #19C106;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 700;
-  padding: 6px 18px;
-  border-radius: 8px;
-  letter-spacing: 0.02em;
-  pointer-events: none;
-  z-index: 1;
-}
-
 /* ── Content side ── */
 .rb-featured__content {
-  padding: 40px 44px 40px 36px;
+  padding: 40px 44px 40px 45px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .rb-featured__title {
-  font-size: clamp(20px, 2.2vw, 30px);
+  font-size: 32px;
   font-weight: 700;
-  color: #111111;
+  color: var(--text-dark);
   line-height: 1.28;
   margin: 0 0 16px;
 }
 
 .rb-featured__excerpt {
-  font-size: 15px;
-  color: #555555;
+  font-size: 16px;
+  color: #666666;
   line-height: 1.75;
   margin: 0 0 28px;
   flex: 1;
@@ -208,9 +198,9 @@
 }
 
 .rb-card__title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  color: #0d1b3e;
+  color: var(--text-dark);
   line-height: 1.4;
   margin: 0 0 14px;
   flex: 1;
@@ -252,6 +242,7 @@
 @media (max-width: 900px) {
   .rb-featured {
     grid-template-columns: 1fr 1fr;
+    margin-bottom: 24px;
   }
 
   .rb-grid {
@@ -279,10 +270,8 @@
   }
 
   .rb-featured__img {
-    border-radius: 14px;
-    height: 100%;
-    max-height: 280px;
-  }
+    width: 100%;
+    height: 100%;}
 
   .rb-featured__img-placeholder {
     min-height: 240px;

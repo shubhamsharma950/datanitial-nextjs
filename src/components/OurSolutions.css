@@ -57,10 +57,36 @@
   padding: 28px 0;
   background: none;
   border: none;
+  text-align: left;
+}
+
+/* ── Default mode: accordion button ── */
+.sol__item-header-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: none;
+  border: none;
   cursor: pointer;
   text-align: left;
   font-family: inherit;
-  transition: color 0.2s;
+}
+
+/* ── detailLink mode: full-row link ── */
+.sol__item-header-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-decoration: none;
+}
+
+.sol__item-header-link:hover .sol__item-title,
+.sol__item-header-btn:hover  .sol__item-title {
+  color: var(--primary);
 }
 
 .sol__item-title {
@@ -70,10 +96,38 @@
   letter-spacing: 1.5px;
   line-height: 1.2;
   text-transform: uppercase;
+  text-decoration: none;
   transition: color 0.2s;
 }
 
 .sol__item--open .sol__item-title { color: var(--primary); }
+
+/* ── Arrow icon (detailLink mode) ── */
+.sol__item-arrow-icon {
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+  display: block;
+  /* transition: transform 0.25s ease; */
+}
+
+/* .sol__item-header-link:hover .sol__item-arrow-icon {
+  transform: scale(1.1);
+} */
+
+.sol__item-toggle {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: color 0.2s;
+}
 
 .sol__item__icon,
 .sol-item__icon {
@@ -103,26 +157,158 @@
 
 .sol__item-body-inner { overflow: hidden; min-height: 0; }
 
-.sol__item-answer {
-  font-size: 24px;
-  color: var(--text);
-  line-height: 1.8;
-  padding: 0 48px 24px 0;
+/* ── Answer panel: image + text + bullets — matches design screenshot ── */
+.sol__answer-panel {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  background: #eef2fb;
+  border-radius: 14px;
+  padding: 32px 36px;
+  margin-bottom: 8px;
+}
+
+/* Left: image */
+.sol__answer-img-wrap {
+  flex: 0 0 240px;
+  width: 240px;
+}
+
+.sol__answer-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Middle: description paragraph */
+.sol__answer-text {
+  flex: 1 1 0;
+  font-size: 15px;
+  color: #4a4a4a;
+  line-height: 1.85;
   margin: 0;
+  min-width: 0;
+}
+
+/* Right: bullet list */
+.sol__answer-list {
+  flex: 0 0 280px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sol__answer-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Filled circle bullet — matches screenshot */
+.sol__answer-bullet {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4a4a4a;
+  flex-shrink: 0;
 }
 
 /* ── Responsive ── */
+@media (max-width: 1024px) {
+  .sol__answer-panel {
+    gap: 28px;
+    padding: 24px 28px;
+  }
+
+  .sol__answer-img-wrap {
+    flex: 0 0 200px;
+    width: 200px;
+  }
+
+  .sol__answer-list {
+    flex: 0 0 220px;
+  }
+}
+
+@media (max-width: 900px) {
+  .sol__answer-panel {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 24px;
+  }
+
+  .sol__answer-img-wrap {
+    flex: 0 0 180px;
+    width: 180px;
+  }
+
+  .sol__answer-img {
+    height: 150px;
+  }
+
+  .sol__answer-list {
+    flex: 1 1 200px;
+  }
+}
+
 @media (max-width: 768px) {
   .sol { padding: 60px 0; }
+
+  .sol__item-arrow-icon {width: 28px;height: 28px;}
   .sol-item__icon { width: 28px; height: 28px; }
   .sol__item-title { font-size: 25px; letter-spacing: 0.8px; }
-  .sol__item-answer{font-size: 16px;}
-  .sol__list {background-size: cover;}
-  .sol {background-size: cover;}
+  .sol__list { background-size: cover; }
+  .sol { background-size: cover; }
+
+  .sol__answer-panel {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 18px;
+  }
+
+  .sol__answer-img-wrap {
+    flex: none;
+    width: 100%;
+  }
+
+  .sol__answer-img {
+    width: 100%;
+    height: 210px;
+  }
+
+  .sol__answer-text {
+    font-size: 14px;
+  }
+
+  .sol__answer-list {
+    flex: none;
+    width: 100%;
+  }
+
+  .sol__answer-list-item {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 480px) {
   .sol { padding: 48px 0; }
   .sol__item-title { font-size: 18px; letter-spacing: 0.5px; }
-  .sol__item-answer { padding-right: 0; }
+
+  .sol__answer-panel {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .sol__answer-img {
+    height: 180px;
+  }
 }
