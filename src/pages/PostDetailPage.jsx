@@ -278,7 +278,8 @@ export default function PostDetailPage({ type = "blog" }) {
       {/* ── Related section ── */}
       {(post || relLoading) && (
         <section className="pdp__related" aria-label={relLabel}>
-          <div className="pdp__related-inner">
+          {/* <div className="pdp__related-inner"> */}
+          <div className="container">
 
             <h2 className="pdp__related-title">{relLabel}</h2>
 

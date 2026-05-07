@@ -747,10 +747,15 @@ body.inner-page header.hdr {
 
 /* ── Mobile ── */
 @media (max-width: 767px) {
+  /* Swap to the shared mobile banner image */
   .ipb {
-    min-height: 75svh;
+    background-image: var(--ipb-mobile-bg) !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    /* min-height: 90vh; */
     padding: 80px 20px 60px;
-}
+  }
   
   .iph__mobile-logo img {
     height: 53px;

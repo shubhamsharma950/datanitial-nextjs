@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./OurSolutions.css";
+
+const ARROW_ICON_URL =
+  "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/ddsf.png";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -37,7 +41,7 @@ function Skeleton() {
         <div className="badge-sec skeleton" style={{ width: 130, height: 30, borderRadius: 999 }} />
         <div className="skeleton" style={{ width: "55%", height: 44, margin: "0 auto 12px" }} />
         <div className="skeleton" style={{ width: "65%", height: 18, margin: "0 auto 56px" }} />
-        {[1,2,3,4].map(i => (
+        {[1,2,3,4,5].map(i => (
           <div key={i} className="skeleton" style={{ width: "100%", height: 64, borderRadius: 8, marginBottom: 2 }} />
         ))}
       </div>
@@ -51,10 +55,18 @@ function parseFromAcf(acf) {
   const faq = acf?.our_solutions_faq;
   const items = [];
   if (faq && typeof faq === "object") {
-    for (let i = 1; i <= 8; i++) {
-      const q = faq[`q${i}`] || "";
-      const a = faq[`a${i}`] || "";
-      if (q || a) items.push({ question: q, answer: a });
+    for (let i = 1; i <= 5; i++) {
+      const q   = faq[`question${i}`] || "";
+      const ans = faq[`answer${i}`]   || {};
+      const img        = typeof ans === "object" ? (ans.image?.url || ans.image || "") : "";
+      const answer     = typeof ans === "object" ? (ans.discretions || "") : "";
+      const list_raw   = typeof ans === "object" ? (ans.list_items  || "") : "";
+      const list_items = list_raw
+        ? list_raw.split("\n").map(s => s.trim()).filter(Boolean)
+        : [];
+      if (q || img || answer || list_items.length) {
+        items.push({ question: q, image: img, answer, list_items });
+      }
     }
   }
   return {
@@ -66,10 +78,10 @@ function parseFromAcf(acf) {
 
 /* ═══════════════════════════════════════════════
    OUR SOLUTIONS — Accordion section
-   ACF: our_solutions (title/desc) + our_solutions_faq (q1/a1…q8/a8)
-   Design: badge + heading + accordion list with + icon
+   ACF: our_solutions (title/desc) + our_solutions_faq (question1/answer1…question5/answer5)
+   Answer panel: image + description text + bullet list (matches design screenshot)
 ═══════════════════════════════════════════════ */
-export default function OurSolutions() {
+export default function OurSolutions({ detailLink = null }) {
   const [title,       setTitle]       = useState("Scalable Data Solutions for Modern Businesses");
   const [description, setDescription] = useState("Built to handle complex data needs, our solutions deliver reliable, structured, and actionable insights across industries.");
   const [items,       setItems]       = useState([]);
@@ -143,24 +155,77 @@ export default function OurSolutions() {
               style={{ "--delay": `${i * 0.07}s` }}
             >
               {/* Row — always visible */}
-              <button
-                className="sol__item-header"
-                aria-expanded={openIndex === i}
-                onClick={() => toggle(i)}
-              >
-                <span className="sol__item-title">
-                  {item.question.toUpperCase()}
-                </span>
-                <PlusIcon open={openIndex === i} />
-              </button>
+              <div className="sol__item-header">
+                {detailLink ? (
+                  /* ── SolutionsPage mode: title + icon both link to detail page ── */
+                  <Link
+                    to={detailLink}
+                    className="sol__item-header-link"
+                    aria-label={`View details for ${item.question}`}
+                  >
+                    <span className="sol__item-title">
+                      {item.question.toUpperCase()}
+                    </span>
+                    <img
+                      src={ARROW_ICON_URL}
+                      alt=""
+                      className="sol__item-arrow-icon"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                ) : (
+                  /* ── Default mode: accordion toggle ── */
+                  <button
+                    className="sol__item-header-btn"
+                    aria-expanded={openIndex === i}
+                    onClick={() => toggle(i)}
+                  >
+                    <span className="sol__item-title">
+                      {item.question.toUpperCase()}
+                    </span>
+                    <PlusIcon open={openIndex === i} />
+                  </button>
+                )}
+              </div>
 
-              {/* Expandable answer */}
+              {/* Expandable answer panel */}
               <div
                 className="sol__item-body"
                 aria-hidden={openIndex !== i}
               >
                 <div className="sol__item-body-inner">
-                  <p className="sol__item-answer">{item.answer}</p>
+                  <div className="sol__answer-panel">
+
+                    {/* Left: image */}
+                    {item.image && (
+                      <div className="sol__answer-img-wrap">
+                        <img
+                          src={item.image}
+                          alt={item.question}
+                          className="sol__answer-img"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+
+                    {/* Middle: description text */}
+                    {item.answer && (
+                      <p className="sol__answer-text">{item.answer}</p>
+                    )}
+
+                    {/* Right: bullet list */}
+                    {item.list_items?.length > 0 && (
+                      <ul className="sol__answer-list" aria-label="Key points">
+                        {item.list_items.map((point, j) => (
+                          <li key={j} className="sol__answer-list-item">
+                            <span className="sol__answer-bullet" aria-hidden="true" />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                  </div>
                 </div>
               </div>
             </div>

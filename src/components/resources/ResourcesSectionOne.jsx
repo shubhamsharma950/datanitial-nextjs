@@ -51,7 +51,8 @@ function FeaturedCard({ post }) {
   const link = post.slug ? `/blog/${post.slug}` : "#";
 
   return (
-    <article className="rs1__card" aria-label={`Featured: ${post.title}`}>
+   <a href={link}>
+     <article className="rs1__card" aria-label={`Featured: ${post.title}`}>
       {/* Image side */}
       <div className="rs1__card-img-wrap">
         {post.image ? (
@@ -90,6 +91,7 @@ function FeaturedCard({ post }) {
         </a>
       </div>
     </article>
+   </a>
   );
 }
 

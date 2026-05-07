@@ -47,7 +47,7 @@ export async function getSiteInfo() {
       home_url:  "/",
       logo_url:  "",
       logo_alt:  "Datanitial",
-      get_quote: { label: "Get Quote", url: "/get-quote" },
+      get_quote: { label: "Get Quote", url: "#" },
     };
   }
 }

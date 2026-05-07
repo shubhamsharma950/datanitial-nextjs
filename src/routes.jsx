@@ -10,8 +10,9 @@ import HomePage        from "./pages/HomePage";
 import ResourcesPage   from "./pages/ResourcesPage";
 import PostDetailPage  from "./pages/PostDetailPage";
 import AboutPage       from "./pages/AboutPage";
-import SolutionsPage   from "./pages/SolutionsPage";
-import IndustriesPage  from "./pages/IndustriesPage";
+import SolutionsPage        from "./pages/SolutionsPage";
+import SolutionDetailPage   from "./pages/SolutionDetailPage";
+import IndustriesPage       from "./pages/IndustriesPage";
 import ContactPage     from "./pages/ContactPage";
 import NotFoundPage    from "./pages/NotFoundPage";
 
@@ -32,6 +33,10 @@ export default function AppRoutes() {
       <Route path="/solutions/real-time-api"                element={<SolutionsPage />} />
       <Route path="/solutions/rpa"                          element={<SolutionsPage />} />
       <Route path="/solutions/data-analytics"               element={<SolutionsPage />} />
+
+      {/* ── Solution Detail ── */}
+      <Route path="/solutions/detail"                           element={<SolutionDetailPage />} />
+      <Route path="/solutions/detail/:slug"                     element={<SolutionDetailPage />} />
 
       {/* ── Industries ── */}
       <Route path="/industries"                   element={<IndustriesPage />} />
