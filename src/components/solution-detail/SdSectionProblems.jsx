@@ -49,12 +49,12 @@ const StarIcon = () => (
 
 /* ── Checkmark icon ── */
 const CheckIcon = () => (
-  <svg className="sdp__check-icon" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-    <circle cx="13" cy="13" r="13" fill="rgba(255,255,255,0.22)" />
+  <svg className="sdp__check-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+    <circle cx="16" cy="16" r="16" fill="#fff" />
     <path
-      d="M8 13.5l3.5 3.5 6.5-7"
-      stroke="#fff"
-      strokeWidth="2.2"
+      d="M10 16.5l4.5 4.5 8-9"
+      stroke="#4E63D7"
+      strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -93,7 +93,8 @@ function Skeleton() {
 export default function SdSectionProblems() {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
+  const [leftVisible, setLeftVisible] = useState(false);
+  const [rightVisible, setRightVisible] = useState(false);
   const bodyRef = useRef(null);
 
   /* ── Fetch ── */
@@ -112,7 +113,8 @@ export default function SdSectionProblems() {
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          // Start left panel animation
+          setLeftVisible(true);
           obs.disconnect();
         }
       },
@@ -121,6 +123,19 @@ export default function SdSectionProblems() {
     obs.observe(bodyRef.current);
     return () => obs.disconnect();
   }, [loading]);
+
+  /* ── Sequential animation: Right panel starts AFTER left completes ── */
+  useEffect(() => {
+    if (leftVisible) {
+      // Calculate total left animation time:
+      // Container: 800ms + longest item delay (4 items × 80ms = 320ms) + item duration 600ms = 1720ms
+      // Add small buffer for safety: 1800ms
+      const timer = setTimeout(() => {
+        setRightVisible(true);
+      }, 1800);
+      return () => clearTimeout(timer);
+    }
+  }, [leftVisible]);
 
   if (loading) return <Skeleton />;
   if (!data)   return null;
@@ -150,7 +165,7 @@ export default function SdSectionProblems() {
 
           {/* ── LEFT: problems list ── */}
           <ul
-            className={`sdp__problems${visible ? " sdp__problems--in" : ""}`}
+            className={`sdp__problems${leftVisible ? " sdp__problems--in" : ""}`}
             aria-label="Problems"
           >
             {problems.map((item, i) => (
@@ -166,7 +181,7 @@ export default function SdSectionProblems() {
           </ul>
 
           {/* ── RIGHT WRAP: logo + blue panel together ── */}
-          <div className={`sdp__right-wrap${visible ? " sdp__right-wrap--in" : ""}`}>
+          <div className={`sdp__right-wrap${rightVisible ? " sdp__right-wrap--in" : ""}`}>
 
             {/* Center logo card — overlaps left edge of blue panel */}
             <div className="sdp__logo-card" aria-hidden="true">
@@ -185,7 +200,7 @@ export default function SdSectionProblems() {
                   <li
                     key={i}
                     className="sdp__solution-item"
-                    style={{ transitionDelay: `${0.15 + i * 0.08}s` }}
+                    style={{ transitionDelay: `${i * 0.08}s` }}
                   >
                     <CheckIcon />
                     <span>{item}</span>

@@ -1,101 +1,312 @@
 /* ═══════════════════════════════════════════════
    SOLUTION DETAIL — DATA IN ACTION SECTION
-   Layout: text-left | image-right
+   Orbital animation with central logo and use cases
 ═══════════════════════════════════════════════ */
 
 .sddia {
-  background: #F3FAFF;
-  padding: 72px 0 88px;
+  background: radial-gradient(ellipse at center, #E0E7FF 0%, #F8FAFF 50%, #FFFFFF 100%);
+  padding: 80px 0 120px;
   width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
-/* ── Two-column inner ── */
+/* ── Inner container ── */
 .sddia__inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-  max-width: 1190px;
+  max-width: 1200px;
   margin: 0 auto;
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.sddia--visible .sddia__inner {
+/* ── Header ── */
+.sddia__header {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto 60px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.sddia__header--visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ── Text side ── */
-.sddia__text {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
 .sddia__title {
-  font-size: clamp(26px, 2.8vw, 48px);
+  font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
-  color: var(--text-dark);
+  color: #1a1a2e;
   line-height: 1.2;
-  margin: 0;
+  margin: 16px 0 20px;
 }
 
 .sddia__desc {
-  font-size: clamp(15px, 1.4vw, 20px);
-  color: var(--text);
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: #4a5568;
   line-height: 1.75;
   margin: 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ── Image side ── */
-.sddia__img-wrap {
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 8px 40px rgba(46, 49, 146, 0.10);
+/* ── Orbital Stage ── */
+.sddia__stage {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sddia__img {
+/* ── Concentric Rings - Full circles visible ── */
+.orbital-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid #6366f1;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Animate rings when stage is visible */
+.sddia__stage--visible .orbital-ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.orbital-ring--outer {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.15);
+  transition-delay: 0.2s;
+  opacity: 0.2;
+}
+
+.orbital-ring--middle {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
+  transition-delay: 0.3s;
+  opacity: 0.3;
+}
+
+.orbital-ring--inner {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.25);
+  transition-delay: 0.4s;
+  opacity: 0.4;
+}
+
+/* Reset opacity when not visible */
+.sddia__stage:not(.sddia__stage--visible) .orbital-ring--outer {
+  opacity: 0;
+}
+
+.sddia__stage:not(.sddia__stage--visible) .orbital-ring--middle {
+  opacity: 0;
+}
+
+.sddia__stage:not(.sddia__stage--visible) .orbital-ring--inner {
+  opacity: 0;
+}
+
+/* ── Central Logo ── */
+.sddia__logo-container {
+  position: relative;
+  z-index: 10;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(99, 102, 241, 0.3),
+    0 0 0 1px rgba(99, 102, 241, 0.1);
+  padding: 20px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s, box-shadow 0.3s ease;
+}
+
+/* Hover effect when clickable */
+.sddia__logo-container:not(.sddia__logo-container--clicked):hover {
+  box-shadow: 
+    0 24px 70px rgba(99, 102, 241, 0.4),
+    0 0 0 2px rgba(99, 102, 241, 0.3);
+  transform: scale(1.05);
+}
+
+/* Active state when clicked */
+.sddia__logo-container--clicked {
+  cursor: default !important;
+}
+
+.sddia__stage--visible .sddia__logo-container {
+  opacity: 1;
+  transform: scale(1);
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1) translateY(-10px);
+  }
+}
+
+.sddia__logo {
   width: 100%;
   height: 100%;
-  max-height: 460px;
-  object-fit: cover;
-  display: block;
-  border-radius: 20px;
-  transition: transform 0.4s ease;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.2));
+  transition: opacity 0.3s ease;
 }
 
-.sddia__img-placeholder {
+/* ── Scattered Nodes (replaces orbital nodes) ── */
+.scattered-node {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  opacity: 0;
+  animation: nodePopIn 0.5s ease-out forwards;
+}
+
+@keyframes nodePopIn {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.scattered-node__image {
   width: 100%;
-  min-height: 360px;
-  background: linear-gradient(135deg, #eef2fb 0%, #dde4f5 100%);
-  border-radius: 20px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 0 0 3px rgba(255, 255, 255, 0.8),
+    0 0 0 4px rgba(99, 102, 241, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: nodeFloat 3s ease-in-out infinite;
 }
 
-/* ── Skeleton ── */
-.sddia__img-skeleton {
-  height: 400px;
-  border-radius: 20px;
+@keyframes nodeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.scattered-node__image:hover {
+  transform: scale(1.1) translateY(0);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.18),
+    0 0 0 3px rgba(255, 255, 255, 1),
+    0 0 0 5px rgba(99, 102, 241, 0.4);
+  animation: none;
 }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .sddia__inner { gap: 44px; }
+@media (max-width: 1024px) {
+  .sddia__stage {
+    height: 500px;
+    max-width: 700px;
+  }
+
+  .orbital-ring--outer { width: 600px; height: 600px; }
+  .orbital-ring--middle { width: 420px; height: 420px; }
+  .orbital-ring--inner { width: 280px; height: 280px; }
 }
 
 @media (max-width: 768px) {
-  .sddia { padding: 56px 0 72px; }
-
-  .sddia__inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .sddia { 
+    padding: 60px 20px 80px; 
+  }
+  
+  .sddia__title {
+    font-size: 36px;
+  }
+  
+  .sddia__desc { 
+    font-size: 18px; 
   }
 
-  .sddia__img { max-height: 300px; }
+  .sddia__stage {
+    height: 400px;
+    max-width: 500px;
+  }
+
+  .orbital-ring--outer { width: 450px; height: 450px; }
+  .orbital-ring--middle { width: 320px; height: 320px; }
+  .orbital-ring--inner { width: 220px; height: 220px; }
+
+  .sddia__logo-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .orbital-node {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 @media (max-width: 480px) {
-  .sddia { padding: 44px 0 56px; }
-  .sddia__img { max-height: 240px; }
+  .sddia { 
+    padding: 48px 16px 60px; 
+  }
+
+  .sddia__title {
+    font-size: 28px;
+  }
+
+  .sddia__desc {
+    font-size: 16px;
+  }
+
+  .sddia__stage {
+    height: 350px;
+    max-width: 100%;
+  }
+
+  .orbital-ring--outer { width: 350px; height: 350px; }
+  .orbital-ring--middle { width: 250px; height: 250px; }
+  .orbital-ring--inner { width: 180px; height: 180px; }
+
+  .sddia__logo-container {
+    width: 100px;
+    height: 100px;
+    padding: 12px;
+  }
+
+  .orbital-node {
+    width: 50px;
+    height: 50px;
+  }
+
+  .orbital-node__image {
+    border-radius: 8px;
+  }
 }

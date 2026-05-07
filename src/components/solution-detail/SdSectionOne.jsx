@@ -1,18 +1,20 @@
 /**
  * SdSectionOne.jsx  —  components/solution-detail/
  * ─────────────────────────────────────────────────────────────────────────────
- * Section 1: Centred badge + title + description header block.
+ * Section 1: Centred badge + title + description header block with orbital animation.
  *
  * ACF path: acf.section_one
  *   badge_text   → pill badge
  *   title        → <h2>
  *   description  → <p>
- *  image   ->  image
+ *   image        → central logo
+ *   use_cases    → array of orbiting images
  *
  * Data source: getSdSectionOne() from solutionsDetailApi.js
  */
 
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 import { getSdSectionOne } from "./solutionsDetailApi";
 import "./SdSectionOne.css";
 
@@ -44,12 +46,42 @@ function Skeleton() {
   );
 }
 
+/* ── Orbital Node Component ── */
+function OrbitalNode({ image, alt, index, radius, totalNodes }) {
+  const angle = (index / totalNodes) * 360;
+  const radian = (angle * Math.PI) / 180;
+  const x = Math.cos(radian) * radius;
+  const y = Math.sin(radian) * radius;
+
+  return (
+    <div
+      className="orbital-node"
+      style={{
+        left: `calc(50% + ${x}px)`,
+        top: `calc(50% + ${y}px)`,
+        animationDelay: `${index * 0.1}s`,
+      }}
+    >
+      <img
+        src={image}
+        alt={alt || `Use case ${index + 1}`}
+        className="orbital-node__image"
+        style={{
+          animationDelay: `${index * 0.3}s`,
+        }}
+      />
+    </div>
+  );
+}
+
 /* ── Main component ── */
 export default function SdSectionOne() {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
+  const [showOrbit, setShowOrbit] = useState(false);
   const sectionRef = useRef(null);
+  const stageRef = useRef(null);
+  const isInView = useInView(stageRef, { once: true, amount: 0.3 });
 
   /* ── Fetch ── */
   useEffect(() => {
@@ -61,24 +93,20 @@ export default function SdSectionOne() {
     return () => { cancelled = true; };
   }, []);
 
-  /* ── Scroll reveal ── */
-  useEffect(() => {
-    if (loading || !sectionRef.current) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    obs.observe(sectionRef.current);
-    return () => obs.disconnect();
-  }, [loading]);
-
   if (loading) return <Skeleton />;
   if (!data)   return null;
+
+  // Mock use case images if not provided by API
+  const useCases = data.use_cases || [
+    { image: "https://images.unsplash.com/photo-1556740758-90de374c12ad?w=100&h=100&fit=crop", alt: "Use case 1" },
+    { image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100&h=100&fit=crop", alt: "Use case 2" },
+    { image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop", alt: "Use case 3" },
+    { image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=100&h=100&fit=crop", alt: "Use case 4" },
+    { image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=100&h=100&fit=crop", alt: "Use case 5" },
+    { image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=100&h=100&fit=crop", alt: "Use case 6" },
+    { image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&h=100&fit=crop", alt: "Use case 7" },
+    { image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=100&h=100&fit=crop", alt: "Use case 8" },
+  ];
 
   return (
     <section
@@ -87,7 +115,8 @@ export default function SdSectionOne() {
       aria-label={data.title || "Solution Detail Section One"}
     >
       <div className="container">
-        <div className={`sd-s1__header${visible ? " sd-s1__header--visible" : ""}`}>
+        {/* Header Text */}
+        <div className={`sd-s1__header${isInView ? ' sd-s1__header--visible' : ''}`}>
           {data.badge_text && (
             <div className="badge-sec">
               <StarIcon />
@@ -103,15 +132,48 @@ export default function SdSectionOne() {
               dangerouslySetInnerHTML={{ __html: data.description }}
             />
           )}
+        </div>
+
+        {/* Orbital Stage */}
+        <div 
+          className={`sd-s1__stage${isInView ? ' sd-s1__stage--visible' : ''}`}
+          ref={stageRef}
+          onClick={() => setShowOrbit(!showOrbit)}
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => e.key === 'Enter' && setShowOrbit(!showOrbit)}
+          aria-label="Toggle use cases display"
+        >
+          {/* Concentric Rings */}
+          <div className="orbital-ring orbital-ring--outer" />
+          <div className="orbital-ring orbital-ring--middle" />
+          <div className="orbital-ring orbital-ring--inner" />
+
+          {/* Central Logo */}
           {data.image && (
-            <div className="sd-s1__image-wrapper">
+            <div className="sd-s1__logo-container">
               <img
-                src={data.image}
-                alt={data.title || "Solution detail"}
-                className="sd-s1__image"
+                src={showOrbit 
+                  ? "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png"
+                  : "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l1.png"
+                }
+                alt={data.title || "Solution logo"}
+                className="sd-s1__logo"
               />
             </div>
           )}
+
+          {/* Orbiting Use Cases */}
+          {showOrbit && useCases.map((useCase, index) => (
+            <OrbitalNode
+              key={index}
+              image={useCase.image}
+              alt={useCase.alt}
+              index={index}
+              radius={280}
+              totalNodes={useCases.length}
+            />
+          ))}
         </div>
       </div>
     </section>

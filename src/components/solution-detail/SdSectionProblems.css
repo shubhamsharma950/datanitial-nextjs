@@ -1,5 +1,11 @@
 
-/*═══════════════════════════════════════════════════════════════════════════ */
+/*═══════════════════════════════════════════════════════════════════════════
+   HIGH-QUALITY UI TRANSITION ANIMATION
+   Phase 1: Pain Points slide from left with fade
+   Phase 2: 3D logo pulse animation in center
+   Phase 3: Solutions slide from right with checkmarks
+   Style: Tech-modern, smooth cubic-bezier easing, professional SaaS aesthetic
+═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Section shell ── */
 .sdp {
@@ -31,116 +37,161 @@
 }
 
 /* ══════════════════════════════════════════
-   LEFT — problems bullet list
-   Initial: translateX(-100px) opacity 0
-   Visible: translateX(0)      opacity 1
+   PHASE 1: LEFT — Pain Points List
+   Slides from FAR LEFT (off-screen) to final position
+   Starts from viewport edge (0) to final position (100)
+   Only transform animation, no opacity change
+   Duration: 1.2s total (container + items)
 ══════════════════════════════════════════ */
 .sdp__problems {
     list-style: none;
     margin-right: -77px;
-    padding: 52px 0 52px 252px;
+    padding: 56px 0 56px 252px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    opacity: 0;
-    transform: translateX(-100px);
-    transition: opacity   0.2s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    gap: 12px;
+    opacity: 1; /* Always visible - no fade */
+    transform: translateX(-100%); /* Start completely off-screen left */
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     background: #F2F9FF;
     border-radius: 0 100px 100px 0;
+    will-change: transform;
 }
 
 .sdp__problems--in {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0); /* Slide to final position */
 }
 
 .sdp__problem-item {
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding: 9px 0;
-    font-size: clamp(15px, 1.3vw, 19px);
-    color: #4b5563;
+    gap: 20px;
+    padding: 12px 0;
+    font-size: clamp(16px, 1.4vw, 20px);
+    color: #6B7280;
     font-weight: 500;
-    line-height: 1.5;
-    opacity: 0;
-    transform: translateX(-28px);
-    transition: opacity   0.55s ease,
-    transform 0.55s ease;
+    line-height: 1.6;
+    opacity: 1; /* Always visible - no fade */
+    transform: translateX(-80px); /* Items start further left */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
 }
 
 .sdp__problem-item:last-child { border-bottom: none; }
 
 .sdp__problems--in .sdp__problem-item {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0); /* Items slide to final position */
 }
 
-/* Filled dark circle bullet — matches mockup */
+/* Grey bullet points — larger size to match design */
 .sdp__dot {
   flex-shrink: 0;
-  width: 13px;
-  height: 13px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: #4b5563;
+  background: #6B7280;
   display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sdp__problem-item:hover .sdp__dot {
+  transform: scale(1.15);
 }
 
 /* ══════════════════════════════════════════
-   RIGHT WRAP — logo card + blue panel
-   Initial: translateX(+100px) opacity 0
-   Visible: translateX(0)      opacity 1
+   RIGHT WRAP CONTAINER
+   Container for logo + solutions panel
+   Logo is static, only panel slides
 ══════════════════════════════════════════ */
 .sdp__right-wrap {
   position: relative;
   display: flex;
   align-items: center;
-
-  opacity: 0;
-  transform: translateX(100px);
-  transition:
-    opacity   0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  /* No transform or opacity on container - logo stays visible */
 }
 
 .sdp__right-wrap--in {
-  opacity: 1;
-  transform: translateX(0);
+  /* Container doesn't animate - only the panel inside does */
 }
 
-/* ── White logo card — sits on top of blue panel's left edge ── */
+/* ══════════════════════════════════════════
+   PHASE 2: LOGO CARD — Static Center Position
+   Logo stays in place, does NOT slide
+   Always visible, no animation
+══════════════════════════════════════════ */
 .sdp__logo-card {
   position: relative;
   z-index: 3;
   flex-shrink: 0;
-    width: 140px;
-    height: 152px;
+  width: 140px;
+  height: 152px;
   background: #fff;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: -60px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  
+  /* Static - no animation, always visible */
+  opacity: 1;
+  transform: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Optional hover effect only */
+.sdp__logo-card:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 15px 50px rgba(62, 79, 183, 0.15),
+    0 5px 15px rgba(62, 79, 183, 0.1);
 }
 
 .sdp__logo {
-    width: 100%;
-    height: 96%;
+  width: 100%;
+  height: 96%;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+  transition: filter 0.3s ease;
 }
 
-/* ── Blue solutions panel ── */
+.sdp__logo-card:hover .sdp__logo {
+  filter: drop-shadow(0 4px 8px rgba(62, 79, 183, 0.2));
+}
+
+/* ══════════════════════════════════════════
+   PHASE 3: SOLUTIONS PANEL ONLY
+   Slides from FAR RIGHT (off-screen) to final position
+   Starts from viewport edge (0) to final position (100)
+   Logo stays static in center
+   Only transform animation, no opacity change
+══════════════════════════════════════════ */
 .sdp__solutions-panel {
   flex: 1;
-  padding: 40px 40px 40px 170px;
-  background: #3A4FB7;
+  padding: 48px 48px 48px 170px;
+  background: linear-gradient(135deg, #3A4FB7 0%, #4E63D7 100%);
   border-radius: 100px 0px 0px 100px;
   position: relative;
   z-index: 2;
+  box-shadow: 
+    0 20px 60px rgba(58, 79, 183, 0.25),
+    0 8px 20px rgba(58, 79, 183, 0.15);
+  
+  /* Panel starts completely off-screen right */
+  opacity: 1; /* Always visible - no fade */
+  transform: translateX(100%); /* Start completely off-screen right */
+  transition: none; /* Will be added when --in class is applied */
 }
 
+.sdp__right-wrap--in .sdp__solutions-panel {
+  transform: translateX(0); /* Slide to final position */
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Blue solutions panel with gradient ── */
 .sdp__solutions {
   list-style: none;
   margin: 0;
@@ -153,32 +204,49 @@
 .sdp__solution-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 0;
-  font-size: clamp(15px, 1.3vw, 19px);
+  gap: 20px;
+  padding: 12px 0;
+  font-size: clamp(16px, 1.4vw, 20px);
   color: #fff;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.6;
 
-  /* per-item stagger */
-  opacity: 0;
-  transform: translateX(24px);
-  transition:
-    opacity   0.5s ease,
-    transform 0.5s ease;
+  /* Staggered slide-in from right - no fade */
+  opacity: 1; /* Always visible - no fade */
+  transform: translateX(80px); /* Items start further right */
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .sdp__solution-item:last-child { border-bottom: none; }
 
 .sdp__right-wrap--in .sdp__solution-item {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0); /* Items slide to final position */
 }
 
+/* Blue checkmark icons - larger size to match design */
 .sdp__check-icon {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sdp__solution-item:hover .sdp__check-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Checkmark path animation */
+.sdp__right-wrap--in .sdp__check-icon path {
+  animation: checkDraw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+}
+
+@keyframes checkDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -199,15 +267,22 @@
 ══════════════════════════════════════════ */
 @media (max-width: 960px) {
   .sdp__body { grid-template-columns: 1fr 1.2fr; }
-  .sdp__problems {margin-right: -40px;
-    padding: 52px 0 52px 102px;}
-  .sdp__logo-card { width: 90px; height: 90px; margin-right: -45px; border-radius: 16px; }
+  .sdp__problems {
+    margin-right: -40px;
+    padding: 52px 0 52px 102px;
+  }
+  .sdp__logo-card { 
+    width: 90px; 
+    height: 90px; 
+    margin-right: -45px; 
+    border-radius: 16px;
+  }
   .sdp__logo { width: 58px; height: 58px; }
   .sdp__solutions-panel { padding: 32px 32px 32px 68px; }
 }
 
 @media (max-width: 700px) {
-  .sdp-container{padding: 0px 25px;}
+  .sdp-container { padding: 0px 25px; }
   .sdp { padding: 56px 0 72px; }
   .sdp__header { margin-bottom: 40px; }
 
@@ -216,26 +291,34 @@
     gap: 32px;
   }
 
- .sdp__problems {
+  .sdp__problems {
     margin-right: 0;
     padding: 40px 0 40px 50px;
-    transform: translateY(32px);
+    opacity: 1; /* Always visible - no fade */
+    transform: translateY(-100%); /* Start completely off-screen top */
     border-radius: 0 0 100px 100px;
-}
-  .sdp__problems--in { transform: translateY(0); }
-
-  .sdp__problem-item { transform: translateY(16px); }
-  .sdp__problems--in .sdp__problem-item { transform: translateY(0); }
-
-  .sdp__right-wrap {
-    transform: translateY(32px);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  .sdp__right-wrap--in { transform: translateY(0); }
+  
+  .sdp__problems--in { 
+    transform: translateY(0); /* Slide to final position */
+  }
+
+  .sdp__problem-item { 
+    opacity: 1; /* Always visible - no fade */
+    transform: translateY(-40px); /* Items start further up */
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .sdp__problems--in .sdp__problem-item { 
+    transform: translateY(0); /* Items slide to final position */
+  }
 
   /* On mobile: logo sits above the panel, not overlapping */
   .sdp__right-wrap {
     flex-direction: column;
     align-items: center;
+    /* Container stays static - no animation */
   }
 
   .sdp__logo-card {
@@ -243,18 +326,37 @@
     margin-bottom: -100px;
     width: 88px;
     height: 88px;
+    /* Logo stays static - always visible */
+    opacity: 1;
+    transform: none;
   }
 
   .sdp__logo { width: 56px; height: 56px; }
 
- .sdp__solutions-panel {
+  .sdp__solutions-panel {
     width: 100%;
     padding: 56px 24px 28px 24px;
-    border-radius: 100px 100px  0 0;
-}
+    border-radius: 100px 100px 0 0;
+    /* Panel starts completely off-screen bottom */
+    opacity: 1; /* Always visible - no fade */
+    transform: translateY(100%); /* Start completely off-screen bottom */
+    transition: none;
+  }
 
-  .sdp__solution-item { transform: translateY(16px); }
-  .sdp__right-wrap--in .sdp__solution-item { transform: translateY(0); }
+  .sdp__right-wrap--in .sdp__solutions-panel {
+    transform: translateY(0); /* Slide to final position */
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .sdp__solution-item { 
+    opacity: 1; /* Always visible - no fade */
+    transform: translateY(40px); /* Items start further down */
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .sdp__right-wrap--in .sdp__solution-item { 
+    transform: translateY(0); /* Items slide to final position */
+  }
 }
 
 @media (max-width: 480px) {
@@ -269,9 +371,9 @@
 @media (prefers-reduced-motion: reduce) {
   .sdp__problems,
   .sdp__problem-item,
-  .sdp__right-wrap,
+  .sdp__solutions-panel,
   .sdp__solution-item {
-    transition: opacity 0.3s ease !important;
+    transition: none !important;
     transform: none !important;
   }
 }
