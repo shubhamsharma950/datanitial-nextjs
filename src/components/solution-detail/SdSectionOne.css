@@ -1,22 +1,25 @@
 /* ═══════════════════════════════════════════════
    SOLUTION DETAIL — SECTION 1
-   Centred badge + title + description header
+   Centred badge + title + description + orbital animation
 ═══════════════════════════════════════════════ */
 
 .sd-s1 {
-  background: linear-gradient(90deg, #2E2A8C 0%, #4E7CCF 100%);
-  padding: 80px 0 48px;
+  background: radial-gradient(ellipse at center, #E0E7FF 0%, #F8FAFF 50%, #FFFFFF 100%);
+  padding: 80px 0 120px;
   width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 /* ── Header ── */
 .sd-s1__header {
   text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 0 auto 60px;
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  padding-bottom: 0;
 }
 
 .sd-s1__header--visible {
@@ -25,42 +28,273 @@
 }
 
 .sd-s1__title {
-  color: #fff;
+  color: #1a1a2e;
   margin: 16px 0 20px;
+  font-size: 48px;
+  font-weight: 700;
 }
 
 .sd-s1__desc {
-  font-size: 24px;
-  color: #E2F3FF;
+  font-size: 20px;
+  color: #4a5568;
   line-height: 1.75;
   margin: 0;
-}
-.country-text{font-weight: 600; color: #fff;}
-
-/* ── Image ── */
-.sd-s1__image-wrapper {
-  margin-top: 40px;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.sd-s1__image {
+.country-text {
+  font-weight: 600;
+  color: #2E3192;
+}
+
+/* ── Orbital Stage ── */
+.sd-s1__stage {
+  position: relative;
   width: 100%;
-  height: auto;
-  display: block;
+  max-width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.sd-s1__stage:hover {
+  transform: scale(1.02);
+}
+
+/* ── Concentric Rings ── */
+.orbital-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid #6366f1;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Animate rings when stage is visible */
+.sd-s1__stage--visible .orbital-ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.orbital-ring--outer {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.15);
+  transition-delay: 0.2s;
+}
+
+.sd-s1__stage--visible .orbital-ring--outer {
+  opacity: 0.2;
+}
+
+.orbital-ring--middle {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
+  transition-delay: 0.3s;
+}
+
+.sd-s1__stage--visible .orbital-ring--middle {
+  opacity: 0.3;
+}
+
+.orbital-ring--inner {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.25);
+  transition-delay: 0.4s;
+}
+
+.sd-s1__stage--visible .orbital-ring--inner {
+  opacity: 0.4;
+}
+
+/* ── Central Logo ── */
+.sd-s1__logo-container {
+  position: relative;
+  z-index: 10;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(99, 102, 241, 0.3),
+    0 0 0 1px rgba(99, 102, 241, 0.1);
+  padding: 20px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+
+.sd-s1__stage--visible .sd-s1__logo-container {
+  opacity: 1;
+  transform: scale(1);
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1) translateY(-10px);
+  }
+}
+
+.sd-s1__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.2));
+  transition: opacity 0.3s ease;
+}
+
+/* ── Orbital Nodes ── */
+.orbital-node {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  opacity: 0;
+  animation: nodePopIn 0.5s ease-out forwards;
+}
+
+@keyframes nodePopIn {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.orbital-node__image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 12px;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 0 0 3px rgba(255, 255, 255, 0.8),
+    0 0 0 4px rgba(99, 102, 241, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: nodeFloat 3s ease-in-out infinite;
+}
+
+@keyframes nodeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.orbital-node__image:hover {
+  transform: scale(1.1) translateY(0);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.18),
+    0 0 0 3px rgba(255, 255, 255, 1),
+    0 0 0 5px rgba(99, 102, 241, 0.4);
+  animation: none;
 }
 
 /* ── Responsive ── */
+@media (max-width: 1024px) {
+  .sd-s1__stage {
+    height: 500px;
+    max-width: 700px;
+  }
+
+  .orbital-ring--outer { width: 600px; height: 600px; }
+  .orbital-ring--middle { width: 420px; height: 420px; }
+  .orbital-ring--inner { width: 280px; height: 280px; }
+}
+
 @media (max-width: 768px) {
-  .sd-s1 { padding: 60px 0 36px; }
-  .sd-s1__desc { font-size: 18px; }
-  .sd-s1__image-wrapper { margin-top: 28px; }
+  .sd-s1 { 
+    padding: 60px 20px 80px; 
+  }
+  
+  .sd-s1__title {
+    font-size: 36px;
+  }
+  
+  .sd-s1__desc { 
+    font-size: 18px; 
+  }
+
+  .sd-s1__stage {
+    height: 400px;
+    max-width: 500px;
+  }
+
+  .orbital-ring--outer { width: 450px; height: 450px; }
+  .orbital-ring--middle { width: 320px; height: 320px; }
+  .orbital-ring--inner { width: 220px; height: 220px; }
+
+  .sd-s1__logo-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .orbital-node {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 @media (max-width: 480px) {
-  .sd-s1 { padding: 48px 0 28px; }
-  .sd-s1__image-wrapper { margin-top: 20px; }
+  .sd-s1 { 
+    padding: 48px 16px 60px; 
+  }
+
+  .sd-s1__title {
+    font-size: 28px;
+  }
+
+  .sd-s1__desc {
+    font-size: 16px;
+  }
+
+  .sd-s1__stage {
+    height: 350px;
+    max-width: 100%;
+  }
+
+  .orbital-ring--outer { width: 350px; height: 350px; }
+  .orbital-ring--middle { width: 250px; height: 250px; }
+  .orbital-ring--inner { width: 180px; height: 180px; }
+
+  .sd-s1__logo-container {
+    width: 100px;
+    height: 100px;
+    padding: 12px;
+  }
+
+  .orbital-node {
+    width: 50px;
+    height: 50px;
+  }
+
+  .orbital-node__image {
+    border-radius: 8px;
+  }
 }

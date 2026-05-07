@@ -5,18 +5,16 @@
  *
  * Section order:
  *   1. InnerPageLayout banner  (title, description, CTA from acf.banner)
- *   2. SdSectionOne            (badge + title + description header)
- *   3. SdSectionProblems       (problems vs solutions two-column layout)
- *   4. SdCard1                 (card1 — text-left, image-right)
- *   5. SdCard2                 (card2/card — image-left, text-right)
- *   6. SdCard3                 (card3 — text-left, image-right)
- *   7. SdSectionDataInAction   (data in action — text-left, image-right)
- *   8. SdExtractionProcess     (numbered steps — extraction process journey)
- *   9. FaqSection
+ *   2. SdSectionProblems       (problems vs solutions two-column layout)
+ *   3. SdCard1                 (card1 — text-left, image-right)
+ *   4. SdCard2                 (card2/card — image-left, text-right)
+ *   5. SdCard3                 (card3 — text-left, image-right)
+ *   6. SdSectionDataInAction   (orbital animation - data in action)
+ *   7. SdExtractionProcess     (numbered steps — extraction process journey)
+ *   8. FaqSection
  */
 
 import InnerPageLayout          from "./InnerPageLayout";
-import SdSectionOne             from "../components/solution-detail/SdSectionOne";
 import SdSectionProblems        from "../components/solution-detail/SdSectionProblems";
 import SdCard1                  from "../components/solution-detail/SdCard1";
 import SdCard2                  from "../components/solution-detail/SdCard2";
@@ -36,28 +34,25 @@ export default function SolutionDetailPage() {
       fallbackTitle="Solution Detail"
       fallbackDescription="Explore our enterprise-grade data solutions built for speed, scale, and reliability."
     >
-      {/* 1. Section One — centred header */}
-      <SdSectionOne />
-
-      {/* 2. Problems vs Solutions */}
+      {/* 1. Problems vs Solutions */}
       <SdSectionProblems />
 
-      {/* 3. Card 1 — text-left, image-right */}
+      {/* 2. Card 1 — text-left, image-right */}
       <SdCard1 />
 
-      {/* 4. Card 2 — image-left, text-right */}
+      {/* 3. Card 2 — image-left, text-right */}
       <SdCard2 />
 
-      {/* 5. Card 3 — text-left, image-right */}
+      {/* 4. Card 3 — text-left, image-right */}
       <SdCard3 />
 
-      {/* 6. Data in Action */}
+      {/* 5. Data in Action - Orbital Animation */}
       <SdSectionDataInAction />
 
-      {/* 7. Extraction Process — numbered steps journey */}
+      {/* 6. Extraction Process — numbered steps journey */}
       <SdExtractionProcess />
 
-      {/* 8. FAQ */}
+      {/* 7. FAQ */}
       <FaqSection />
     </InnerPageLayout>
   );
