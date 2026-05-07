@@ -115,65 +115,95 @@ export default function SdSectionOne() {
       aria-label={data.title || "Solution Detail Section One"}
     >
       <div className="container">
-        {/* Header Text */}
-        <div className={`sd-s1__header${isInView ? ' sd-s1__header--visible' : ''}`}>
-          {data.badge_text && (
-            <div className="badge-sec">
-              <StarIcon />
-              <span>{data.badge_text}</span>
+        {/* Three Column Layout */}
+        <div className={`sd-s1__grid${isInView ? ' sd-s1__grid--visible' : ''}`}>
+          
+          {/* Left Column - Vision & Mission */}
+          <div className="sd-s1__column sd-s1__column--left">
+            <div className="sd-s1__card">
+              <h3 className="sd-s1__card-title">
+                Our <span className="highlight">Vision</span>
+              </h3>
+              <p className="sd-s1__card-text">
+                To become a global leader in data intelligence by building advanced, scalable solutions that redefine how businesses collect, process, and use data.
+              </p>
             </div>
-          )}
-          {data.title && (
-            <h2 className="sd-s1__title head-title">{data.title}</h2>
-          )}
-          {data.description && (
-            <p
-              className="sd-s1__desc head__desc"
-              dangerouslySetInnerHTML={{ __html: data.description }}
-            />
-          )}
-        </div>
-
-        {/* Orbital Stage */}
-        <div 
-          className={`sd-s1__stage${isInView ? ' sd-s1__stage--visible' : ''}`}
-          ref={stageRef}
-          onClick={() => setShowOrbit(!showOrbit)}
-          role="button"
-          tabIndex={0}
-          onKeyPress={(e) => e.key === 'Enter' && setShowOrbit(!showOrbit)}
-          aria-label="Toggle use cases display"
-        >
-          {/* Concentric Rings */}
-          <div className="orbital-ring orbital-ring--outer" />
-          <div className="orbital-ring orbital-ring--middle" />
-          <div className="orbital-ring orbital-ring--inner" />
-
-          {/* Central Logo */}
-          {data.image && (
-            <div className="sd-s1__logo-container">
-              <img
-                src={showOrbit 
-                  ? "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png"
-                  : "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l1.png"
-                }
-                alt={data.title || "Solution logo"}
-                className="sd-s1__logo"
-              />
+            
+            <div className="sd-s1__card">
+              <h3 className="sd-s1__card-title">
+                Our <span className="highlight">Mission</span>
+              </h3>
+              <p className="sd-s1__card-text">
+                To become a global leader in data intelligence by building advanced, scalable solutions that redefine how businesses collect, process, and use data.
+              </p>
             </div>
-          )}
+          </div>
 
-          {/* Orbiting Use Cases */}
-          {showOrbit && useCases.map((useCase, index) => (
-            <OrbitalNode
-              key={index}
-              image={useCase.image}
-              alt={useCase.alt}
-              index={index}
-              radius={280}
-              totalNodes={useCases.length}
-            />
-          ))}
+          {/* Center Column - Orbital Animation */}
+          <div className="sd-s1__column sd-s1__column--center">
+            <div 
+              className={`sd-s1__stage${isInView ? ' sd-s1__stage--visible' : ''}`}
+              ref={stageRef}
+              onClick={() => setShowOrbit(!showOrbit)}
+              role="button"
+              tabIndex={0}
+              onKeyPress={(e) => e.key === 'Enter' && setShowOrbit(!showOrbit)}
+              aria-label="Toggle use cases display"
+            >
+              {/* Concentric Rings */}
+              <div className="orbital-ring orbital-ring--outer" />
+              <div className="orbital-ring orbital-ring--middle" />
+              <div className="orbital-ring orbital-ring--inner" />
+
+              {/* Central Logo */}
+              {data.image && (
+                <div className="sd-s1__logo-container">
+                  <img
+                    src={showOrbit 
+                      ? "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png"
+                      : "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l1.png"
+                    }
+                    alt={data.title || "Solution logo"}
+                    className="sd-s1__logo"
+                  />
+                </div>
+              )}
+
+              {/* Orbiting Use Cases */}
+              {showOrbit && useCases.map((useCase, index) => (
+                <OrbitalNode
+                  key={index}
+                  image={useCase.image}
+                  alt={useCase.alt}
+                  index={index}
+                  radius={200}
+                  totalNodes={useCases.length}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Goal & Who We Serve */}
+          <div className="sd-s1__column sd-s1__column--right">
+            <div className="sd-s1__card">
+              <h3 className="sd-s1__card-title">
+                Our <span className="highlight">Goal</span>
+              </h3>
+              <p className="sd-s1__card-text">
+                To provide end-to-end data solutions that help businesses extract, process, and utilize data efficiently.
+              </p>
+            </div>
+            
+            <div className="sd-s1__card sd-s1__card--bordered">
+              <h3 className="sd-s1__card-title">
+                Who <span className="highlight">We Serve</span>
+              </h3>
+              <p className="sd-s1__card-text">
+                Built for businesses that rely on data to drive smarter decisions, optimize operations, and stay ahead of the competition.
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
