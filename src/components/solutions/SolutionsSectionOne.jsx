@@ -54,8 +54,23 @@ function Skeleton() {
 }
 
 /* ── Single alternating card ── */
-function SolutionCard({ card, index, visible }) {
-  const isEven = index % 2 !== 0; // 0-indexed: card 2 (index 1) flips
+function SolutionCard({ card, index }) {
+  const [visible, setVisible] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
+      },
+      { threshold: 0.15 }
+    );
+    obs.observe(cardRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const isEven = index % 2 !== 0;
 
   const tags = Array.isArray(card.card_tags)
     ? card.card_tags
@@ -65,8 +80,9 @@ function SolutionCard({ card, index, visible }) {
 
   return (
     <article
+      ref={cardRef}
       className={`sol1__card${isEven ? " sol1__card--flip" : ""}${visible ? " sol1__card--visible" : ""}`}
-      style={{ transitionDelay: `${index * 0.12}s` }}
+      style={{ transitionDelay: visible ? `${index * 0.15}s` : "0s" }}
       aria-label={card.card_title}
     >
       {/* Text side */}
@@ -163,7 +179,7 @@ export default function SolutionsSectionOne() {
         {cards.length > 0 && (
           <div className="sol1__cards">
             {cards.map((card, i) => (
-              <SolutionCard key={i} card={card} index={i} visible={visible} />
+              <SolutionCard key={i} card={card} index={i} />
             ))}
           </div>
         )}

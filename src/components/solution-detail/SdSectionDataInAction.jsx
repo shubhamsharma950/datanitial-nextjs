@@ -1,22 +1,21 @@
 /**
  * SdSectionDataInAction.jsx  —  components/solution-detail/
  * ─────────────────────────────────────────────────────────────────────────────
- * "Data in Action" section — scattered layout with central logo and use cases.
+ * Half-arc design: logo at bottom-center, click logo → images fan upward.
+ * Images closer to center are larger; outer images are smaller.
  *
  * ACF path: acf.section_data_in_action
- *   title        → <h2>
- *   description  → <p>
- *   image        → central logo
- *   use_cases    → array of scattered images
- *
- * Data source: getSdSectionDataInAction() from solutionsDetailApi.js
+ *   ├── badge        Text
+ *   ├── title        Text
+ *   └── description  Text Area
  */
 
 import { useEffect, useRef, useState } from "react";
 import { getSdSectionDataInAction } from "./solutionsDetailApi";
 import "./SdSectionDataInAction.css";
 
-/* ── Star icon — matches badge-sec pattern ── */
+
+/* ── Star icon ── */
 const StarIcon = () => (
   <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
     <circle cx="10" cy="10" r="10" fill="#2E3192" />
@@ -27,191 +26,223 @@ const StarIcon = () => (
     </g>
   </svg>
 );
+/* ─────────────────────────────────────────────
+   Fallback use-case images
+───────────────────────────────────────────── */
+const DEFAULT_USE_CASES = [
+  { image: "https://images.unsplash.com/photo-1556740758-90de374c12ad?w=300&h=220&fit=crop", alt: "E-commerce analytics" },
+  { image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=220&fit=crop", alt: "Market data dashboard" },
+  { image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=220&fit=crop", alt: "Financial insights" },
+  { image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&h=220&fit=crop", alt: "Business intelligence" },
+  { image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=300&h=220&fit=crop", alt: "Tech team collaboration" },
+  { image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=300&h=220&fit=crop", alt: "Data science" },
+  { image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=300&h=220&fit=crop", alt: "Retail strategy" },
+  { image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=300&h=220&fit=crop", alt: "Competitive intelligence" },
+  { image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=300&h=220&fit=crop", alt: "Executive decisions" },
+];
 
-/* ── Skeleton ── */
+/*
+ * Positions spread around center in a full orbital layout.
+ * Matches reference: logo center, images scattered on arc rings.
+ * Sizes vary — inner arc images larger, outer smaller.
+ */
+const DESKTOP_NODES = [
+  { x: -480, y: -80,  size: 90  },   // 0 — far left
+  { x: -340, y: -220, size: 100 },   // 1 — left outer
+  { x: -260, y: -60,  size: 80  },   // 2 — left low
+  { x: -180, y: -320, size: 120 },   // 3 — left inner top
+  { x:  -80, y: -140, size: 75  },   // 4 — center-left
+  { x:  160, y: -300, size: 115 },   // 5 — center-right top
+  { x:  300, y: -180, size: 95  },   // 6 — right inner
+  { x:  420, y:  -60, size: 80  },   // 7 — right mid
+  { x:  500, y: -260, size: 85  },   // 8 — far right
+];
+
+const MOBILE_NODES = [
+  { x: -130, y:  -50, size: 48 },
+  { x: -100, y: -140, size: 56 },
+  { x:  -60, y:  -30, size: 42 },
+  { x:  -40, y: -200, size: 62 },
+  { x:   20, y:  -60, size: 40 },
+  { x:   60, y: -180, size: 58 },
+  { x:  100, y:  -80, size: 50 },
+  { x:  120, y: -240, size: 52 },
+  { x:  140, y:  -40, size: 44 },
+];
+
+/* Per-image float timings */
+const FLOAT_DUR   = [3.4, 4.0, 3.7, 4.3, 3.1, 4.6, 3.3, 4.1, 3.8];
+const FLOAT_DELAY = [0.0, 0.5, 0.9, 0.3, 1.1, 0.7, 0.2, 0.8, 0.4];
+
+/* ─────────────────────────────────────────────
+   Skeleton
+───────────────────────────────────────────── */
 function Skeleton() {
   return (
     <section className="sddia">
       <div className="container">
         <div className="sddia__inner">
-          <div className="skeleton" style={{ width: 200, height: 36, borderRadius: 999, margin: "0 auto 20px" }} />
-          <div className="skeleton" style={{ width: "55%", height: 52, margin: "0 auto 16px" }} />
-          <div className="skeleton" style={{ width: "70%", height: 22, margin: "0 auto 32px" }} />
-          <div className="skeleton" style={{ width: "100%", height: 500, borderRadius: 12, margin: "0 auto" }} />
+          <div className="skeleton" style={{ width: 120, height: 28, borderRadius: 999, margin: "0 auto 14px" }} />
+          <div className="skeleton" style={{ width: "52%", height: 46, margin: "0 auto 12px" }} />
+          <div className="skeleton" style={{ width: "68%", height: 20, margin: "0 auto 0" }} />
+          <div className="skeleton" style={{ width: "100%", height: 480, borderRadius: 12, marginTop: 40 }} />
         </div>
       </div>
     </section>
   );
 }
 
-/* ── Main component ── */
+/* ─────────────────────────────────────────────
+   Main component
+───────────────────────────────────────────── */
 export default function SdSectionDataInAction() {
-  const [data,    setData]    = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isInView, setIsInView] = useState(false);
-  const [showImages, setShowImages] = useState(false); // State for showing/hiding images
-  const [logoClicked, setLogoClicked] = useState(false); // Track if logo was clicked
-  const sectionRef = useRef(null);
+  const [data,      setData]      = useState(null);
+  const [loading,   setLoading]   = useState(true);
+  const [inView,    setInView]    = useState(false);   // arcs appear on scroll
+  const [triggered, setTriggered] = useState(false);  // images appear on logo click
+  const [isMobile,  setIsMobile]  = useState(false);
   const stageRef = useRef(null);
 
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
     getSdSectionDataInAction()
-      .then((d)  => { 
-        if (!cancelled) {
-          if (d && (d.title || d.description || d.image)) {
-            setData(d);
-          } else {
-            setData({
-              title: "Unlocking Value Across Use Cases",
-              description: "See how businesses leverage web data to drive insights, optimize strategies, and stay ahead in competitive markets.",
-              image: "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l1.png"
-            });
-          }
-        }
-      })
-      .catch((err) => { 
-        console.error("Error loading Data in Action:", err);
-        if (!cancelled) {
-          setData({
-            title: "Unlocking Value Across Use Cases",
-            description: "See how businesses leverage web data to drive insights, optimize strategies, and stay ahead in competitive markets.",
-            image: "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l1.png"
-          });
-        }
-      })
+      .then((d) => { if (!cancelled) setData(d); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, []);
 
-  /* ── Intersection Observer for visibility ── */
+  /* ── Responsive ── */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const handler = (e) => setIsMobile(e.matches);
+    setIsMobile(mq.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  /* ── IntersectionObserver — arcs + logo appear on scroll ── */
   useEffect(() => {
     if (!stageRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        }
-      },
-      { threshold: 0.3, rootMargin: '0px' }
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true); },
+      { threshold: 0.15 }
     );
-
-    observer.observe(stageRef.current);
-    return () => {
-      if (stageRef.current) {
-        observer.unobserve(stageRef.current);
-      }
-    };
+    obs.observe(stageRef.current);
+    return () => obs.disconnect();
   }, [loading]);
 
   if (loading) return <Skeleton />;
   if (!data)   return null;
 
-  // Handle logo click - show images and swap logo
+  const useCases = (data.use_cases?.length ? data.use_cases : DEFAULT_USE_CASES).slice(0, 9);
+  const nodes    = isMobile ? MOBILE_NODES : DESKTOP_NODES;
+
   const handleLogoClick = () => {
-    if (!logoClicked) {
-      setShowImages(true);
-      setLogoClicked(true);
-    }
+    if (!triggered) setTriggered(true);
   };
 
-  // 11 scattered use case images - positioned further apart to match Figma
-  const useCases = data.use_cases || [
-    { image: "https://images.unsplash.com/photo-1556740758-90de374c12ad?w=100&h=100&fit=crop", alt: "Use case 1", x: -450, y: -50 },
-    { image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100&h=100&fit=crop", alt: "Use case 2", x: -350, y: -200 },
-    { image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop", alt: "Use case 3", x: -150, y: -250 },
-    { image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=100&h=100&fit=crop", alt: "Use case 4", x: 150, y: -250 },
-    { image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=100&h=100&fit=crop", alt: "Use case 5", x: 350, y: -200 },
-    { image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=100&h=100&fit=crop", alt: "Use case 6", x: 450, y: -50 },
-    { image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&h=100&fit=crop", alt: "Use case 7", x: 500, y: 120 },
-    { image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=100&h=100&fit=crop", alt: "Use case 8", x: 450, y: 280 },
-    { image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=100&h=100&fit=crop", alt: "Use case 9", x: 150, y: 350 },
-    { image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=100&h=100&fit=crop", alt: "Use case 10", x: -150, y: 350 },
-    { image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop", alt: "Use case 11", x: -450, y: 280 },
-  ];
-
   return (
-    <section
-      className="sddia"
-      ref={sectionRef}
-      aria-label={data.title || "Data in Action"}
-    >
+    <section className="sddia" aria-label={data.title || "Data in Action"}>
       <div className="container">
         <div className="sddia__inner">
-          {/* Header Text */}
-          <div className={`sddia__header${isInView ? ' sddia__header--visible' : ''}`}>
-            {/* NO Badge - removed to match Figma */}
-            
+
+          {/* ── Header ── */}
+          <div className={`sddia__header${inView ? " sddia__header--visible" : ""}`}>
+             <div className="badge-sec">
+              <StarIcon />
+              <span>{data.badge}</span>
+            </div>
+
             {data.title && (
-              <h2 className="sddia__title">{data.title}</h2>
+              <h2 className="head-title">{data.title}</h2>
             )}
             {data.description && (
               <p
-                className="sddia__desc"
+                className="head__desc"
                 dangerouslySetInnerHTML={{ __html: data.description }}
               />
             )}
           </div>
 
-          {/* Scattered Stage */}
-          <div 
-            className={`sddia__stage${isInView ? ' sddia__stage--visible' : ''}`}
-            ref={stageRef}
-          >
-            {/* Concentric Rings - Full circles visible */}
-            <div className="orbital-ring orbital-ring--outer" />
-            <div className="orbital-ring orbital-ring--middle" />
-            <div className="orbital-ring orbital-ring--inner" />
+          {/* ── Stage ── */}
+          <div className="sddia__stage" ref={stageRef}>
+            <div className="sddia__arc-origin">
 
-            {/* Central Logo - Clickable to reveal images */}
-            <div 
-              className={`sddia__logo-container${logoClicked ? ' sddia__logo-container--clicked' : ''}`}
-              onClick={handleLogoClick}
-              role="button"
-              tabIndex={0}
-              aria-label="Click to reveal use cases"
-              style={{ cursor: logoClicked ? 'default' : 'pointer' }}
-              onKeyDown={(e) => {
-                if ((e.key === 'Enter' || e.key === ' ') && !logoClicked) {
-                  e.preventDefault();
-                  handleLogoClick();
-                }
-              }}
-            >
-              <img
-                src={logoClicked 
-                  ? "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png"
-                  : "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l1.png"
-                }
-                alt={data.title || "Solution logo"}
-                className="sddia__logo"
-              />
-            </div>
+              {/* Half-circle arcs */}
+              <div className={`sddia__arc sddia__arc--lg${inView ? " sddia__arc--visible" : ""}`} style={{ transitionDelay: "0.05s" }} />
+              <div className={`sddia__arc sddia__arc--md${inView ? " sddia__arc--visible" : ""}`} style={{ transitionDelay: "0.2s"  }} />
+              <div className={`sddia__arc sddia__arc--sm${inView ? " sddia__arc--visible" : ""}`} style={{ transitionDelay: "0.35s" }} />
 
-            {/* Scattered Use Case Images - Show only after logo click */}
-            {showImages && useCases.map((useCase, index) => (
-              <div
-                key={index}
-                className="scattered-node"
-                style={{
-                  left: `calc(50% + ${useCase.x}px)`,
-                  top: `calc(50% + ${useCase.y}px)`,
-                  animationDelay: `${index * 0.1}s`,
-                }}
+              {/* Orbital images — triggered by logo click */}
+              {useCases.map((uc, i) => {
+                const node = nodes[i] ?? { x: 0, y: -200, size: 90 };
+                const half = node.size / 2;
+                /* stagger: each image 0.1s apart, slow entry */
+                const burstDelay = `${0.05 + i * 0.1}s`;
+                /* float starts after burst settles (~0.8s) */
+                const floatDelay = `${0.05 + i * 0.1 + 0.8 + FLOAT_DELAY[i % FLOAT_DELAY.length]}s`;
+
+                return (
+                  <div
+                    key={i}
+                    className={`sddia__node${triggered ? " sddia__node--visible" : ""}`}
+                    style={{
+                      "--tx":  `${node.x}px`,
+                      "--ty":  `${node.y}px`,
+                      width:   `${node.size}px`,
+                      height:  `${node.size}px`,
+                      marginLeft: `-${half}px`,
+                      marginTop:  `-${half}px`,
+                      transitionDelay: triggered ? burstDelay : "0s",
+                      /* z-index: larger images on top */
+                      zIndex: Math.round(node.size / 10),
+                    }}
+                  >
+                    <img
+                      src={uc.image}
+                      alt={uc.alt || `Use case ${i + 1}`}
+                      className={`sddia__node-img${triggered ? " sddia__node-img--float" : ""}`}
+                      style={{
+                        animationDuration: `${FLOAT_DUR[i % FLOAT_DUR.length]}s`,
+                        animationDelay:    floatDelay,
+                      }}
+                      loading="lazy"
+                    />
+                  </div>
+                );
+              })}
+
+              {/* Central logo — clickable, appears on scroll */}
+              <button
+                className={`sddia__logo-wrap${inView ? " sddia__logo-wrap--visible" : ""}${triggered ? " sddia__logo-wrap--done" : ""}`}
+                onClick={handleLogoClick}
+                type="button"
+                aria-label={triggered ? "Use cases revealed" : "Click to reveal use cases"}
+                disabled={triggered}
               >
                 <img
-                  src={useCase.image}
-                  alt={useCase.alt}
-                  className="scattered-node__image"
-                  style={{
-                    animationDelay: `${index * 0.2}s`,
-                  }}
+                  src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png"
+                  alt={data.title || "Solution logo"}
+                  className="sddia__logo"
+                  draggable={false}
                 />
-              </div>
-            ))}
+                {/* Pulse hint ring — only before click */}
+                {!triggered && inView && (
+                  <span className="sddia__logo-pulse" aria-hidden="true" />
+                )}
+              </button>
+
+            </div>
           </div>
+
+          {/* Click hint text */}
+          {!triggered && inView && (
+            <p className="sddia__hint">
+              {/* Click the logo to explore use cases */}
+              </p>
+          )}
+
         </div>
       </div>
     </section>

@@ -1,426 +1,66 @@
 /* ═══════════════════════════════════════════════
    SOLUTION DETAIL — SECTION 1
-   Three column layout: Vision/Mission | Orbital | Goal/Who We Serve
+   Centred badge + title + description header
 ═══════════════════════════════════════════════ */
 
 .sd-s1 {
-  background: linear-gradient(180deg, #EEF2FF 0%, #F8FAFF 50%, #FFFFFF 100%);
-  padding: 80px 0 100px;
+  background: linear-gradient(90deg, #2E2A8C 0%, #4E7CCF 100%);
+  padding: 80px 0 48px;
   width: 100%;
-  position: relative;
-  overflow: hidden;
 }
 
-/* ── Three Column Grid ── */
-.sd-s1__grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 40px;
-  align-items: center;
-  max-width: 1400px;
+/* ── Header ── */
+.sd-s1__header {
+  text-align: center;
+  max-width: 900px;
   margin: 0 auto;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(32px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
 
-.sd-s1__grid--visible {
+.sd-s1__header--visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ── Column Layout ── */
-.sd-s1__column {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  height: 100%;
+.sd-s1__title {
+  color: #fff;
+  margin: 16px 0 20px;
 }
 
-.sd-s1__column--left,
-.sd-s1__column--right {
-  max-width: 380px;
-  min-height: 500px;
-  justify-content: space-between;
-}
-
-.sd-s1__column--left {
-  justify-self: end;
-}
-
-.sd-s1__column--right {
-  justify-self: start;
-}
-
-.sd-s1__column--center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ── Card Styling ── */
-.sd-s1__card {
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 32px 28px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 238px;
-}
-
-.sd-s1__card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.sd-s1__card--bordered {
-  border: 2px solid #6366F1;
-  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.15);
-}
-
-.sd-s1__card--bordered:hover {
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
-}
-
-.sd-s1__card-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1F2937;
-  margin: 0 0 16px 0;
-  line-height: 1.3;
-}
-
-.sd-s1__card-title .highlight {
-  color: #6366F1;
-}
-
-.sd-s1__card-text {
-  font-size: 16px;
-  line-height: 1.7;
-  color: #6B7280;
+.sd-s1__desc {
+  font-size: 24px;
+  color: #E2F3FF;
+  line-height: 1.75;
   margin: 0;
 }
+.country-text{font-weight: 600; color: #fff;}
 
-/* ── Orbital Stage ── */
-.sd-s1__stage {
-  position: relative;
-  width: 500px;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.sd-s1__stage:hover {
-  transform: scale(1.02);
-}
-
-/* ── Concentric Rings ── */
-.orbital-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 1s ease, transform 1s ease;
-}
-
-/* Animate rings when stage is visible */
-.sd-s1__stage--visible .orbital-ring {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.orbital-ring--outer {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.1);
-  transition-delay: 0.2s;
-}
-
-.sd-s1__stage--visible .orbital-ring--outer {
-  opacity: 0.4;
-}
-
-.orbital-ring--middle {
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
-  transition-delay: 0.3s;
-}
-
-.sd-s1__stage--visible .orbital-ring--middle {
-  opacity: 0.5;
-}
-
-.orbital-ring--inner {
-  width: 240px;
-  height: 240px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
-  transition-delay: 0.4s;
-}
-
-.sd-s1__stage--visible .orbital-ring--inner {
-  opacity: 0.6;
-}
-
-/* ── Central Logo ── */
-.sd-s1__logo-container {
-  position: relative;
-  z-index: 10;
-  width: 160px;
-  height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 
-    0 10px 40px rgba(99, 102, 241, 0.25),
-    0 0 0 1px rgba(99, 102, 241, 0.1);
-  padding: 20px;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
-}
-
-.sd-s1__stage--visible .sd-s1__logo-container {
-  opacity: 1;
-  transform: scale(1);
-  animation: logoFloat 4s ease-in-out infinite;
-}
-
-@keyframes logoFloat {
-  0%, 100% {
-    transform: scale(1) translateY(0);
-  }
-  50% {
-    transform: scale(1) translateY(-8px);
-  }
-}
-
-.sd-s1__logo {
+/* ── Image ── */
+.sd-s1__image-wrapper {
+  margin-top: 40px;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.2));
-  transition: opacity 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* ── Orbital Nodes ── */
-.orbital-node {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  opacity: 0;
-  animation: nodePopIn 0.5s ease-out forwards;
-}
-
-@keyframes nodePopIn {
-  from {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-}
-
-.orbital-node__image {
+.sd-s1__image {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
   border-radius: 12px;
-  box-shadow: 
-    0 6px 20px rgba(0, 0, 0, 0.12),
-    0 0 0 3px rgba(255, 255, 255, 0.9),
-    0 0 0 4px rgba(99, 102, 241, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: nodeFloat 3s ease-in-out infinite;
-}
-
-@keyframes nodeFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.orbital-node__image:hover {
-  transform: scale(1.1) translateY(0);
-  box-shadow: 
-    0 10px 28px rgba(0, 0, 0, 0.18),
-    0 0 0 3px rgba(255, 255, 255, 1),
-    0 0 0 5px rgba(99, 102, 241, 0.4);
-  animation: none;
 }
 
 /* ── Responsive ── */
-@media (max-width: 1200px) {
-  .sd-s1__grid {
-    gap: 30px;
-  }
-
-  .sd-s1__column--left,
-  .sd-s1__column--right {
-    max-width: 320px;
-  }
-
-  .sd-s1__stage {
-    width: 420px;
-    height: 420px;
-  }
-
-  .orbital-ring--outer { width: 420px; height: 420px; }
-  .orbital-ring--middle { width: 300px; height: 300px; }
-  .orbital-ring--inner { width: 200px; height: 200px; }
-
-  .sd-s1__logo-container {
-    width: 140px;
-    height: 140px;
-  }
-
-  .sd-s1__card {
-    padding: 28px 24px;
-  }
-
-  .sd-s1__card-title {
-    font-size: 24px;
-  }
-
-  .sd-s1__card-text {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .sd-s1__grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    max-width: 600px;
-  }
-
-  .sd-s1__column--left,
-  .sd-s1__column--right {
-    max-width: 100%;
-    justify-self: center;
-  }
-
-  .sd-s1__column--center {
-    order: -1;
-  }
-
-  .sd-s1__stage {
-    width: 480px;
-    height: 480px;
-  }
-
-  .orbital-ring--outer { width: 480px; height: 480px; }
-  .orbital-ring--middle { width: 340px; height: 340px; }
-  .orbital-ring--inner { width: 220px; height: 220px; }
-}
-
 @media (max-width: 768px) {
-  .sd-s1 { 
-    padding: 60px 20px 80px; 
-  }
-
-  .sd-s1__grid {
-    gap: 32px;
-  }
-
-  .sd-s1__stage {
-    width: 400px;
-    height: 400px;
-  }
-
-  .orbital-ring--outer { width: 400px; height: 400px; }
-  .orbital-ring--middle { width: 280px; height: 280px; }
-  .orbital-ring--inner { width: 180px; height: 180px; }
-
-  .sd-s1__logo-container {
-    width: 120px;
-    height: 120px;
-  }
-
-  .orbital-node {
-    width: 60px;
-    height: 60px;
-  }
-
-  .sd-s1__card {
-    padding: 24px 20px;
-  }
-
-  .sd-s1__card-title {
-    font-size: 22px;
-    margin-bottom: 12px;
-  }
-
-  .sd-s1__card-text {
-    font-size: 14px;
-  }
+  .sd-s1 { padding: 60px 0 36px; }
+  .sd-s1__desc { font-size: 18px; }
+  .sd-s1__image-wrapper { margin-top: 28px; }
 }
 
 @media (max-width: 480px) {
-  .sd-s1 { 
-    padding: 48px 16px 60px; 
-  }
-
-  .sd-s1__grid {
-    gap: 24px;
-  }
-
-  .sd-s1__stage {
-    width: 320px;
-    height: 320px;
-  }
-
-  .orbital-ring--outer { width: 320px; height: 320px; }
-  .orbital-ring--middle { width: 220px; height: 220px; }
-  .orbital-ring--inner { width: 140px; height: 140px; }
-
-  .sd-s1__logo-container {
-    width: 100px;
-    height: 100px;
-    padding: 12px;
-  }
-
-  .orbital-node {
-    width: 50px;
-    height: 50px;
-  }
-
-  .orbital-node__image {
-    border-radius: 8px;
-  }
-
-  .sd-s1__card {
-    padding: 20px 18px;
-    border-radius: 16px;
-  }
-
-  .sd-s1__card-title {
-    font-size: 20px;
-  }
-
-  .sd-s1__card-text {
-    font-size: 14px;
-    line-height: 1.6;
-  }
+  .sd-s1 { padding: 48px 0 28px; }
+  .sd-s1__image-wrapper { margin-top: 20px; }
 }
