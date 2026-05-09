@@ -1,312 +1,289 @@
-/* ═══════════════════════════════════════════════
-   SOLUTION DETAIL — DATA IN ACTION SECTION
-   Orbital animation with central logo and use cases
-═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   SOLUTION DETAIL — DATA IN ACTION
+   Half-arc design: logo at bottom-center, click → images fan up.
+   Images closer to center are larger. Pure CSS, no dependencies.
+═══════════════════════════════════════════════════════════════ */
 
+/* ── Section ── */
 .sddia {
-  background: radial-gradient(ellipse at center, #E0E7FF 0%, #F8FAFF 50%, #FFFFFF 100%);
-  padding: 80px 0 120px;
+  background: radial-gradient(ellipse at 50% 60%, #dce8ff 0%, #eef3ff 35%, #f5f8ff 60%, #ffffff 85%);
+  padding: 80px 0 0;
   width: 100%;
   position: relative;
   overflow: hidden;
 }
 
-/* ── Inner container ── */
 .sddia__inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 24px;
 }
 
 /* ── Header ── */
 .sddia__header {
   text-align: center;
-  max-width: 1000px;
-  margin: 0 auto 60px;
+  max-width: 820px;
+  margin: 0 auto 52px;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
-
 .sddia__header--visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.sddia__title {
-  font-size: clamp(32px, 4vw, 48px);
+.sddia__badge {
+  display: inline-block;
+  background: #ede9fe;
+  color: #5b21b6;
+  font-size: 12px;
   font-weight: 700;
-  color: #1a1a2e;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.sddia__title {
+  font-size: clamp(26px, 3.4vw, 44px);
+  font-weight: 700;
+  color: #0f172a;
   line-height: 1.2;
-  margin: 16px 0 20px;
+  margin: 0 0 16px;
 }
 
 .sddia__desc {
-  font-size: clamp(16px, 1.8vw, 20px);
-  color: #4a5568;
-  line-height: 1.75;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #475569;
+  line-height: 1.8;
   margin: 0;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* ── Orbital Stage ── */
+/* ══════════════════════════════════════════════
+   STAGE
+   Full circular arcs centered in stage.
+══════════════════════════════════════════════ */
 .sddia__stage {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  height: 800px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 560px;
 }
 
-/* ── Concentric Rings - Full circles visible ── */
-.orbital-ring {
+/* Arc-origin: lower-center of stage so images spread upward */
+.sddia__arc-origin {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  width: 0;
+  height: 0;
+}
+
+/* ══════════════════════════════════════════════
+   HALF-CIRCLE ARCS
+   Full circles centered on arc-origin.
+   Stage overflow clips bottom half → arc shape.
+══════════════════════════════════════════════ */
+.sddia__arc {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid #6366f1;
+  border: 1.5px solid rgba(99, 130, 241, 0.28);
+  background: radial-gradient(
+    circle at center,
+    rgba(99, 130, 241, 0.055) 0%,
+    rgba(180, 200, 255, 0.03) 55%,
+    transparent 75%
+  );
   pointer-events: none;
+  /* centered on arc-origin */
+  transform: translate(-50%, -50%) scale(0.72);
   opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 1s ease, transform 1s ease;
+  transition:
+    opacity   0.85s ease,
+    transform 0.95s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
-
-/* Animate rings when stage is visible */
-.sddia__stage--visible .orbital-ring {
+.sddia__arc--visible {
   opacity: 1;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.orbital-ring--outer {
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
-  box-shadow: 0 0 60px rgba(99, 102, 241, 0.15);
-  transition-delay: 0.2s;
-  opacity: 0.2;
-}
+.sddia__arc--lg { width: 900px; height: 900px; }
+.sddia__arc--md { width: 660px; height: 660px; }
+.sddia__arc--sm { width: 420px; height: 420px; }
 
-.orbital-ring--middle {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
-  transition-delay: 0.3s;
-  opacity: 0.3;
-}
-
-.orbital-ring--inner {
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.25);
-  transition-delay: 0.4s;
-  opacity: 0.4;
-}
-
-/* Reset opacity when not visible */
-.sddia__stage:not(.sddia__stage--visible) .orbital-ring--outer {
+/* ══════════════════════════════════════════════
+   ORBITAL IMAGE NODES
+   Size set via inline style (--tx, --ty, width, height).
+   Start at origin (scale 0), burst to position on click.
+══════════════════════════════════════════════ */
+.sddia__node {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* width/height/margins set inline per-node */
+  transform: translate(0px, 0px) scale(0);
   opacity: 0;
+  transition:
+    transform 0.65s cubic-bezier(0.34, 1.5, 0.64, 1),
+    opacity   0.4s ease;
+  will-change: transform, opacity;
 }
 
-.sddia__stage:not(.sddia__stage--visible) .orbital-ring--middle {
-  opacity: 0;
+.sddia__node--visible {
+  transform: translate(var(--tx), var(--ty)) scale(1);
+  opacity: 1;
 }
 
-.sddia__stage:not(.sddia__stage--visible) .orbital-ring--inner {
-  opacity: 0;
+/* ── Node image ── */
+.sddia__node-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.10),
+    0 0 0 1px rgba(99, 130, 241, 0.10);
+  display: block;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.sddia__node-img:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.18),
+    0 0 0 2px rgba(99, 130, 241, 0.30);
 }
 
-/* ── Central Logo ── */
-.sddia__logo-container {
-  position: relative;
-  z-index: 10;
-  width: 180px;
-  height: 180px;
+/* Float — starts after burst settles */
+.sddia__node-img--float {
+  animation: sddia-float 3.5s ease-in-out infinite;
+}
+@keyframes sddia-float {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-9px); }
+}
+
+/* ══════════════════════════════════════════════
+   CENTRAL LOGO BUTTON
+   Sits at arc-origin (bottom-center).
+   Appears on scroll; images burst on click.
+══════════════════════════════════════════════ */
+.sddia__logo-wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+    width: 179px;
+    height: 185px;
+    margin-left: -75px;
+  margin-top: -70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 
-    0 20px 60px rgba(99, 102, 241, 0.3),
-    0 0 0 1px rgba(99, 102, 241, 0.1);
-  padding: 20px;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s, box-shadow 0.3s ease;
+  background: #ffffff;
+  border-radius: 10%;
+  border: none;
+  box-shadow: 0 8px 40px rgba(99, 130, 241, 0.18), 0 2px 12px rgba(0,0,0,0.08);
+  z-index: 20;
+  cursor: pointer;
 }
-
-/* Hover effect when clickable */
-.sddia__logo-container:not(.sddia__logo-container--clicked):hover {
-  box-shadow: 
-    0 24px 70px rgba(99, 102, 241, 0.4),
-    0 0 0 2px rgba(99, 102, 241, 0.3);
-  transform: scale(1.05);
+.sddia__logo-wrap--done {
+  cursor: default;
+  pointer-events: none;
+  background: transparent;
 }
+/* .sddia__logo-wrap:focus-visible {
+  outline: 3px solid #6366f1;
+  outline-offset: 4px;
+} */
 
-/* Active state when clicked */
-.sddia__logo-container--clicked {
-  cursor: default !important;
-}
-
-.sddia__stage--visible .sddia__logo-container {
-  opacity: 1;
-  transform: scale(1);
-  animation: logoFloat 4s ease-in-out infinite;
-}
-
-@keyframes logoFloat {
-  0%, 100% {
-    transform: scale(1) translateY(0);
-  }
-  50% {
-    transform: scale(1) translateY(-10px);
-  }
+@keyframes sddia-logo-float {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-10px); }
 }
 
 .sddia__logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.2));
-  transition: opacity 0.3s ease;
+  filter: drop-shadow(0 3px 8px rgba(99, 130, 241, 0.2));
+  pointer-events: none;
 }
 
-/* ── Scattered Nodes (replaces orbital nodes) ── */
-.scattered-node {
+/* ── Pulse ring hint ── */
+.sddia__logo-pulse {
   position: absolute;
-  width: 80px;
-  height: 80px;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  opacity: 0;
-  animation: nodePopIn 0.5s ease-out forwards;
+  inset: -10px;
+  border-radius: 50%;
+  border: 2px solid rgba(99, 130, 241, 0.5);
+  animation: sddia-pulse 2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes sddia-pulse {
+  0%   { transform: scale(1);    opacity: 0.7; }
+  70%  { transform: scale(1.25); opacity: 0;   }
+  100% { transform: scale(1.25); opacity: 0;   }
 }
 
-@keyframes nodePopIn {
-  from {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
+/* ── Click hint text ── */
+.sddia__hint {
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  animation: sddia-fadein 0.5s ease 1.6s both;
+}
+@keyframes sddia-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.scattered-node__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.12),
-    0 0 0 3px rgba(255, 255, 255, 0.8),
-    0 0 0 4px rgba(99, 102, 241, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: nodeFloat 3s ease-in-out infinite;
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .sddia__arc--lg { width: 900px;  height: 900px;  }
+  .sddia__arc--md { width: 640px;  height: 640px;  }
+  .sddia__arc--sm { width: 400px;  height: 400px;  }
 }
 
-@keyframes nodeFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.scattered-node__image:hover {
-  transform: scale(1.1) translateY(0);
-  box-shadow: 
-    0 12px 32px rgba(0, 0, 0, 0.18),
-    0 0 0 3px rgba(255, 255, 255, 1),
-    0 0 0 5px rgba(99, 102, 241, 0.4);
-  animation: none;
-}
-
-/* ── Responsive ── */
 @media (max-width: 1024px) {
-  .sddia__stage {
-    height: 500px;
-    max-width: 700px;
-  }
-
-  .orbital-ring--outer { width: 600px; height: 600px; }
-  .orbital-ring--middle { width: 420px; height: 420px; }
-  .orbital-ring--inner { width: 280px; height: 280px; }
+  .sddia__stage   { height: 480px; }
+  .sddia__arc--lg { width: 800px;  height: 800px;  }
+  .sddia__arc--md { width: 570px;  height: 570px;  }
+  .sddia__arc--sm { width: 360px;  height: 360px;  }
+  .sddia__logo-wrap { width: 120px; height: 120px; margin-left: -60px; margin-top: -60px; }
 }
 
 @media (max-width: 768px) {
-  .sddia { 
-    padding: 60px 20px 80px; 
-  }
-  
-  .sddia__title {
-    font-size: 36px;
-  }
-  
-  .sddia__desc { 
-    font-size: 18px; 
-  }
-
-  .sddia__stage {
-    height: 400px;
-    max-width: 500px;
-  }
-
-  .orbital-ring--outer { width: 450px; height: 450px; }
-  .orbital-ring--middle { width: 320px; height: 320px; }
-  .orbital-ring--inner { width: 220px; height: 220px; }
-
-  .sddia__logo-container {
-    width: 140px;
-    height: 140px;
-  }
-
-  .orbital-node {
-    width: 60px;
-    height: 60px;
-  }
+  .sddia        { padding-top: 60px; }
+  .sddia__stage { height: 420px; }
+  .sddia__arc--lg { width: 660px;  height: 660px;  }
+  .sddia__arc--md { width: 470px;  height: 470px;  }
+  .sddia__arc--sm { width: 300px;  height: 300px;  }
+  .sddia__logo-wrap { width: 100px; height: 100px; margin-left: -50px; margin-top: -50px; }
+  .sddia__node-img  { border-radius: 12px; }
 }
 
-@media (max-width: 480px) {
-  .sddia { 
-    padding: 48px 16px 60px; 
-  }
+@media (max-width: 640px) {
+  .sddia        { padding-top: 48px; }
+  .sddia__header { margin-bottom: 36px; }
+  .sddia__stage { height: 360px; }
+  .sddia__arc--lg { width: 500px;  height: 500px;  }
+  .sddia__arc--md { width: 360px;  height: 360px;  }
+  .sddia__arc--sm { width: 220px;  height: 220px;  }
+  .sddia__logo-wrap { width: 80px; height: 80px; margin-left: -40px; margin-top: -40px; }
+  .sddia__node-img  { border-radius: 10px; border-width: 2px; }
+  .sddia__logo-pulse { inset: -8px; }
+}
 
-  .sddia__title {
-    font-size: 28px;
-  }
-
-  .sddia__desc {
-    font-size: 16px;
-  }
-
-  .sddia__stage {
-    height: 350px;
-    max-width: 100%;
-  }
-
-  .orbital-ring--outer { width: 350px; height: 350px; }
-  .orbital-ring--middle { width: 250px; height: 250px; }
-  .orbital-ring--inner { width: 180px; height: 180px; }
-
-  .sddia__logo-container {
-    width: 100px;
-    height: 100px;
-    padding: 12px;
-  }
-
-  .orbital-node {
-    width: 50px;
-    height: 50px;
-  }
-
-  .orbital-node__image {
-    border-radius: 8px;
-  }
+@media (max-width: 400px) {
+  .sddia__stage { height: 320px; }
+  .sddia__arc--lg { width: 420px;  height: 420px;  }
+  .sddia__arc--md { width: 300px;  height: 300px;  }
+  .sddia__arc--sm { width: 190px;  height: 190px;  }
+  .sddia__logo-wrap { width: 70px; height: 70px; margin-left: -35px; margin-top: -35px; }
 }

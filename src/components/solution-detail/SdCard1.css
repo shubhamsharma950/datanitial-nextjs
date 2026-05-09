@@ -19,13 +19,13 @@
   gap: 72px;
   align-items: center;
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateX(-100px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .sdc1--visible .sdc1__inner {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 /* ── Text side ── */

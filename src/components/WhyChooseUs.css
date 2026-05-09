@@ -2,7 +2,7 @@
    WHY CHOOSE US SECTION
 ═══════════════════════════════════════════════ */
 .wcu {
-  background: var(--bg);
+  background: linear-gradient(to bottom right, #ffffff 70%, #ffffff 82%, #BAE2FF 100%);
   padding: 80px 0;
   width: 100%;
 }
@@ -27,9 +27,9 @@
 
 /* ── Rows ── */
 .wcu__row {
-   max-width: 1192px;
+   max-width: 1210px;
    margin: auto;
-  display: grid; gap: 60px; margin-bottom: 60px; }
+  display: grid; gap: 50px; margin-bottom: 60px; }
 .wcu__row--1 { 
   grid-template-columns: 65fr 35fr; 
 }
@@ -57,15 +57,22 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
 .wcu__row--2 .wcu-card--from-right { transition-delay: 0.25s; }
 
 .wcu-card.is-visible { opacity: 1; transform: translateX(0); }
-.wcu-card.is-visible:hover {
+/* .wcu-card.is-visible:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px) !important;
-}
+} */
 
 /* ── Box 1 — dark primary gradient + bg image ── */
 .wcu-card--dark {
   background:
-    linear-gradient(135deg, rgba(46, 42, 140, 0.88) 0%, rgba(58, 79, 183, 0.80) 100%),
+       linear-gradient(
+      90deg,
+      rgba(88, 76, 201, 0.96) 0%,
+      rgba(88, 76, 201, 0.96) 30%,
+      rgba(76, 96, 220, 0.88) 55%,
+      rgba(74, 122, 255, 0.72) 78%,
+      rgba(186, 226, 255, 0.38) 100%
+    ),
     url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Gemini_Generated_Image_z8laa4z8laa4z8la-scaled.png") center / cover no-repeat;
   color: var(--text-light);
 }
@@ -99,7 +106,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
   transition: transform 0.5s ease;
 }
 
-.wcu-card--light:hover .wcu-card__img { transform: scale(1.03); }
+/* .wcu-card--light:hover .wcu-card__img { transform: scale(1.03); } */
 
 /* ── Box 3 — outline card ── */
 .wcu-card--outline {
@@ -150,7 +157,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
   flex: 1;
 }
 
-.wcu-card--light .wcu-card__content { padding: 24px 28px; }
+.wcu-card--light .wcu-card__content { padding: 0px 28px 24px; }
 
 .wcu-card__content--center {
   background-image: url("https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/Rectangle-47.png");
@@ -160,6 +167,7 @@ article.wcu-card.wcu-card--outline.wcu-card--from-left.is-visible {
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 62px;
 }
 
 /* ── Typography ── */

@@ -21,7 +21,9 @@ import SdCard2                  from "../components/solution-detail/SdCard2";
 import SdCard3                  from "../components/solution-detail/SdCard3";
 import SdSectionDataInAction    from "../components/solution-detail/SdSectionDataInAction";
 import SdExtractionProcess      from "../components/solution-detail/SdExtractionProcess";
+import SdWhatWeDo               from "../components/solution-detail/SdWhatWeDo";
 import FaqSection               from "../components/FaqSection";
+import SdSectionOne from "../components/solution-detail/SdSectionOne";
 
 const PAGE_ID  = 919;
 const ACF_FIELD = ""; // banner fields are flat on acf.banner for this page
@@ -34,6 +36,9 @@ export default function SolutionDetailPage() {
       fallbackTitle="Solution Detail"
       fallbackDescription="Explore our enterprise-grade data solutions built for speed, scale, and reliability."
     >
+      {/* C:\xampp\htdocs\wordpress\react-frontend\src\components\solution-detail\SdSectionOne.jsx */}
+      {/* 1. SdSectionOne vs Solutions */}
+      <SdSectionOne />
       {/* 1. Problems vs Solutions */}
       <SdSectionProblems />
 
@@ -49,7 +54,10 @@ export default function SolutionDetailPage() {
       {/* 5. Data in Action - Orbital Animation */}
       <SdSectionDataInAction />
 
-      {/* 6. Extraction Process — numbered steps journey */}
+      {/* 6. What We Do — 6-card masonry grid */}
+      <SdWhatWeDo />
+
+      {/* 7. Extraction Process — numbered steps journey */}
       <SdExtractionProcess />
 
       {/* 7. FAQ */}

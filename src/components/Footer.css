@@ -137,12 +137,16 @@
   font-weight: 900;
   letter-spacing: 6%;
   text-transform: uppercase;
-  background: linear-gradient(180deg, #a9a8a8, var(--secondary));
+  background: linear-gradient(
+      180deg,
+      #FFFFFF 0%,
+      #3A4FB7 100%
+    );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   user-select: none;
   pointer-events: none;
-  padding: 0 16px 6px;
+  /* padding: 0 16px 6px; */
   line-height: 1;
 }
 
@@ -165,8 +169,8 @@
   background: #25d366;
   color: var(--text-light);
   text-decoration: none;
-  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
   transition: transform 0.2s, box-shadow 0.2s;
+  border: 5px solid;
 }
 
 .ftr__wa svg { width: 26px; height: 26px; }

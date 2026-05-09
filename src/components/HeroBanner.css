@@ -45,11 +45,11 @@
 
 /* Phase 4 — desktop: card slides to right half */
 .dn-card.dn-phase4 {
-  border-radius: 100px 0 0 100px;
-  top: 30px;
-  left: 38%;
-  width: 62%;
-  height: 85%;
+    border-radius: 100px 100px 0 100px;
+    top: 30px;
+    left: 32%;
+    width: 68%;
+    height: 85%;
 }
 
 .dn-card-overlay {
@@ -107,11 +107,10 @@
 }
 
 .dn-favicon-img {
-  width: 110px;
-  height: 110px;
+  width: 210px;
+  height: 210px;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 10px 40px rgba(50, 70, 200, 0.30));
 }
 
 .dn-favicon-wrap.dn-float .dn-favicon-img {
@@ -154,12 +153,12 @@
   transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
 }
 
+
 .dn-logo-img {
-  width: 340px;
-  max-width: 60vw;
+  width: 540px;
+  max-width: 100vw;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 4px 24px rgba(50, 70, 200, 0.18));
 }
 
 /* ════════════════════════════════════════
@@ -396,14 +395,14 @@
   }
 
   .dn-favicon-img {
-    width: 64px;
-    height: 64px;
+    width: 75px;
+    height: 75px;
   }
 
   /* ── LOGO: smaller ── */
   .dn-logo-img {
     width: 180px;
-    max-width: 50vw;
+    max-width: 70vw;
   }
 
   /* ── CTA block: bottom-right of card ── */
@@ -427,6 +426,28 @@
 /* ════════════════════════════════════════
    SMALL MOBILE — ≤ 480px
 ════════════════════════════════════════ */
+@media (max-width: 1208px){
+  .dn-eyebrow {
+    gap: 6px;
+    font-size: 35px;
+}
+.dn-asterisk img {
+    width: 25px;
+    height: 41px;
+}
+.dn-main-heading {
+    font-size: 86px;
+    line-height: 100px;
+}
+.dn-para {
+    font-size: 23px;
+    max-width: 682px;
+}
+.dn-cta-line {
+    font-size: 28px;
+}
+}
+
 @media (max-width: 480px) {
     .dn-cta-line {
     font-size: 20px;
@@ -457,7 +478,7 @@
   }
 
   .dn-logo-img {
-    width: 150px;
+    width: 250px;
   }
 
   .dn-cta-block {

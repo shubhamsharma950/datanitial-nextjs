@@ -43,10 +43,10 @@
 /* The line sits at a fixed X position inside .sdep__body */
 .sdep__track-wrap {
   position: absolute;
-  left: 125px;
+  left: 123px;
   top: 0;
   bottom: 0;
-  width: 6px;
+  width: 5px;
   overflow: visible; /* fill is wider, centred via transform */
 }
 
@@ -64,9 +64,9 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 11px;
+  width: 7px;
   height: 0;
-  background: #3b5bdb;
+  background: var(--secondary);
   border-radius: 4px;
   transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   /* prevent fill from bleeding outside the section */
@@ -186,7 +186,6 @@
     left: 62px;
     width: 4px;
   }
-
   .sdep__track {
     border-radius: 3px;
   }

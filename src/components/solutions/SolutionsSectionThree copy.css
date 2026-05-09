@@ -1,13 +1,24 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    SOLUTIONS — SECTION 3  "Designed Around Your Stack"
    ─────────────────────────────────────────────────────────────────────────
+   Animation concept:
+     • Center card  → always fully visible, never moves (stable anchor)
+     • First card   → hidden BEHIND center card (translateX toward center,
+                       scale down, opacity 0, z-index below center)
+                       then slides LEFT  to its natural column on reveal
+     • Last card    → hidden BEHIND center card (translateX toward center,
+                       scale down, opacity 0, z-index below center)
+                       then slides RIGHT to its natural column on reveal
+     • Trigger: IntersectionObserver toggles .sol3__grid--in on the grid
+     • Reverses on scroll-out (class removed → cards drift back behind center)
+═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Section shell ── */
 .sol3 {
-    background: linear-gradient(355deg, #cce9ff94 10%, #fff 48%, #E2F3FF 100%);
-    padding: 88px 0 96px;
-    width: 100%;
-    overflow: hidden;
+  background: linear-gradient(355deg, #CCE9FF 10%, #fff 48%, #E2F3FF 100%);
+  padding: 88px 0 96px;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* ══════════════════════════════════════════
@@ -82,8 +93,8 @@
   z-index: 1;
   /* exit (scroll-out): no delay — snaps back immediately */
   transition:
-    opacity   1.75s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
 }
 
 .sol3__card--last {
@@ -92,11 +103,16 @@
   z-index: 1;
   /* exit (scroll-out): no delay */
   transition:
-    opacity   1.75s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
 }
 
 /* ══════════════════════════════════════════
+   IN-VIEW — cards slide out to their columns
+   .sol3__grid--in toggled by IntersectionObserver
+   Enter delay: 600ms pause after section enters viewport,
+   then first card at 600ms, last card at 800ms (staggered).
+   Exit delay: 0ms — cards snap back instantly on scroll-out.
 ══════════════════════════════════════════ */
 .sol3__grid--in .sol3__card--first {
   opacity: 1;
@@ -104,8 +120,8 @@
   z-index: 2;
   /* 600ms wait after section enters, then animate */
   transition:
-    opacity   1.75s cubic-bezier(0.22, 1, 0.36, 1) 600ms,
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 600ms;
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms;
 }
 
 .sol3__grid--in .sol3__card--last {
@@ -114,76 +130,8 @@
   z-index: 2;
   /* 200ms stagger after first card starts */
   transition:
-    opacity   1.75s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 800ms;
-}
-
-/* ══════════════════════════════════════════
-   HOVER KEYFRAMES
-   Cards fly in from their hidden positions
-   regardless of current scroll state
-══════════════════════════════════════════ */
-@keyframes sol3-first-in {
-  from {
-    opacity: 0;
-    transform: translate3d(calc(100% + 28px), 0, 0) scale(0.72);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes sol3-last-in {
-  from {
-    opacity: 0;
-    transform: translate3d(calc(-100% - 28px), 0, 0) scale(0.72);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-/* Mobile (≤540px) — vertical direction */
-@keyframes sol3-first-mobile-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, calc(100% + 16px), 0) scale(0.72);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes sol3-last-mobile-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, calc(-100% - 16px), 0) scale(0.72);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-/* ══════════════════════════════════════════
-   HOVER — keyframe animation fires from
-   hidden position every time, no JS tricks
-══════════════════════════════════════════ */
-.sol3__grid--hovered .sol3__card--first {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  z-index: 2;
-  animation: sol3-first-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
-}
-
-.sol3__grid--hovered .sol3__card--last {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  z-index: 2;
-  animation: sol3-last-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
+    opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms;
 }
 /* ══════════════════════════════════════════
    ICON BOX
@@ -251,14 +199,14 @@
   .sol3__card--first {
     transform: translate3d(calc(100% + 20px), 0, 0) scale(0.72);
     transition:
-      opacity   1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
-      transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
   }
   .sol3__card--last {
     transform: translate3d(calc(-100% - 20px), 0, 0) scale(0.72);
     transition:
-      opacity   1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
-      transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
   }
 }
 
@@ -304,40 +252,31 @@
     transform: translate3d(0, calc(100% + 16px), 0) scale(0.72);
     /* exit: no delay */
     transition:
-      opacity   1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
-      transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
   }
 
   .sol3__card--last {
     transform: translate3d(0, calc(-100% - 16px), 0) scale(0.72);
     /* exit: no delay */
     transition:
-      opacity   1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
-      transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0ms;
   }
 
   /* In-view: 600ms pause then animate, staggered */
   .sol3__grid--in .sol3__card--first {
     transform: translate3d(0, 0, 0) scale(1);
     transition:
-      opacity   1.8s cubic-bezier(0.22, 1, 0.36, 1) 600ms,
-      transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 600ms;
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 600ms;
   }
 
   .sol3__grid--in .sol3__card--last {
     transform: translate3d(0, 0, 0) scale(1);
     transition:
-      opacity   1.8s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
-      transform 1.8s cubic-bezier(0.22, 1, 0.36, 1) 800ms;
-  }
-
-  /* Hover: keyframe animation from hidden position */
-  .sol3__grid--hovered .sol3__card--first {
-    animation: sol3-first-mobile-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
-  }
-
-  .sol3__grid--hovered .sol3__card--last {
-    animation: sol3-last-mobile-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
+      opacity   1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms,
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms;
   }
 }
 
@@ -357,9 +296,7 @@
     transition: opacity 0.3s ease;
   }
   .sol3__grid--in .sol3__card--first,
-  .sol3__grid--in .sol3__card--last,
-  .sol3__grid--hovered .sol3__card--first,
-  .sol3__grid--hovered .sol3__card--last {
+  .sol3__grid--in .sol3__card--last {
     opacity: 1;
   }
 }

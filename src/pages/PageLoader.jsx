@@ -29,7 +29,7 @@ const PageLoader= () => {
         .inner-loader__right {
           width: 50%;
           height: 100%;
-          background: #ececec;
+          background: #FFFFFF;
           position: relative;
           overflow: hidden;
         }

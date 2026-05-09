@@ -46,12 +46,12 @@
 .sdp__problems {
     list-style: none;
     margin-right: -77px;
-    padding: 56px 0 56px 252px;
+    padding: 45px 0 45px 200px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    opacity: 1; /* Always visible - no fade */
-    transform: translateX(-100%); /* Start completely off-screen left */
+    opacity: 1;
+    transform: translateX(-100%);
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     background: #F2F9FF;
     border-radius: 0 100px 100px 0;
@@ -61,18 +61,16 @@
 .sdp__problems--in {
   transform: translateX(0); /* Slide to final position */
 }
-
 .sdp__problem-item {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 12px 0;
-    font-size: clamp(16px, 1.4vw, 20px);
-    color: #6B7280;
-    font-weight: 500;
+    gap: 18px;
+    padding: 7px 0;
+    /* font-size: clamp(20px, 1.4vw, 28px); */
+    color: var(--text);
     line-height: 1.6;
-    opacity: 1; /* Always visible - no fade */
-    transform: translateX(-80px); /* Items start further left */
+    opacity: 1;
+    transform: translateX(-80px);
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
 }
@@ -86,17 +84,15 @@
 /* Grey bullet points — larger size to match design */
 .sdp__dot {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
   border-radius: 50%;
-  background: #6B7280;
+  background: var(--text);
   display: inline-block;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.sdp__problem-item:hover .sdp__dot {
+/* .sdp__problem-item:hover .sdp__dot {
   transform: scale(1.15);
-}
+} */
 
 /* ══════════════════════════════════════════
    RIGHT WRAP CONTAINER
@@ -123,30 +119,16 @@
   position: relative;
   z-index: 3;
   flex-shrink: 0;
+  background-color: #fff;
+  border-radius: 24px;
   width: 140px;
   height: 152px;
-  background: #fff;
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: -60px;
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.08),
-    0 2px 8px rgba(0, 0, 0, 0.04);
-  
-  /* Static - no animation, always visible */
   opacity: 1;
   transform: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Optional hover effect only */
-.sdp__logo-card:hover {
-  transform: scale(1.05);
-  box-shadow: 
-    0 15px 50px rgba(62, 79, 183, 0.15),
-    0 5px 15px rgba(62, 79, 183, 0.1);
 }
 
 .sdp__logo {
@@ -157,10 +139,10 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
   transition: filter 0.3s ease;
 }
-
+/* 
 .sdp__logo-card:hover .sdp__logo {
   filter: drop-shadow(0 4px 8px rgba(62, 79, 183, 0.2));
-}
+} */
 
 /* ══════════════════════════════════════════
    PHASE 3: SOLUTIONS PANEL ONLY
@@ -176,11 +158,6 @@
   border-radius: 100px 0px 0px 100px;
   position: relative;
   z-index: 2;
-  box-shadow: 
-    0 20px 60px rgba(58, 79, 183, 0.25),
-    0 8px 20px rgba(58, 79, 183, 0.15);
-  
-  /* Panel starts completely off-screen right */
   opacity: 1; /* Always visible - no fade */
   transform: translateX(100%); /* Start completely off-screen right */
   transition: none; /* Will be added when --in class is applied */
@@ -205,35 +182,31 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 12px 0;
-  font-size: clamp(16px, 1.4vw, 20px);
   color: #fff;
-  font-weight: 500;
   line-height: 1.6;
-
-  /* Staggered slide-in from right - no fade */
   opacity: 1; /* Always visible - no fade */
   transform: translateX(80px); /* Items start further right */
   transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
 }
-
+.sdp__solution-item, .sdp__problem-item{
+    padding: 7px 0;
+    font-size: 28px;
+    font-weight: 500;
+}
 .sdp__solution-item:last-child { border-bottom: none; }
 
 .sdp__right-wrap--in .sdp__solution-item {
   transform: translateX(0); /* Items slide to final position */
 }
-
+.sdp__dot, .sdp__check-icon {
+    width: 30px;
+    height: 30px;
+}
 /* Blue checkmark icons - larger size to match design */
 .sdp__check-icon {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.sdp__solution-item:hover .sdp__check-icon {
-  transform: scale(1.15) rotate(5deg);
 }
 
 /* Checkmark path animation */
@@ -265,6 +238,19 @@
 /* ══════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════ */
+@media (max-width: 1024px){
+ .sdp__solutions-panel {padding: 40px 32px 40px 80px;}
+  .sdp__problems {padding: 35px 0 35px 165px;}
+  .sdp__solution-item, .sdp__problem-item{
+    padding: 5px 0;
+    font-size: 22px;
+}
+.sdp__dot, .sdp__check-icon {
+    width: 20px;
+    height: 20px;
+}
+
+}
 @media (max-width: 960px) {
   .sdp__body { grid-template-columns: 1fr 1.2fr; }
   .sdp__problems {
@@ -277,22 +263,30 @@
     margin-right: -45px; 
     border-radius: 16px;
   }
+    .sdp__solution-item, .sdp__problem-item{
+    font-size: 19px;
+}
   .sdp__logo { width: 58px; height: 58px; }
-  .sdp__solutions-panel { padding: 32px 32px 32px 68px; }
+  .sdp__problems {padding: 25px 0 25px 55px;}
+ .sdp__solutions-panel {   padding: 37px 8px 32px 63px;}
+  .sdp__solution-item, .sdp__problem-item{
+    padding: 7px 0;
+    font-size: 20px;
+}
 }
 
 @media (max-width: 700px) {
-  .sdp-container { padding: 0px 25px; }
+  .sdp-container { padding: 0px 18px; }
   .sdp { padding: 56px 0 72px; }
   .sdp__header { margin-bottom: 40px; }
 
   .sdp__body {
     grid-template-columns: 1fr;
-    gap: 32px;
   }
 
   .sdp__problems {
-    margin-right: 0;
+    width: 100%;
+    margin-bottom: -42px;
     padding: 40px 0 40px 50px;
     opacity: 1; /* Always visible - no fade */
     transform: translateY(-100%); /* Start completely off-screen top */
@@ -311,22 +305,18 @@
   }
   
   .sdp__problems--in .sdp__problem-item { 
-    transform: translateY(0); /* Items slide to final position */
+    transform: translateY(0);
   }
-
-  /* On mobile: logo sits above the panel, not overlapping */
   .sdp__right-wrap {
     flex-direction: column;
     align-items: center;
-    /* Container stays static - no animation */
   }
 
   .sdp__logo-card {
     margin-right: 0;
-    margin-bottom: -100px;
+    margin-bottom: -45px;
     width: 88px;
     height: 88px;
-    /* Logo stays static - always visible */
     opacity: 1;
     transform: none;
   }
@@ -337,14 +327,13 @@
     width: 100%;
     padding: 56px 24px 28px 24px;
     border-radius: 100px 100px 0 0;
-    /* Panel starts completely off-screen bottom */
-    opacity: 1; /* Always visible - no fade */
-    transform: translateY(100%); /* Start completely off-screen bottom */
+    opacity: 1;
+    transform: translateY(100%);
     transition: none;
   }
 
   .sdp__right-wrap--in .sdp__solutions-panel {
-    transform: translateY(0); /* Slide to final position */
+    transform: translateY(0);
     transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
@@ -360,8 +349,26 @@
 }
 
 @media (max-width: 480px) {
-  .sdp { padding: 44px 0 60px; }
-  .sdp__logo-card { width: 76px; height: 76px; }
+  .sdp__problems {
+    padding: 40px 46px;
+  
+}
+.sdp__logo-card {
+    width: 93px;
+    height: 91px;
+}
+.sdp__problems, .sdp__right-wrap--in .sdp__solutions-panel {
+    padding: 55px 32px;
+}
+.sdp__solution-item, .sdp__problem-item{
+    padding: 5px 0;
+    font-size: 15px;
+}
+.sdp__dot, .sdp__check-icon {
+    width: 18px;
+    height: 18px;
+}
+  .sdp { padding: 44px 0 0px; }
   .sdp__logo { width: 48px; height: 48px; }
 }
 

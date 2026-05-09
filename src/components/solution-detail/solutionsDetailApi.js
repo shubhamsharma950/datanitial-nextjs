@@ -121,6 +121,8 @@ export async function fetchSolutionDetailPage() {
     })
     .catch((err) => {
       _promise = null;
+      // Cache an empty object so repeated calls don't keep hammering a broken endpoint
+      _cache = {};
       throw err;
     });
 
@@ -241,17 +243,104 @@ export async function getSdCards() {
 
 /* ─────────────────────────────────────────────────────────────────────────
    getSdSectionDataInAction()
-   Returns: { title, description, image }
+   Returns: { title, description, image, use_cases[] }
+   Never throws — falls back to static data on any API error.
 ───────────────────────────────────────────────────────────────────────── */
+const DATA_IN_ACTION_FALLBACK = {
+  title: "Unlocking Value Across Use Cases",
+  description:
+    "See how businesses leverage web data to drive insights, optimize strategies, and stay ahead in competitive markets.",
+  image: "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png",
+  use_cases: [
+    { image: "https://images.unsplash.com/photo-1556740758-90de374c12ad?w=160&h=160&fit=crop", alt: "E-commerce analytics" },
+    { image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=160&h=160&fit=crop", alt: "Market data dashboard" },
+    { image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=160&h=160&fit=crop", alt: "Financial insights" },
+    { image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=160&h=160&fit=crop", alt: "Business intelligence" },
+    { image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=160&h=160&fit=crop", alt: "Tech team collaboration" },
+    { image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=160&h=160&fit=crop", alt: "Data science" },
+    { image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=160&h=160&fit=crop", alt: "Retail strategy" },
+    { image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=160&h=160&fit=crop", alt: "Competitive intelligence" },
+    { image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=160&h=160&fit=crop", alt: "Executive decisions" },
+    { image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=160&h=160&fit=crop", alt: "Growth analytics" },
+  ],
+};
+
 export async function getSdSectionDataInAction() {
+  try {
+    const acf = await fetchSolutionDetailPage();
+    const raw = acf?.section_data_in_action ?? null;
+    if (!raw) return DATA_IN_ACTION_FALLBACK;
+
+    // Resolve use_cases if present in ACF (repeater field)
+    let use_cases = DATA_IN_ACTION_FALLBACK.use_cases;
+    if (Array.isArray(raw.use_cases) && raw.use_cases.length) {
+      use_cases = await Promise.all(
+        raw.use_cases.map(async (uc) => ({
+          image: await resolveImg(uc.image || uc.use_case_image),
+          alt:   uc.alt || uc.use_case_title || "",
+        }))
+      );
+    }
+
+    return {
+      badge:       raw.badge       || "",
+      title:       raw.title       || DATA_IN_ACTION_FALLBACK.title,
+      description: raw.description || DATA_IN_ACTION_FALLBACK.description,
+      image:       (await resolveImg(raw.image)) || DATA_IN_ACTION_FALLBACK.image,
+      use_cases,
+    };
+  } catch {
+    return DATA_IN_ACTION_FALLBACK;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   getSdWhatWeDo()
+
+   ACF path: acf.what_we_do (Group)
+     ├── badge          Text
+     ├── title          Text
+     ├── description    Text Area
+     └── blocks         Group
+           ├── one      Group  → { title, des, image }
+           ├── two      Group  → { title, des, image }
+           ├── three    Group  → { title, des, image }
+           ├── four     Group  → { title, des, image }
+           ├── five     Group  → { title, des, image }
+           └── six      Group  → { title, des, image }
+
+   Returns: {
+     badge,
+     title,
+     description,
+     cards: [{ title, des, image }, ...]
+   }
+───────────────────────────────────────────────────────────────────────── */
+export async function getSdWhatWeDo() {
   const acf = await fetchSolutionDetailPage();
-  const raw = acf?.section_data_in_action ?? null;
+  const raw = acf?.what_we_do ?? null;
   if (!raw) return null;
 
+  const blocks = raw.blocks ?? {};
+  const blockKeys = ["one", "two", "three", "four", "five", "six", "seven"];
+
+  const cards = await Promise.all(
+    blockKeys.map(async (key) => {
+      const block = blocks[key];
+      if (!block) return null;
+      return {
+        title: block.title || "",
+        des:   block.des   || "",
+        image: await resolveImg(block.image),
+      };
+    })
+  );
+
   return {
+    badge:       raw.badge       || "",
     title:       raw.title       || "",
     description: raw.description || "",
-    image:       await resolveImg(raw.image),
+    cards:       cards.filter(Boolean),
   };
 }
 
