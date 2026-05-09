@@ -309,7 +309,7 @@ span.faq-badge__label {
 /* Tablet */
 @media (max-width: 1024px) {
   .faq-section__layout {
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 450px 1fr;
     gap: 36px;
   }
 
@@ -358,13 +358,19 @@ span.faq-badge__label {
   .faq-badge__icon { width: 18px; height: 18px; }
 }
 
+@media (min-width: 300px) and (max-width: 600px) {
+  .faq-help-card {
+    min-height: 238px;
+  }
+}
+
 /* Small mobile */
 @media (max-width: 480px) {
   .faq-section__container { padding: 0 16px; }
-  .faq-help-card { min-height: 180px; }
  .faq-help-card__content {max-width: 70%;padding: 77px 18px 22px;}
   .faq-help-card__title { font-size: 17px; }
   .gs-banner__content { padding: 28px 20px; }
   .gs-banner__heading { font-size: 21px; }
   .gs-banner__desc { font-size: 14px; }
 }
+@media (max-width: 300px) {  .faq-help-card { min-height: 180px; }}

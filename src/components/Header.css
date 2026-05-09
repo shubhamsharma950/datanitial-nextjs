@@ -10,12 +10,12 @@
   width: 100%;
 }
 
-.hdr--scrolled { box-shadow: 0 2px 16px rgba(0, 0, 0, 0.09); }
+/* .hdr--scrolled { box-shadow: 0 2px 16px rgba(0, 0, 0, 0.09); } */
 
 .hdr__inner {
   display: flex;
   align-items: center;
-  max-width: 1340px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
   height: 92px;

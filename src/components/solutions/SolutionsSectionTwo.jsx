@@ -29,8 +29,7 @@ const BulletIcon = () => (
     fill="none"
     aria-hidden="true"
   >
-    <circle cx="10" cy="10" r="10" fill="var(--primary)" opacity="0.12" />
-    <circle cx="10" cy="10" r="4"  fill="var(--primary)" />
+    <circle cx="10" cy="10" r="6"  fill="var(--primary)" />
   </svg>
 );
 

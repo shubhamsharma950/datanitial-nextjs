@@ -100,10 +100,12 @@ export default function SolutionsSectionThree() {
   const [data,        setData]        = useState(null);
   const [loading,     setLoading]     = useState(true);
   const [headerVisible, setHeaderVisible] = useState(false);
+  const [gridHovered, setGridHovered] = useState(false);
 
-  const sectionRef = useRef(null);
-  const gridRef    = useRef(null);
-  const headerRef  = useRef(null);
+  const sectionRef    = useRef(null);
+  const gridRef       = useRef(null);
+  const headerRef     = useRef(null);
+  const scrollInRef   = useRef(false); // tracks whether --in is currently active
 
   /* ── Fetch ── */
   useEffect(() => {
@@ -139,6 +141,7 @@ export default function SolutionsSectionThree() {
 
     const obs = new IntersectionObserver(
       ([entry]) => {
+        scrollInRef.current = entry.isIntersecting;
         if (entry.isIntersecting) {
           grid.classList.add("sol3__grid--in");
         } else {
@@ -153,6 +156,35 @@ export default function SolutionsSectionThree() {
 
     obs.observe(grid);
     return () => obs.disconnect();
+  }, [loading]);
+
+  /* ── Grid: hover — keyframe animation fires from hidden position every time ── */
+  useEffect(() => {
+    if (loading || !gridRef.current) return;
+
+    const grid = gridRef.current;
+
+    const onEnter = () => {
+      grid.classList.add("sol3__grid--hovered");
+      setGridHovered(true);
+    };
+
+    const onLeave = () => {
+      grid.classList.remove("sol3__grid--hovered");
+      // Restore --in if scroll observer says we're still in viewport
+      if (scrollInRef.current) {
+        grid.classList.add("sol3__grid--in");
+      }
+      setGridHovered(false);
+    };
+
+    grid.addEventListener("mouseenter", onEnter);
+    grid.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      grid.removeEventListener("mouseenter", onEnter);
+      grid.removeEventListener("mouseleave", onLeave);
+    };
   }, [loading]);
 
   if (loading) return <Skeleton />;

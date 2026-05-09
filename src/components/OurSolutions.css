@@ -161,22 +161,20 @@
 .sol__answer-panel {
   display: flex;
   align-items: flex-start;
-  gap: 40px;
-  background: #eef2fb;
-  border-radius: 14px;
-  padding: 32px 36px;
+  gap: 70px;
+  padding: 32px 0px;
   margin-bottom: 8px;
 }
 
 /* Left: image */
 .sol__answer-img-wrap {
-  flex: 0 0 240px;
+  flex: 0 0 287px;
   width: 240px;
 }
 
 .sol__answer-img {
   width: 100%;
-  height: 190px;
+  height: 260px;
   object-fit: cover;
   border-radius: 12px;
   display: block;
@@ -185,8 +183,8 @@
 /* Middle: description paragraph */
 .sol__answer-text {
   flex: 1 1 0;
-  font-size: 15px;
-  color: #4a4a4a;
+  font-size: 24px;
+  color: var(--text);
   line-height: 1.85;
   margin: 0;
   min-width: 0;
@@ -207,8 +205,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 15px;
-  color: #333;
+  font-size: 24px;
+  color: var(--text);
   line-height: 1.5;
 }
 
@@ -272,7 +270,7 @@
   .sol__answer-panel {
     flex-direction: column;
     gap: 16px;
-    padding: 16px 18px;
+    padding: 16px 5px;
   }
 
   .sol__answer-img-wrap {
@@ -286,7 +284,7 @@
   }
 
   .sol__answer-text {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .sol__answer-list {
@@ -295,7 +293,7 @@
   }
 
   .sol__answer-list-item {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 
