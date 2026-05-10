@@ -168,14 +168,15 @@ ul { list-style: none; }
   color: #E2F3FF;
   background: transparent;
   text-decoration: none;
-  transition: background .2s ease, color .2s ease;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .secondary-btn:hover,
 .secondary-btn:focus-visible {
-  background: #0d1b3e;
-  border: 1px solid #0d1b3e;
-  color: #E2F3FF;
+  background: #2E2A8C;
+  border: 1px solid #2E2A8C;
+  color: #ffffff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
   outline: none;
 }
 
@@ -255,13 +256,15 @@ ul { list-style: none; }
   background: transparent;
   text-decoration: none;
   width: fit-content;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .rs_page_btn:hover,
 .rs_page_btn:focus-visible {
-  background: var(--primary);
+  background: #2E2A8C;
+  border-color: #2E2A8C;
   color: #fff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
   outline: none;
 }
 
@@ -274,7 +277,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-.rs_page_btn {padding: 8px 18px; font-size: 10px;}
+.rs_page_btn {padding: 8px 18px; font-size: 16px;}
 .badge-sec {
     padding: 6px 13px 6px 11px !important;
     font-size: 12px !important;
@@ -292,4 +295,23 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .head-title { font-size: 26px; }
   .head__desc  { font-size: 17px; }
+}
+
+/* ═══════════════════════════════════════════════
+   GLOBAL BUTTON HOVER — fadeInUp animation
+   Keyframes defined once, reused by all buttons.
+═══════════════════════════════════════════════ */
+@keyframes btn-fadeInUp {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1;   }
+}
+
+button:not(:disabled):not([class]) {
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+button:not(:disabled):not([class]):hover {
+  background: #2E2A8C;
+  color: #ffffff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
 }

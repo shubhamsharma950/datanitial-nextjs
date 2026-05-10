@@ -80,7 +80,7 @@
 .arc-stroke {
   fill: none;
   stroke: var(--secondary);
-  stroke-width: 4;
+  stroke-width: 6;
 }
 
 /* ── Number boxes (shared) ── */

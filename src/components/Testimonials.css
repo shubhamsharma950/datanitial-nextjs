@@ -110,14 +110,14 @@
 ═══════════════════════════════════════════════ */
 
 .ts-card {
-  width: 320px;
-  min-width: 320px;
-  height: 240px;
-  background: #E2F3FF;
-  border-radius: 20px;
-  padding: 15px;
-  flex-shrink: 0;
-  box-sizing: border-box;
+    width: 358px;
+    min-width: 320px;
+    height: 265px;
+    background: #E2F3FF;
+    border-radius: 20px;
+    padding: 15px;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 /* ── Card header: avatar + name/company ── */
@@ -130,8 +130,8 @@
 
 /* ── Avatar ── */
 .ts-card__avatar {
-  width: 45px;
-  height: 45px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: #a0b8cc center / cover no-repeat;
   flex-shrink: 0;
@@ -140,22 +140,23 @@
 /* ── Name ── */
 .ts-card__name {
   font-weight: 600;
-  font-size: 22px;
-  color: #1a1a2e;
+  font-size: 24px;
+  color: var(--text-dark);
   line-height: 1.3;
 }
 
 /* ── Company / position ── */
 .ts-card__company {
   font-size: 16px;
-  color: #555;
+  font-weight: 600;
+  color: #707070;
 }
 
 /* ── Stars ── */
 .ts-card__stars {
   color: orange;
   font-size: 15px;
-  margin: 8px 0 6px;
+  margin: 8px 0 14px;
   letter-spacing: 1px;
 }
 
@@ -165,8 +166,9 @@
   padding: 12px 12px 35px 12px;
   border-radius: 12px;
   font-size: 16px;
+  font-weight: 400;
   line-height: 1.45;
-  color: #333;
+  color: var(--text-dark);
   /* Clamp to 3 lines so cards stay uniform height */
   display: -webkit-box;
   -webkit-line-clamp: 3;

@@ -76,8 +76,8 @@
   width: 52px;
   height: 52px;
   border-radius: 10px;
-  background: #e8eaf6;
-  color: var(--stroke);
+  background: #707070;
+  color: #D9D9D9;
   font-size: 36px;
   font-weight: 700;
   padding: 30px;
@@ -90,7 +90,7 @@
 
 .ind2__num--active {
   background: var(--primary);
-  color: #fff;
+  color: #E2F3FF;
 }
 
 /* ── Item text ── */

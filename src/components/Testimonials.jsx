@@ -215,7 +215,11 @@ function TestimonialCard({ item }) {
 
     
 
-      {item.rating_stars && (
+ 
+
+      {item.author_review_details && (
+        <div className="ts-card__text">
+               {item.rating_stars && (
         <div className="ts-card__stars" aria-label={`Rating: ${item.rating_stars}`}>
           {item.rating_stars.startsWith("http") ? (
             <img src={item.rating_stars} alt="rating" className="ts-card__stars-img" />
@@ -224,9 +228,7 @@ function TestimonialCard({ item }) {
           )}
         </div>
       )}
-
-      {item.author_review_details && (
-        <div className="ts-card__text">{item.author_review_details}</div>
+          {item.author_review_details}</div>
       )}
     </div>
   );

@@ -32,7 +32,7 @@ import IndustriesSection from "../components/IndustriesSection";
 
 /* ── Map sub-route path → WordPress page ID + badge text ── */
 const ROUTE_MAP = {
-  "/industries/e-commerce":         { pageId: 15, badge: "E-COMMERCE" },
+  // "/industries/e-commerce":         { pageId: 15, badge: "E-COMMERCE" },
   "/industries/finance-banking":    { pageId: 15, badge: "FINANCE & BANKING" },
   "/industries/healthcare":         { pageId: 15, badge: "HEALTHCARE" },
   "/industries/real-estate":        { pageId: 15, badge: "REAL ESTATE" },
