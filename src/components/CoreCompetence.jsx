@@ -70,7 +70,7 @@ const DESKTOP_ACTIVE_STYLE = {
 
 const DESKTOP_NEXT_STYLE = {
   left:         "calc(97.3013% - 175px)",
-  top:          "calc(36% - 89px)",
+  top:          "calc(36% - 75px)",
   borderRadius: "12px",
   opacity:      1,
   transform: 'rotate(45deg)'

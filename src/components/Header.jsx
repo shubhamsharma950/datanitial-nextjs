@@ -67,7 +67,7 @@ export default function Header() {
   const [logoUrl,   setLogoUrl]   = useState("");
   const [logoAlt,   setLogoAlt]   = useState("Datanitial");
   const [ctaLabel,  setCtaLabel]  = useState("Get Quote");
-  const [ctaUrl,    setCtaUrl]    = useState("/get-quote");
+  const [ctaUrl,    setCtaUrl]    = useState("/contact-us");
   const [ctaTarget, setCtaTarget] = useState("_self");
   const [loading,   setLoading]   = useState(true);
   const [menuOpen,  setMenuOpen]  = useState(false);
@@ -212,11 +212,7 @@ export default function Header() {
           </nav>
 
           {/* ── Desktop CTA ── */}
-          {isInternal(ctaUrl) ? (
-            <Link to={resolveHref(ctaUrl)} className="hdr__cta">{ctaLabel}</Link>
-          ) : (
-            <a href={ctaUrl} className="hdr__cta" target={ctaTarget} rel={ctaTarget === "_blank" ? "noopener noreferrer" : undefined}>{ctaLabel}</a>
-          )}
+          <Link to="/contact-us" className="hdr__cta">{ctaLabel}</Link>
 
           {/* ── Hamburger (mobile) ── */}
           <button

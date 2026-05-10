@@ -143,17 +143,18 @@ body.inner-page header.hdr {
   white-space: nowrap;
   letter-spacing: 0.01em;
   box-shadow: 0 4px 20px rgba(79, 70, 229, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .iph__cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(79, 70, 229, 0.45);
-  opacity: 0.95;
+  background: #2E2A8C;
+  color: #fff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
+  box-shadow: 0 8px 28px rgba(46, 42, 140, 0.45);
 }
 
 .iph__cta:active {
-  transform: translateY(0);
+  opacity: 0.9;
 }
 
 /* ════════════════════════════
@@ -336,12 +337,14 @@ body.inner-page header.hdr {
   text-decoration: none;
   border-radius: 14px;
   box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .iph__drawer-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
+  background: #2E2A8C;
+  color: #fff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
+  box-shadow: 0 8px 24px rgba(46, 42, 140, 0.4);
 }
 
 /* ── Drawer top bar: logo + close ── */
@@ -459,26 +462,12 @@ body.inner-page header.hdr {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: #0d0f2b; */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   overflow: hidden;
   padding: 200px 24px 100px;
 }
-
-/* Dark overlay */
-/* .ipb__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(8, 6, 40, 0.82) 0%,
-    rgba(13, 10, 60, 0.72) 50%,
-    rgba(8, 6, 40, 0.88) 100%
-  );
-  z-index: 1;
-} */
 
 /* Decorative gradient orbs */
 .ipb__orb {
@@ -566,16 +555,18 @@ body.inner-page header.hdr {
   text-decoration: none;
   letter-spacing: 0.01em;
   box-shadow: 0 6px 32px rgba(79, 70, 229, 0.45);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .ipb__cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(79, 70, 229, 0.55);
+  background: #2E2A8C;
+  color: #fff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
+  box-shadow: 0 12px 40px rgba(46, 42, 140, 0.55);
 }
 
 .ipb__cta:active {
-  transform: translateY(-1px);
+  opacity: 0.9;
 }
 
 .ipb__cta-arrow {

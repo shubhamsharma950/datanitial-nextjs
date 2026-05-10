@@ -109,8 +109,8 @@
 .ind1__content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-self: center;
+  gap: 10px;
+  align-self: start;
 }
 /* ══════════════════════════════
    SCROLL-REVEAL
@@ -166,7 +166,7 @@
   .ind1__col-b {
     order: 1;
     width: 100%;
-    min-height: 220px;
+    height: 285px;
     border-radius: 20px;
   }
 

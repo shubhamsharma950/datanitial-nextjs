@@ -128,6 +128,7 @@
 
 .ind3-card--light .ind3-card__img-top img {
   width: 100%;
+  min-height: 175px;
   height: 100%;
   object-fit: cover;
   display: block;

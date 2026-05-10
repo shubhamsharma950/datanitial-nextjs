@@ -242,13 +242,15 @@ a.cp__info-card__value:hover {
   cursor: pointer;
   letter-spacing: 0.01em;
   box-shadow: 0 6px 24px rgba(79, 70, 229, 0.35);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.2s ease;
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s ease-in-out;
   margin-top: 4px;
 }
 
 .cp__form-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(79, 70, 229, 0.45);
+  background: #2E2A8C;
+  color: #fff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
+  box-shadow: 0 10px 32px rgba(46, 42, 140, 0.45);
 }
 
 .cp__form-submit:disabled {

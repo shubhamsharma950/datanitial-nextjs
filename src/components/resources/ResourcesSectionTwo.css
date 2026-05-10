@@ -148,13 +148,15 @@
   color: var(---secondary);
   background: transparent;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .rs2__load-more-btn:hover:not(:disabled),
 .rs2__load-more-btn:focus-visible:not(:disabled) {
-  background: #2E3192;
+  background: #2E2A8C;
+  border-color: #2E2A8C;
   color: #fff;
+  animation: btn-fadeInUp 0.3s ease-in-out both;
   outline: none;
 }
 
