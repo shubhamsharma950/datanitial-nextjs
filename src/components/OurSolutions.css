@@ -13,19 +13,7 @@
 .sol-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }
 
 .sol__header { text-align: center; margin-bottom: 56px; }
-.sol__title {
-  font-weight: 600;
-  color: var(--text-dark);
-  margin: 0 0 16px;
-  line-height: 1.2;
-}
 
-.sol__desc {
-  color: #707070;
-  max-width: 950px;
-  margin: 0 auto;
-  line-height: 1.75;
-}
 
 /* ── Accordion list ── */
 .sol__list {
@@ -105,8 +93,8 @@
 /* ── Arrow icon (detailLink mode) ── */
 .sol__item-arrow-icon {
   flex-shrink: 0;
-  width: 62px;
-  height: 62px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
   display: block;
   /* transition: transform 0.25s ease; */
@@ -131,15 +119,14 @@
 
 .sol__item__icon,
 .sol-item__icon {
-  width: 62px;
-  height: 62px;
+  width: 65px;
+  height: 65px;
   flex-shrink: 0;
   color: #707070;
   transition: color 0.2s, transform 0.3s;
 }
 
 .sol__item--open .sol-item__icon {
-  color: var(--primary);
   transform: rotate(180deg);
 }
 

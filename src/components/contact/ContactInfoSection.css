@@ -24,24 +24,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 16px;
+  gap: 0px;
   margin-bottom: 56px;
-}
-
-.cis__heading {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--text-dark, #111);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.cis__sub-heading {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text, #707070);
-  line-height: 1.7;
-  margin: 0;
 }
 
 /* ── Cards grid ── */
@@ -107,9 +91,10 @@
 }
 
 .cis__card-value--link {
-  color: var(--secondary, #3A4FB7);
+  color: #4E7CCF;
   transition: color 0.18s ease;
 }
+.cis__card-value{color: #4E7CCF;}
 
 .cis__card-value--link:hover {
   color: var(--primary, #2E2A8C);

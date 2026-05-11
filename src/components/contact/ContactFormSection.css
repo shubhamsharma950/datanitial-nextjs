@@ -31,21 +31,6 @@
 .cfs__badge {
   align-self: center;
 }
-
-.cfs__heading {
-  font-weight: 700;
-  color: var(--text-dark, #111111);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.cfs__sub-heading {
-  font-weight: 500;
-  color: var(--text, #707070);
-  line-height: 1.7;
-  margin: 0;
-}
-
 /* ── Body: card + image ── */
 .cfs__body {
   display: grid;

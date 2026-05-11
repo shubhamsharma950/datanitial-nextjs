@@ -133,13 +133,13 @@
 /* ── Watermark ── */
 .ftr__watermark {
   text-align: center;
-  font-size: clamp(32px, 6vw, 82px);
+  font-size: clamp(32px, 6vw, 100px);
   font-weight: 900;
   letter-spacing: 6%;
   text-transform: uppercase;
   background: linear-gradient(
-      180deg,
-      #FFFFFF 0%,
+      182deg,
+      #7a7979 0%,
       #3A4FB7 100%
     );
   -webkit-background-clip: text;
@@ -157,7 +157,7 @@
 /* ── WhatsApp FAB ── */
 .ftr__wa {
   position: fixed;
-  bottom: 28px;
+  bottom: 170px;
   right: 28px;
   z-index: 500;
   display: flex;
@@ -184,6 +184,9 @@
   .ftr__main { padding: 40px 20px; }
   .ftr__bottom { padding: 16px 20px; }
   .ftr__bottom p { font-size: 15px; }
-  .ftr__watermark { font-size: 26px; letter-spacing: 3px; }
+  .ftr__watermark { font-size: 40px; letter-spacing: 3px; }
   .ftr__wa { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+}
+@media (max-width: 370px){
+  .ftr__watermark { font-size: 30px; }
 }

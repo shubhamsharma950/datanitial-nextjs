@@ -25,7 +25,7 @@
   flex-direction: column;
   gap: 20px;
   position: sticky;
-  top: 120px;
+  top: 5px;
 }
 
 .a5s__badge { margin: 0; }
@@ -74,7 +74,7 @@
   flex-direction: column;
   gap: 20px;
   background: #C8E6F8;
-  padding: 28px;
+  padding: 70px 44px;
   border-radius: 28px;
 }
 
@@ -103,8 +103,8 @@
 
 /* White rounded square behind icon */
 .a5s__step-icon-wrap {
-  width: 56px;
-  height: 56px;
+  width: 53px;
+  height: 53px;
   background: #fff;
   border-radius: 14px;
   display: flex;
@@ -115,8 +115,8 @@
 
 /* Icon is blue on white — do NOT invert */
 .a5s__step-icon {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 

@@ -116,13 +116,13 @@
   text-decoration: none;
   display: inline-block;
   transition: color 0.2s ease;
+  text-decoration: underline;
 }
 
 .rs2__card-link:hover,
 .rs2__card-link:focus-visible {
-  color: var(--secondary);
-  text-decoration: underline;
-  outline: none;
+  /* color: var(--secondary); */
+  /* outline: none; */
 }
 
 /* ── Skeleton card ── */

@@ -326,7 +326,7 @@
     display: flex;
   }
   .hdr__inner {
-    padding: 0 16px;
+    padding: 0 20px;
   }
 
   /* On mobile: show favicon, hide full logo */

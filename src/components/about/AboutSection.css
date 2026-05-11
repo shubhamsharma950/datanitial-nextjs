@@ -189,11 +189,6 @@
   transition: opacity 0.5s ease 1.2s;
 }
 
-.about-section--visible .about-section__stars-img {
-  opacity: 1;
-  animation: starPulse 2s ease-in-out infinite;
-}
-
 @keyframes starPulse {
   0%, 100% {
     transform: scale(1);

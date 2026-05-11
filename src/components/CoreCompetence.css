@@ -4,23 +4,10 @@
 .cc__header-wrap {
   text-align: center;
   padding: 72px 24px 32px;
-  max-width: 860px;
   margin: 0 auto;
 }
 
-.cc__title {
-  font-weight: 600;
-  color: var(--text-dark);
-  margin: 0 0 16px;
-  line-height: 1.2;
-}
 
-.cc__desc {
-  color: #707070;
-  line-height: 1.75;
-  max-width: 1000px;
-  margin: 0 auto;
-}
 
 /* ═══════════════════════════════════════════════
    DESKTOP — Scroll Arc

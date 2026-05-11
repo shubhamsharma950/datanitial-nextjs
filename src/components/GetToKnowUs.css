@@ -50,11 +50,11 @@
 /* ── Left column — sticky ── */
 .gtku__left {
   position: sticky;
-  top: 100px;
+  top: 5px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 500px;
+  max-width: 447px;
 }
 
 .gtku-badge__icon { width: 20px; height: 20px; flex-shrink: 0; }

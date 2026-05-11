@@ -105,9 +105,11 @@
    WP CONTENT TYPOGRAPHY
 ════════════════════════════════ */
 .pdp__content.wp-content {
-  font-size: 16px;
-  line-height: 1.85;
-  color: #3d4a5c;
+  font-family: 'Nunito', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  color: #111111;
 }
 
 .pdp__content.wp-content h1,
@@ -116,20 +118,42 @@
 .pdp__content.wp-content h4,
 .pdp__content.wp-content h5,
 .pdp__content.wp-content h6 {
-  color: #0d1b3e;
-  font-weight: 700;
-  line-height: 1.3;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  color: #111111;
+  line-height: 36px;
   margin: 32px 0 12px;
 }
 
-.pdp__content.wp-content h2 { font-size: clamp(20px, 2.4vw, 28px); }
-.pdp__content.wp-content h3 { font-size: clamp(17px, 1.8vw, 22px); }
-.pdp__content.wp-content h4 { font-size: 18px; }
+.pdp__content.wp-content h1 { font-size: 32px; }
+.pdp__content.wp-content h2 { font-size: 32px; }
+.pdp__content.wp-content h3 { font-size: 28px; }
+.pdp__content.wp-content h4 { font-size: 26px; }
+.pdp__content.wp-content h5 { font-size: 24px; }
+.pdp__content.wp-content h6 { font-size: 22px; }
 
-.pdp__content.wp-content p  { margin: 0 0 18px; }
+.pdp__content.wp-content p  {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  color: #111111;
+  margin: 0 0 18px;
+}
+
+.pdp__content.wp-content span,
+.pdp__content.wp-content li,
+.pdp__content.wp-content td,
+.pdp__content.wp-content th {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  color: #111111;
+}
 
 .pdp__content.wp-content a {
   color: #2E3192;
+  font-size: 24px;
+  font-weight: 400;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s ease;
@@ -143,7 +167,7 @@
 }
 .pdp__content.wp-content ul { list-style: disc; }
 .pdp__content.wp-content ol { list-style: decimal; }
-.pdp__content.wp-content li { margin-bottom: 7px; line-height: 1.75; }
+.pdp__content.wp-content li { margin-bottom: 7px; }
 
 .pdp__content.wp-content blockquote {
   border-left: 4px solid #2E3192;
@@ -185,7 +209,6 @@
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
-  font-size: 15px;
 }
 .pdp__content.wp-content th,
 .pdp__content.wp-content td {
@@ -195,8 +218,8 @@
 }
 .pdp__content.wp-content th {
   background: #f0f4ff;
-  font-weight: 700;
-  color: #0d1b3e;
+  font-weight: 600;
+  color: #111111;
 }
 .pdp__content.wp-content hr {
   border: none;
@@ -334,13 +357,13 @@
   text-decoration: none;
   display: inline-block;
   transition: color 0.2s ease;
+  text-decoration: underline;
 }
-.pdp__rel-card-link:hover,
+/* .pdp__rel-card-link:hover,
 .pdp__rel-card-link:focus-visible {
   color: var(--secondary);
-  text-decoration: underline;
   outline: none;
-}
+} */
 
 /* ── Skeleton card ── */
 .pdp__rel-card--skeleton .pdp__rel-card-img-wrap { aspect-ratio: 16 / 10; }
@@ -425,7 +448,21 @@
 
   .pdp__hero-img { max-height: 260px; }
 
-  .pdp__content.wp-content { font-size: 15px; }
+  .pdp__content.wp-content { font-size: 18px; line-height: 28px; }
+
+  .pdp__content.wp-content h1,
+  .pdp__content.wp-content h2 { font-size: 22px; line-height: 30px; }
+  .pdp__content.wp-content h3 { font-size: 20px; line-height: 28px; }
+  .pdp__content.wp-content h4,
+  .pdp__content.wp-content h5,
+  .pdp__content.wp-content h6 { font-size: 18px; line-height: 26px; }
+
+  .pdp__content.wp-content p,
+  .pdp__content.wp-content span,
+  .pdp__content.wp-content li,
+  .pdp__content.wp-content td,
+  .pdp__content.wp-content th,
+  .pdp__content.wp-content a { font-size: 18px; line-height: 28px; }
 
   .pdp__date-badge {font-size: 16px; font-weight: 600px; padding: 9px 20px;}
 }
@@ -436,6 +473,19 @@
   .pdp__title    { font-size: 18px; }
   .pdp__subtitle { font-size: 16px; }
   .pdp__date-badge {font-size: 14px; padding: 6px 14px;}
-  .pdp__content.wp-content h2 { font-size: 19px; }
-  .pdp__content.wp-content h3 { font-size: 17px; }
+  .pdp__content.wp-content { font-size: 16px; line-height: 26px; }
+
+  .pdp__content.wp-content h1,
+  .pdp__content.wp-content h2 { font-size: 19px; line-height: 26px; }
+  .pdp__content.wp-content h3 { font-size: 17px; line-height: 24px; }
+  .pdp__content.wp-content h4,
+  .pdp__content.wp-content h5,
+  .pdp__content.wp-content h6 { font-size: 16px; line-height: 24px; }
+
+  .pdp__content.wp-content p,
+  .pdp__content.wp-content span,
+  .pdp__content.wp-content li,
+  .pdp__content.wp-content td,
+  .pdp__content.wp-content th,
+  .pdp__content.wp-content a { font-size: 16px; line-height: 26px; }
 }
