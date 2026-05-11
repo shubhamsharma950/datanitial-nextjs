@@ -8,7 +8,6 @@
 
 /* ── Section wrapper ── */
 .rb-section {
-  background: #f5f7ff;
   padding: 80px 0 100px;
   width: 100%;
 }
@@ -26,20 +25,6 @@
 .rb-header {
   text-align: center;
   margin-bottom: 48px;
-}
-
-.rb-header__title {
-  font-weight: 600;
-  color: #0d1b3e;
-  line-height: 1.2;
-  margin: 0 0 14px;
-}
-
-.rb-header__desc {
-  color: #5a6a85;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.7;
 }
 
 /* ════════════════════════════════
@@ -214,14 +199,14 @@
   text-decoration: none;
   display: inline-block;
   transition: color 0.2s ease;
+  text-decoration: underline;
 }
 
 
 .rb-card__link:hover,
 .rb-card__link:focus-visible {
-  color: var(--secondary);
-  text-decoration: underline;
-  outline: none;
+  /* color: var(--secondary); */
+  /* outline: none; */
 }
 
 /* ── Skeleton card ── */

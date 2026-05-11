@@ -62,7 +62,7 @@
 
 /* Second word highlight — brand blue */
 .a3s__hl {
-  color: #2563eb;
+  color: var(--secondary);
 }
 
 /* ── Description ── */

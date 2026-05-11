@@ -7,7 +7,7 @@
     padding: 25px 0;
     overflow: hidden;
     position: relative;
-    margin: auto;
+    margin: 20px auto;
 }
 .brand-logo-section::before,
 .brand-logo-section::after {
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   width: max-content;
-  animation: scrollLogos 10s linear infinite;
+  animation: scrollLogos 16s linear infinite;
 }
 
 .brand-logo-wrapper:hover .brand-logo-track {
@@ -108,4 +108,9 @@
     max-height: 32px;
   }
 }
-@media (max-width: 500px){.brand-logo-section {padding: 27px 0;}.brand-logo-item img {max-height: 10px;} .brand-logo-main {padding: 34px 0px;}}
+@media (max-width: 500px){
+.brand-logo-section {
+    padding: 22px 0;
+    margin: 0 auto;
+}
+.brand-logo-item img {max-height: 10px;} .brand-logo-main {padding: 34px 0px;}}

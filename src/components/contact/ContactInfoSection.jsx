@@ -158,8 +158,8 @@ export default function ContactInfoSection() {
                     {/* Label */}
                     <h3 className="cis__card-label">{item.label}</h3>
 
-                    {/* Value — linked if url present */}
-                    {isLink ? (
+                    {/* Value — address is plain text, others linked if url present */}
+                    {isLink && item.key !== "office_address" ? (
                       <a
                         href={url}
                         className="cis__card-value cis__card-value--link"

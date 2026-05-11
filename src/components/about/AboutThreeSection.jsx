@@ -27,12 +27,13 @@ const FAV_ICON_URL =
 function SplitTitle({ title }) {
   if (!title) return null;
   const words = title.trim().split(/\s+/);
-  if (words.length < 2) return <>{title}</>;
-  const [first, second, ...rest] = words;
+  if (words.length < 1) return <>{title}</>;
+  const [first, second, third, ...rest] = words;
   return (
     <>
       {first}{" "}
-      <span className="a3s__hl">{second}</span>
+      <span className="a3s__hl">{second}</span> &nbsp;
+      <span className="a3s__hl">{third}</span>
       {rest.length ? " " + rest.join(" ") : ""}
     </>
   );
