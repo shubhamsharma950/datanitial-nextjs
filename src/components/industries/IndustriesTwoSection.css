@@ -191,6 +191,10 @@
 }
 
 @media (max-width: 480px) {
+.ind2--visible .ind2__header, .ind2--visible .ind2__list, .ind2--visible .ind2__image-wrap {
+    order: 1;
+}
+
   .ind2 { padding: 48px 0; }
 
   .ind2__num {
