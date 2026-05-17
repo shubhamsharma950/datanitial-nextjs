@@ -6,7 +6,7 @@
 
 /* ── Section ── */
 .sddia {
-  background: radial-gradient(ellipse at 50% 60%, #dce8ff 0%, #eef3ff 35%, #f5f8ff 60%, #ffffff 85%);
+  /* background: radial-gradient(ellipse at 50% 60%, #dce8ff 0%, #ecf2ff 35%, #f5f8ff 60%, #ffffff 85%); */
   padding: 80px 0 0;
   width: 100%;
   position: relative;
@@ -75,7 +75,7 @@
 .sddia__arc-origin {
   position: absolute;
   left: 50%;
-  top: 75%;
+  top: 81%;
   width: 0;
   height: 0;
 }
@@ -108,9 +108,27 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-.sddia__arc--lg { width: 900px; height: 900px; }
-.sddia__arc--md { width: 660px; height: 660px; }
-.sddia__arc--sm { width: 420px; height: 420px; }
+.sddia__arc--lg { width: 990px; height: 900px; color: #CEEAFF; border-color: #CEEAFF; }
+.sddia__arc--md { width: 770px; height: 720px; color: #BBD3FD; border-color: #BBD3FD; }
+.sddia__arc--sm { width: 587px; height: 550px; color: #3A4FB7; border-color: #3A4FB7;
+}
+/* background: radial-gradient(ellipse at 50% 60%, #dce8ff 0%, #ecf2ff 35%, #f5f8ff 60%, #ffffff 85%); */
+
+/* Extra arc — appears only after logo click */
+.sddia__arc--ssm {
+  width: 360px;
+  height: 340px;
+  border-color: #2E3192;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.72);
+  transition:
+    opacity   0.85s ease 0.1s,
+    transform 0.95s cubic-bezier(0.34, 1.4, 0.64, 1) 0.1s;
+}
+.sddia__arc--ssm.sddia__arc--triggered {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
 
 /* ══════════════════════════════════════════════
    ORBITAL IMAGE NODES
@@ -173,50 +191,67 @@
   position: absolute;
   left: 0;
   top: 0;
-    width: 179px;
-    height: 185px;
-    margin-left: -75px;
-  margin-top: -70px;
+  width: 176px;
+  height: 195px;
+  padding: 17px;
+  margin-left: -75px;
+  margin-top: -104px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  border-radius: 10%;
+  border-radius: 30px;
   border: none;
-  box-shadow: 0 8px 40px rgba(99, 130, 241, 0.18), 0 2px 12px rgba(0,0,0,0.08);
   z-index: 20;
   cursor: pointer;
+  
+     /* Wider smooth blue spread */
+    /* background: radial-gradient(circle,
+        rgba(78, 124, 207, 0.55) 0%,
+        rgba(78, 124, 207, 0.38) 20%,
+        rgba(78, 124, 207, 0.24) 40%,
+        rgba(78, 124, 207, 0.14) 60%,
+        rgba(78, 124, 207, 0.07) 80%,
+        rgba(78, 124, 207, 0.02) 92%,
+        rgba(78, 124, 207, 0.00) 100%); */
+
+    /* Extra outer glow spread */
+    box-shadow:
+        0 0 120px 60px rgba(78, 124, 207, 0.55),
+        0 0 220px 120px rgba(78, 124, 207, 0.24);
 }
 .sddia__logo-wrap--done {
   cursor: default;
   pointer-events: none;
   background: transparent;
+  box-shadow: none;
 }
-/* .sddia__logo-wrap:focus-visible {
-  outline: 3px solid #6366f1;
-  outline-offset: 4px;
-} */
 
 @keyframes sddia-logo-float {
   0%, 100% { transform: translateY(0);    }
   50%       { transform: translateY(-10px); }
 }
 
-.sddia__logo {
+/* filter: drop-shadow(0 3px 8px rgba(99, 130, 241, 0.2)); */
+/* .sddia__logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 3px 8px rgba(99, 130, 241, 0.2));
   pointer-events: none;
-}
+} */
+.sddia__logo {
+  width: 100%;
+  height: 100%;
+  /* border-radius: 12px; */
+} 
 
 /* ── Pulse ring hint ── */
 .sddia__logo-pulse {
   position: absolute;
   inset: -10px;
   border-radius: 50%;
-  border: 2px solid rgba(99, 130, 241, 0.5);
-  animation: sddia-pulse 2s ease-out infinite;
+  /* border: 2px solid rgba(99, 130, 241, 0.5);
+  animation: sddia-pulse 2s ease-out infinite; */
   pointer-events: none;
 }
 @keyframes sddia-pulse {
@@ -245,45 +280,82 @@
 ═══════════════════════════════════════════════ */
 
 @media (max-width: 1200px) {
-  .sddia__arc--lg { width: 900px;  height: 900px;  }
-  .sddia__arc--md { width: 640px;  height: 640px;  }
-  .sddia__arc--sm { width: 400px;  height: 400px;  }
+  /* ~95% of base */
+  .sddia__arc--lg { width: 893px;  height: 855px;  }
+  .sddia__arc--md { width: 703px;  height: 684px;  }
+  .sddia__arc--sm { width: 548px;  height: 523px;  }
 }
 
 @media (max-width: 1024px) {
+  /* ~80% of base */
   .sddia__stage   { height: 480px; }
-  .sddia__arc--lg { width: 800px;  height: 800px;  }
-  .sddia__arc--md { width: 570px;  height: 570px;  }
-  .sddia__arc--sm { width: 360px;  height: 360px;  }
-  .sddia__logo-wrap { width: 120px; height: 120px; margin-left: -60px; margin-top: -60px; }
+  .sddia__arc--lg { width: 752px;  height: 720px;  }
+  .sddia__arc--md { width: 592px;  height: 576px;  }
+  .sddia__arc--sm { width: 462px;  height: 440px;  }
+  .sddia__logo-wrap{padding: 10px;}
 }
 
 @media (max-width: 768px) {
+  /* ~65% of base */
+  .sddia__arc-origin {
+    position: absolute;
+    left: 50%;
+    top: 89%;
+    width: 0;
+    height: 0;
+}
   .sddia        { padding-top: 60px; }
   .sddia__stage { height: 420px; }
-  .sddia__arc--lg { width: 660px;  height: 660px;  }
-  .sddia__arc--md { width: 470px;  height: 470px;  }
-  .sddia__arc--sm { width: 300px;  height: 300px;  }
-  .sddia__logo-wrap { width: 100px; height: 100px; margin-left: -50px; margin-top: -50px; }
+  .sddia__arc--lg { width: 611px;  height: 585px;  }
+  .sddia__arc--md { width: 481px;  height: 468px;  }
+  .sddia__arc--sm { width: 255px;  height: 258px;  }
+  .sddia__logo-wrap { width: 120px; height: 130px; margin-left: -52px; margin-top: -81px; }
   .sddia__node-img  { border-radius: 12px; }
 }
 
 @media (max-width: 640px) {
+  /* ~50% of base */
   .sddia        { padding-top: 48px; }
   .sddia__header { margin-bottom: 36px; }
   .sddia__stage { height: 360px; }
-  .sddia__arc--lg { width: 500px;  height: 500px;  }
-  .sddia__arc--md { width: 360px;  height: 360px;  }
-  .sddia__arc--sm { width: 220px;  height: 220px;  }
-  .sddia__logo-wrap { width: 80px; height: 80px; margin-left: -40px; margin-top: -40px; }
+  .sddia__arc--lg { width: 470px;  height: 450px;  }
+  .sddia__arc--md { width: 370px;  height: 360px;  }
+  .sddia__arc--sm { width: 289px;  height: 275px;  }
+  /* .sddia__logo-wrap { width: 80px; height: 90px; margin-left: -40px; margin-top: -40px; } */
   .sddia__node-img  { border-radius: 10px; border-width: 2px; }
   .sddia__logo-pulse { inset: -8px; }
+  .sddia__arc--ssm{display: none;}
+    .sddia__logo-wrap {
+    width: 90px;
+    height: 95px;
+    padding: 10px;
+    margin-left: -41px;
+    margin-top: -63px;
+}
 }
 
 @media (max-width: 400px) {
+  /* ~40% of base */
   .sddia__stage { height: 320px; }
-  .sddia__arc--lg { width: 420px;  height: 420px;  }
-  .sddia__arc--md { width: 300px;  height: 300px;  }
-  .sddia__arc--sm { width: 190px;  height: 190px;  }
-  .sddia__logo-wrap { width: 70px; height: 70px; margin-left: -35px; margin-top: -35px; }
+  .sddia__arc--lg { width: 376px;  height: 360px;  }
+  .sddia__arc--md { width: 296px;  height: 288px;  }
+  .sddia__arc--sm { width: 231px;  height: 220px;  }
+  /* .sddia__logo-wrap { width: 90px; height: 100px; margin-left: -35px; margin-top: -35px; } */
 }
+/*
+
+.sddia__arc--sm {
+    width: 351px;
+    height: 251px;
+}
+.sddia__arc--md {
+    width: 338px;
+    height: 288px;
+}
+
+.sddia__arc--lg {
+    width: 446px;
+    height: 360px;
+} 
+
+*/

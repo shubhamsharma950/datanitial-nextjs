@@ -169,7 +169,7 @@ const PageLoader= () => {
 
         <div className="inner-loader__brand">
           <img
-            src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/ditanitial_logo.png"
+            src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/logo.png"
             alt="Main Logo"
             className="inner-loader__logo"
           />

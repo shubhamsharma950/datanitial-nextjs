@@ -164,38 +164,43 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 2 – Industries */}
-          <div className="ftr__col">
-            <h3 className="ftr__heading">Industries</h3>
-            <ul className="ftr__links">
-              {industries.map((item) => (
-                <li key={item.ID}>
-                  <a href={item.url} className="ftr__link">
-                    <span className="ftr__link-arrow" aria-hidden="true">›</span>
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Col 2 + 3 – Industries & Ready Solutions (side-by-side on 380–768px) */}
+          <div className="ftr__col--menus">
 
-          {/* Col 3 – Ready Solutions */}
-          <div className="ftr__col">
-            <h3 className="ftr__heading">Ready Solutions</h3>
-            <ul className="ftr__links">
-              {solutions.map((item) => (
-                <li key={item.ID}>
-                  <a href={item.url} className="ftr__link">
-                    <span className="ftr__link-arrow" aria-hidden="true">›</span>
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {/* Col 2 – Industries */}
+            <div className="ftr__col">
+              <h3 className="ftr__heading">Industries</h3>
+              <ul className="ftr__links">
+                {industries.map((item) => (
+                  <li key={item.ID}>
+                    <a href={item.url} className="ftr__link">
+                      <span className="ftr__link-arrow" aria-hidden="true">›</span>
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3 – Ready Solutions */}
+            <div className="ftr__col">
+              <h3 className="ftr__heading">Ready Solutions</h3>
+              <ul className="ftr__links">
+                {solutions.map((item) => (
+                  <li key={item.ID}>
+                    <a href={item.url} className="ftr__link">
+                      <span className="ftr__link-arrow" aria-hidden="true">›</span>
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
 
           {/* Col 4 – Contact */}
-          <div className="ftr__col">
+          <div className="ftr__col ftr__col--contact">
             <h3 className="ftr__heading">Contact</h3>
             <ul className="ftr__contact">
               <li className="ftr__contact-item">

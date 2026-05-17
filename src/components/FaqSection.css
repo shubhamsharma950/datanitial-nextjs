@@ -366,6 +366,12 @@ span.faq-badge__label {
 
 /* Small mobile */
 @media (max-width: 480px) {
+  .faq-badge {
+    padding: 6px 10px 6px 8px !important;
+    font-size: 11px !important;
+}
+  .faq-badge__icon { width: 15px; height: 15px; }
+
   .faq-section__container { padding: 0 16px; }
  .faq-help-card__content {max-width: 70%;padding: 77px 18px 22px;}
   .faq-help-card__title { font-size: 17px; }

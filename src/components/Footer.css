@@ -176,17 +176,52 @@
 .ftr__wa svg { width: 26px; height: 26px; }
 .ftr__wa:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55); }
 
+/* menus wrapper — transparent on desktop/tablet, becomes grid on mobile */
+.ftr__col--menus {
+  display: contents;
+}
+
 /* ── Responsive ── */
 @media (max-width: 1024px) { .ftr__grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
+@media (max-width: 768px) and (min-width: 400px) {
+.ftr__desc {max-width: 100%;}
+  /* Overall grid: single column — each col stacks */
+  .ftr__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 0;
+  }
 
+  /* Brand col — full width */
+  .ftr__col--brand {
+    grid-column: 1 / -1;
+  }
+
+  /* Industries + Ready Solutions sit in a 2-col sub-grid */
+  .ftr__col--menus {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-top: 14px;
+  }
+
+  /* Contact col — full width */
+  .ftr__col--contact {
+    grid-column: 1 / -1;
+  }
+}
 @media (max-width: 600px) {
-  .ftr__grid { grid-template-columns: 1fr; gap: 28px; padding: 0px;}
+  .ftr__heading {font-size: 18px;}
   .ftr__main { padding: 40px 20px; }
   .ftr__bottom { padding: 16px 20px; }
   .ftr__bottom p { font-size: 15px; }
   .ftr__watermark { font-size: 40px; letter-spacing: 3px; }
   .ftr__wa { bottom: 20px; right: 20px; width: 46px; height: 46px; }
 }
-@media (max-width: 370px){
+@media (max-width: 400px){
+.ftr__desc {max-width: 100%;}
+  .ftr__grid { grid-template-columns: 1fr; gap: 28px; padding: 0px;}
   .ftr__watermark { font-size: 30px; }
 }

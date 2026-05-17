@@ -173,6 +173,8 @@ export default function SdSectionDataInAction() {
               <div className={`sddia__arc sddia__arc--lg${inView ? " sddia__arc--visible" : ""}`} style={{ transitionDelay: "0.05s" }} />
               <div className={`sddia__arc sddia__arc--md${inView ? " sddia__arc--visible" : ""}`} style={{ transitionDelay: "0.2s"  }} />
               <div className={`sddia__arc sddia__arc--sm${inView ? " sddia__arc--visible" : ""}`} style={{ transitionDelay: "0.35s" }} />
+              {/* Extra arc — appears on logo click */}
+              <div className={`sddia__arc sddia__arc--ssm${triggered ? " sddia__arc--triggered" : ""}`} />
 
               {/* Orbital images — triggered by logo click */}
               {useCases.map((uc, i) => {
@@ -222,7 +224,7 @@ export default function SdSectionDataInAction() {
                 disabled={triggered}
               >
                 <img
-                  src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/l2.png"
+                  src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/animated-log-2.png"
                   alt={data.title || "Solution logo"}
                   className="sddia__logo"
                   draggable={false}
