@@ -133,7 +133,7 @@
 
 .sdp__logo {
   width: 100%;
-  height: 96%;
+  /* height: 96%; */
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
@@ -200,8 +200,8 @@
   transform: translateX(0); /* Items slide to final position */
 }
 .sdp__dot, .sdp__check-icon {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
 }
 /* Blue checkmark icons - larger size to match design */
 .sdp__check-icon {
@@ -357,8 +357,14 @@
     width: 93px;
     height: 91px;
 }
+.sdp__problems{
+    border-radius: 0 0 70px 70px;
+}
+.sdp__right-wrap{
+  border-radius: 70px 70px 0 0;
+}
 .sdp__problems, .sdp__right-wrap--in .sdp__solutions-panel {
-    padding: 55px 32px;
+    padding: 91px 37px;
 }
 .sdp__solution-item, .sdp__problem-item{
     padding: 5px 0;
@@ -369,7 +375,10 @@
     height: 18px;
 }
   .sdp { padding: 44px 0 0px; }
-  .sdp__logo { width: 48px; height: 48px; }
+  .sdp__logo {
+    width: 100%;
+    height: 100%;
+}
 }
 
 /* ══════════════════════════════════════════

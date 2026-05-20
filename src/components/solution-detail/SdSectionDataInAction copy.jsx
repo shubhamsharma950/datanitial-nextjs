@@ -47,26 +47,26 @@ const DEFAULT_USE_CASES = [
  * Sizes vary — inner arc images larger, outer smaller.
  */
 const DESKTOP_NODES = [
-  { x: -490, y: -100, size: 65  },   // 0 — far left, low
-  { x: -450, y: -360, size: 75 },   // 1 — left outer, high
-  { x: -240, y:  -80, size: 82  },   // 2 — left low, mid-height
-  { x: -170, y: -340, size: 75  },   // 3 — left inner top
-  { x:  -600, y: -160, size: 72  },   // 4 — center-left, inner
-  { x:  155, y: -320, size: 80 },   // 5 — center-right top
-  { x:  295, y: -195, size: 95 },   // 6 — right inner
-  { x:  415, y:  -75, size: 50  },   // 7 — right mid, low
-  { x:  490, y: -280, size: 80  },   // 8 — far right, high
+  { x: -480, y: -80,  size: 90  },   // 0 — far left
+  { x: -340, y: -220, size: 95 },   // 1 — left outer
+  { x: -260, y: -60,  size: 80  },   // 2 — left low
+  { x: -180, y: -320, size: 80 },   // 3 — left inner top
+  { x:  -80, y: -140, size: 75  },   // 4 — center-left
+  { x:  160, y: -300, size: 95 },   // 5 — center-right top
+  { x:  300, y: -180, size: 95  },   // 6 — right inner
+  { x:  420, y:  -60, size: 80  },   // 7 — right mid
+  { x:  500, y: -260, size: 85  },   // 8 — far right
 ];
 
 const MOBILE_NODES = [
-  { x: -155, y:  -50, size: 48 },
-  { x: -151, y: -265, size: 56 },
-  { x:  -123, y: -145, size: 42 },
-  { x:  -45, y: -301, size: 62 },
-  { x:   -3, y:  -160, size: 40 },
-  { x:   63, y: -260, size: 58 },
-  { x:  100, y:  -131, size: 50 },
-  { x:  151, y: -212, size: 52 },
+  { x: -130, y:  -50, size: 48 },
+  { x: -100, y: -140, size: 56 },
+  { x:  -60, y:  -30, size: 42 },
+  { x:  -40, y: -200, size: 62 },
+  { x:   20, y:  -60, size: 40 },
+  { x:   60, y: -180, size: 58 },
+  { x:  100, y:  -80, size: 50 },
+  { x:  120, y: -240, size: 52 },
   { x:  140, y:  -40, size: 44 },
 ];
 
