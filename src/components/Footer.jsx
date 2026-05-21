@@ -1,44 +1,6 @@
 import { useEffect, useState } from "react";
-import { getFooterSiteInfo, getFooterOptions, getFooterMenuItems } from "../services/api";
+import { getFooterPostData, getFooterSocial } from "../services/api";
 import "./Footer.css";
-
-/* ─────────────────────────────────────────────────────────────
-   STATIC FALLBACK DATA
-   Used when the WordPress API is unreachable / not yet set up.
-───────────────────────────────────────────────────────────── */
-const FALLBACK = {
-  siteName: "Datanitial",
-  description:
-    "Datanitial offers advanced web data crawling services, transforming billions of web pages into actionable insights. We provide accurate, clean, and comprehensive data to help businesses uncover trends, make informed decisions, and stay ahead in their industry.",
-  industries: [
-    { ID: 1, title: "Enterprise Web Crawling",  url: "#" },
-    { ID: 2, title: "Mobile App Scraping",       url: "#" },
-    { ID: 3, title: "Web Scraping API",          url: "#" },
-    { ID: 4, title: "Custom Data Extraction",    url: "#" },
-    { ID: 5, title: "Price Scraping Services",   url: "#" },
-    { ID: 6, title: "Real-Time Web Crawling",    url: "#" },
-    { ID: 7, title: "Digital Shelf Analytics",   url: "#" },
-    { ID: 8, title: "AI-Powered Scraping",       url: "#" },
-  ],
-  solutions: [
-    { ID: 1, title: "Mobile App Scraping",          url: "#" },
-    { ID: 2, title: "Real Time API",                url: "#" },
-    { ID: 3, title: "Data Analytics Dashboard",     url: "#" },
-    { ID: 4, title: "Hotel Price Monitoring",       url: "#" },
-    { ID: 5, title: "Restaurant Details And Menu",  url: "#" },
-  ],
-  contact: {
-    address: "Koramangala, Koramangala 8th Block, Bangalore – South, Karnataka",
-    email:   "Info@Datanitial.Com",
-    phone:   "+91 749 094 7694",
-  },
-  social: [
-    { id: "twitter",   label: "Twitter",   url: "#" },
-    { id: "instagram", label: "Instagram", url: "#" },
-    { id: "medium",    label: "Medium",    url: "#" },
-  ],
-  whatsapp: "https://wa.me/917490947694",
-};
 
 /* ─────────────────────────────────────────────────────────────
    INLINE SVG ICONS  (crisp, pixel-perfect)
@@ -92,44 +54,33 @@ const icons = {
    FOOTER COMPONENT
 ───────────────────────────────────────────────────────────── */
 export default function Footer() {
-  const [siteName,    setSiteName]    = useState(FALLBACK.siteName);
-  const [description, setDescription] = useState(FALLBACK.description);
-  const [industries,  setIndustries]  = useState(FALLBACK.industries);
-  const [solutions,   setSolutions]   = useState(FALLBACK.solutions);
-  const [contact,     setContact]     = useState(FALLBACK.contact);
-  const [social,      setSocial]      = useState(FALLBACK.social);
-  const [whatsapp,    setWhatsapp]    = useState(FALLBACK.whatsapp);
+  const [logo,        setLogo]        = useState("");
+  const [description, setDescription] = useState("");
+  const [industries,  setIndustries]  = useState([]);
+  const [solutions,   setSolutions]   = useState([]);
+  const [contact,     setContact]     = useState({ address: "", email: "", phone: "" });
+  const [social,      setSocial]      = useState([]);
+  const [whatsapp,    setWhatsapp]    = useState("");
 
   const year = new Date().getFullYear();
 
   useEffect(() => {
-    /* Site name + description from WP site-info endpoint */
-    getFooterSiteInfo()
-      .then((res) => {
-        if (res?.data?.site_name)  setSiteName(res.data.site_name);
-        if (res?.data?.tagline)    setDescription(res.data.tagline);
+    getFooterPostData()
+      .then((data) => {
+        if (!data) return;
+        if (data.logo)               setLogo(data.logo);
+        if (data.description)        setDescription(data.description);
+        if (data.industries?.length) setIndustries(data.industries);
+        if (data.solutions?.length)  setSolutions(data.solutions);
+        if (data.contact)            setContact((prev) => ({ ...prev, ...Object.fromEntries(
+          Object.entries(data.contact).filter(([, v]) => v)
+        )}));
+        if (data.whatsapp)           setWhatsapp(data.whatsapp);
       })
       .catch(() => {});
 
-    /* Industries menu */
-    getFooterMenuItems("footer-industries")
-      .then((items) => { if (items?.length) setIndustries(items); })
-      .catch(() => {});
-
-    /* Ready Solutions menu */
-    getFooterMenuItems("footer-solutions")
-      .then((items) => { if (items?.length) setSolutions(items); })
-      .catch(() => {});
-
-    /* Custom footer options (contact, social, whatsapp) */
-    getFooterOptions()
-      .then((res) => {
-        if (!res?.data) return;
-        const d = res.data;
-        if (d.contact)  setContact(d.contact);
-        if (d.social)   setSocial(d.social);
-        if (d.whatsapp) setWhatsapp(d.whatsapp);
-      })
+    getFooterSocial()
+      .then((items) => { if (items?.length) setSocial(items); })
       .catch(() => {});
   }, []);
 
@@ -142,9 +93,8 @@ export default function Footer() {
 
           {/* Col 1 – Brand */}
           <div className="ftr__col ftr__col--brand">
-            <a href="/" className="ftr__logo" aria-label={`${siteName} – home`}>
-              <img src="/fav.png" alt="" width={33} height={44} aria-hidden="true" />
-              <span>{siteName}</span>
+            <a href="/" className="ftr__logo" aria-label="Home">
+              {logo && <img src={logo} alt="Footer logo" />}
             </a>
             <p className="ftr__desc">{description}</p>
             <ul className="ftr__social" aria-label="Social media">
@@ -157,7 +107,10 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {icons[s.id] ?? null}
+                    {s.icon_url
+                      ? <img src={s.icon_url} alt={s.label} width={20} height={20} />
+                      : (icons[s.id] ?? null)
+                    }
                   </a>
                 </li>
               ))}
@@ -213,7 +166,7 @@ export default function Footer() {
               </li>
               <li className="ftr__contact-item">
                 <span className="ftr__contact-icon">{icons.phone}</span>
-                <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
+                <a href={`tel:${String(contact.phone || "").replace(/\s/g, "")}`}>{contact.phone}</a>
               </li>
             </ul>
           </div>

@@ -45,7 +45,7 @@
   margin-bottom: 6px;
 }
 
-.ftr__logo img { width: 28px; height: 35px; object-fit: contain; }
+.ftr__logo img { width: auto; object-fit: contain; }
 
 .ftr__desc {
   font-size: 16px;
@@ -63,21 +63,49 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 1px solid var(--accent);
+  border: 1.5px solid var(--accent);
   color: var(--accent);
   text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: background 0.22s, border-color 0.22s, color 0.22s, box-shadow 0.22s;
 }
 
-.ftr__social-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+/* Inline SVG icons */
+.ftr__social-link svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  fill: var(--accent);
+  transition: fill 0.22s;
+}
 
+/* Image icons from media library (Icon Picker) */
+.ftr__social-link img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+  /* Tint white/light icons to accent blue */
+  filter: brightness(0) saturate(100%) invert(47%) sepia(60%) saturate(500%) hue-rotate(190deg) brightness(105%);
+  transition: filter 0.22s;
+}
+
+/* Hover — filled accent circle, white icon */
 .ftr__social-link:hover {
   background: var(--secondary);
   border-color: var(--secondary);
-  color: var(--text-light);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(58, 79, 183, 0.45);
+}
+
+.ftr__social-link:hover svg {
+  fill: #fff;
+}
+
+.ftr__social-link:hover img {
+  filter: brightness(0) invert(1);
 }
 
 /* ── Nav link lists ── */
