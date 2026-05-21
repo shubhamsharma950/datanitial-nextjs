@@ -188,7 +188,7 @@ export async function getFooterPostData() {
       contact: {
         address: acf.contact?.address ? String(acf.contact.address) : null,
         email:   acf.contact?.email   ? String(acf.contact.email)   : null,
-        phone:   acf.contact?.phone   ? String(acf.contact.phone)   : null,
+        phone:   acf.contact?.phone   ? '+' + String(acf.contact.phone).replace(/^\+/, '') : null,
       },
       whatsapp,
     };
