@@ -120,6 +120,97 @@ export async function getFooterMenuItems(slug) {
   }
 }
 
+/**
+ * Fetch footer data from the custom post type `footer`.
+ * Looks for the post with slug "main-footer".
+ * GET /wp/v2/footer?slug=main-footer&_fields=id,title,acf
+ *
+ * ACF fields (from the "Footer" field group):
+ *   footer_logo        image (returns media ID)  → resolve via /wp/v2/media/:id
+ *   footer_discerption textarea → description text
+ *   social_icons       group → { medium, twitter, instagram } each { type:"media_library", value:"ID" }
+ *   social_urls        group → { medium_url, twitter_url, instagram_url }  ← new
+ *   industries         group → { key: page_url, … }
+ *   solutions          group → { key: page_url, … }
+ *   contact            group → { address, email, phone }
+ *   whatsapp_btn       link  → { url, title, target }
+ */
+export async function getFooterPostData() {
+  try {
+    const res = await api.get("/wp/v2/footer", {
+      params: { slug: "main-footer", _fields: "id,title,acf" },
+    });
+    const post = Array.isArray(res.data) ? res.data[0] : res.data;
+    if (!post) return null;
+
+    const acf = post.acf ?? {};
+
+    // Resolve a media ID or { type:"media_library", value:"ID" } → source_url string
+    const resolveMedia = async (val) => {
+      if (!val) return null;
+      const id = typeof val === "object" && val.type === "media_library"
+        ? val.value
+        : (typeof val === "number" || (typeof val === "string" && /^\d+$/.test(val)) ? val : null);
+      if (!id) return typeof val === "string" ? val : null;
+      try {
+        const r = await api.get(`/wp/v2/media/${id}`, { params: { _fields: "source_url" } });
+        return r.data?.source_url || null;
+      } catch { return null; }
+    };
+
+    // Convert a snake_case key → Title Case label
+    const keyToLabel = (key) =>
+      key.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+    // Flat Group { key: url } → [{ ID, title, url }]
+    const groupToLinks = (group) => {
+      if (!group || typeof group !== "object") return [];
+      return Object.entries(group)
+        .filter(([, url]) => url && typeof url === "string")
+        .map(([key, url], i) => ({ ID: i + 1, title: keyToLabel(key), url }));
+    };
+
+    // Resolve logo (ACF Image field returns a media ID when set to "Image ID" or "Image Array")
+    const logo = await resolveMedia(acf.footer_logo);
+
+    // whatsapp_btn: ACF Link field → { url, title, target }
+    const whatsappRaw = acf.whatsapp_btn;
+    const whatsapp = whatsappRaw?.url || (typeof whatsappRaw === "string" ? whatsappRaw : null);
+
+    // Social: fetched from dedicated endpoint (see getFooterSocial below)
+    // to keep this function fast and avoid multiple media resolutions here.
+
+    return {
+      logo,
+      description: acf.footer_discerption || null,
+      industries:  groupToLinks(acf.industries),
+      solutions:   groupToLinks(acf.solutions),
+      contact: {
+        address: acf.contact?.address ? String(acf.contact.address) : null,
+        email:   acf.contact?.email   ? String(acf.contact.email)   : null,
+        phone:   acf.contact?.phone   ? '+' + String(acf.contact.phone).replace(/^\+/, '') : null,
+      },
+      whatsapp,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Fetch footer social icons + profile URLs.
+ * GET /theme/v1/footer-social
+ * Returns: [{ id, label, icon_url, url }, …]
+ */
+export async function getFooterSocial() {
+  try {
+    const res = await api.get("/theme/v1/footer-social");
+    return Array.isArray(res.data) ? res.data : [];
+  } catch {
+    return [];
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    HOMEPAGE
 ═══════════════════════════════════════════════════════════ */
