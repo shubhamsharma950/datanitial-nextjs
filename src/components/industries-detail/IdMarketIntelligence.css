@@ -1,0 +1,220 @@
+/* ═══════════════════════════════════════════════
+   INDUSTRIES DETAIL — MARKET INTELLIGENCE
+   Background SVG image (755×654) + HTML circles
+   overlaid at % positions matching SVG geometry
+═══════════════════════════════════════════════ */
+
+.idmi {
+ background: linear-gradient(180deg, #fff 0%, #CCE9FF 100%);
+ padding: 80px 0 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.idmi__header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.idmi--visible .idmi__header { opacity: 1; transform: translateY(0); }
+
+
+/* ── Outer wrapper — constrains max width ── */
+.idmi__svg-wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: -100px auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease 0.25s, transform 0.9s ease 0.25s;
+}
+.idmi--visible .idmi__svg-wrap { opacity: 1; transform: translateY(0); }
+
+/* ── Inner wrapper — maintains SVG aspect ratio 755:654 ── */
+.idmi__svg-wrap-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 755 / 654;
+}
+.idmi__bg-svg {
+    position: absolute;
+    inset: 0;
+    top: 194px;
+    left: 152px;
+    width: 75%;
+    height: 75%;
+    object-fit: fill;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
+
+.idmi__node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.idmi__node--top { left: 49.9%; top: 27.2%; }
+.idmi__node--bl  { left: 16.7%; top: 74.9%; }
+.idmi__node--br  { left: 83.3%; top: 74.9%; }
+
+/* ── Center label ── */
+.idmi__center-label {
+    position: absolute;
+    left: 50%;
+    top: 56%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(12px, 1.8vw, 24px);
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* ══════════════════════════════
+   CIRCLES
+══════════════════════════════ */
+.idmi__circle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+
+  opacity: 0;
+  transform: scale(0.82);
+  transition:
+    opacity 1s ease var(--delay, 0s),
+    transform 1s ease var(--delay, 0s);
+}
+.idmi--visible .idmi__circle { opacity: 1;}
+
+/* Top — medium blue */
+.idmi__circle--top {
+  background: var(--secondary);
+}
+/* Bottom-left — lighter blue */
+.idmi__circle--bl {
+  background: var(--accent);
+}
+/* Bottom-right — dark navy */
+.idmi__circle--br {
+  background: var(--primary);
+}
+
+/* ── Title — visible by default ── */
+.idmi__circle-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.35;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+/* ── Description — hidden by default ── */
+.idmi__circle-desc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 55px 8px 55px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.93);
+  line-height: 35px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.idmi__circle:hover .idmi__circle-title { opacity: 0; }
+.idmi__circle:hover .idmi__circle-desc  { opacity: 1; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px){
+  .idmi__svg-wrap { margin: -80px auto;}
+}
+@media (max-width: 768px){
+  .idmi__circle-title {font-size: 20px;}
+  .idmi__circle-desc  {font-size: 14px; padding: 20px; line-height: 23px;} 
+  .idmi__bg-svg {
+    top: 131px;
+    left: 103px;
+    width: 72%;
+    height: 72%;}
+  .idmi__center-label {
+    left: 50%;
+    top: 56%;}
+
+  .idmi__circle {
+  width: 200px;
+  height: 200px;}
+}
+
+@media (max-width: 600px) {
+   .idmi__svg-wrap { margin: 0 auto;}
+  .idmi { padding: 56px 0 0; }
+  .idmi__header { margin-bottom: 12px; }
+  .idmi__center-label { font-size: 10px; }
+}
+
+@media (max-width: 426px) {
+  .idmi__circle-title {font-size: 14px;}
+  .idmi__circle-desc  {font-size: 10px; padding: 15px; line-height: 14px;}
+  .idmi__bg-svg {
+    top: 71px;
+    left: 58px;
+    width: 72%;
+    height: 72%;
+}
+  .idmi__circle {
+  width: 150px;
+  height: 150px;}
+}
+@media (max-width: 376px){
+  .idmi__circle-title {font-size: 12px;}
+  .idmi__circle-desc  {font-size: 8px;}
+ .idmi__bg-svg {
+    top: 68px;
+    left: 45px;
+    width: 67%;
+    height: 65%;
+  }
+  .idmi__circle {
+  width: 120px;
+  height: 120px;}
+}
+@media (max-width: 320px){
+  .idmi__center-label {
+    font-size: 8px;
+}
+.idmi__center-label {
+    left: 49%;
+    top: 59%;
+}
+}

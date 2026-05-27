@@ -1,0 +1,218 @@
+/* ═══════════════════════════════════════════════
+   INDUSTRIES DETAIL — PRODUCT INTELLIGENCE
+═══════════════════════════════════════════════ */
+
+.idpi {
+  background: linear-gradient(180deg, #fff 0%, #CCE9FF 100%);
+  padding: 80px 0 0;
+  width: 100%;
+}
+
+/* ── Header ── */
+.idpi__header {
+  text-align: center;
+  margin-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.idpi__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;   /* side cards align to top */
+}
+
+/* ══════════════════════════════
+   BASE CARD
+══════════════════════════════ */
+.idpi__card {
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 28px rgba(30, 40, 120, 0.08);
+  overflow: visible;    /* allow center card image to overflow */
+  position: relative;
+}
+
+/* ── Side cards: clip image inside ── */
+.idpi__card:not(.idpi__card--center) {
+  overflow: hidden;
+}
+
+/* ══════════════════════════════
+   IMAGE AREA — side cards
+   Image sits inside card, fills top
+══════════════════════════════ */
+.idpi__card-img-wrap {
+  width: 88%;
+  margin: auto;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.idpi__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* NO hover zoom — removed */
+}
+
+.idpi__card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e8eeff 0%, #d0dcff 100%);
+}
+
+/* ══════════════════════════════
+   CENTER CARD — image overflows TOP
+   Card body is the white rounded box
+   Image sticks out above it
+══════════════════════════════ */
+.idpi__card--center {
+  overflow: visible;
+  margin-top: 110px;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 4px 28px rgba(30, 40, 120, 0.08);
+}
+
+.idpi__card--center .idpi__card-img-wrap {
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+/* White card body for center card */
+.idpi__card--center .idpi__card-body {
+  position: relative;
+  z-index: 1;
+  padding-top: 52px;
+}
+
+/* ── Card body ── */
+.idpi__card-body {
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.idpi__card-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.idpi__card-des {
+  font-size: 20px;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════
+   SCROLL-REVEAL ANIMATIONS
+══════════════════════════════ */
+
+/* Card 1 — from LEFT */
+.idpi__card--from-left {
+  opacity: 0;
+  transform: translateX(-70px);
+  transition: opacity 0.85s ease 0.1s, transform 0.85s ease 0.1s;
+}
+
+/* Card 2 — from BOTTOM */
+.idpi__card--from-bottom {
+  opacity: 0;
+  transform: translateY(70px);
+  transition: opacity 0.85s ease 0.25s, transform 0.85s ease 0.25s;
+}
+
+/* Card 3 — from RIGHT */
+.idpi__card--from-right {
+  opacity: 0;
+  transform: translateX(70px);
+  transition: opacity 0.85s ease 0.4s, transform 0.85s ease 0.4s;
+}
+
+/* Visible states */
+.idpi__card--visible.idpi__card--from-left  { opacity: 1; transform: translateX(0); }
+.idpi__card--visible.idpi__card--from-right { opacity: 1; transform: translateX(0); }
+.idpi__card--visible.idpi__card--from-bottom { opacity: 1; transform: translateY(0); }
+
+/* ── Skeleton ── */
+.idpi__card-skel        { height: 380px; border-radius: 20px; }
+.idpi__card-skel--center { height: 440px; margin-top: 60px; }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 900px) {
+  .idpi__cards { gap: 16px; }
+  .idpi__card-body { padding: 22px 22px 26px; }
+  .idpi__card-img-wrap { height: 180px; }
+  .idpi__card--center .idpi__card-img-wrap { height: 210px; }
+  .idpi__card--center { margin-top: 40px; }
+}
+
+@media (max-width: 768px) {
+.idpi__card-title {font-size: 20px;}
+.idpi__card-des {font-size: 18px;}
+.idpi__card--center{border-radius: 20px;}
+
+  .idpi { padding: 56px 0 64px; }
+  .idpi__header { margin-bottom: 36px; }
+
+  .idpi__cards {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  /* Reset center card on mobile */
+  .idpi__card--center {
+    margin-top: 0;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 28px rgba(30, 40, 120, 0.08);
+  }
+  .idpi__card--center .idpi__card-img-wrap {
+    height: 200px;
+    margin-bottom: 0;
+    border-radius: 20px 20px 0 0;
+    box-shadow: none;
+  }
+  .idpi__card--center .idpi__card-body {
+    background: transparent;
+    box-shadow: none;
+    padding-top: 24px;
+  }
+
+  .idpi__card-img-wrap,
+  .idpi__card--center .idpi__card-img-wrap { height: 200px; }
+
+  /* Mobile: all slide up */
+  .idpi__card--from-left,
+  .idpi__card--from-right { transform: translateY(50px); }
+  .idpi__card--from-left  { transition-delay: 0.1s; }
+  .idpi__card--from-bottom { transition-delay: 0.2s; }
+  .idpi__card--from-right { transition-delay: 0.3s; }
+
+  .idpi__card--visible.idpi__card--from-left,
+  .idpi__card--visible.idpi__card--from-right { transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .idpi__card-title {font-size: 18px;}
+.idpi__card-des {font-size: 15px;}
+  .idpi { padding: 40px 0 48px; }
+  .idpi__card-body { padding: 20px 20px 24px; }
+}
