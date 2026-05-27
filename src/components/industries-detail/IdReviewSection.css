@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════
+   INDUSTRIES DETAIL — REVIEW & RATINGS SECTION
+
+   - Full viewport height on desktop
+   - BG image fades in first, then overlay fades in on top
+   - Content anchored to bottom: left col + right pills
+   - Pills: staggered pyramid  1 / 2 / 2
+═══════════════════════════════════════════════ */
+
+.idr {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 520px;
+  display: flex;
+  align-items: stretch;   /* stretch so container fills full height */
+  overflow: hidden;
+}
+
+/* ── Background image — fades in first ── */
+.idr__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  z-index: 0;
+
+  /* start: invisible + slight scale */
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.9s ease, transform 7s ease;
+}
+
+/* BG becomes visible as soon as section enters viewport */
+.idr--visible .idr__bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Dark overlay — fades in AFTER bg (delayed) ── */
+.idr__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 18, 0.68);
+  z-index: 1;
+
+  /* start: invisible */
+  opacity: 0;
+  transition: opacity 0.8s ease 0.6s; /* 0.6s delay — after bg appears */
+}
+
+.idr--visible .idr__overlay {
+  opacity: 1;
+}
+
+/* ── Content sits above overlay ── */
+.idr .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  padding: 60px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.idr__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: stretch;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════
+   LEFT — title + desc + CTA anchored TOP
+══════════════════════════════ */
+.idr__left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: flex-start;   /* anchor to TOP */
+  align-self: flex-start;
+
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
+}
+
+.idr--visible .idr__left {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.idr__title {
+  font-size: 52px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.12;
+}
+
+.idr__desc {
+  font-size: 32px;
+  color: #D9D9D9;
+  line-height: 1.75;
+  margin: 0;
+  /* max-width: 440px; */
+}
+
+/* CTA — outlined white pill */
+.idr__cta {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 10px 26px;
+  border: 1.5px solid #E2F3FF;
+  border-radius: 6px;
+  color: #E2F3FF;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  width: fit-content;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.idr__cta:hover {
+  background: var(--primary);
+  border-color: #fff;
+}
+
+/* ══════════════════════════════
+   RIGHT — pill tags anchored BOTTOM-RIGHT
+══════════════════════════════ */
+.idr__pills {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-self: flex-end;
+  gap: 12px;
+  min-width: 0;        /* prevent grid blowout */
+  overflow: hidden;
+}
+
+/* Each row */
+.idr__pill-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;     /* always wrap — prevents overflow on all screens */
+  min-width: 0;
+}
+
+.idr__pill {
+  display: inline-block;
+  margin: 4px;
+  padding: 10px 20px;
+  border: 1.5px solid #D9D9D9;
+  border-radius: 999px;
+  color: #fff;
+  font-size: clamp(11px, 1.1vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 1;      /* allow shrinking */
+  min-width: 0;
+
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              background 0.25s ease, border-color 0.25s ease;
+}
+
+
+/* Stagger by row — pills inside each row get sequential delays */
+.idr--visible .idr__pill-row:nth-child(1) .idr__pill              { opacity:1; transform:translateY(0); transition-delay: 1.0s;  }
+.idr--visible .idr__pill-row:nth-child(2) .idr__pill:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 1.15s; }
+.idr--visible .idr__pill-row:nth-child(2) .idr__pill:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 1.25s; }
+.idr--visible .idr__pill-row:nth-child(3) .idr__pill:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 1.35s; }
+.idr--visible .idr__pill-row:nth-child(3) .idr__pill:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 1.45s; }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 1024px) {
+  .idr__title { font-size: 35px; }
+  .idr__desc  { font-size: 21px; }
+  .idr__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .idr {
+    /* height: auto;
+    min-height: 480px; */
+    align-items: stretch;
+    padding-top: 0;
+    overflow: hidden; /* prevent horizontal scroll */
+  }
+
+  .idr .container {
+    padding: 48px 0 40px;
+    overflow: hidden;
+  }
+
+  .idr__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 13px;
+    overflow: hidden;
+  }
+  .idr__cta { font-size: 15px; padding: 8px 22px; }
+
+  .idr__left  { align-self: auto; }
+
+  /* Pills: keep right-aligned, but wrap and shrink on mobile */
+  .idr__pills {
+    align-self: auto;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .idr__pill-row {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .idr__pill {
+    margin: 4px;
+    padding: 8px 14px;
+    font-size: 11px;
+    white-space: normal;      /* allow text to wrap inside pill */
+    word-break: break-word;
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .idr__title { font-size: 28px; }
+  .idr__desc  { font-size: 16px; }
+
+  .idr .container { padding: 40px 0; }
+
+  .idr__pill-row { gap: 6px; }
+
+  .idr__pill {
+    margin: 3px;
+    padding: 7px 12px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+}

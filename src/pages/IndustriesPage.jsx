@@ -64,7 +64,7 @@ export default function IndustriesPage() {
       {/* ── Custom page sections ── */}
       <IndustriesOneSection />
       {/* IndustriesSection from home page  */}
-      <IndustriesSection />
+      <IndustriesSection useDetailLinks />
       <IndustriesTwoSection />
       <IndustriesThreeSection />
       {/* FaqSection footer sec  */}

@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./IndustriesSection.css";
+
+/* ── All industry tabs link to the same detail page ── */
+const TAB_DETAIL_ROUTES = {
+  "real_estate":           "/industries-detail",
+  "food_delivery":         "/industries-detail",
+  "mobility":              "/industries-detail",
+  "retail_&_ecommerce":    "/industries-detail",
+  "retail_ecommerce":      "/industries-detail",
+  "travel_&_hospitality":  "/industries-detail",
+  "travel_hospitality":    "/industries-detail",
+  "location_intelligence": "/industries-detail",
+};
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
@@ -67,7 +80,7 @@ function Skeleton() {
    Reads ACF service_tab_systom from page 63
    Each tab key has its own field naming pattern
 ═══════════════════════════════════════════════ */
-export default function IndustriesSection() {
+export default function IndustriesSection({ useDetailLinks = false }) {
   const [sectionTitle, setSectionTitle] = useState("Transforming Web Data into Business Intelligence");
   const [sectionDesc,  setSectionDesc]  = useState("We deliver enterprise-grade data extraction and intelligence solutions that scale with your business — ensuring accuracy, speed, and reliability for smarter decision-making.");
   const [tabs,         setTabs]         = useState([]);
@@ -202,9 +215,18 @@ export default function IndustriesSection() {
                 ))}
               </ul>
             )}
-            <a href={active.learn_more || "#contact"} className="ind__learn-more">
-              Learn More
-            </a>
+            {useDetailLinks && TAB_DETAIL_ROUTES[active.id] ? (
+              <Link
+                to="/industries-detail"
+                className="ind__learn-more"
+              >
+                Learn More
+              </Link>
+            ) : (
+              <a href={active.learn_more || "#contact"} className="ind__learn-more">
+                Learn More
+              </a>
+            )}
           </div>
 
           {/* Right */}
