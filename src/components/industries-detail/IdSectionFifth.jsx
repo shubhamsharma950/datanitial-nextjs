@@ -25,7 +25,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchIndustriesDetailPage, resolveImg } from "./industriesDetailApi";
+import { getIndustriesDetailFetcher, resolveImg } from "./industriesDetailApi";
 import "./IdSectionFifth.css";
 
 function Skeleton() {
@@ -42,7 +42,7 @@ function Skeleton() {
   );
 }
 
-export default function IdSectionFifth() {
+export default function IdSectionFifth({ pageId }) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const leftRef   = useRef(null);
@@ -52,6 +52,7 @@ export default function IdSectionFifth() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
+    const fetchIndustriesDetailPage = getIndustriesDetailFetcher(pageId);
     fetchIndustriesDetailPage()
       .then(async (acf) => {
         const s  = acf?.section_fifth ?? {};
@@ -93,7 +94,7 @@ export default function IdSectionFifth() {
       .catch(() => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll reveal ── */
   useEffect(() => {

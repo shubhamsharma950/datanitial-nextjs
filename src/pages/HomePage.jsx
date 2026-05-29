@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./HomePage.css";
+import SEO from "../components/SEO";
 import HeroSection      from "../components/HeroSection";
 import WhoWeAreSection  from "../components/WhoWeAreSection";
 import WhyChooseUs      from "../components/WhyChooseUs";
@@ -75,6 +76,12 @@ export default function HomePage() {
 
   return (
     <main className="wp-page">
+      <SEO 
+        title="Datanitial | Enterprise-Level Web Scraping Solutions at Scale"
+        description="Datanitial is the world's leading enterprise web scraping company, offering large-scale, reliable, and customized data extraction solutions for businesses worldwide."
+        keywords="Enterprise Web Scraping, Web Scraping Services, Data Extraction, Data as a Service, Datanitial, Scalable Web Scraping"
+      />
+      
       {/* ── Hero Section ── */}
       {/* <HeroSection /> */}
       <HeroBanner />

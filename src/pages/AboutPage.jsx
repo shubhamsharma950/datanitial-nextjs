@@ -28,6 +28,7 @@
  */
 
 import InnerPageLayout    from "./InnerPageLayout";
+import SEO from "../components/SEO";
 import AboutSection       from "../components/about/AboutSection";
 import AboutTwoSection    from "../components/about/AboutTwoSection";
 import AboutThreeSection  from "../components/about/AboutThreeSection";
@@ -48,6 +49,12 @@ export default function AboutPage() {
       fallbackTitle="About Us"
       fallbackDescription="At Datanitial, we empower businesses with scalable data solutions that turn complex web data into clear, actionable insights."
     >
+      <SEO 
+        title="About Us"
+        description="Learn more about Datanitial, the global leader in enterprise-level web scraping. Discover our mission, team, and expertise in delivering scalable data extraction solutions."
+        keywords="About Datanitial, Enterprise Web Scraping, Web Scraping Experts, Data Extraction Company, Datanitial Team, Web Scraping Company"
+      />
+      
       {/* Section 0.1 — About brand slider */}
       <BrandLogoSlider />
 

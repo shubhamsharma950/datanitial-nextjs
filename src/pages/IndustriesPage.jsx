@@ -21,6 +21,7 @@
  */
 
 import { useLocation } from "react-router-dom";
+import SEO from "../components/SEO";
 import InnerPageLayout         from "./InnerPageLayout";
 import InnerPageContent        from "./InnerPageContent";
 import IndustriesOneSection    from "../components/industries/IndustriesOneSection";
@@ -55,6 +56,12 @@ export default function IndustriesPage() {
       fallbackTitle="Industries We Serve"
       fallbackDescription="From e-commerce to finance, we deliver tailored data intelligence solutions across every major industry vertical."
     >
+      <SEO 
+        title="Industries We Serve"
+        description="From e-commerce to finance, we deliver tailored data intelligence solutions across every major industry vertical. Healthcare, real estate, travel, and more."
+        keywords="industries, e-commerce data, finance data, healthcare data, real estate data, travel data, industry solutions"
+      />
+      
       <InnerPageContent
         pageId={pageId}
         acfField={ACF_FIELD}

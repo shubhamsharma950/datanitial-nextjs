@@ -1,30 +1,26 @@
 /**
  * industriesDetailApi.js  —  components/industries-detail/
- * Single cached fetch for the entire Industries Detail page ACF data.
- * All section components share this one call — WP is hit only once.
  *
- * WordPress Page ID: 1191  (Industries Detail page)
- * ACF fields live directly under acf{} — no wrapper group.
+ * Provides per-page-ID cached fetchers for the Industries Detail sections.
+ * Each page ID gets its own cache entry so all section components on the
+ * same page share a single WP request, while different industry pages
+ * (Real Estate, Food Delivery, etc.) each fetch their own data.
  *
- * Verified ACF structure (from WordPress ACF editor):
+ * Usage:
+ *   import { getIndustriesDetailFetcher, resolveImg } from "./industriesDetailApi";
+ *   const fetchPage = getIndustriesDetailFetcher(pageId);
+ *   const acf = await fetchPage();
  *
- *   acf{}
- *   └── section_one (Group)
- *         ├── title           Text
- *         ├── description     Text Area
- *         ├── image           Image  → full ACF image object { url, alt, … }
- *         └── image_box (Group)
- *               ├── card1 (Group) → { img, title, description }
- *               ├── card2 (Group) → { img, title, description }
- *               ├── card3 (Group) → { img, title, description }
- *               └── card4 (Group) → { img, title, description }
+ * Legacy default export kept for backward compatibility:
+ *   import { fetchIndustriesDetailPage } from "./industriesDetailApi";
+ *   // → uses PAGE_ID 1191
  */
 
 export const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
   "https://darkred-worm-224502.hostingersite.com/wp-json";
 
-const PAGE_ID = 1191;
+const DEFAULT_PAGE_ID = 1191;
 
 /* ── Resolve any ACF image field → URL string ──
    Handles all ACF return formats:
@@ -64,31 +60,44 @@ export async function resolveImg(val) {
   return typeof val === "string" ? val : "";
 }
 
-/* ── Module-level cache ── */
-let _cache   = null;
-let _promise = null;
+/* ── Per-page-ID cache map ── */
+const _caches   = new Map(); // pageId → acf data
+const _promises = new Map(); // pageId → in-flight promise
 
+/**
+ * Returns a fetcher function bound to the given pageId.
+ * Multiple calls with the same pageId return the same cached fetcher.
+ */
+export function getIndustriesDetailFetcher(pageId = DEFAULT_PAGE_ID) {
+  return async function fetchPage() {
+    if (_caches.has(pageId)) return _caches.get(pageId);
+    if (_promises.has(pageId)) return _promises.get(pageId);
+
+    const promise = fetch(
+      `${WP_BASE}/wp/v2/pages/${pageId}?_fields=acf`
+    )
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((json) => {
+        const data = json?.acf ?? {};
+        _caches.set(pageId, data);
+        _promises.delete(pageId);
+        return data;
+      })
+      .catch((err) => {
+        _promises.delete(pageId);
+        throw err;
+      });
+
+    _promises.set(pageId, promise);
+    return promise;
+  };
+}
+
+/* ── Legacy default fetcher (page 1191) — keeps existing imports working ── */
+const _legacyFetch = getIndustriesDetailFetcher(DEFAULT_PAGE_ID);
 export async function fetchIndustriesDetailPage() {
-  if (_cache)   return _cache;
-  if (_promise) return _promise;
-
-  _promise = fetch(
-    `${WP_BASE}/wp/v2/pages/${PAGE_ID}?_fields=acf`
-  )
-    .then((r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.json();
-    })
-    .then((json) => {
-      // ACF fields are flat under acf{} — no wrapper group
-      _cache   = json?.acf ?? {};
-      _promise = null;
-      return _cache;
-    })
-    .catch((err) => {
-      _promise = null;
-      throw err;
-    });
-
-  return _promise;
+  return _legacyFetch();
 }

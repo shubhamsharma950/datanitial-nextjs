@@ -13,7 +13,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { fetchIndustriesDetailPage } from "./industriesDetailApi";
+import { getIndustriesDetailFetcher } from "./industriesDetailApi";
 import "./IdMarketIntelligence.css";
 
 const SVG_URL = "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/Rectangle-arrow.svg";
@@ -61,13 +61,14 @@ function Skeleton() {
   );
 }
 
-export default function IdMarketIntelligence() {
+export default function IdMarketIntelligence({ pageId }) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const sectionRef            = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
+    const fetchIndustriesDetailPage = getIndustriesDetailFetcher(pageId);
     fetchIndustriesDetailPage()
       .then((acf) => {
         const s = acf?.market_intelligence ?? {};
@@ -86,7 +87,7 @@ export default function IdMarketIntelligence() {
       .catch(() => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   useEffect(() => {
     if (loading || !sectionRef.current) return;

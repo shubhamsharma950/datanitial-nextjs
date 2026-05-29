@@ -25,7 +25,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { fetchIndustriesDetailPage, resolveImg } from "./industriesDetailApi";
+import { getIndustriesDetailFetcher, resolveImg } from "./industriesDetailApi";
 import "./IdSectionOne.css";
 
 /* ── Skeleton ── */
@@ -51,7 +51,7 @@ function Skeleton() {
   );
 }
 
-export default function IdSectionOne() {
+export default function IdSectionOne({ pageId }) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const sectionRef            = useRef(null);
@@ -59,6 +59,7 @@ export default function IdSectionOne() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
+    const fetchIndustriesDetailPage = getIndustriesDetailFetcher(pageId);
 
     fetchIndustriesDetailPage()
       .then(async (acf) => {
@@ -93,7 +94,7 @@ export default function IdSectionOne() {
       .finally(() => { if (!cancelled) setLoading(false); });
 
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll reveal ── */
   useEffect(() => {
