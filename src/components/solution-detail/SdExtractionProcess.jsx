@@ -13,6 +13,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getSdExtractionProcess } from "./solutionsDetailApi";
+import { useSolutionPageId } from "./SolutionDetailContext";
 import "./SdExtractionProcess.css";
 
 /* ── Star icon — matches badge-sec pattern ── */
@@ -61,6 +62,7 @@ function Skeleton() {
 
 /* ── Main component ── */
 export default function SdExtractionProcess() {
+  const pageId = useSolutionPageId();
   const [data,      setData]      = useState(null);
   const [loading,   setLoading]   = useState(true);
   const [visible,   setVisible]   = useState(false);
@@ -75,12 +77,12 @@ export default function SdExtractionProcess() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
-    getSdExtractionProcess()
+    getSdExtractionProcess(pageId)
       .then((d)  => { if (!cancelled) setData(d); })
       .catch(()  => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Section reveal ── */
   useEffect(() => {

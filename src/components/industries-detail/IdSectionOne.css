@@ -131,9 +131,12 @@
    RESPONSIVE
 ══════════════════════════════ */
 @media (max-width: 1024px) {
+  .ids1 {
+    padding: 0 !important;
+}
   .ids1__inner { gap: 40px; }
   .ids1__inner {
-  grid-template-columns: 1fr 520px;
+  grid-template-columns: 1fr;
   gap: 50px;
 }
 }

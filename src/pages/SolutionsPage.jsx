@@ -63,7 +63,13 @@ export default function SolutionsPage() {
       {/* ── Dynamic sections — all data fetched from solutionsApi.js ── */}
       <SolutionsSectionOne />
       {/* OurSolutions form home page  */}
-      <OurSolutions detailLink="/solutions/detail" />
+      <OurSolutions detailLinks={[
+        "/solutions/web-data-extraction",
+        "/solutions/mobile-app-scraping",
+        "/solutions/real-time-api",
+        "/solutions/rpa",
+        "/solutions/data-analytics",
+      ]} />
       <SolutionsSectionTwo />
       <SolutionsSectionThree />
        {/* FaqSection footer sec  */}

@@ -157,11 +157,36 @@
 
 /* ── Responsive ── */
 @media (max-width: 1024px){
+.idmi__node--bl {
+    left: 18.7%;
+    top: 72.9%;
+}
+.idmi__node--br {
+    left: 79.3%;
+    top: 73.9%;
+}
+
+
   .idmi__svg-wrap { margin: -80px auto;}
+ .idmi__circle-title {font-size: 20px;}
+  .idmi__circle-desc  {font-size: 14px; padding: 20px; line-height: 23px;} 
+   .idmi__bg-svg {
+    top: 166px;
+    left: 125px;
+    width: 74%;
+    height: 74%;
+}
+  .idmi__center-label {
+    left: 50%;
+    top: 56%;}
+
+  .idmi__circle {
+  width: 200px;
+  height: 200px;}
 }
 @media (max-width: 768px){
-  .idmi__circle-title {font-size: 20px;}
-  .idmi__circle-desc  {font-size: 14px; padding: 20px; line-height: 23px;} 
+  /* .idmi__circle-title {font-size: 20px;}
+  .idmi__circle-desc  {font-size: 14px; padding: 20px; line-height: 23px;}  */
   .idmi__bg-svg {
     top: 131px;
     left: 103px;
@@ -199,12 +224,12 @@
 @media (max-width: 376px){
   .idmi__circle-title {font-size: 12px;}
   .idmi__circle-desc  {font-size: 8px;}
- .idmi__bg-svg {
-    top: 68px;
-    left: 45px;
-    width: 67%;
-    height: 65%;
-  }
+.idmi__bg-svg {
+    top: 48px;
+    left: 19px;
+    width: 85%;
+    height: 84%;
+}
   .idmi__circle {
   width: 120px;
   height: 120px;}

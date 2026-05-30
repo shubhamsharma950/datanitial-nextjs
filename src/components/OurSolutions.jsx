@@ -81,7 +81,7 @@ function parseFromAcf(acf) {
    ACF: our_solutions (title/desc) + our_solutions_faq (question1/answer1…question5/answer5)
    Answer panel: image + description text + bullet list (matches design screenshot)
 ═══════════════════════════════════════════════ */
-export default function OurSolutions({ detailLink = null }) {
+export default function OurSolutions({ detailLink = null, detailLinks = null }) {
   const [title,       setTitle]       = useState("Scalable Data Solutions for Modern Businesses");
   const [description, setDescription] = useState("Built to handle complex data needs, our solutions deliver reliable, structured, and actionable insights across industries.");
   const [items,       setItems]       = useState([]);
@@ -156,10 +156,10 @@ export default function OurSolutions({ detailLink = null }) {
             >
               {/* Row — always visible */}
               <div className="sol__item-header">
-                {detailLink ? (
+                {(detailLinks || detailLink) ? (
                   /* ── SolutionsPage mode: title + icon both link to detail page ── */
                   <Link
-                    to={detailLink}
+                    to={detailLinks ? (detailLinks[i] || detailLink || "/solutions/detail") : detailLink}
                     className="sol__item-header-link"
                     aria-label={`View details for ${item.question}`}
                   >

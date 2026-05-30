@@ -12,6 +12,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getSdSectionDataInAction } from "./solutionsDetailApi";
+import { useSolutionPageId } from "./SolutionDetailContext";
 import "./SdSectionDataInAction.css";
 
 
@@ -96,6 +97,7 @@ function Skeleton() {
    Main component
 ───────────────────────────────────────────── */
 export default function SdSectionDataInAction() {
+  const pageId = useSolutionPageId();
   const [data,      setData]      = useState(null);
   const [loading,   setLoading]   = useState(true);
   const [inView,    setInView]    = useState(false);   // arcs appear on scroll
@@ -106,11 +108,11 @@ export default function SdSectionDataInAction() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
-    getSdSectionDataInAction()
+    getSdSectionDataInAction(pageId)
       .then((d) => { if (!cancelled) setData(d); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Responsive ── */
   useEffect(() => {

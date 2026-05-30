@@ -202,7 +202,8 @@
    RESPONSIVE
 ══════════════════════════════ */
 @media (max-width: 1024px) {
-  .ids5__grid { grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; }
+  /* .ids5__grid { grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; } */
+  .ids5__grid { grid-template-columns: 2fr 350px; gap: 16px; }
   .ids5__col--center { padding: 36px 28px; }
 }
 
@@ -220,7 +221,7 @@
   }
 
   /* Left — fixed height on mobile */
-  .ids5__col--left { min-height: 320px; }
+  /* .ids5__col--left { min-height: 320px; } */
 
   /* Right image fixed height */
   /* .ids5__right-img-wrap { flex: 0 0 220px; height: 220px; } */

@@ -30,6 +30,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getSdSectionProblems } from "./solutionsDetailApi";
+import { useSolutionPageId } from "./SolutionDetailContext";
 import "./SdSectionProblems.css";
 
 const FALLBACK_LOGO =
@@ -91,6 +92,7 @@ function Skeleton() {
    MAIN COMPONENT
 ══════════════════════════════════════════════════════════════════════ */
 export default function SdSectionProblems() {
+  const pageId = useSolutionPageId();
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const [leftVisible, setLeftVisible] = useState(false);
@@ -100,12 +102,12 @@ export default function SdSectionProblems() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
-    getSdSectionProblems()
+    getSdSectionProblems(pageId)
       .then((d)  => { if (!cancelled) setData(d); })
       .catch(()  => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── IntersectionObserver on the body row ── */
   useEffect(() => {
