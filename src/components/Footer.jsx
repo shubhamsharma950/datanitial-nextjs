@@ -2,6 +2,40 @@ import { useEffect, useState } from "react";
 import { getFooterPostData, getFooterSocial } from "../services/api";
 import "./Footer.css";
 
+const WP_BASE =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
+  "https://darkred-worm-224502.hostingersite.com/wp-json";
+
+const SITE_ORIGIN = "darkred-worm-224502.hostingersite.com";
+
+/** Strip domain → relative path; keep external URLs as-is */
+function resolveHref(url = "") {
+  try {
+    const u = new URL(url);
+    if (u.hostname === SITE_ORIGIN || u.hostname === "localhost") return u.pathname;
+  } catch { /* already relative */ }
+  if (url.startsWith("/") || url.startsWith("#")) return url;
+  return url;
+}
+
+/** Fetch a WP menu by slug → [{ id, title, href }] */
+async function fetchMenuBySlug(slug) {
+  try {
+    const res = await fetch(`${WP_BASE}/menus/v1/menus/${slug}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data?.items ?? [])
+      .sort((a, b) => (a.menu_order ?? 0) - (b.menu_order ?? 0))
+      .map((item) => ({
+        id:    item.ID,
+        title: item.title ?? "",
+        href:  resolveHref(item.url ?? "#"),
+      }));
+  } catch {
+    return [];
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────
    INLINE SVG ICONS  (crisp, pixel-perfect)
 ───────────────────────────────────────────────────────────── */
@@ -65,20 +99,29 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   useEffect(() => {
+    /* ── Brand / contact / social from ACF (unchanged) ── */
     getFooterPostData()
       .then((data) => {
         if (!data) return;
-        if (data.logo)               setLogo(data.logo);
-        if (data.description)        setDescription(data.description);
-        if (data.industries?.length) setIndustries(data.industries);
-        if (data.solutions?.length)  setSolutions(data.solutions);
-        if (data.contact)            setContact((prev) => ({ ...prev, ...Object.fromEntries(
+        if (data.logo)        setLogo(data.logo);
+        if (data.description) setDescription(data.description);
+        if (data.contact)     setContact((prev) => ({ ...prev, ...Object.fromEntries(
           Object.entries(data.contact).filter(([, v]) => v)
         )}));
-        if (data.whatsapp)           setWhatsapp(data.whatsapp);
+        if (data.whatsapp)    setWhatsapp(data.whatsapp);
       })
       .catch(() => {});
 
+    /* ── Industries & Solutions menus fetched directly from WP ── */
+    fetchMenuBySlug("footer-industries")
+      .then((items) => { if (items.length) setIndustries(items); })
+      .catch(() => {});
+
+    fetchMenuBySlug("footer-solutions")
+      .then((items) => { if (items.length) setSolutions(items); })
+      .catch(() => {});
+
+    /* ── Social icons ── */
     getFooterSocial()
       .then((items) => { if (items?.length) setSocial(items); })
       .catch(() => {});
@@ -125,8 +168,8 @@ export default function Footer() {
               <h3 className="ftr__heading">Industries</h3>
               <ul className="ftr__links">
                 {industries.map((item) => (
-                  <li key={item.ID}>
-                    <a href={item.url} className="ftr__link">
+                  <li key={item.id}>
+                    <a href={item.href} className="ftr__link">
                       <span className="ftr__link-arrow" aria-hidden="true">›</span>
                       {item.title}
                     </a>
@@ -140,8 +183,8 @@ export default function Footer() {
               <h3 className="ftr__heading">Ready Solutions</h3>
               <ul className="ftr__links">
                 {solutions.map((item) => (
-                  <li key={item.ID}>
-                    <a href={item.url} className="ftr__link">
+                  <li key={item.id}>
+                    <a href={item.href} className="ftr__link">
                       <span className="ftr__link-arrow" aria-hidden="true">›</span>
                       {item.title}
                     </a>

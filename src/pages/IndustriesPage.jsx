@@ -33,11 +33,9 @@ import IndustriesSection from "../components/IndustriesSection";
 
 /* ── Map sub-route path → WordPress page ID + badge text ── */
 const ROUTE_MAP = {
-  // "/industries/e-commerce":         { pageId: 15, badge: "E-COMMERCE" },
-  "/industries/finance-banking":    { pageId: 15, badge: "FINANCE & BANKING" },
-  "/industries/healthcare":         { pageId: 15, badge: "HEALTHCARE" },
-  "/industries/real-estate":        { pageId: 15, badge: "REAL ESTATE" },
-  "/industries/travel-hospitality": { pageId: 15, badge: "TRAVEL & HOSPITALITY" },
+  "/e-commerce":       { pageId: 15, badge: "E-COMMERCE" },
+  "/finance-banking":  { pageId: 15, badge: "FINANCE & BANKING" },
+  "/healthcare":       { pageId: 15, badge: "HEALTHCARE" },
 };
 
 // const DEFAULT   = { pageId: 15, badge: "INDUSTRIES WE SERVE" };

@@ -159,7 +159,7 @@ export default function OurSolutions({ detailLink = null, detailLinks = null }) 
                 {(detailLinks || detailLink) ? (
                   /* ── SolutionsPage mode: title + icon both link to detail page ── */
                   <Link
-                    to={detailLinks ? (detailLinks[i] || detailLink || "/solutions/detail") : detailLink}
+                    to={detailLinks ? (detailLinks[i] || detailLink || "/solution-detail") : detailLink}
                     className="sol__item-header-link"
                     aria-label={`View details for ${item.question}`}
                   >

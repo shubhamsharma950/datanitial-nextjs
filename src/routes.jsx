@@ -60,36 +60,34 @@ export default function AppRoutes() {
       <Route path="/contact-us"  element={<ContactPage />} />
 
       {/* ── Solutions ── */}
-      <Route path="/solutions"                              element={<SolutionsPage />} />
+      <Route path="/solutions"                    element={<SolutionsPage />} />
 
       {/* ── Dedicated Solution pages (OUR SOLUTIONS accordion links) ── */}
-      <Route path="/solutions/web-data-extraction"          element={<WebDataExtractionPage />} />
-      <Route path="/solutions/mobile-app-scraping"          element={<MobileAppScrapingDetailPage />} />
-      <Route path="/solutions/real-time-api"                element={<RealTimeApiDetailPage />} />
-      <Route path="/solutions/rpa"                          element={<RpaDetailPage />} />
-      <Route path="/solutions/data-analytics"               element={<DataAnalyticsDetailPage />} />
+      <Route path="/web-data-extraction"          element={<WebDataExtractionPage />} />
+      <Route path="/mobile-app-scraping"          element={<MobileAppScrapingDetailPage />} />
+      <Route path="/real-time-api"                element={<RealTimeApiDetailPage />} />
+      <Route path="/rpa"                          element={<RpaDetailPage />} />
+      <Route path="/data-analytics"               element={<DataAnalyticsDetailPage />} />
 
       {/* ── Solution Detail (legacy / generic) ── */}
-      <Route path="/solutions/detail"                       element={<SolutionDetailPage />} />
-      <Route path="/solutions/detail/:slug"                 element={<SolutionDetailPage />} />
+      <Route path="/solution-detail"              element={<SolutionDetailPage />} />
+      <Route path="/solution-detail/:slug"        element={<SolutionDetailPage />} />
 
       {/* ── Industries ── */}
       <Route path="/industries"                   element={<IndustriesPage />} />
-      <Route path="/industries/e-commerce"        element={<IndustriesPage />} />
-      <Route path="/industries/finance-banking"   element={<IndustriesPage />} />
-      <Route path="/industries/healthcare"        element={<IndustriesPage />} />
-      <Route path="/industries/real-estate"       element={<IndustriesPage />} />
-      <Route path="/industries/travel-hospitality" element={<IndustriesPage />} />
+      <Route path="/e-commerce"                   element={<IndustriesPage />} />
+      <Route path="/finance-banking"              element={<IndustriesPage />} />
+      <Route path="/healthcare"                   element={<IndustriesPage />} />
+      <Route path="/real-estate"                  element={<RealEstatePage />} />
+      <Route path="/travel-hospitality"           element={<TravelHospitalityPage />} />
 
       {/* ── Industries Detail ── */}
       <Route path="/industries-detail"      element={<IndustriesDetailPage />} />
 
       {/* ── Industry vertical pages ── */}
-      <Route path="/real-estate"            element={<RealEstatePage />} />
       <Route path="/food-delivery"          element={<FoodDeliveryPage />} />
       <Route path="/mobility"               element={<MobilityPage />} />
       <Route path="/retail-ecommerce"       element={<RetailEcommercePage />} />
-      <Route path="/travel-hospitality"     element={<TravelHospitalityPage />} />
       <Route path="/location-intelligence"  element={<LocationIntelligencePage />} />
 
       {/* ── Resources ── */}
@@ -106,7 +104,6 @@ export default function AppRoutes() {
 
       {/* ── Footer: Industries pages ── */}
       <Route path="/enterprise-web-crawling"  element={<EnterpriseWebCrawlingPage />} />
-      <Route path="/mobile-app-scraping"      element={<MobileAppScrapingPage />} />
       <Route path="/web-scraping-api"         element={<WebScrapingApiPage />} />
       <Route path="/custom-data-extraction"   element={<CustomDataExtractionPage />} />
       <Route path="/price-scraping-services"  element={<PriceScrapingServicesPage />} />
@@ -115,6 +112,7 @@ export default function AppRoutes() {
       <Route path="/ai-powered-scraping"      element={<AiPoweredScrapingPage />} />
 
       {/* ── Footer: Ready Solutions pages ── */}
+      <Route path="/mobile-app-scraping"      element={<MobileAppScrapingPage />} />
       <Route path="/real-time-api-solution"       element={<RealTimeApiPage />} />
       <Route path="/data-analytics-dashboard"     element={<DataAnalyticsDashboardPage />} />
       <Route path="/hotel-price-monitoring"       element={<HotelPriceMonitoringPage />} />
