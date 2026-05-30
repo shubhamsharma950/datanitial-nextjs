@@ -33,11 +33,11 @@ import OurSolutions from "../components/OurSolutions";
 
 /* ── Map sub-route path → WordPress page ID ── */
 const ROUTE_MAP = {
-  "/solutions/web-data-extraction":         { pageId: 13 },
-  "/solutions/mobile-application-scraping": { pageId: 13 },
-  "/solutions/real-time-api":               { pageId: 13 },
-  "/solutions/rpa":                         { pageId: 13 },
-  "/solutions/data-analytics":              { pageId: 13 },
+  "/web-data-extraction": { pageId: 13 },
+  "/mobile-app-scraping": { pageId: 13 },
+  "/real-time-api":       { pageId: 13 },
+  "/rpa":                 { pageId: 13 },
+  "/data-analytics":      { pageId: 13 },
 };
 
 const DEFAULT   = { pageId: 13 };
@@ -64,11 +64,11 @@ export default function SolutionsPage() {
       <SolutionsSectionOne />
       {/* OurSolutions form home page  */}
       <OurSolutions detailLinks={[
-        "/solutions/web-data-extraction",
-        "/solutions/mobile-app-scraping",
-        "/solutions/real-time-api",
-        "/solutions/rpa",
-        "/solutions/data-analytics",
+        "/web-data-extraction",
+        "/mobile-app-scraping",
+        "/real-time-api",
+        "/rpa",
+        "/data-analytics",
       ]} />
       <SolutionsSectionTwo />
       <SolutionsSectionThree />

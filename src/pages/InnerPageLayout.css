@@ -127,6 +127,87 @@ body.inner-page header.hdr {
   color: #3A4FB7;
   font-weight: 600;
 }
+
+/* ── Dropdown wrapper ── */
+.iph__nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Show chevron next to dropdown trigger */
+.iph__nav-link--has-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iph__chevron {
+  display: none;
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+  stroke: currentColor;
+}
+
+/* Dropdown panel — hidden by default, shown on hover */
+.iph__dropdown-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 220px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.13), 0 2px 8px rgba(0, 0, 0, 0.07);
+  padding: 8px 0;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+/* Small arrow notch */
+.iph__dropdown-panel::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #fff;
+  filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.06));
+}
+
+/* Reveal on hover */
+.iph__nav-dropdown:hover .iph__dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.iph__nav-dropdown:hover .iph__chevron {
+  transform: rotate(180deg);
+}
+
+.iph__dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #3a3a5c;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.iph__dropdown-item:hover {
+  color: #3A4FB7;
+  background: #f5f6ff;
+}
 /* Desktop CTA */
 .iph__cta {
   display: inline-flex;
