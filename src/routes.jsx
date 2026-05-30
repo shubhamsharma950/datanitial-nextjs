@@ -42,6 +42,13 @@ import DataAnalyticsDashboardPage from "./pages/solutions/DataAnalyticsDashboard
 import HotelPriceMonitoringPage   from "./pages/solutions/HotelPriceMonitoringPage";
 import RestaurantDetailsMenuPage  from "./pages/solutions/RestaurantDetailsMenuPage";
 
+/* ── Dedicated Solution detail pages ── */
+import WebDataExtractionPage        from "./pages/solutions/WebDataExtractionPage";
+import MobileAppScrapingDetailPage  from "./pages/solutions/MobileAppScrapingDetailPage";
+import RealTimeApiDetailPage        from "./pages/solutions/RealTimeApiDetailPage";
+import RpaDetailPage                from "./pages/solutions/RpaDetailPage";
+import DataAnalyticsDetailPage      from "./pages/solutions/DataAnalyticsDetailPage";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -54,15 +61,17 @@ export default function AppRoutes() {
 
       {/* ── Solutions ── */}
       <Route path="/solutions"                              element={<SolutionsPage />} />
-      <Route path="/solutions/web-data-extraction"          element={<SolutionsPage />} />
-      <Route path="/solutions/mobile-application-scraping"  element={<SolutionsPage />} />
-      <Route path="/solutions/real-time-api"                element={<SolutionsPage />} />
-      <Route path="/solutions/rpa"                          element={<SolutionsPage />} />
-      <Route path="/solutions/data-analytics"               element={<SolutionsPage />} />
 
-      {/* ── Solution Detail ── */}
-      <Route path="/solutions/detail"                           element={<SolutionDetailPage />} />
-      <Route path="/solutions/detail/:slug"                     element={<SolutionDetailPage />} />
+      {/* ── Dedicated Solution pages (OUR SOLUTIONS accordion links) ── */}
+      <Route path="/solutions/web-data-extraction"          element={<WebDataExtractionPage />} />
+      <Route path="/solutions/mobile-app-scraping"          element={<MobileAppScrapingDetailPage />} />
+      <Route path="/solutions/real-time-api"                element={<RealTimeApiDetailPage />} />
+      <Route path="/solutions/rpa"                          element={<RpaDetailPage />} />
+      <Route path="/solutions/data-analytics"               element={<DataAnalyticsDetailPage />} />
+
+      {/* ── Solution Detail (legacy / generic) ── */}
+      <Route path="/solutions/detail"                       element={<SolutionDetailPage />} />
+      <Route path="/solutions/detail/:slug"                 element={<SolutionDetailPage />} />
 
       {/* ── Industries ── */}
       <Route path="/industries"                   element={<IndustriesPage />} />

@@ -12,6 +12,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getSdCards } from "./solutionsDetailApi";
+import { useSolutionPageId } from "./SolutionDetailContext";
 import "./SdCard1.css";
 
 /* ── Skeleton ── */
@@ -37,6 +38,7 @@ function Skeleton() {
 
 /* ── Main component ── */
 export default function SdCard1() {
+  const pageId = useSolutionPageId();
   const [card,    setCard]    = useState(null);
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
@@ -45,12 +47,12 @@ export default function SdCard1() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
-    getSdCards()
+    getSdCards(pageId)
       .then(({ card1 }) => { if (!cancelled) setCard(card1); })
       .catch(()          => { if (!cancelled) setCard(null); })
       .finally(()        => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll reveal ── */
   useEffect(() => {

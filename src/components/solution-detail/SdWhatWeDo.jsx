@@ -20,6 +20,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getSdWhatWeDo } from "./solutionsDetailApi";
+import { useSolutionPageId } from "./SolutionDetailContext";
 import "./SdWhatWeDo.css";
 
 /* ── Star icon (shared badge style) ── */
@@ -79,6 +80,7 @@ function WwdCard({ card, index, visible }) {
 
 /* ── Main component ── */
 export default function SdWhatWeDo() {
+  const pageId = useSolutionPageId();
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
@@ -87,11 +89,11 @@ export default function SdWhatWeDo() {
   /* Fetch */
   useEffect(() => {
     let cancelled = false;
-    getSdWhatWeDo()
+    getSdWhatWeDo(pageId)
       .then((d)  => { if (!cancelled) setData(d); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* Scroll-triggered reveal */
   useEffect(() => {

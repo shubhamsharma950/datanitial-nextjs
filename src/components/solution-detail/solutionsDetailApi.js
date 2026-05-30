@@ -95,46 +95,51 @@ export function parseLines(raw) {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Module-level cache — one fetch shared across all section components
+   Per-page cache — keyed by pageId so each solution page gets its own cache
 ───────────────────────────────────────────────────────────────────────── */
-let _cache   = null;
-let _promise = null;
+const _cacheMap   = {};
+const _promiseMap = {};
+
+/** Default page ID (original solution detail page) */
+export const DEFAULT_PAGE_ID = 919;
 
 /**
- * fetchSolutionDetailPage()
- * Returns the full ACF object for page 919.
- * Subsequent calls return the cached value immediately.
+ * fetchSolutionDetailPage(pageId?)
+ * Returns the full ACF object for the given page ID (defaults to 919).
+ * Subsequent calls for the same pageId return the cached value immediately.
  */
-export async function fetchSolutionDetailPage() {
-  if (_cache)   return _cache;
-  if (_promise) return _promise;
+export async function fetchSolutionDetailPage(pageId = DEFAULT_PAGE_ID) {
+  const id = String(pageId);
 
-  _promise = fetch(`${WP_BASE}/wp/v2/pages/919?_fields=acf`)
+  if (_cacheMap[id])   return _cacheMap[id];
+  if (_promiseMap[id]) return _promiseMap[id];
+
+  _promiseMap[id] = fetch(`${WP_BASE}/wp/v2/pages/${id}?_fields=acf`)
     .then((r) => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
     })
     .then((json) => {
-      _cache   = json?.acf ?? {};
-      _promise = null;
-      return _cache;
+      _cacheMap[id]   = json?.acf ?? {};
+      _promiseMap[id] = null;
+      return _cacheMap[id];
     })
     .catch((err) => {
-      _promise = null;
+      _promiseMap[id] = null;
       // Cache an empty object so repeated calls don't keep hammering a broken endpoint
-      _cache = {};
+      _cacheMap[id] = {};
       throw err;
     });
 
-  return _promise;
+  return _promiseMap[id];
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   getSdSectionOne()
+   getSdSectionOne(pageId?)
    Returns: { badge_text, title, description }
 ───────────────────────────────────────────────────────────────────────── */
-export async function getSdSectionOne() {
-  const acf = await fetchSolutionDetailPage();
+export async function getSdSectionOne(pageId = DEFAULT_PAGE_ID) {
+  const acf = await fetchSolutionDetailPage(pageId);
   const sec = acf?.section_one ?? null;
   if (!sec) return null;
 
@@ -167,8 +172,8 @@ export async function getSdSectionOne() {
      center_image           ← URL string from list_with_animation.fav_logo
    }
 ───────────────────────────────────────────────────────────────────────── */
-export async function getSdSectionProblems() {
-  const acf = await fetchSolutionDetailPage();
+export async function getSdSectionProblems(pageId = DEFAULT_PAGE_ID) {
+  const acf = await fetchSolutionDetailPage(pageId);
   const raw = acf?.section_problems ?? null;
   if (!raw) return null;
 
@@ -204,8 +209,8 @@ export async function getSdSectionProblems() {
    }
    card2 is stored as "card" in WP.
 ───────────────────────────────────────────────────────────────────────── */
-export async function getSdCards() {
-  const acf = await fetchSolutionDetailPage();
+export async function getSdCards(pageId = DEFAULT_PAGE_ID) {
+  const acf = await fetchSolutionDetailPage(pageId);
 
   async function parseCard(raw) {
     if (!raw) return null;
@@ -265,9 +270,9 @@ const DATA_IN_ACTION_FALLBACK = {
   ],
 };
 
-export async function getSdSectionDataInAction() {
+export async function getSdSectionDataInAction(pageId = DEFAULT_PAGE_ID) {
   try {
-    const acf = await fetchSolutionDetailPage();
+    const acf = await fetchSolutionDetailPage(pageId);
     const raw = acf?.section_data_in_action ?? null;
     if (!raw) return DATA_IN_ACTION_FALLBACK;
 
@@ -316,8 +321,8 @@ export async function getSdSectionDataInAction() {
      cards: [{ title, des, image }, ...]
    }
 ───────────────────────────────────────────────────────────────────────── */
-export async function getSdWhatWeDo() {
-  const acf = await fetchSolutionDetailPage();
+export async function getSdWhatWeDo(pageId = DEFAULT_PAGE_ID) {
+  const acf = await fetchSolutionDetailPage(pageId);
   const raw = acf?.what_we_do ?? null;
   if (!raw) return null;
 
@@ -364,8 +369,8 @@ export async function getSdWhatWeDo() {
      steps: [{ title, des }, ...]   — in order: one, two, three, fourth
    }
 ───────────────────────────────────────────────────────────────────────── */
-export async function getSdExtractionProcess() {
-  const acf = await fetchSolutionDetailPage();
+export async function getSdExtractionProcess(pageId = DEFAULT_PAGE_ID) {
+  const acf = await fetchSolutionDetailPage(pageId);
 
   // ACF field name has a typo: "extraction_prcess" (missing 'o')
   const raw = acf?.extraction_prcess ?? null;

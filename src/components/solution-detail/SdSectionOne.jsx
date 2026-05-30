@@ -14,6 +14,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getSdSectionOne } from "./solutionsDetailApi";
+import { useSolutionPageId } from "./SolutionDetailContext";
 import "./SdSectionOne.css";
 
 /* ── Star icon — matches badge-sec pattern ── */
@@ -46,6 +47,7 @@ function Skeleton() {
 
 /* ── Main component ── */
 export default function SdSectionOne() {
+  const pageId = useSolutionPageId();
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
@@ -54,12 +56,12 @@ export default function SdSectionOne() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
-    getSdSectionOne()
+    getSdSectionOne(pageId)
       .then((d)  => { if (!cancelled) setData(d); })
       .catch(()  => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll reveal ── */
   useEffect(() => {

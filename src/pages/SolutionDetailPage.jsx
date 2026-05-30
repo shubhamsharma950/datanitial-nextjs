@@ -25,50 +25,52 @@ import SdExtractionProcess      from "../components/solution-detail/SdExtraction
 import SdWhatWeDo               from "../components/solution-detail/SdWhatWeDo";
 import FaqSection               from "../components/FaqSection";
 import SdSectionOne from "../components/solution-detail/SdSectionOne";
+import { SolutionDetailContext } from "../components/solution-detail/SolutionDetailContext";
 
 const PAGE_ID  = 919;
 const ACF_FIELD = ""; // banner fields are flat on acf.banner for this page
 
 export default function SolutionDetailPage() {
   return (
-    <InnerPageLayout
-      pageId={PAGE_ID}
-      acfField={ACF_FIELD}
-      fallbackTitle="Solution Detail"
-      fallbackDescription="Explore our enterprise-grade data solutions built for speed, scale, and reliability."
-    >
-      <SEO 
-        title="Solution Detail"
-        description="Explore our enterprise-grade data solutions built for speed, scale, and reliability. Web data extraction, mobile scraping, real-time APIs, and more."
-        keywords="solution detail, web data extraction, data scraping, enterprise data solutions, real-time API"
-      />
-      
-      {/* C:\xampp\htdocs\wordpress\react-frontend\src\components\solution-detail\SdSectionOne.jsx */}
-      {/* 1. SdSectionOne vs Solutions */}
-      <SdSectionOne />
-      {/* 1. Problems vs Solutions */}
-      <SdSectionProblems />
+    <SolutionDetailContext.Provider value={PAGE_ID}>
+      <InnerPageLayout
+        pageId={PAGE_ID}
+        acfField={ACF_FIELD}
+        fallbackTitle="Solution Detail"
+        fallbackDescription="Explore our enterprise-grade data solutions built for speed, scale, and reliability."
+      >
+        <SEO 
+          title="Solution Detail"
+          description="Explore our enterprise-grade data solutions built for speed, scale, and reliability. Web data extraction, mobile scraping, real-time APIs, and more."
+          keywords="solution detail, web data extraction, data scraping, enterprise data solutions, real-time API"
+        />
+        
+        {/* 1. SdSectionOne vs Solutions */}
+        <SdSectionOne />
+        {/* 2. Problems vs Solutions */}
+        <SdSectionProblems />
 
-      {/* 2. Card 1 — text-left, image-right */}
-      <SdCard1 />
+        {/* 3. Card 1 — text-left, image-right */}
+        <SdCard1 />
 
-      {/* 3. Card 2 — image-left, text-right */}
-      <SdCard2 />
+        {/* 4. Card 2 — image-left, text-right */}
+        <SdCard2 />
 
-      {/* 4. Card 3 — text-left, image-right */}
-      <SdCard3 />
+        {/* 5. Card 3 — text-left, image-right */}
+        <SdCard3 />
 
-      {/* 5. Data in Action - Orbital Animation */}
-      <SdSectionDataInAction />
+        {/* 6. Data in Action - Orbital Animation */}
+        <SdSectionDataInAction />
 
-      {/* 6. What We Do — 6-card masonry grid */}
-      <SdWhatWeDo />
+        {/* 7. What We Do — 6-card masonry grid */}
+        <SdWhatWeDo />
 
-      {/* 7. Extraction Process — numbered steps journey */}
-      <SdExtractionProcess />
+        {/* 8. Extraction Process — numbered steps journey */}
+        <SdExtractionProcess />
 
-      {/* 7. FAQ */}
-      <FaqSection />
-    </InnerPageLayout>
+        {/* 9. FAQ */}
+        <FaqSection />
+      </InnerPageLayout>
+    </SolutionDetailContext.Provider>
   );
 }
