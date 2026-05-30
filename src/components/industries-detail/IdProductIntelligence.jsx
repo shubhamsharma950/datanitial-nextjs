@@ -19,7 +19,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { fetchIndustriesDetailPage, resolveImg } from "./industriesDetailApi";
+import { getIndustriesDetailFetcher, resolveImg } from "./industriesDetailApi";
 import "./IdProductIntelligence.css";
 
 /* ── Badge star icon ── */
@@ -55,7 +55,7 @@ function Skeleton() {
   );
 }
 
-export default function IdProductIntelligence() {
+export default function IdProductIntelligence({ pageId }) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const cardRefs              = useRef([]);
@@ -63,6 +63,7 @@ export default function IdProductIntelligence() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
+    const fetchIndustriesDetailPage = getIndustriesDetailFetcher(pageId);
     fetchIndustriesDetailPage()
       .then(async (acf) => {
         const s = acf?.product_intelligence ?? {};
@@ -90,7 +91,7 @@ export default function IdProductIntelligence() {
       .catch(() => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll reveal — each card has its own direction ── */
   useEffect(() => {

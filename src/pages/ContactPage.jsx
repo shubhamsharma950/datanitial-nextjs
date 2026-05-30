@@ -20,6 +20,7 @@
  */
 
 import { useEffect, useState } from "react";
+import SEO from "../components/SEO";
 import InnerPageHeader    from "./InnerPageHeader";
 import InnerPageBanner    from "./InnerPageBanner";
 import PageLoader         from "./PageLoader";
@@ -102,6 +103,12 @@ export default function ContactPage() {
 
   return (
     <div className="ipl">
+      <SEO 
+        title="Contact Us | Datanitial - Let's Talk Enterprise Web Scraping"
+        description="Contact Datanitial for enterprise web scraping solutions. Reach out via phone, email, or our contact form. Our team is here to help with your data extraction needs."
+        keywords="Contact Datanitial, Web scraping contact, Enterprise data extraction, Get in touch, Data scraping support, Datanitial contact info"
+      />
+      
       <PageLoader />
 
       {/* Banner with header inside */}

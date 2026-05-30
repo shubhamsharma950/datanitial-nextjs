@@ -15,6 +15,7 @@
  */
 
 import InnerPageLayout          from "./InnerPageLayout";
+import SEO from "../components/SEO";
 import SdSectionProblems        from "../components/solution-detail/SdSectionProblems";
 import SdCard1                  from "../components/solution-detail/SdCard1";
 import SdCard2                  from "../components/solution-detail/SdCard2";
@@ -36,6 +37,12 @@ export default function SolutionDetailPage() {
       fallbackTitle="Solution Detail"
       fallbackDescription="Explore our enterprise-grade data solutions built for speed, scale, and reliability."
     >
+      <SEO 
+        title="Solution Detail"
+        description="Explore our enterprise-grade data solutions built for speed, scale, and reliability. Web data extraction, mobile scraping, real-time APIs, and more."
+        keywords="solution detail, web data extraction, data scraping, enterprise data solutions, real-time API"
+      />
+      
       {/* C:\xampp\htdocs\wordpress\react-frontend\src\components\solution-detail\SdSectionOne.jsx */}
       {/* 1. SdSectionOne vs Solutions */}
       <SdSectionOne />

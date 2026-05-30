@@ -22,6 +22,7 @@
  */
 
 import { useLocation } from "react-router-dom";
+import SEO from "../components/SEO";
 import InnerPageLayout        from "./InnerPageLayout";
 import SolutionsSectionOne    from "../components/solutions/SolutionsSectionOne";
 import SolutionsSectionTwo    from "../components/solutions/SolutionsSectionTwo";
@@ -53,6 +54,12 @@ export default function SolutionsPage() {
       fallbackTitle="Our Solutions"
       fallbackDescription="Scalable, enterprise-grade data solutions designed to transform how your business collects, processes, and acts on data."
     >
+      <SEO 
+        title="Our Solutions"
+        description="Scalable, enterprise-grade data solutions designed to transform how your business collects, processes, and acts on data. Web scraping, APIs, RPA, and analytics."
+        keywords="data solutions, web scraping, data extraction, real-time API, RPA, data analytics, enterprise data"
+      />
+      
       {/* ── Dynamic sections — all data fetched from solutionsApi.js ── */}
       <SolutionsSectionOne />
       {/* OurSolutions form home page  */}

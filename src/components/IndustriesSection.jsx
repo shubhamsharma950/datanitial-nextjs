@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./IndustriesSection.css";
 
-/* ── All industry tabs link to the same detail page ── */
+/* ── Each industry tab links to its own dedicated page ── */
 const TAB_DETAIL_ROUTES = {
-  "real_estate":           "/industries-detail",
-  "food_delivery":         "/industries-detail",
-  "mobility":              "/industries-detail",
-  "retail_&_ecommerce":    "/industries-detail",
-  "retail_ecommerce":      "/industries-detail",
-  "travel_&_hospitality":  "/industries-detail",
-  "travel_hospitality":    "/industries-detail",
-  "location_intelligence": "/industries-detail",
+  "real_estate":           "/real-estate",
+  "food_delivery":         "/food-delivery",
+  "mobility":              "/mobility",
+  "retail_&_ecommerce":    "/retail-ecommerce",
+  "retail_ecommerce":      "/retail-ecommerce",
+  "travel_&_hospitality":  "/travel-hospitality",
+  "travel_hospitality":    "/travel-hospitality",
+  "location_intelligence": "/location-intelligence",
 };
 
 const WP_BASE =
@@ -152,12 +152,12 @@ export default function IndustriesSection({ useDetailLinks = false }) {
 
   // If no tabs loaded, show default tab labels so bar is always visible
   const displayTabs = tabs.length > 0 ? tabs : [
-    { id: "real_estate",           label: "Real Estate",           icon: "", image: "", description: "", bullets: [], learn_more: "#" },
-    { id: "food_delivery",         label: "Food Delivery",         icon: "", image: "", description: "", bullets: [], learn_more: "#" },
-    { id: "mobility",              label: "Mobility",              icon: "", image: "", description: "", bullets: [], learn_more: "#" },
-    { id: "retail_ecommerce",      label: "Retail & ecommerce",    icon: "", image: "", description: "", bullets: [], learn_more: "#" },
-    { id: "travel_hospitality",    label: "Travel & Hospitality",  icon: "", image: "", description: "", bullets: [], learn_more: "#" },
-    { id: "location_intelligence", label: "Location Intelligence", icon: "", image: "", description: "", bullets: [], learn_more: "#" },
+    { id: "real_estate",           label: "Real Estate",           icon: "", image: "", description: "", bullets: [], learn_more: "/real-estate" },
+    { id: "food_delivery",         label: "Food Delivery",         icon: "", image: "", description: "", bullets: [], learn_more: "/food-delivery" },
+    { id: "mobility",              label: "Mobility",              icon: "", image: "", description: "", bullets: [], learn_more: "/mobility" },
+    { id: "retail_ecommerce",      label: "Retail & ecommerce",    icon: "", image: "", description: "", bullets: [], learn_more: "/retail-ecommerce" },
+    { id: "travel_hospitality",    label: "Travel & Hospitality",  icon: "", image: "", description: "", bullets: [], learn_more: "/travel-hospitality" },
+    { id: "location_intelligence", label: "Location Intelligence", icon: "", image: "", description: "", bullets: [], learn_more: "/location-intelligence" },
   ];
 
   const active = displayTabs[activeTab] || displayTabs[0];
@@ -215,9 +215,9 @@ export default function IndustriesSection({ useDetailLinks = false }) {
                 ))}
               </ul>
             )}
-            {useDetailLinks && TAB_DETAIL_ROUTES[active.id] ? (
+            {TAB_DETAIL_ROUTES[active.id] ? (
               <Link
-                to="/industries-detail"
+                to={TAB_DETAIL_ROUTES[active.id]}
                 className="ind__learn-more"
               >
                 Learn More

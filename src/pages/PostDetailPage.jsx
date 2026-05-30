@@ -23,6 +23,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import InnerPageHeader from "./InnerPageHeader";
+import SEO from "../components/SEO";
 import {
   fetchBlogPostBySlug,
   fetchCaseStudyBySlug,
@@ -209,6 +210,22 @@ export default function PostDetailPage({ type = "blog" }) {
 
   return (
     <div className="pdp">
+      {/* ── SEO meta tags ── */}
+      {post && (
+        <SEO 
+          title={post.title}
+          description={post.excerpt || `Read our ${type === "blog" ? "blog post" : "case study"}: ${post.title}`}
+          ogImage={post.image || ""}
+          ogType="article"
+        />
+      )}
+      {!post && !postLoading && (
+        <SEO 
+          title="Post Not Found"
+          description="The article you're looking for doesn't exist or has been removed."
+        />
+      )}
+      
       {/* ── Header (same as all inner pages) ── */}
       <div className="pdp__header-wrap">
         <InnerPageHeader />

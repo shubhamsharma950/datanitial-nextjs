@@ -17,6 +17,14 @@ import IndustriesDetailPage from "./pages/IndustriesDetailPage";
 import ContactPage     from "./pages/ContactPage";
 import NotFoundPage    from "./pages/NotFoundPage";
 
+/* ── Industry vertical pages ── */
+import RealEstatePage          from "./pages/industries-vertical/RealEstatePage";
+import FoodDeliveryPage        from "./pages/industries-vertical/FoodDeliveryPage";
+import MobilityPage            from "./pages/industries-vertical/MobilityPage";
+import RetailEcommercePage     from "./pages/industries-vertical/RetailEcommercePage";
+import TravelHospitalityPage   from "./pages/industries-vertical/TravelHospitalityPage";
+import LocationIntelligencePage from "./pages/industries-vertical/LocationIntelligencePage";
+
 /* ── Footer: Industries pages ── */
 import EnterpriseWebCrawlingPage  from "./pages/industries/EnterpriseWebCrawlingPage";
 import MobileAppScrapingPage      from "./pages/industries/MobileAppScrapingPage";
@@ -65,7 +73,15 @@ export default function AppRoutes() {
       <Route path="/industries/travel-hospitality" element={<IndustriesPage />} />
 
       {/* ── Industries Detail ── */}
-      <Route path="/industries-detail" element={<IndustriesDetailPage />} />
+      <Route path="/industries-detail"      element={<IndustriesDetailPage />} />
+
+      {/* ── Industry vertical pages ── */}
+      <Route path="/real-estate"            element={<RealEstatePage />} />
+      <Route path="/food-delivery"          element={<FoodDeliveryPage />} />
+      <Route path="/mobility"               element={<MobilityPage />} />
+      <Route path="/retail-ecommerce"       element={<RetailEcommercePage />} />
+      <Route path="/travel-hospitality"     element={<TravelHospitalityPage />} />
+      <Route path="/location-intelligence"  element={<LocationIntelligencePage />} />
 
       {/* ── Resources ── */}
       <Route path="/resources"              element={<ResourcesPage />} />

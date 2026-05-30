@@ -20,6 +20,7 @@
  *     • Posts: GET /wp/v2/case-studies (with load-more pagination)
  */
 
+import SEO from "../components/SEO";
 import InnerPageLayout        from "./InnerPageLayout";
 import InnerPageBanner        from "./InnerPageBanner";
 import ResourcesSectionOne    from "../components/resources/ResourcesSectionOne";
@@ -38,6 +39,12 @@ export default function ResourcesPage() {
       fallbackTitle="Resources & Insights"
       fallbackDescription="Explore our latest articles, guides, and case studies to stay ahead in the world of data intelligence."
     >
+      <SEO 
+        title="Data Insights & Trends | Datanitial Blog - Web Scraping & Analytics"
+        description="Explore our latest articles, guides, and case studies to stay ahead in the world of data intelligence. Learn from industry experts."
+        keywords="data resources, data insights, case studies, blog posts, data intelligence, industry guides"
+      />
+      
       {/* Banner is rendered by InnerPageLayout via InnerPageBanner internally */}
 
       {/* Section 1 — Featured Resource Card */}

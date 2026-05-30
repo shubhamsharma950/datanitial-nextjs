@@ -20,7 +20,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { fetchIndustriesDetailPage, resolveImg } from "./industriesDetailApi";
+import { getIndustriesDetailFetcher, resolveImg } from "./industriesDetailApi";
 import "./IdSectionTwo.css";
 
 /* ── Star icon inside badge ── */
@@ -51,7 +51,7 @@ function Skeleton() {
   );
 }
 
-export default function IdSectionTwo() {
+export default function IdSectionTwo({ pageId }) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const leftRef               = useRef(null);
@@ -60,6 +60,7 @@ export default function IdSectionTwo() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
+    const fetchIndustriesDetailPage = getIndustriesDetailFetcher(pageId);
     fetchIndustriesDetailPage()
       .then(async (acf) => {
         const s  = acf?.section_two ?? {};
@@ -83,7 +84,7 @@ export default function IdSectionTwo() {
       .catch(() => { if (!cancelled) setData(null); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll reveal — only left card animates ── */
   useEffect(() => {

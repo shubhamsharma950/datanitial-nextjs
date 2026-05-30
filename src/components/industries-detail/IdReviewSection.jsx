@@ -22,7 +22,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchIndustriesDetailPage, resolveImg } from "./industriesDetailApi";
+import { getIndustriesDetailFetcher, resolveImg } from "./industriesDetailApi";
 import "./IdReviewSection.css";
 
 /* Split flat pills array into pyramid rows: 1, 2, 2 */
@@ -36,7 +36,7 @@ function buildRows(pills) {
   return rows;
 }
 
-export default function IdReviewSection() {
+export default function IdReviewSection({ pageId }) {
   const [data,    setData]    = useState(null);
   const [loading, setLoading] = useState(true);
   const sectionRef            = useRef(null);
@@ -44,6 +44,7 @@ export default function IdReviewSection() {
   /* ── Fetch ── */
   useEffect(() => {
     let cancelled = false;
+    const fetchIndustriesDetailPage = getIndustriesDetailFetcher(pageId);
 
     fetchIndustriesDetailPage()
       .then(async (acf) => {
@@ -69,7 +70,7 @@ export default function IdReviewSection() {
       .finally(() => { if (!cancelled) setLoading(false); });
 
     return () => { cancelled = true; };
-  }, []);
+  }, [pageId]);
 
   /* ── Scroll-reveal ── */
   useEffect(() => {
