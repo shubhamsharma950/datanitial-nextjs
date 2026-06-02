@@ -244,49 +244,102 @@ export default function PostDetailPage({ type = "blog" }) {
               <a href="/resources" className="pdp__back-link">← Back to Resources</a>
             </div>
           ) : post ? (
-            <article className="pdp__article" aria-label={post.title}>
+            <div className="pdp__layout">
 
-            <div className="pdp_head">
-              {/* Published date badge */}
-              <div className="pdp__date-badge">
-                Published {formatDate(post.date)}
-              </div>
-
-              {/* Title */}
-              <h1 className="pdp__title">{post.title}</h1>
-                 {/* Excerpt / subtitle */}
-              {/* {post.excerpt && (
-                <p className="pdp__subtitle">{post.excerpt}</p>
-
-              {/* First wp-block-heading h4 from content — used as subtitle */}
-              {extractFirstH4Heading(post.content) && (
-                <h4 className="pdp__subtitle">
-                  {extractFirstH4Heading(post.content)}
-                </h4>
-              )}
-            </div>
-
-              {/* Featured image */}
-              {post.image && (
-                <div className="pdp__hero-img-wrap">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="pdp__hero-img"
-                    loading="eager"
-                  />
+              {/* ── LEFT SIDEBAR — Contact Info ── */}
+              <aside className="pdp__sidebar" aria-label="Contact information">
+                {/* Headphone icon */}
+                <div className="pdp__sidebar-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="32" height="32">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+                    <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                  </svg>
                 </div>
-              )}
 
-              {/* Full WP content */}
-              {post.content && (
-                <div
-                  className="pdp__content wp-content"
-                  dangerouslySetInnerHTML={{ __html: post.content }}
-                />
-              )}
+                <h2 className="pdp__sidebar-title">How Can We Help?</h2>
 
-            </article>
+                {/* Address */}
+                <div className="pdp__sidebar-item">
+                  <div className="pdp__sidebar-item-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+                      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <span className="pdp__sidebar-item-text">
+                    Koramangala, Koramangala 8th Block, Bangalore - South, Karnataka
+                  </span>
+                </div>
+
+                {/* Email */}
+                <div className="pdp__sidebar-item">
+                  <div className="pdp__sidebar-item-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                  </div>
+                  <a href="mailto:Info@Datanitial.Com" className="pdp__sidebar-item-text pdp__sidebar-item-link">
+                    Info@Datanitial.Com
+                  </a>
+                </div>
+
+                {/* Phone */}
+                <div className="pdp__sidebar-item">
+                  <div className="pdp__sidebar-item-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <a href="tel:+917490947692" className="pdp__sidebar-item-text pdp__sidebar-item-link">
+                    +917490947692
+                  </a>
+                </div>
+              </aside>
+
+              {/* ── RIGHT — Article ── */}
+              <article className="pdp__article" aria-label={post.title}>
+
+                {/* Featured image */}
+                {post.image && (
+                  <div className="pdp__hero-img-wrap">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="pdp__hero-img"
+                      loading="eager"
+                    />
+                  </div>
+                )}
+
+                <div className="pdp_head">
+                  {/* Published date badge */}
+                  <div className="pdp__date-badge">
+                    Published {formatDate(post.date)}
+                  </div>
+
+                  {/* Title */}
+                  <h1 className="pdp__title">{post.title}</h1>
+
+                  {/* First wp-block-heading h4 from content — used as subtitle */}
+                  {extractFirstH4Heading(post.content) && (
+                    <h4 className="pdp__subtitle">
+                      {extractFirstH4Heading(post.content)}
+                    </h4>
+                  )}
+                </div>
+
+                {/* Full WP content */}
+                {post.content && (
+                  <div
+                    className="pdp__content wp-content"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                  />
+                )}
+
+              </article>
+            </div>
           ) : null}
 
         </div>

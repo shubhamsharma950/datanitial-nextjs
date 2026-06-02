@@ -52,7 +52,7 @@ const PageLoader= () => {
           transform: translateX(-50%);
           width: 2px;
           height: 100%;
-          background: rgba(120, 120, 120, 0.35);
+          background: #bcbcbccd;
           z-index: 3;
           animation: lineFade 0.4s ease forwards;
           animation-delay: 1.8s;
