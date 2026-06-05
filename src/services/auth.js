@@ -6,11 +6,10 @@
  * Token is cached in sessionStorage so we only authenticate once per session.
  */
 
-// Read from env — works in both Vite (import.meta.env) and Next.js (process.env)
-const JWT_URL =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_JWT_URL) ||
-  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_WP_JWT_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json/jwt-auth/v1/token";
+import WP_BASE from "./wpBase";
+
+// JWT token endpoint — goes through Vite proxy in dev, full URL in prod
+const JWT_URL = `${WP_BASE}/jwt-auth/v1/token`;
 
 // Credentials: use env vars, fall back to dev defaults
 const WP_USERNAME =

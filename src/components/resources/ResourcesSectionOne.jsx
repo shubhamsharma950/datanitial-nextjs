@@ -48,7 +48,7 @@ function Skeleton() {
 
 /* ── Featured card ── */
 function FeaturedCard({ post }) {
-  const link = post.slug ? `/blog/${post.slug}` : "#";
+  const link = post.slug ? `/${post.slug}` : "#";
 
   return (
    <a href={link}>

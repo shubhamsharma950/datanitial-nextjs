@@ -17,9 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 const SITE_ORIGIN = "darkred-worm-224502.hostingersite.com";
 

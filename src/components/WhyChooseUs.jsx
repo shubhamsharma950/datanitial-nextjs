@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./WhyChooseUs.css";
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 // Primary: custom endpoint (needs updated functions.php on Hostinger)
 // Fallback: native ACF endpoint (already works)

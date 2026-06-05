@@ -42,9 +42,8 @@
  *         └── workflow_cards Repeater → { card_icon, card_title, card_description }
  */
 
-export const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import { WP_BASE as _wpBase } from "../../services/wpBase";
+export const WP_BASE = _wpBase;
 
 /* ─────────────────────────────────────────────────────────────────────────
    resolveImg — converts any ACF image value → plain URL string

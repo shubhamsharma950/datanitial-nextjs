@@ -36,9 +36,9 @@
  *                 └── item_text   string
  */
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE_VALUE from "./wpBase";
+
+const WP_BASE = WP_BASE_VALUE;
 
 /* ─────────────────────────────────────────────────────────────────────────
    Resolve a WP media ID or ACF image object → URL string

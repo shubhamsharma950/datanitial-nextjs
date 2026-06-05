@@ -59,7 +59,7 @@ function ArticleSkeleton() {
 
 /* ── Related card ── */
 function RelatedCard({ post, type }) {
-  const to = `/${type === "blog" ? "blog" : "case-studies"}/${post.slug}`;
+  const to = `/${post.slug}`;
 
   return (
     <article className="pdp__rel-card" aria-label={post.title}>
@@ -74,6 +74,7 @@ function RelatedCard({ post, type }) {
         <div className="pdp__rel-meta">
           <span className="pdp__rel-meta-date">{formatDate(post.date)}</span>
           <span className="pdp__rel-meta-read">{post.readTime}</span>
+          <span className="pdp__rel-meta-read">{post.auther}</span>
         </div>
         <h3 className="pdp__rel-card-title">{post.title}</h3>
         <Link to={to} className="pdp__rel-card-link" aria-label={`Read more about ${post.title}`}>
@@ -106,11 +107,12 @@ function RelatedSkeleton() {
 /* ════════════════════════════════════════════════════════
    MAIN COMPONENT
 ════════════════════════════════════════════════════════ */
-export default function PostDetailPage({ type = "blog" }) {
+export default function PostDetailPage({ type = null }) {
   const { slug } = useParams();
 
   /* ── Article state ── */
   const [post,        setPost]        = useState(null);
+  const [postType,    setPostType]    = useState(type || "blog"); // resolved type
   const [postLoading, setPostLoading] = useState(true);
   const [notFound,    setNotFound]    = useState(false);
 
@@ -121,24 +123,48 @@ export default function PostDetailPage({ type = "blog" }) {
   const [relLoading,   setRelLoading]   = useState(true);
   const [relLoadMore,  setRelLoadMore]  = useState(false);
 
-  /* ── Fetch main post ── */
+  /* ── Fetch main post — auto-detect type when none is specified ── */
   useEffect(() => {
     if (!slug) return;
     let cancelled = false;
     setPostLoading(true);
     setNotFound(false);
+    setPost(null);
 
-    const fetcher = type === "blog" ? fetchBlogPostBySlug : fetchCaseStudyBySlug;
-
-    fetcher(slug)
-      .then((p) => {
+    async function load() {
+      // If a type is explicitly passed, use it directly
+      if (type) {
+        const fetcher = type === "blog" ? fetchBlogPostBySlug : fetchCaseStudyBySlug;
+        const p = await fetcher(slug).catch(() => null);
         if (cancelled) return;
-        if (!p) { setNotFound(true); return; }
-        setPost(p);
-      })
-      .catch(() => { if (!cancelled) setNotFound(true); })
-      .finally(() => { if (!cancelled) setPostLoading(false); });
+        if (!p) { setNotFound(true); }
+        else    { setPost(p); setPostType(type); }
+        setPostLoading(false);
+        return;
+      }
 
+      // Auto-detect: try blog first, then case-study
+      const blogPost = await fetchBlogPostBySlug(slug).catch(() => null);
+      if (cancelled) return;
+      if (blogPost) {
+        setPost(blogPost);
+        setPostType("blog");
+        setPostLoading(false);
+        return;
+      }
+
+      const casePost = await fetchCaseStudyBySlug(slug).catch(() => null);
+      if (cancelled) return;
+      if (casePost) {
+        setPost(casePost);
+        setPostType("case-study");
+      } else {
+        setNotFound(true);
+      }
+      setPostLoading(false);
+    }
+
+    load();
     return () => { cancelled = true; };
   }, [slug, type]);
 
@@ -155,7 +181,7 @@ export default function PostDetailPage({ type = "blog" }) {
       page:       1,
     };
 
-    const fetcher = type === "blog" ? fetchRelatedBlogPosts : fetchRelatedCaseStudies;
+    const fetcher = postType === "blog" ? fetchRelatedBlogPosts : fetchRelatedCaseStudies;
 
     fetcher(opts)
       .then(({ posts: p, totalPages: tp }) => {
@@ -168,7 +194,7 @@ export default function PostDetailPage({ type = "blog" }) {
       .finally(() => { if (!cancelled) setRelLoading(false); });
 
     return () => { cancelled = true; };
-  }, [post, type]);
+  }, [post, postType]);
 
   /* ── Load more related ── */
   const handleRelLoadMore = useCallback(() => {
@@ -183,7 +209,7 @@ export default function PostDetailPage({ type = "blog" }) {
       page:       nextPage,
     };
 
-    const fetcher = type === "blog" ? fetchRelatedBlogPosts : fetchRelatedCaseStudies;
+    const fetcher = postType === "blog" ? fetchRelatedBlogPosts : fetchRelatedCaseStudies;
 
     fetcher(opts)
       .then(({ posts: morePosts }) => {
@@ -192,7 +218,7 @@ export default function PostDetailPage({ type = "blog" }) {
       })
       .catch(() => {})
       .finally(() => setRelLoadMore(false));
-  }, [post, relPage, type]);
+  }, [post, relPage, postType]);
 
   /* ── Scroll to top on slug change ── */
   useEffect(() => {
@@ -205,7 +231,7 @@ export default function PostDetailPage({ type = "blog" }) {
     return () => document.body.classList.remove("inner-page");
   }, []);
 
-  const relLabel = type === "blog" ? "Related Articles" : "Related Case Studies";
+  const relLabel = postType === "blog" ? "Related Articles" : "Related Case Studies";
   const hasMoreRelated = relPage < relTotal;
 
   return (
@@ -214,7 +240,7 @@ export default function PostDetailPage({ type = "blog" }) {
       {post && (
         <SEO 
           title={post.title}
-          description={post.excerpt || `Read our ${type === "blog" ? "blog post" : "case study"}: ${post.title}`}
+          description={post.excerpt || `Read our ${postType === "blog" ? "blog post" : "case study"}: ${post.title}`}
           ogImage={post.image || ""}
           ogType="article"
         />
@@ -323,11 +349,11 @@ export default function PostDetailPage({ type = "blog" }) {
                   <h1 className="pdp__title">{post.title}</h1>
 
                   {/* First wp-block-heading h4 from content — used as subtitle */}
-                  {extractFirstH4Heading(post.content) && (
+                  {/* {extractFirstH4Heading(post.content) && (
                     <h4 className="pdp__subtitle">
                       {extractFirstH4Heading(post.content)}
                     </h4>
-                  )}
+                  )} */}
                 </div>
 
                 {/* Full WP content */}

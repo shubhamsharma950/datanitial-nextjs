@@ -13,13 +13,9 @@
 
 import axios from "axios";
 
-// ── Read from environment variables ──
-// Vite exposes only VITE_* prefixed vars via import.meta.env.
-// In dev, requests go through the Vite proxy (/wp-json → WordPress)
-// so BASE_URL can be relative. In production, use the full URL.
-const BASE_URL =
-  import.meta.env?.VITE_WP_REST_URL ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "./wpBase";
+
+const BASE_URL = WP_BASE;
 
 const api = axios.create({ baseURL: BASE_URL });
 

@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ResourcesBlog.css";
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 const ACF_URL     = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
 const POSTS_URL   = `${WP_BASE}/wp/v2/posts?_fields=id,title,excerpt,date,slug,featured_media,_links&per_page=10&_embed=1`;
@@ -102,7 +100,7 @@ function Skeleton() {
 
 /* ── Featured post (first / largest card) ── */
 function FeaturedPost({ post }) {
-  const link = post.slug !== "#" ? `/blog/${post.slug}` : "#";
+  const link = post.slug !== "#" ? `/${post.slug}` : "#";
   return (
     <article className="rb-featured" aria-label={`Featured: ${post.title}`}>
       {/* Image side — padded so image floats with its own border-radius */}
@@ -137,7 +135,7 @@ function FeaturedPost({ post }) {
 
 /* ── Regular blog card ── */
 function BlogCard({ post }) {
-  const link = post.slug !== "#" ? `/blog/${post.slug}` : "#";
+  const link = post.slug !== "#" ? `/${post.slug}` : "#";
   return (
     <article className="rb-card" aria-label={post.title}>
       {/* Image */}

@@ -64,7 +64,7 @@ function Skeleton() {
 
 /* ── Single case study card ── */
 function CaseStudyCard({ post }) {
-  const link = post.slug ? `/case-studies/${post.slug}` : "#";
+  const link = post.slug ? `/${post.slug}` : "#";
 
   return (
     <article className="rs3__card" aria-label={post.title}>

@@ -14,9 +14,7 @@ import FaqSection from "../components/FaqSection";
 import ResourcesBlog from "../components/ResourcesBlog";
 // import Core from "../components/core";
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 const WP_PAGE_URL   = `${WP_BASE}/wp/v2/pages/63?_fields=id,title,content,acf`;
 const BLOCK_API_URL = `${WP_BASE}/datainitial/v1/hero-section`;
