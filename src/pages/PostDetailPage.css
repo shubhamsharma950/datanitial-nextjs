@@ -146,21 +146,21 @@ a.pdp__sidebar-item-link:hover {
 
 /* ── Published date badge ── */
 .pdp__date-badge {
-    display: inline-block;
-    background: var(--secondary);
-    color: #E2F3FF;
-    font-size: 20px;
+    /* display: inline-block;
+    background: var(--secondary); */
+    color: var(--text);
+    font-size: 16px;
+    margin-bottom: 15px;
     /* font-size: clamp(16px, 2rem, 20px); */
-    font-weight: 700;
+    /* font-weight: 700;
     padding: 9px 48px;
     border-radius: 52px;
-    margin-bottom: 24px;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.02em; */
 }
 
 /* ── Title ── */
 .pdp__title {
-  font-size: 54px;
+  font-size: 42px;
   font-weight: 700;
   color: var(--text-dark);
   line-height: 1.22;
@@ -181,7 +181,7 @@ a.pdp__sidebar-item-link:hover {
   width: 100%;
   border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 36px;
+  margin-bottom: 10px;
 }
 
 .pdp__hero-img {
@@ -224,7 +224,7 @@ a.pdp__sidebar-item-link:hover {
 .pdp__content.wp-content h6 { font-size: 22px; }
 
 .pdp__content.wp-content p  {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 36px;
   color: #111111;
@@ -235,7 +235,7 @@ a.pdp__sidebar-item-link:hover {
 .pdp__content.wp-content li,
 .pdp__content.wp-content td,
 .pdp__content.wp-content th {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 36px;
   color: #111111;

@@ -5,14 +5,10 @@ import "./OurSolutions.css";
 const ARROW_ICON_URL =
   "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/ddsf.png";
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 const PRIMARY_URL  = `${WP_BASE}/theme/v1/our-solutions`;
 const FALLBACK_URL = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
-
-/* ── Icons ── */
 const StarIcon = () => (
   <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="sol-badge__icon">
     <circle cx="10" cy="10" r="10" fill="#2E3192" />

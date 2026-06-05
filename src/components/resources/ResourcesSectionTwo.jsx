@@ -61,7 +61,7 @@ function Skeleton() {
 
 /* ── Single blog card ── */
 function BlogCard({ post }) {
-  const link = post.slug ? `/blog/${post.slug}` : "#";
+  const link = post.slug ? `/${post.slug}` : "#";
 
   return (
     <article className="rs2__card" aria-label={post.title}>

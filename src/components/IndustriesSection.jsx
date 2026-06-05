@@ -14,9 +14,7 @@ const TAB_DETAIL_ROUTES = {
   "location_intelligence": "/location-intelligence",
 };
 
-const WP_BASE =
-  (typeof import.meta !== "undefined" && import.meta.env?.NEXT_PUBLIC_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 const ACF_URL = `${WP_BASE}/wp/v2/pages/63?_fields=acf`;
 

@@ -96,11 +96,8 @@ export default function AppRoutes() {
       <Route path="/resources/case-studies" element={<ResourcesPage />} />
       <Route path="/resources/whitepapers"  element={<ResourcesPage />} />
 
-      {/* ── Blog detail ── */}
-      <Route path="/blog/:slug"             element={<PostDetailPage type="blog" />} />
-
-      {/* ── Case Study detail ── */}
-      <Route path="/case-studies/:slug"     element={<PostDetailPage type="case-study" />} />
+      {/* ── Blog / Case Study detail — direct slug (no prefix) ── */}
+      <Route path="/:slug"                  element={<PostDetailPage />} />
 
       {/* ── Footer: Industries pages ── */}
       <Route path="/enterprise-web-crawling"  element={<EnterpriseWebCrawlingPage />} />

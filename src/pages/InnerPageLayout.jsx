@@ -39,7 +39,7 @@ import InnerPageBanner from "./InnerPageBanner";
 import PageLoader from "./PageLoader";
 import "./InnerPageLayout.css";
 
-const WP_BASE = "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
 
 export default function InnerPageLayout({
   pageId            = 10,

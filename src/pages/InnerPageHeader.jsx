@@ -19,7 +19,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const WP_BASE     = "https://darkred-worm-224502.hostingersite.com/wp-json";
+import WP_BASE from "../services/wpBase";
+
 const SITE_ORIGIN = "darkred-worm-224502.hostingersite.com";
 
 /* ── Nav items whose title triggers a dropdown ── */
