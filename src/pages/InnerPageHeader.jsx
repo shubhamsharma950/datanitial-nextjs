@@ -35,7 +35,7 @@ const FALLBACK_NAV = [
   { id: 5, title: "Contact Us", href: "/contact-us", internal: true, target: "_self" },
 ];
 const FALLBACK_LOGO = {
-  url: "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png",
+  url: "https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/favss.png",
   alt: "Datanitial",
 };
 const FALLBACK_CTA = { label: "Get Quote", href: "/contact-us" };
@@ -274,7 +274,7 @@ export default function InnerPageHeader() {
         <div className="iph__mobile-bar">
           <Link to="/" className="iph__mobile-logo" aria-label={`${logo.alt} – go to homepage`}>
             <img
-              src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/inner_mibile_log.png"
+              src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/inner_mibile_log.png"
               alt={logo.alt}
               height={38}
             />
@@ -314,7 +314,7 @@ export default function InnerPageHeader() {
         <div className="iph__drawer-topbar">
           <Link to="/" className="iph__drawer-logo-link" onClick={closeMenu} aria-label={`${logo.alt} – go to homepage`}>
             <img
-              src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png"
+              src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/favss.png"
               alt={logo.alt}
               height={53}
             />

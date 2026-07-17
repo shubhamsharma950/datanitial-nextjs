@@ -64,7 +64,7 @@ export default function HeroBanner() {
         <div className="dn-favicon-wrap" ref={faviconRef}>
           <img
             className="dn-favicon-img"
-            src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png"
+            src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/favss.png"
             alt="icon"
             loading="eager"
           />
@@ -74,7 +74,7 @@ export default function HeroBanner() {
         <div className="dn-logo-wrap" ref={logoRef}>
           <img
             className="dn-logo-img"
-            src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/logo-second.png"
+            src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/logo-second.png"
             alt="Datanitial"
             loading="eager"
           />
@@ -94,7 +94,7 @@ export default function HeroBanner() {
         <p className="dn-eyebrow">
           <span className="dn-asterisk">
             <img className="top-ss-icon"
-              src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/ss.png"
+              src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/ss.png"
               alt=""
             />
           </span>
