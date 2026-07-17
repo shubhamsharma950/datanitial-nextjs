@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./OurSolutions.css";
 
 const ARROW_ICON_URL =
-  "https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/05/ddsf.png";
+  "https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/05/ddsf.png";
 
 import WP_BASE from "../services/wpBase";
 

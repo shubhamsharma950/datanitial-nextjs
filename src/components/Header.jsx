@@ -19,7 +19,7 @@ import "./Header.css";
 
 import WP_BASE from "../services/wpBase";
 
-const SITE_ORIGIN = "darkred-worm-224502.hostingersite.com";
+const SITE_ORIGIN = "mediumvioletred-cod-278845.hostingersite.com";
 
 /* ── Nav items whose title triggers a dropdown ── */
 const DROPDOWN_TITLES = ["Solutions", "Industries"];
@@ -171,7 +171,7 @@ export default function Header() {
             ) : (
               <>
                 <img
-                  src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png"
+                  src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/favss.png"
                   alt={logoAlt}
                   className="hdr__logo-favicon"
                 />
@@ -288,7 +288,7 @@ export default function Header() {
         <div className="hdr__mobile-topbar">
           <Link to="/" className="hdr__mobile-drawer-logo" onClick={closeMenu} aria-label={`${logoAlt} – go to homepage`}>
             <img
-              src="https://darkred-worm-224502.hostingersite.com/wp-content/uploads/2026/04/favss.png"
+              src="https://mediumvioletred-cod-278845.hostingersite.com/wp-content/uploads/2026/04/favss.png"
               alt={logoAlt}
               height={36}
             />

@@ -4,9 +4,9 @@ import "./Footer.css";
 
 const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+  "https://mediumvioletred-cod-278845.hostingersite.com/wp-json";
 
-const SITE_ORIGIN = "darkred-worm-224502.hostingersite.com";
+const SITE_ORIGIN = "mediumvioletred-cod-278845.hostingersite.com";
 
 /** Strip domain → relative path; keep external URLs as-is */
 function resolveHref(url = "") {

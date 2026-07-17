@@ -36,7 +36,7 @@
 
 export const WP_BASE =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_WP_REST_URL) ||
-  "https://darkred-worm-224502.hostingersite.com/wp-json";
+  "https://mediumvioletred-cod-278845.hostingersite.com/wp-json";
 
 export const CONTACT_PAGE_ID = 18;
 export const CONTACT_ACF_KEY = "contact_page";
