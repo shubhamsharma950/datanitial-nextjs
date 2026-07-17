@@ -9,7 +9,8 @@
  * In production (or when VITE_WP_REST_URL is set), returns the full URL.
  */
 
-const PROD_URL = "https://darkred-worm-224502.hostingersite.com/wp-json";
+// const PROD_URL = "https://darkred-worm-224502.hostingersite.com/wp-json";
+const PROD_URL = "https://mediumvioletred-cod-278845.hostingersite.com/wp-json";
 
 export const WP_BASE =
   import.meta.env?.VITE_WP_REST_URL ||

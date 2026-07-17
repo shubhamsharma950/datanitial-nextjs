@@ -9,7 +9,8 @@ export default defineConfig(({ mode }) => {
   // Strip /wp-json suffix if present, so the proxy target is always the WP root
   const wpBase = (
     env.VITE_WP_REST_URL ||
-    'https://darkred-worm-224502.hostingersite.com/wp-json'
+    // 'https://darkred-worm-224502.hostingersite.com/wp-json'
+    'https://mediumvioletred-cod-278845.hostingersite.com/wp-json'
   ).replace(/\/wp-json\/?$/, '')
 
   return {
